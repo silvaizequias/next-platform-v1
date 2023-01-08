@@ -4,7 +4,7 @@ import { HorizontalNavItemsType } from 'src/@core/layouts/types'
 const navigation = (): HorizontalNavItemsType => [
   {
     title: 'Home',
-    path: '/home',
+    path: '/',
     icon: 'mdi:home-outline',
   },
   {
@@ -14,8 +14,6 @@ const navigation = (): HorizontalNavItemsType => [
   },
   {
     path: '/acl',
-    action: 'read',
-    subject: 'acl-page',
     title: 'Access Control',
     icon: 'mdi:shield-outline',
   }

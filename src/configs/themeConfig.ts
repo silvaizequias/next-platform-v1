@@ -49,13 +49,13 @@ type ThemeConfig = {
 
 const themeConfig: ThemeConfig = {
   // ** Layout Configs
-  templateName: 'Materialize' /* App Name */,
-  layout: 'vertical' /* vertical | horizontal */,
+  templateName: 'Sistema Dedicado' /* App Name */,
+  layout: 'horizontal' /* vertical | horizontal */,
   mode: 'light' as Mode /* light | dark | semi-dark /*! Note: semi-dark value will only work for Vertical Layout */,
   direction: 'ltr' /* ltr | rtl */,
   skin: 'default' /* default | bordered */,
   contentWidth: 'boxed' /* full | boxed */,
-  footer: 'static' /* fixed | static | hidden */,
+  footer: 'fixed' /* fixed | static | hidden */,
 
   // ** Routing Configs
   routingLoader: true /* true | false */,
@@ -64,7 +64,7 @@ const themeConfig: ThemeConfig = {
   navHidden: false /* true | false */,
   menuTextTruncate: true /* true | false */,
   navSubItemIcon: 'mdi:circle' /* Icon */,
-  verticalNavToggleType: 'accordion' /* accordion | collapse /*! Note: This is for Vertical navigation menu only */,
+  verticalNavToggleType: 'collapse' /* accordion | collapse /*! Note: This is for Vertical navigation menu only */,
   navCollapsed: false /* true | false /*! Note: This is for Vertical navigation menu only */,
   navigationSize: 260 /* Number in px(Pixels) /*! Note: This is for Vertical navigation menu only */,
   collapsedNavigationSize: 68 /* Number in px(Pixels) /*! Note: This is for Vertical navigation menu only */,
