@@ -1,21 +1,21 @@
-import BlankLayout from 'src/@core/layouts/BlankLayout'
 import { ReactNode } from 'react'
-
-import HomePage from 'src/views/pages/HomePage'
+import BlankLayout from 'src/@core/layouts/BlankLayout'
 import HeadSeo from 'src/layouts/components/seo/HeadSeo'
+import SignUpPage from 'src/views/pages/auth/SingUpPage'
 
-const Home = () => {
+const SignUp = () => {
   return (
     <>
       <HeadSeo
-        title='Soluções Criativas para Enriquecer seu Negócio'
+        title='Novo Usuário'
         description='Somos estrategistas, designers e desenvolvedores. Inovadores e solucionadores de problemas. Pequeno o suficiente para ser simples e rápido, mas grande o bastante para fornecer a estrutura e escopo que você deseja, no ritmo que você precisa.'
         image='/logo/500x250-logotipo8.png'
       />
-      <HomePage />
+      <SignUpPage />
     </>
   )
 }
-Home.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
 
-export default Home
+SignUp.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
+
+export default SignUp

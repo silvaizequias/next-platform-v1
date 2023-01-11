@@ -39,19 +39,32 @@ const Img = styled('img')(({ theme }) => ({
 const Error500 = () => {
   return (
     <Box className='content-center'>
-      <Box sx={{ p: 5, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+      <Box
+        sx={{
+          p: 5,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          textAlign: 'center'
+        }}
+      >
         <BoxWrapper>
           <Typography variant='h1' sx={{ mb: 2.5 }}>
             500
           </Typography>
-          <Typography variant='h5' sx={{ mb: 2.5, fontSize: '1.5rem !important' }}>
-            Internal server error 👨🏻‍💻
+          <Typography
+            variant='h5'
+            sx={{ mb: 2.5, fontSize: '1.5rem !important' }}
+          >
+            Erro Interno do Servidor 👨🏻‍💻
           </Typography>
-          <Typography variant='body2'>Oops, something went wrong!</Typography>
+          <Typography variant='body2'>
+            Oops, aldo de errado não está certo!
+          </Typography>
         </BoxWrapper>
         <Img alt='error-illustration' src='/images/pages/500.png' />
         <Button href='/' component={Link} variant='contained' sx={{ px: 5.5 }}>
-          Back to Home
+          Voltar para o Início
         </Button>
       </Box>
       <FooterIllustrations image='/images/pages/misc-500-object.png' />
