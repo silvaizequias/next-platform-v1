@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from 'next/types'
 import { getToken } from 'next-auth/jwt'
 import prisma from 'src/libs/prisma'
 import axios from 'axios'
@@ -20,9 +20,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           select: {
             id: true,
             name: true,
-            cnpj: true
-          }
+            cnpj: true,
+          },
         })
+
         return res.status(200).send({ data: findMany })
       } catch (error) {
         return res.status(400).send({ message: error })
@@ -41,12 +42,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const geoCode = axios.get(`https://${hostGeocoding}/geocode/json`, {
           params: {
             address: zipCode + addressPoint.logradouro + number,
-            language: 'en'
+            language: 'en',
           },
           headers: {
             'X-RapidAPI-Key': process.env.NEXT_PUBLIC_RAPID_API_KEY,
-            'X-RapidAPI-Host': hostGeocoding
-          }
+            'X-RapidAPI-Host': hostGeocoding,
+          },
         })
 
         const pointer = (await geoCode).data.results
@@ -65,9 +66,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           city: addressPoint.localidade,
           state: addressPoint.uf,
           lat: locale.geometry.location.lat,
-          long: locale.geometry.location.lng
+          long: locale.geometry.location.lng,
         }
         const create = await prisma.company.create({ data })
+
         return res.status(200).send({ data: create })
       } catch (error) {
         return res.status(400).send({ message: error })

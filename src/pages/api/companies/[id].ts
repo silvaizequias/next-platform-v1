@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client'
 import axios from 'axios'
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from 'next/types'
 import { getToken } from 'next-auth/jwt'
 import prisma from 'src/libs/prisma'
 import { validateSchema } from 'src/middlewares/validate-schema'
@@ -23,6 +23,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         })
         if (!findFirst)
           return res.status(404).send({ message: 'Company Not Found!' })
+
         return res.status(200).send({ data: findFirst })
       } catch (error) {
         return res.status(400).send({ message: error })
@@ -68,6 +69,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           long: locale.geometry.location.lng
         }
         const update = await prisma.company.update({ where: { id: id }, data })
+
         return res.status(200).send({ data: update })
       } catch (error) {
         return res.status(400).send({ message: error })
@@ -83,6 +85,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           return res.status(404).send({ message: 'Company Not Found!' })
 
         const remove = await prisma.company.delete({ where: { id: id } })
+        
         return res.status(200).send({ data: remove })
       } catch (error) {
         return res.status(400).send({ message: error })
