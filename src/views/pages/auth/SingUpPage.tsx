@@ -1,146 +1,180 @@
-import Box, { BoxProps } from '@mui/material/Box'
-import useMediaQuery from '@mui/material/useMediaQuery'
-import { styled, useTheme } from '@mui/material/styles'
-import Typography, { TypographyProps } from '@mui/material/Typography'
+import { Fragment, MouseEvent, ReactNode } from 'react'
 
-import themeConfig from 'src/configs/themeConfig'
+import Link from 'next/link'
 
-import { useSettings } from 'src/@core/hooks/useSettings'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Divider from '@mui/material/Divider'
+import Checkbox from '@mui/material/Checkbox'
+import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
+import CardContent from '@mui/material/CardContent'
+import { styled } from '@mui/material/styles'
+import MuiCard, { CardProps } from '@mui/material/Card'
+import MuiFormControlLabel, {
+  FormControlLabelProps,
+} from '@mui/material/FormControlLabel'
 
-// ** Demo Imports
-import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
+import Icon from 'src/@core/components/icon'
 
-// ** Styled Components
-const RegisterIllustrationWrapper = styled(Box)<BoxProps>(({ theme }) => ({
-  padding: theme.spacing(20),
-  paddingRight: '0 !important',
-  [theme.breakpoints.down('lg')]: {
-    padding: theme.spacing(10)
-  }
+import BlankLayout from 'src/@core/layouts/BlankLayout'
+
+import FooterIllustrationsV1 from './FooterIllustrationsV1'
+
+const Card = styled(MuiCard)<CardProps>(({ theme }) => ({
+  [theme.breakpoints.up('sm')]: { width: '28rem' },
 }))
 
-const RegisterIllustration = styled('img')(({ theme }) => ({
-  maxWidth: '48rem',
-  [theme.breakpoints.down('xl')]: {
-    maxWidth: '38rem'
-  },
-  [theme.breakpoints.down('lg')]: {
-    maxWidth: '30rem'
-  }
-}))
-
-const RightWrapper = styled(Box)<BoxProps>(({ theme }) => ({
-  width: '100%',
-  [theme.breakpoints.up('md')]: {
-    maxWidth: 400
-  },
-  [theme.breakpoints.up('lg')]: {
-    maxWidth: 450
-  }
-}))
-
-const BoxWrapper = styled(Box)<BoxProps>(({ theme }) => ({
-  width: '100%',
-  [theme.breakpoints.down('md')]: {
-    maxWidth: 400
-  }
-}))
-
-const TypographyStyled = styled(Typography)<TypographyProps>(({ theme }) => ({
-  fontWeight: 600,
-  letterSpacing: '0.18px',
-  marginBottom: theme.spacing(1.5),
-  [theme.breakpoints.down('md')]: { marginTop: theme.spacing(8) }
-}))
+const FormControlLabel = styled(MuiFormControlLabel)<FormControlLabelProps>(
+  ({ theme }) => ({
+    marginBottom: theme.spacing(4),
+    '& .MuiFormControlLabel-label': {
+      fontSize: '0.875rem',
+      color: theme.palette.text.secondary,
+    },
+  }),
+)
 
 export default function SignUpPage() {
-  // ** Hooks
-  const theme = useTheme()
-  const { settings } = useSettings()
-  const hidden = useMediaQuery(theme.breakpoints.down('md'))
-
-  // ** Vars
-  const { skin } = settings
-
-  const imageSource =
-    skin === 'bordered'
-      ? 'auth-v2-register-illustration-bordered'
-      : 'auth-v2-register-illustration'
-
   return (
-    <Box className='content-right'>
-      {!hidden ? (
-        <Box
-          sx={{
-            flex: 1,
-            display: 'flex',
-            position: 'relative',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
+    <Box className='content-center'>
+      <Card sx={{ zIndex: 1 }}>
+        <CardContent
+          sx={{ p: (theme) => `${theme.spacing(15.5, 7, 6.5)} !important` }}
         >
-          <RegisterIllustrationWrapper>
-            <RegisterIllustration
-              alt='register-illustration'
-              src={`/images/pages/${imageSource}-${theme.palette.mode}.png`}
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <img
+              src='/logo/500x250-logotipo8.png'
+              alt='Sistema Dedicado'
+              width='500'
+              height='250'
             />
-          </RegisterIllustrationWrapper>
-          <FooterIllustrationsV2
-            image={`/images/pages/auth-v2-register-mask-${theme.palette.mode}.png`}
-          />
-        </Box>
-      ) : null}
-      <RightWrapper
-        sx={
-          skin === 'bordered' && !hidden
-            ? { borderLeft: `1px solid ${theme.palette.divider}` }
-            : {}
-        }
-      >
-        <Box
-          sx={{
-            p: 7,
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'background.paper'
-          }}
-        >
-          <BoxWrapper>
+          </Box>
+          <Box sx={{ mb: 6, textAlign: 'center' }}>
+            <Typography variant='body2'>
+              Você está prestes a ter o seu Sistema Dedicado!
+            </Typography>
+          </Box>
+          <form
+            noValidate
+            autoComplete='off'
+            onSubmit={(e) => e.preventDefault()}
+          >
+            <TextField
+              autoFocus
+              fullWidth
+              id='name'
+              type='text'
+              label='Nome Completo'
+              sx={{ mb: 4 }}
+            />
+            <TextField
+              autoFocus
+              fullWidth
+              id='email'
+              type='email'
+              label='Email'
+              sx={{ mb: 4 }}
+            />
+            <TextField
+              autoFocus
+              fullWidth
+              id='phone'
+              type='text'
+              label='Ceular'
+              sx={{ mb: 4 }}
+            />
+            <FormControlLabel
+              control={<Checkbox />}
+              label={
+                <Fragment>
+                  <span>Aceito </span>
+                  <Typography
+                    href='/'
+                    variant='body2'
+                    component={Link}
+                    sx={{ color: 'secondary.main', textDecoration: 'none' }}
+                    onClick={(e: MouseEvent<HTMLElement>) => e.preventDefault()}
+                  >
+                    os Termos de Privacidade
+                  </Typography>
+                </Fragment>
+              }
+            />
+            <Button
+              fullWidth
+              size='large'
+              type='submit'
+              variant='contained'
+              sx={{ mb: 7 }}
+            >
+              Registrar-se
+            </Button>
             <Box
               sx={{
-                top: 30,
-                left: 40,
                 display: 'flex',
-                position: 'absolute',
                 alignItems: 'center',
-                justifyContent: 'center'
+                flexWrap: 'wrap',
+                justifyContent: 'center',
               }}
             >
+              <Typography sx={{ mr: 2, color: 'text.secondary' }}>
+                Já possui cadastro?
+              </Typography>
               <Typography
-                variant='h6'
-                sx={{
-                  ml: 2,
-                  lineHeight: 1,
-                  fontWeight: 700,
-                  fontSize: '1.5rem !important'
-                }}
+                component={Link}
+                href='/auth'
+                sx={{ color: 'info.main', textDecoration: 'none' }}
               >
-                {themeConfig.templateName}
+                Autentique-se
               </Typography>
             </Box>
-            <Box sx={{ mb: 6 }}>
-              <TypographyStyled variant='h5'>
-                Adventure starts here 🚀
-              </TypographyStyled>
-              <Typography variant='body2'>
-                Make your app management easy and fun!
-              </Typography>
+            <Divider
+              sx={{
+                '& .MuiDivider-wrapper': { px: 4 },
+                mt: (theme) => `${theme.spacing(5)} !important`,
+                mb: (theme) => `${theme.spacing(7.5)} !important`,
+              }}
+            >
+              ou
+            </Divider>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <IconButton
+                href='/'
+                component={Link}
+                sx={{ color: '#497ce2' }}
+                onClick={(e: MouseEvent<HTMLElement>) => e.preventDefault()}
+              >
+                <Icon icon='mdi:facebook' />
+              </IconButton>
+              <IconButton
+                href='/'
+                component={Link}
+                sx={{ color: '#db4437' }}
+                onClick={(e: MouseEvent<HTMLElement>) => e.preventDefault()}
+              >
+                <Icon icon='mdi:google' />
+              </IconButton>
             </Box>
-          </BoxWrapper>
-        </Box>
-      </RightWrapper>
+          </form>
+        </CardContent>
+      </Card>
+      <FooterIllustrationsV1 />
     </Box>
   )
 }
+
+SignUpPage.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
