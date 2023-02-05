@@ -1,4 +1,4 @@
-import { boolean, date, number, object, string, TypeOf } from 'yup'
+import { date, number, object, string, TypeOf } from 'yup'
 
 export const invoiceSchema = object({
   userEmail: string().required().email().max(200),
