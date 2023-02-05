@@ -1,148 +1,113 @@
-import Box, { BoxProps } from '@mui/material/Box'
-import useMediaQuery from '@mui/material/useMediaQuery'
-import { styled, useTheme } from '@mui/material/styles'
-import Typography, { TypographyProps } from '@mui/material/Typography'
+import { ReactNode, SyntheticEvent } from 'react'
 
-import themeConfig from 'src/configs/themeConfig'
+import Link from 'next/link'
 
-import { useSettings } from 'src/@core/hooks/useSettings'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
+import CardContent from '@mui/material/CardContent'
+import { styled } from '@mui/material/styles'
+import MuiCard, { CardProps } from '@mui/material/Card'
 
-import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
+import Icon from 'src/@core/components/icon'
 
-const ForgotPasswordIllustrationWrapper = styled(Box)<BoxProps>(
-  ({ theme }) => ({
-    padding: theme.spacing(20),
-    paddingRight: '0 !important',
-    [theme.breakpoints.down('lg')]: {
-      padding: theme.spacing(10)
-    }
-  })
-)
+import BlankLayout from 'src/@core/layouts/BlankLayout'
 
-const ForgotPasswordIllustration = styled('img')(({ theme }) => ({
-  maxWidth: '48rem',
-  [theme.breakpoints.down('xl')]: {
-    maxWidth: '38rem'
-  },
-  [theme.breakpoints.down('lg')]: {
-    maxWidth: '30rem'
-  }
-}))
+import FooterIllustrationsV1 from './FooterIllustrationsV1'
 
-const RightWrapper = styled(Box)<BoxProps>(({ theme }) => ({
-  width: '100%',
-  [theme.breakpoints.up('md')]: {
-    maxWidth: 400
-  },
-  [theme.breakpoints.up('lg')]: {
-    maxWidth: 450
-  }
-}))
-
-const BoxWrapper = styled(Box)<BoxProps>(({ theme }) => ({
-  width: '100%',
-  [theme.breakpoints.down('md')]: {
-    maxWidth: 400
-  }
-}))
-
-const TypographyStyled = styled(Typography)<TypographyProps>(({ theme }) => ({
-  fontWeight: 600,
-  letterSpacing: '0.18px',
-  marginBottom: theme.spacing(1.5),
-  [theme.breakpoints.down('md')]: { marginTop: theme.spacing(8) }
+const Card = styled(MuiCard)<CardProps>(({ theme }) => ({
+  [theme.breakpoints.up('sm')]: { width: 450 },
 }))
 
 export default function ForgotPasswordPage() {
-  // ** Hooks
-  const theme = useTheme()
-  const { settings } = useSettings()
-
-  // ** Vars
-  const { skin } = settings
-  const hidden = useMediaQuery(theme.breakpoints.down('md'))
-
-  const imageSource =
-    skin === 'bordered'
-      ? 'auth-v2-forgot-password-illustration-bordered'
-      : 'auth-v2-forgot-password-illustration'
+  const handleSubmit = (e: SyntheticEvent) => {
+    e.preventDefault()
+  }
 
   return (
-    <Box className='content-right'>
-      {!hidden ? (
-        <Box
-          sx={{
-            flex: 1,
-            display: 'flex',
-            position: 'relative',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
+    <Box className='content-center'>
+      <Card sx={{ zIndex: 1 }}>
+        <CardContent
+          sx={{ p: (theme) => `${theme.spacing(15.5, 7, 8)} !important` }}
         >
-          <ForgotPasswordIllustrationWrapper>
-            <ForgotPasswordIllustration
-              alt='forgot-password-illustration'
-              src={`/images/pages/${imageSource}-${theme.palette.mode}.png`}
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <img
+              src='/logo/500x250-logotipo8.png'
+              alt='Sistema Dedicado'
+              width='500'
+              height='250'
             />
-          </ForgotPasswordIllustrationWrapper>
-          <FooterIllustrationsV2
-            image={`/images/pages/auth-v2-forgot-password-mask-${theme.palette.mode}.png`}
-          />
-        </Box>
-      ) : null}
-      <RightWrapper
-        sx={
-          skin === 'bordered' && !hidden
-            ? { borderLeft: `1px solid ${theme.palette.divider}` }
-            : {}
-        }
-      >
-        <Box
-          sx={{
-            p: 7,
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'background.paper'
-          }}
-        >
-          <BoxWrapper>
+          </Box>
+          <Box sx={{ mb: 6, textAlign: 'center' }}>
+            <Typography variant='body2'>
+              Informe seu e-mail e número de celular para que sua senha seja
+              redefinida.
+            </Typography>
+          </Box>
+          <form noValidate autoComplete='off' onSubmit={handleSubmit}>
+            <TextField
+              autoFocus
+              fullWidth
+              id='email'
+              type='email'
+              label='Email'
+              sx={{ mb: 4 }}
+            />
+            <TextField
+              autoFocus
+              fullWidth
+              id='phone'
+              type='text'
+              label='Ceular'
+              sx={{ mb: 4 }}
+            />
+            <Button
+              fullWidth
+              size='large'
+              type='submit'
+              variant='contained'
+              sx={{ mb: 5.25 }}
+            >
+              Redefinir a Senha
+            </Button>
             <Box
               sx={{
-                top: 30,
-                left: 40,
                 display: 'flex',
-                position: 'absolute',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
               }}
             >
               <Typography
-                variant='h6'
+                component={Link}
+                href='/auth'
                 sx={{
-                  ml: 2,
-                  lineHeight: 1,
-                  fontWeight: 700,
-                  fontSize: '1.5rem !important'
+                  display: 'flex',
+                  '& svg': { mr: 1.5 },
+                  alignItems: 'center',
+                  color: 'secondary.main',
+                  textDecoration: 'none',
+                  justifyContent: 'center',
                 }}
               >
-                {themeConfig.templateName}
+                <Icon icon='mdi:chevron-left' fontSize='2rem' />
+                <span>Autenticar-se </span>
               </Typography>
             </Box>
-            <Box sx={{ mb: 6 }}>
-              <TypographyStyled variant='h5'>
-                Forgot Password? 🔒
-              </TypographyStyled>
-              <Typography variant='body2'>
-                Enter your email and we&prime;ll send you instructions to reset
-                your password
-              </Typography>
-            </Box>
-            ...
-          </BoxWrapper>
-        </Box>
-      </RightWrapper>
+          </form>
+        </CardContent>
+      </Card>
+      <FooterIllustrationsV1 />
     </Box>
   )
 }
+
+ForgotPasswordPage.getLayout = (page: ReactNode) => (
+  <BlankLayout>{page}</BlankLayout>
+)
