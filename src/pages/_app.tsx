@@ -3,6 +3,8 @@ import { Router } from 'next/router'
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 
+import { Analytics } from '@vercel/analytics/react'
+
 import NProgress from 'nprogress'
 
 import { CacheProvider } from '@emotion/react'
@@ -38,6 +40,7 @@ import 'src/iconify-bundle/icons-bundle-react'
 import '../../styles/globals.css'
 
 import Spinner from 'src/@core/components/spinner'
+import Script from 'next/script'
 
 type ExtendedAppProps = AppProps & {
   Component: NextPage
@@ -85,6 +88,13 @@ const App = (props: ExtendedAppProps) => {
         />
         <meta name='viewport' content='initial-scale=1, width=device-width' />
       </Head>
+      <Script
+        type='text/javascript'
+        id='hs-script-loader'
+        async
+        defer
+        src='//js-na1.hs-scripts.com/23603809.js'
+      />
 
       <AuthProvider>
         <SettingsProvider {...(setConfig ? { pageSettings: setConfig() } : {})}>
@@ -96,6 +106,7 @@ const App = (props: ExtendedAppProps) => {
                     {getLayout(
                       <Component fallback={<Spinner />} {...pageProps} />
                     )}
+                    <Analytics />
                   </WindowWrapper>
                   <ReactHotToast>
                     <Toaster
