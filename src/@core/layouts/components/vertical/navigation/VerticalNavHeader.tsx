@@ -1,20 +1,14 @@
-// ** Next Import
 import Link from 'next/link'
 
-// ** MUI Imports
 import IconButton from '@mui/material/IconButton'
 import Box, { BoxProps } from '@mui/material/Box'
 import { styled, useTheme } from '@mui/material/styles'
 import Typography, { TypographyProps } from '@mui/material/Typography'
 
-// ** Type Import
 import { LayoutProps } from 'src/@core/layouts/types'
 
-// ** Custom Icon Import
 import Icon from 'src/@core/components/icon'
 
-// ** Configs
-import themeConfig from 'src/configs/themeConfig'
 import Avatar from '@mui/material/Avatar'
 
 interface Props {
