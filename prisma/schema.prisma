@@ -4,8 +4,26 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_MANAGER")
+  url      = env("DATABASE")
 }
+
+enum MemberRole {
+  MANAGER
+  LEAD
+  TECHNICIAN
+  INSTRUCTOR
+  SECRETARY
+  ATTENDANT
+}
+
+enum CustomerDocType {
+  CPF
+  CNPJ
+  RG
+  CNH
+  CTPS
+}
+
 
 model Configuration {
   id              String        @id                 @default(cuid())
@@ -13,4 +31,116 @@ model Configuration {
   updatedAt       DateTime      @updatedAt          @map("updated_at")
 
   @@map("configurations")
+}
+
+model Company {
+  id              String        @id                 @default(cuid())
+  createdAt       DateTime      @default(now())     @map("created_at")
+  updatedAt       DateTime      @updatedAt          @map("updated_at")
+
+  isActive        Boolean       @default(true)      @map("is_active")
+  logo            String? 
+
+  name            String?
+  cnpj            String?       @unique
+  email           String?       @unique
+  phone           String?       @unique
+  segment         String?
+
+  zipCode         String?       @map("zip_code")
+  street          String?       
+  number          String?       
+  complement      String?       @db.Text
+  zone            String?       
+  district        String?       
+  city            String?       
+  state           String?        
+  lat             Float?        @db.DoublePrecision
+  long            Float?        @db.DoublePrecision
+
+  team            Team[]
+  customers       Customer[]
+  vehicles        Vehicle[]
+
+  @@map("companies")
+}
+
+model Team {
+  id              String        @id                 @default(cuid())
+  createdAt       DateTime      @default(now())     @map("created_at")
+  updatedAt       DateTime      @updatedAt          @map("updated_at")
+
+  companyId       String?       @map("company_id")
+  company         Company?      @relation(fields: [companyId], references: [id])
+
+  isAvaliable     Boolean       @default(true)      @map("is_avaliable")
+  role            MemberRole    @default(INSTRUCTOR) 
+  cnh             String?       @unique    
+
+  name            String? 
+  email           String?       @unique
+
+  @@map("teams")
+}
+
+model Customer {
+  id              String        @id                 @default(cuid())
+  createdAt       DateTime      @default(now())     @map("created_at")
+  updatedAt       DateTime      @updatedAt          @map("updated_at")
+
+  companyId       String?       @map("company_id")
+  company         Company?      @relation(fields: [companyId], references: [id])
+
+  isActive        Boolean       @default(true)      @map("is_active")
+  
+  photo           String
+  name            String? 
+  email           String?       @unique
+  phone           String?       @unique
+
+  zipCode         String?       @map("zip_code")
+  street          String?       
+  number          String?       
+  complement      String?       @db.Text
+  zone            String?       
+  district        String?       
+  city            String?       
+  state           String? 
+
+  documents       CustomerDocument[]
+
+  @@map("customers")
+}
+
+model CustomerDocument {
+  id              String            @id                 @default(cuid())
+  createdAt       DateTime          @default(now())     @map("created_at")
+  updatedAt       DateTime          @updatedAt          @map("updated_at")
+
+  customerId      String?           @map("customer_id")
+  customer        Customer?         @relation(fields: [customerId], references: [id])
+
+  docType         CustomerDocType?  @default(CPF)       @map("doc_type")
+  docCode         String            @map("doc_code")    @unique
+
+  image           String?
+
+  @@map("customer_documents")
+}
+
+model Vehicle {
+  id              String        @id                 @default(cuid())
+  createdAt       DateTime      @default(now())     @map("created_at")
+  updatedAt       DateTime      @updatedAt          @map("updated_at")
+  
+  companyId       String?       @map("company_id")
+  company         Company?      @relation(fields: [companyId], references: [id])
+
+  plate           String        @db.VarChar(10)     @unique
+  brand           String        @db.VarChar(50)
+  name            String        @db.VarChar(50)
+  type            String        @db.VarChar(25)
+  category        String        @db.VarChar(5)
+  status          Boolean       @default(true)
+  @@map("vehicles")
 }

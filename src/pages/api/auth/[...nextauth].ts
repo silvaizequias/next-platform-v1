@@ -21,7 +21,7 @@ const options = {
         password: { type: 'password' },
       },
       async authorize(credentials) {
-        const endpoint = process.env.NEXT_PUBLIC_MANAGER_API + '/auth'
+        const endpoint = process.env.NEXT_PUBLIC_MANAGER_API + '/auth/signin'
         const res = await axios.post(endpoint, {
           email: credentials?.email,
           password: credentials?.password,
