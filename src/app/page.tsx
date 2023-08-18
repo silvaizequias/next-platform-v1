@@ -1,10 +1,11 @@
-import { Metadata } from "next"
+import AccountPage from '@/pages/account/AccountPage'
+import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Dedicado Digital',
   description: 'Sistema Dedicado Personalizado',
 }
 
-export default async function MainPage() {
-  return ''
+export default async function Main() {
+  return <AccountPage />
 }

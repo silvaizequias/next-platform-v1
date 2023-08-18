@@ -1,10 +1,9 @@
+import { LayoutProps } from '@/types'
 import './globals.css'
 
-export default function MainLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function MainLayout(props: LayoutProps) {
+  const { children } = props
+
   return (
     <html lang='en'>
       <body>{children}</body>
