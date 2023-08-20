@@ -6,6 +6,6 @@ export const metadata: Metadata = {
   description: 'Sistema Dedicado Personalizado',
 }
 
-export default async function Main() {
+export default async function Account() {
   return <AccountPage />
 }

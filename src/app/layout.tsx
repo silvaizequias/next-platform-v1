@@ -1,7 +1,7 @@
 import { LayoutProps } from '@/types'
 import './globals.css'
 
-export default function MainLayout(props: LayoutProps) {
+export default function RootLayout(props: LayoutProps) {
   const { children } = props
 
   return (
