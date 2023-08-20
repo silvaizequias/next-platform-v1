@@ -9,11 +9,12 @@ export default function SignUpForm() {
     register,
     formState: { errors },
   } = useForm<AuthSignUpSchemaType>({
-    mode: 'onChange',
+    mode: 'all',
     resolver: yupResolver(AuthSignUpSchema),
   })
 
-  const onSubmit: SubmitHandler<AuthSignUpSchemaType> = async (inputs) => {
+  const onSubmit: SubmitHandler<AuthSignUpSchemaType> = async (inputs, e) => {
+    e?.preventDefault()
     try {
       await axios
         .post(`/api/signup`, inputs)

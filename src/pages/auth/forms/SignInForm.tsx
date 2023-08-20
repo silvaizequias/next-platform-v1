@@ -9,14 +9,15 @@ export default function SignInForm() {
     register,
     formState: { errors },
   } = useForm<AuthSignInSchemaType>({
-    mode: 'onChange',
+    mode: 'all',
     resolver: yupResolver(AuthSignInSchema),
   })
 
-  const onSubmit: SubmitHandler<AuthSignInSchemaType> = async (inputs) => {
+  const onSubmit: SubmitHandler<AuthSignInSchemaType> = async (inputs, e) => {
+    e?.preventDefault()
     try {
       await axios
-        .post(`/api/signup`, inputs)
+        .post(`/api/signin`, inputs)
         .then((res) => {})
         .catch((error: any) => {
           return new Error(error?.message || error)

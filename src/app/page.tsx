@@ -1,5 +1,7 @@
 import AccountPage from '@/pages/account/AccountPage'
+import AuthPage from '@/pages/auth/AuthPage'
 import { Metadata } from 'next'
+import { getServerSession } from 'next-auth'
 
 export const metadata: Metadata = {
   title: 'Dedicado Digital',
@@ -7,5 +9,7 @@ export const metadata: Metadata = {
 }
 
 export default async function Account() {
-  return <AccountPage />
+  const session = await getServerSession()
+
+  return session ? <AccountPage session={session!} /> : <AuthPage />
 }

@@ -9,14 +9,15 @@ export default function ResetPasswordForm() {
     register,
     formState: { errors },
   } = useForm<AuthResetPasswordType>({
-    mode: 'onChange',
+    mode: 'all',
     resolver: yupResolver(AuthResetPassword),
   })
 
-  const onSubmit: SubmitHandler<AuthResetPasswordType> = async (inputs) => {
+  const onSubmit: SubmitHandler<AuthResetPasswordType> = async (inputs, e) => {
+    e?.preventDefault()
     try {
       await axios
-        .post(`/api/signup`, inputs)
+        .post(`/api/reset-password`, inputs)
         .then((res) => {})
         .catch((error: any) => {
           return new Error(error?.message || error)

@@ -16,7 +16,11 @@ export default function ProfileUpdateForm(props: ProfileProps) {
     resolver: yupResolver(ProfileUpdateSchema),
   })
 
-  const onSubmit: SubmitHandler<ProfileUpdateSchemaType> = async (inputs) => {
+  const onSubmit: SubmitHandler<ProfileUpdateSchemaType> = async (
+    inputs,
+    e,
+  ) => {
+    e?.preventDefault()
     await axios
       .patch(`/api/profile/${profile?.id}`, inputs)
       .then(async (res) => {})
