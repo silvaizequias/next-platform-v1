@@ -1,4 +1,5 @@
 import { ProfileUpdateSchema, ProfileUpdateSchemaType } from '@/schemas/profile'
+import prisma from '@/libraries/prisma'
 
 export const GET = async (
   request: Request,
@@ -7,8 +8,14 @@ export const GET = async (
   const id = params?.id
 
   try {
+    await prisma.$connect()
+    return new Response(
+      JSON.stringify(await prisma.user.findUnique({ where: { id } })),
+    )
   } catch (error: any) {
     return new Response(error?.message || error, { status: 400 })
+  } finally {
+    await prisma.$disconnect()
   }
 }
 
