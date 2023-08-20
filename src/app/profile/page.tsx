@@ -1,3 +1,4 @@
+import { authOptions } from '@/libraries/next-auth'
 import ProfilePage from '@/pages/profile/ProfilePage'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
 }
 
 export default async function Profile() {
-  const session = await getServerSession()
+  const session = await getServerSession(authOptions)
 
   return <ProfilePage session={session!} />
 }
