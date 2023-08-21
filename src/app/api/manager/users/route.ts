@@ -1,4 +1,4 @@
-import prisma from '@/libraries/prisma'
+import { prisma } from '@/libraries/prisma'
 
 export const GET = async (request: Request) => {
   try {

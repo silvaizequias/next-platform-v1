@@ -1,5 +1,6 @@
 import { ProfileUpdateSchema, ProfileUpdateSchemaType } from '@/schemas/profile'
-import prisma from '@/libraries/prisma'
+import { prisma } from '@/libraries/prisma'
+import { Prisma } from '@prisma/client'
 
 export const GET = async (
   request: Request,
@@ -26,12 +27,23 @@ export const PATCH = async (
   const id = params?.id
 
   try {
-    return await request.json().then(async (inputs: ProfileUpdateSchemaType) => {
-      if (ProfileUpdateSchema.validateSync(inputs)) {
-        return new Response(JSON.stringify(inputs))
-      }
-    })
+    await prisma.$connect()
+    return await request
+      .json()
+      .then(async (inputs: ProfileUpdateSchemaType) => {
+        if (ProfileUpdateSchema.validateSync(inputs)) {
+          const data: Prisma.UserUpdateInput = {
+            ...inputs,
+          }
+
+          return new Response(
+            JSON.stringify(await prisma.user.update({ where: { id }, data })),
+          )
+        }
+      })
   } catch (error: any) {
     return new Response(error?.message || error, { status: 400 })
+  } finally {
+    await prisma.$disconnect()
   }
 }
