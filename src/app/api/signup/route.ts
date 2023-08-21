@@ -10,7 +10,7 @@ export const POST = async (request: Request) => {
 
   try {
     await prisma.$connect()
-    return request.json().then(async (inputs: AuthSignUpSchemaType) => {
+    return await request.json().then(async (inputs: AuthSignUpSchemaType) => {
       if (await AuthSignUpSchema.validate(inputs)) {
         const data: Prisma.UserCreateInput = {
           ...inputs,

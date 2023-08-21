@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken'
 export const POST = async (request: Request) => {
   try {
     await prisma.$connect()
-    return request.json().then(async (inputs: AuthSignInSchemaType) => {
+    return await request.json().then(async (inputs: AuthSignInSchemaType) => {
       if (AuthSignInSchema.validateSync(inputs)) {
         const { phone, password } = inputs
 

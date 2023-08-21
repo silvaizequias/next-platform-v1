@@ -26,7 +26,7 @@ export const PATCH = async (
   const id = params?.id
 
   try {
-    return request.json().then(async (inputs: ProfileUpdateSchemaType) => {
+    return await request.json().then(async (inputs: ProfileUpdateSchemaType) => {
       if (ProfileUpdateSchema.validateSync(inputs)) {
         return new Response(JSON.stringify(inputs))
       }
