@@ -1,6 +1,6 @@
 import { authOptions } from '@/libraries/next-auth'
-import AccountPage from '@/pages/account/AccountPage'
-import AuthPage from '@/pages/auth/AuthPage'
+import AccountPage from '@/views/account/AccountPage'
+import AuthPage from '@/views/auth/AuthPage'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 

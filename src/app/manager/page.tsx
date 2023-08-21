@@ -1,5 +1,5 @@
 import { authOptions } from '@/libraries/next-auth'
-import ManagerPage from '@/pages/manager/ManagerPage'
+import ManagerPage from '@/views/manager/ManagerPage'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 

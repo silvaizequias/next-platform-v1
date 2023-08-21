@@ -1,5 +1,5 @@
 import { authOptions } from '@/libraries/next-auth'
-import ProfilePage from '@/pages/profile/ProfilePage'
+import ProfilePage from '@/views/profile/ProfilePage'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 
