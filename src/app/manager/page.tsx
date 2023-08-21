@@ -2,6 +2,7 @@ import { authOptions } from '@/libraries/next-auth'
 import ManagerPage from '@/views/manager/ManagerPage'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
+import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: 'Gerenciamento :: Dedicado Digital',
@@ -11,5 +12,5 @@ export const metadata: Metadata = {
 export default async function Manager() {
   const session = await getServerSession(authOptions)
 
-  return <ManagerPage session={session!} />
+  return session ? <ManagerPage session={session!} /> : redirect('/')
 }

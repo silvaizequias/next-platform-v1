@@ -7,8 +7,8 @@ import { SessionProps } from '@/types'
 export default function ProfilePage(props: SessionProps) {
   const { user }: any = props?.session
   const { data: profile, mutate } = useFetch<ProfileType>(
-    `/api/profile/${user?.id}`,
+    `/api/profile/${user?.sub}`,
   )
 
-  return ''
+  return JSON.stringify(profile)
 }
