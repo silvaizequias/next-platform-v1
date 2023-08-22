@@ -7,6 +7,9 @@ import { useState } from 'react'
 import SignInForm from './forms/SignInForm'
 import SignUpForm from './forms/SignUpForm'
 import ResetPasswordForm from './forms/ResetPasswordForm'
+import LoginIcon from '@mui/icons-material/Login'
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration'
+import LockResetIcon from '@mui/icons-material/LockReset'
 
 export default function AuthPage() {
   const [value, setValue] = useState<string>('signin')
@@ -51,9 +54,21 @@ export default function AuthPage() {
                     aria-label='auth tabs'
                     centered
                   >
-                    <Tab label='SignIn' value='signin' />
-                    <Tab label='SignUp' value='signup' />
-                    <Tab label='Reset Password' value='reset-password' />
+                    <Tab
+                      icon={<LoginIcon />}
+                      aria-label='signin'
+                      value='signin'
+                    />
+                    <Tab
+                      icon={<AppRegistrationIcon />}
+                      aria-label='signup'
+                      value='signup'
+                    />
+                    <Tab
+                      icon={<LockResetIcon />}
+                      aria-label='reset-password'
+                      value='reset-password'
+                    />
                   </TabList>
                 </Box>
                 <TabPanel value='signin'>

@@ -15,7 +15,10 @@ export const POST = async (request: Request) => {
           where: { phone: phone, email: email },
         })
         if (!user)
-          return new Response('phone our email dont valid', { status: 401 })
+          return new Response(
+            JSON.stringify(JSON.stringify('phone our email dont valid')),
+            { status: 401 },
+          )
 
         const data: Prisma.UserUpdateInput = {
           passToken: randomToken,
@@ -29,7 +32,9 @@ export const POST = async (request: Request) => {
       }
     })
   } catch (error: any) {
-    return new Response(error?.message || error, { status: 400 })
+    return new Response(JSON.stringify(error?.message || error), {
+      status: 400,
+    })
   } finally {
     await prisma.$disconnect()
   }

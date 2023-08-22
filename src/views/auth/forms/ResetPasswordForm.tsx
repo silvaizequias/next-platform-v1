@@ -3,6 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Button, FormControl, FormHelperText, TextField } from '@mui/material'
 import axios from 'axios'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import LockResetIcon from '@mui/icons-material/LockReset'
 
 export default function ResetPasswordForm() {
   const {
@@ -18,22 +19,21 @@ export default function ResetPasswordForm() {
     try {
       await axios
         .post(`/api/reset-password`, inputs)
-        .then((res) => {})
+        .then((res: any) => {
+          alert(JSON.stringify(res.data))
+        })
         .catch((error: any) => {
-          return new Error(error?.message || error)
+          alert(JSON.stringify(error?.message || error))
+          new Error(error?.message || error)
         })
     } catch (error: any) {
       console.error(error?.message || error)
-      return new Error(error?.message || error)
+      new Error(error?.message || error)
     }
   }
 
   return (
-    <form
-      noValidate
-      autoComplete='off'
-      onSubmit={handleSubmit(onSubmit)}
-    >
+    <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
       <FormControl fullWidth sx={{ mb: 4 }}>
         <Controller
           name='email'
@@ -87,6 +87,7 @@ export default function ResetPasswordForm() {
         variant='contained'
         color='warning'
         sx={{ mb: 2 }}
+        startIcon={<LockResetIcon />}
       >
         Redefinir Senha
       </Button>

@@ -5,6 +5,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { Button, FormControl, FormHelperText, TextField } from '@mui/material'
 import { useState } from 'react'
+import LoginIcon from '@mui/icons-material/Login'
 
 export default function SignInForm() {
   const [showPassword, setShowPassword] = useState<boolean>(false)
@@ -27,17 +28,21 @@ export default function SignInForm() {
         phone: phone,
         password: password,
       })
-        .then((res) => {
+        .then((res: any) => {
           if (!res?.error && res?.url) {
+            alert(JSON.stringify(`Boas Vindas!`))
             router.refresh()
           } else {
-            null
+            alert(JSON.stringify('O Celular ou a Senha estão Incorretos!'))
           }
         })
-        .catch((error: any) => {})
+        .catch((error: any) => {
+          alert(JSON.stringify(error?.message || error))
+          new Error(error?.message || error)
+        })
     } catch (error: any) {
       console.error(error?.message || error)
-      return new Error(error?.message || error)
+      new Error(error?.message || error)
     }
   }
 
@@ -97,6 +102,7 @@ export default function SignInForm() {
         variant='contained'
         color='info'
         sx={{ mb: 2 }}
+        startIcon={<LoginIcon />}
       >
         Autenticar-se
       </Button>

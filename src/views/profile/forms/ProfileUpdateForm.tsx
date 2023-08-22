@@ -9,10 +9,8 @@ export default function ProfileUpdateForm(props: ProfileProps) {
 
   const {
     handleSubmit,
-    register,
     formState: { errors },
   } = useForm<ProfileUpdateSchemaType>({
-    mode: 'all',
     resolver: yupResolver(ProfileUpdateSchema),
   })
 

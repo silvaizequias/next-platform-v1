@@ -3,6 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Button, FormControl, FormHelperText, TextField } from '@mui/material'
 import axios from 'axios'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration'
 
 export default function SignUpForm() {
   const {
@@ -18,12 +19,16 @@ export default function SignUpForm() {
     try {
       await axios
         .post(`/api/signup`, inputs)
-        .then((res) => {
-          alert(JSON.stringify(res.data))
+        .then((res: any) => {
+          alert(
+            JSON.stringify(
+              `Seja bem vindo ${res.data?.name}! Sua senha de acesso foi enviada para o e-mail ${res.data?.email}`,
+            ),
+          )
         })
         .catch((error: any) => {
           alert(JSON.stringify(error?.message || error))
-          return new Error(error?.message || error)
+          new Error(error?.message || error)
         })
     } catch (error: any) {
       console.error(error?.message || error)
@@ -109,6 +114,7 @@ export default function SignUpForm() {
         variant='contained'
         color='success'
         sx={{ mb: 2 }}
+        startIcon={<AppRegistrationIcon />}
       >
         Registrar-se
       </Button>

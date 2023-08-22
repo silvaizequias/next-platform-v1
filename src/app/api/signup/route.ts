@@ -35,7 +35,9 @@ export const POST = async (request: Request) => {
       }
     })
   } catch (error: any) {
-    return new Response(error?.message || error, { status: 400 })
+    return new Response(JSON.stringify(error?.message || error), {
+      status: 400,
+    })
   } finally {
     await prisma.$disconnect()
   }
