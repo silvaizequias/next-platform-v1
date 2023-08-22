@@ -1,3 +1,4 @@
+import '@/app/globals.css'
 import { LayoutProps } from '@/types'
 import Provider from './provider'
 
