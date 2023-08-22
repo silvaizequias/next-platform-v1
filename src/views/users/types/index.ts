@@ -24,6 +24,3 @@ export type UserType = {
   state: string
 }
 
-export type UsersType = {
-  users: UserType[]
-}
