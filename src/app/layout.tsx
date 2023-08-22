@@ -1,6 +1,6 @@
 import ThemeRegistry from '@/components/ThemeRegistry'
-import DefaultLayout from '@/layouts/DefaultLayout'
 import { LayoutProps } from '@/types'
+import Provider from './provider'
 
 export default function RootLayout(props: LayoutProps) {
   const { children } = props
@@ -9,7 +9,7 @@ export default function RootLayout(props: LayoutProps) {
     <html lang='en'>
       <body>
         <ThemeRegistry>
-          <DefaultLayout>{children}</DefaultLayout>
+          <Provider>{children}</Provider>
         </ThemeRegistry>
       </body>
     </html>

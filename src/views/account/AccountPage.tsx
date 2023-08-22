@@ -1,6 +1,5 @@
 'use client'
 
-import UserLayout from '@/layouts/UserLayout'
 import { SessionProps } from '@/types'
 import { Container, Typography } from '@mui/material'
 
@@ -8,8 +7,7 @@ export default function AccountPage(props: SessionProps) {
   const { user }: any = props.session?.user
 
   return (
-    <UserLayout>
-      <Container
+    <Container
         disableGutters
         maxWidth='sm'
         component='main'
@@ -24,6 +22,5 @@ export default function AccountPage(props: SessionProps) {
           {user?.name}
         </Typography>
       </Container>
-    </UserLayout>
   )
 }

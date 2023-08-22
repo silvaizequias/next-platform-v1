@@ -11,6 +11,7 @@ export default function ResetPasswordForm() {
     control,
     formState: { errors },
   } = useForm<AuthResetPasswordType>({
+    mode: 'onChange',
     resolver: yupResolver(AuthResetPassword),
   })
 

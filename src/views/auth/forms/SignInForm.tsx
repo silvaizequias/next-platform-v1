@@ -15,6 +15,7 @@ export default function SignInForm() {
     control,
     formState: { errors },
   } = useForm<AuthSignInSchemaType>({
+    mode: 'onChange',
     resolver: yupResolver(AuthSignInSchema),
   })
 

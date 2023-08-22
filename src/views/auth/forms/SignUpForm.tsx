@@ -11,6 +11,7 @@ export default function SignUpForm() {
     control,
     formState: { errors },
   } = useForm<AuthSignUpSchemaType>({
+    mode: 'onChange',
     resolver: yupResolver(AuthSignUpSchema),
   })
 

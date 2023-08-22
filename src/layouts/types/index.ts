@@ -9,7 +9,3 @@ export interface LoadingLayoutProps {
   sx?: BoxProps['sx']
   children: ReactNode
 }
-
-export interface UserLayoutProps {
-  children: ReactNode
-}
