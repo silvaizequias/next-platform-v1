@@ -1,6 +1,5 @@
 'use client'
 
-import UserLayout from '@/layouts/UserLayout'
 import { SessionProps } from '@/types'
 import { Container, Typography } from '@mui/material'
 

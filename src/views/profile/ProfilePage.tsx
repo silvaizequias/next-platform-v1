@@ -6,9 +6,9 @@ import { SessionProps } from '@/types'
 import { Container, Typography } from '@mui/material'
 
 export default function ProfilePage(props: SessionProps) {
-  const { user }: any = props?.session
-  const { data: profile, mutate } = useFetch<ProfileType>(
-    `/api/profile/${user?.sub}`,
+  const { user }: any = props?.session?.user
+  const { data: profile, error, mutate } = useFetch<ProfileType>(
+    `/api/profile/${user?.id}`,
   )
 
   return (
