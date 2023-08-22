@@ -1,9 +1,7 @@
 import { AuthSignUpSchema, AuthSignUpSchemaType } from '@/schemas/auth'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Button, FormControl, FormHelperText, TextField } from '@mui/material'
 import axios from 'axios'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import AppRegistrationIcon from '@mui/icons-material/AppRegistration'
 
 export default function SignUpForm() {
   const {
@@ -39,86 +37,58 @@ export default function SignUpForm() {
 
   return (
     <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
-      <FormControl fullWidth sx={{ mb: 4 }}>
+      <>
         <Controller
           name='name'
           control={control}
           rules={{ required: true }}
           render={({ field: { value, onChange, onBlur } }) => (
-            <TextField
+            <input
               autoFocus
-              label='Nome Completo'
               value={value}
               onBlur={onBlur}
               onChange={onChange}
-              error={Boolean(errors.name)}
               placeholder='Nome e Sobrenome'
             />
           )}
         />
-        {errors.name && (
-          <FormHelperText sx={{ color: 'error.main' }}>
-            {errors.name.message}
-          </FormHelperText>
-        )}
-      </FormControl>
-      <FormControl fullWidth sx={{ mb: 4 }}>
+        {errors.name && <span>{errors.name.message}</span>}
+      </>
+      <>
         <Controller
           name='email'
           control={control}
           rules={{ required: true }}
           render={({ field: { value, onChange, onBlur } }) => (
-            <TextField
+            <input
               autoFocus
-              label='E-mail'
               value={value}
               onBlur={onBlur}
               onChange={onChange}
-              error={Boolean(errors.email)}
               placeholder='seu@email.com'
             />
           )}
         />
-        {errors.email && (
-          <FormHelperText sx={{ color: 'error.main' }}>
-            {errors.email.message}
-          </FormHelperText>
-        )}
-      </FormControl>
-      <FormControl fullWidth sx={{ mb: 4 }}>
+        {errors.email && <span>{errors.email.message}</span>}
+      </>
+      <>
         <Controller
           name='phone'
           control={control}
           rules={{ required: true }}
           render={({ field: { value, onChange, onBlur } }) => (
-            <TextField
+            <input
               autoFocus
-              label='Celular'
               value={value}
               onBlur={onBlur}
               onChange={onChange}
-              error={Boolean(errors.phone)}
               placeholder='11 98765 4321'
             />
           )}
         />
-        {errors.phone && (
-          <FormHelperText sx={{ color: 'error.main' }}>
-            {errors.phone.message}
-          </FormHelperText>
-        )}
-      </FormControl>
-      <Button
-        fullWidth
-        size='large'
-        type='submit'
-        variant='contained'
-        color='success'
-        sx={{ mb: 2 }}
-        startIcon={<AppRegistrationIcon />}
-      >
-        Registrar-se
-      </Button>
+        {errors.phone && <span>{errors.phone.message}</span>}
+      </>
+      <button type='submit'>Registrar-se</button>
     </form>
   )
 }

@@ -9,5 +9,5 @@ export default function UsersPage(props: SessionProps) {
   const { user }: any = props?.session?.user
   const { data: users, error, mutate } = useFetch(`/api/users`)
 
-  return <Fragment>{users}</Fragment>
+  return <Fragment>{user?.name}</Fragment>
 }

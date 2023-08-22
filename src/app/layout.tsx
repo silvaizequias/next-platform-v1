@@ -1,4 +1,3 @@
-import ThemeRegistry from '@/components/ThemeRegistry'
 import { LayoutProps } from '@/types'
 import Provider from './provider'
 
@@ -8,9 +7,7 @@ export default function RootLayout(props: LayoutProps) {
   return (
     <html lang='en'>
       <body>
-        <ThemeRegistry>
-          <Provider>{children}</Provider>
-        </ThemeRegistry>
+        <Provider>{children}</Provider>
       </body>
     </html>
   )
