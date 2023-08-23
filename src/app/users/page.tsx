@@ -1,5 +1,5 @@
 import { authOptions } from '@/libraries/next-auth'
-import UsersPage from '@/views/users/UsersPage'
+import UsersView from '@/views/users/UsersView'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
@@ -14,7 +14,9 @@ export default async function ManagerUsers() {
   const { user }: any = session?.user
 
   return session && user?.role == 'MASTER' ? (
-    <UsersPage session={session} />
+    <main>
+      <UsersView session={session} />
+    </main>
   ) : (
     redirect('/')
   )

@@ -1,6 +1,8 @@
-import '@/app/globals.css'
+import Spinner from '@/components/Spinner'
+import ThemeRegistry from '@/components/ThemeRegistry'
+import AppLayout from '@/layouts'
 import { LayoutProps } from '@/types'
-import Provider from './provider'
+import { Suspense } from 'react'
 
 export default function RootLayout(props: LayoutProps) {
   const { children } = props
@@ -8,7 +10,11 @@ export default function RootLayout(props: LayoutProps) {
   return (
     <html lang='en'>
       <body>
-        <Provider>{children}</Provider>
+        <ThemeRegistry>
+          <AppLayout>
+            <Suspense fallback={<Spinner />}>{children}</Suspense>
+          </AppLayout>
+        </ThemeRegistry>
       </body>
     </html>
   )

@@ -5,7 +5,7 @@ import { ProfileType } from './types'
 import { SessionProps } from '@/types'
 import { Fragment } from 'react'
 
-export default function ProfilePage(props: SessionProps) {
+export default function ProfileView(props: SessionProps) {
   const { user }: any = props?.session?.user
   const { data: profile, error, mutate } = useFetch<ProfileType>(
     `/api/profile/${user?.id}`,

@@ -5,7 +5,7 @@ import { SessionProps } from '@/types'
 import { Fragment } from 'react'
 
 
-export default function UsersPage(props: SessionProps) {
+export default function UsersView(props: SessionProps) {
   const { user }: any = props?.session?.user
   const { data: users, error, mutate } = useFetch(`/api/users`)
 

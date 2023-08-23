@@ -1,6 +1,6 @@
 import { authOptions } from '@/libraries/next-auth'
-import AccountPage from '@/views/account/AccountPage'
-import AuthPage from '@/views/auth/AuthPage'
+import AccountView from '@/views/account/AccountView'
+import AuthView from '@/views/auth/AuthView'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 
@@ -12,5 +12,13 @@ export const metadata: Metadata = {
 export default async function Account() {
   const session = await getServerSession(authOptions)
 
-  return session ? <AccountPage session={session!} /> : <AuthPage />
+  return session ? (
+    <main>
+      <AccountView session={session!} />
+    </main>
+  ) : (
+    <main>
+      <AuthView />
+    </main>
+  )
 }

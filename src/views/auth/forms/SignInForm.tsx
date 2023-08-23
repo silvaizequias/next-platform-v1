@@ -4,6 +4,7 @@ import { signIn } from 'next-auth/react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { Button, FormControl, FormHelperText, TextField } from '@mui/material'
 
 export default function SignInForm() {
   const [showPassword, setShowPassword] = useState<boolean>(false)
@@ -47,42 +48,59 @@ export default function SignInForm() {
 
   return (
     <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
-      <>
+      <FormControl fullWidth sx={{ mb: 4 }}>
         <Controller
           name='phone'
           control={control}
           rules={{ required: true }}
           render={({ field: { value, onChange, onBlur } }) => (
-            <input
+            <TextField
               autoFocus
+              label={'Celular'}
               value={value}
               onBlur={onBlur}
               onChange={onChange}
+              error={Boolean(errors.phone)}
               placeholder='11 98765 4321'
             />
           )}
         />
-        {errors.phone && <span>{errors.phone.message}</span>}
-      </>
-      <>
+        {errors.phone && (
+          <FormHelperText>{errors.phone.message}</FormHelperText>
+        )}
+      </FormControl>
+      <FormControl fullWidth sx={{ mb: 4 }}>
         <Controller
           name='password'
           control={control}
           rules={{ required: true }}
           render={({ field: { value, onChange, onBlur } }) => (
-            <input
+            <TextField
               autoFocus
+              label={'Senha'}
               value={value}
               onBlur={onBlur}
               onChange={onChange}
+              error={Boolean(errors.password)}
               type={showPassword ? 'text' : 'password'}
               placeholder='**********'
             />
           )}
         />
-        {errors.password && <span>{errors.password.message}</span>}
-      </>
-      <button type='submit'>Autenticar-se</button>
+        {errors.password && (
+          <FormHelperText>{errors.password.message}</FormHelperText>
+        )}
+      </FormControl>
+      <Button
+        fullWidth
+        size='small'
+        type='submit'
+        variant='contained'
+        color='info'
+        sx={{ mb: 4 }}
+      >
+        Autenticar-se
+      </Button>
     </form>
   )
 }
