@@ -3,14 +3,56 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_MANAGER")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
-model Configuration {
-  id              String        @id                 @default(cuid())
-  createdAt       DateTime      @default(now())     @map("created_at")
-  updatedAt       DateTime      @updatedAt          @map("updated_at")
+enum UserRole {
+  MASTER
+  MEMBER
+  CUSTOMER
+  GUEST
+}
 
-  @@map("configurations")
+enum DocType {
+  CPF
+  CNPJ
+  RG
+  CNH
+  CTPS
+  PASSPORT
+}
+
+model User {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at") @db.Date
+  softDeleted Boolean?  @default(false) @map("soft_deleted")
+
+  isVerified Boolean? @default(false) @map("is_verified")
+  isActive   Boolean? @default(false) @map("is_active")
+
+  role      UserRole? @default(GUEST)
+  passToken String?   @unique @map("pass_token")
+  passHash  String?   @unique @map("pass_hash")
+
+  avatar  String?
+  name    String?
+  email   String   @unique
+  phone   String?  @unique
+  docType DocType? @default(CPF) @map("doc_type")
+  docCode String?  @unique @map("doc_code")
+
+  zipCode    String? @map("zip_code")
+  street     String?
+  number     String?
+  complement String?
+  zone       String?
+  district   String?
+  city       String?
+  state      String?
+
+  @@map("users")
 }
