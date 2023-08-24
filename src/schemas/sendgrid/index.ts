@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-export const SendGridEmail = yup
+export const SendGridEmailSchema = yup
   .object()
   .shape({
     sendTo: yup.string().email().required(),
@@ -10,4 +10,4 @@ export const SendGridEmail = yup
   })
   .required()
 
-export type SendGridEmailType = yup.InferType<typeof SendGridEmail>
+export type SendGridEmailSchemaType = yup.InferType<typeof SendGridEmailSchema>

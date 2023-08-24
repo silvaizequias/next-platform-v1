@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-export const TwilioSMS = yup
+export const TwilioSMSSchema = yup
   .object()
   .shape({
     messageBody: yup.string().min(10).max(250).required(),
@@ -9,4 +9,4 @@ export const TwilioSMS = yup
   })
   .required()
 
-export type TwilioSMSType = yup.InferType<typeof TwilioSMS>
+export type TwilioSMSSchemaType = yup.InferType<typeof TwilioSMSSchema>
