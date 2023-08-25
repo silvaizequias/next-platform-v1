@@ -7,7 +7,7 @@ export const POST = async (request: Request) => {
   try {
     await prisma.$connect()
     return await request.json().then(async (inputs: AuthSignInSchemaType) => {
-      if (AuthSignInSchema.validateSync(inputs)) {
+      if (await AuthSignInSchema.parseAsync(inputs)) {
         const { phone, password } = inputs
 
         const user = await prisma.user.findFirst({
@@ -26,7 +26,7 @@ export const POST = async (request: Request) => {
         })
         if (!user)
           return new Response(JSON.stringify('phone not found'), {
-            status: 403,
+            status: 404,
           })
 
         const passHash = compareSync(password, user?.passHash as string)
@@ -45,7 +45,7 @@ export const POST = async (request: Request) => {
             iat: Math.floor(Date.now() / 1000) - 30,
             exp: Math.floor(Date.now() / 1000) + 14 * 24 * 60 * 60,
           },
-          process.env.NEXT_PUBLIC_JWT_SECRET_KEY as string
+          process.env.NEXT_PUBLIC_JWT_SECRET_KEY as string,
         )
 
         return new Response(

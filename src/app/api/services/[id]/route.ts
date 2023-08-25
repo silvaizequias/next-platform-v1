@@ -9,7 +9,9 @@ export const GET = async (
   try {
     await prisma.$connect()
 
-    return new Response(JSON.stringify(id))
+    return new Response(
+      JSON.stringify(await prisma.service.findFirst({ where: { id } })),
+    )
   } catch (error: any) {
     return new Response(error?.message || error, { status: 400 })
   } finally {
@@ -27,8 +29,12 @@ export const PATCH = async (
     return await request
       .json()
       .then(async (inputs: ServiceUpdateSchemaType) => {
-        if (ServiceUpdateSchema.validateSync(inputs)) {
-          return new Response(JSON.stringify(id))
+        if (await ServiceUpdateSchema.parseAsync(inputs)) {
+          return new Response(
+            JSON.stringify(
+              await prisma.service.update({ where: { id }, data: inputs }),
+            ),
+          )
         }
       })
   } catch (error: any) {

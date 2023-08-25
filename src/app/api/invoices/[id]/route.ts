@@ -9,7 +9,9 @@ export const GET = async (
   try {
     await prisma.$connect()
 
-    return new Response(JSON.stringify(id))
+    return new Response(
+      JSON.stringify(await prisma.invoice.findFirst({ where: { id } })),
+    )
   } catch (error: any) {
     return new Response(error?.message || error, { status: 400 })
   } finally {
@@ -27,8 +29,12 @@ export const PATCH = async (
     return await request
       .json()
       .then(async (inputs: InvoiceUpdateSchemaType) => {
-        if (InvoiceUpdateSchema.validateSync(inputs)) {
-          return new Response(JSON.stringify(id))
+        if (await InvoiceUpdateSchema.parseAsync(inputs)) {
+          return new Response(
+            JSON.stringify(
+              await prisma.invoice.update({ where: { id }, data: inputs }),
+            ),
+          )
         }
       })
   } catch (error: any) {

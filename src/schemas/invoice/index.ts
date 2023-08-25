@@ -1,33 +1,33 @@
-import * as yup from 'yup'
+import * as z from 'zod'
 
-export const InvoiceCreateSchema = yup.object().shape({
-  contractCode: yup.string().required(),
-  invoiceCode: yup.string().required(),
-  barCode: yup.string().optional(),
-  qrCode: yup.string().optional(),
-  status: yup.mixed().oneOf(['PENDING', 'INVOICED', 'CANCELED']).required(),
-  description: yup.string().optional(),
-  note: yup.string().optional(),
-  tax: yup.number().default(0).optional(),
-  amount: yup.number().positive().default(0).optional(),
-  payUpTo: yup.date().optional(),
-  wasPaid: yup.boolean().default(false).optional(),
-  paidAt: yup.date().optional(),
+const STATUS = ['PENDING', 'INVOICED', 'CANCELED'] as const
+
+export const InvoiceCreateSchema = z.object({
+  contractCode: z.string().optional(),
+  invoiceCode: z.string(),
+  barCode: z.string().optional(),
+  qrCode: z.string().optional(),
+  status: z.enum(STATUS),
+  description: z.string().optional(),
+  note: z.string().optional(),
+  tax: z.number().default(0),
+  amount: z.number().positive().default(0),
+  payUpTo: z.coerce.date(),
 })
 
-export type InvoiceCreateSchemaType = yup.InferType<typeof InvoiceCreateSchema>
+export type InvoiceCreateSchemaType = z.infer<typeof InvoiceCreateSchema>
 
-export const InvoiceUpdateSchema = yup.object().shape({
-  barCode: yup.string().default(''),
-  qrCode: yup.string().default(''),
-  status: yup.string().default(''),
-  description: yup.string().default(''),
-  note: yup.string().default(''),
-  tax: yup.number().default(0),
-  amount: yup.number().positive().default(0),
-  payUpTo: yup.date().optional(),
-  wasPaid: yup.boolean().default(false),
-  paidAt: yup.date().optional(),
+export const InvoiceUpdateSchema = z.object({
+  barCode: z.string().optional(),
+  qrCode: z.string().optional(),
+  status: z.enum(STATUS).optional(),
+  description: z.string().optional(),
+  note: z.string().optional(),
+  tax: z.number().default(0),
+  amount: z.number().positive().default(0),
+  payUpTo: z.coerce.date().optional(),
+  wasPaid: z.boolean().default(false),
+  paidAt: z.coerce.date().optional(),
 })
 
-export type InvoiceUpdateSchemaType = yup.InferType<typeof InvoiceUpdateSchema>
+export type InvoiceUpdateSchemaType = z.infer<typeof InvoiceUpdateSchema>

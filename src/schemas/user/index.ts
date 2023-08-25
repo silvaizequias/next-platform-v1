@@ -1,56 +1,56 @@
-import * as yup from 'yup'
+import * as z from 'zod'
 
-export const UserCreateSchema = yup.object({
-  isVerified: yup.boolean().default(false),
-  isActive: yup.boolean().default(false),
-  role: yup.mixed().oneOf(['MASTER', 'MEMBER', 'CUSTOMER', 'GUEST']),
-  avatar: yup.string(),
-  name: yup.string(),
-  email: yup.string().email(),
-  phone: yup.string().length(11),
-  docType: yup.mixed().oneOf(['MASTER', 'MEMBER', 'CUSTOMER', 'GUEST']),
-  docCode: yup.string(),
-  zipCode: yup.string().length(8),
-  street: yup.string(),
-  number: yup.string(),
-  complement: yup.string(),
-  zone: yup.string(),
-  district: yup.string(),
-  city: yup.string(),
-  state: yup.string(),
+const ROLE = ['MASTER', 'MEMBER', 'CUSTOMER', 'GUEST'] as const
+const DOC_TYPE = ['CPF', 'CNPJ', 'RG', 'CNH', 'CTPS', 'PASSPORT'] as const
+
+export const UserCreateSchema = z.object({
+  isVerified: z.boolean().default(false),
+  isActive: z.boolean().default(false),
+  role: z.enum(ROLE),
+  avatar: z.string(),
+  name: z.string(),
+  email: z.string().email(),
+  phone: z.string().length(11),
+  docType: z.enum(DOC_TYPE),
+  docCode: z.string(),
+  zipCode: z.string().length(8),
+  street: z.string(),
+  number: z.string(),
+  complement: z.string(),
+  zone: z.string(),
+  district: z.string(),
+  city: z.string(),
+  state: z.string(),
 })
 
-export type UserCreateSchemaType = yup.InferType<typeof UserCreateSchema>
+export type UserCreateSchemaType = z.infer<typeof UserCreateSchema>
 
-export const UserUpdateSchema = yup.object({
-  isVerified: yup.boolean().default(false).optional(),
-  isActive: yup.boolean().default(false).optional(),
-  role: yup.mixed().oneOf(['MASTER', 'MEMBER', 'CUSTOMER', 'GUEST']).optional(),
-  avatar: yup.string().default(''),
-  name: yup.string().default(''),
-  email: yup.string().default('').email(),
-  phone: yup.string().default(''),
-  docType: yup
-    .mixed()
-    .oneOf(['CPF', 'CNPJ', 'RG', 'CNH', 'CTPS', 'PASSPORT'])
-    .default('CPF'),
-  docCode: yup.string().default(''),
-  zipCode: yup.string().default(''),
-  street: yup.string().default(''),
-  number: yup.string().default(''),
-  complement: yup.string().default(''),
-  zone: yup.string().default(''),
-  district: yup.string().default(''),
-  city: yup.string().default(''),
-  state: yup.string().default(''),
+export const UserUpdateSchema = z.object({
+  isVerified: z.boolean().default(false).optional(),
+  isActive: z.boolean().default(false).optional(),
+  role: z.enum(ROLE).optional(),
+  avatar: z.string().optional(),
+  name: z.string().optional(),
+  email: z.string().email().optional(),
+  phone: z.string().optional(),
+  docType: z.enum(DOC_TYPE).optional(),
+  docCode: z.string().optional(),
+  zipCode: z.string().optional(),
+  street: z.string().optional(),
+  number: z.string().optional(),
+  complement: z.string().optional(),
+  zone: z.string().optional(),
+  district: z.string().optional(),
+  city: z.string().optional(),
+  state: z.string().optional(),
 })
 
-export type UserUpdateSchemaType = yup.InferType<typeof UserUpdateSchema>
+export type UserUpdateSchemaType = z.infer<typeof UserUpdateSchema>
 
-export const UserPasswordUpdateSchema = yup.object().shape({
-  password: yup.string().min(8).max(25).required(),
+export const UserPasswordUpdateSchema = z.object({
+  password: z.string().min(8).max(25),
 })
 
-export type UserPasswordUpdateSchemaType = yup.InferType<
+export type UserPasswordUpdateSchemaType = z.infer<
   typeof UserPasswordUpdateSchema
 >

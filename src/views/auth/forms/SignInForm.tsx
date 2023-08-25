@@ -1,5 +1,5 @@
 import { AuthSignInSchema, AuthSignInSchemaType } from '@/schemas/auth'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { signIn } from 'next-auth/react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
@@ -15,7 +15,7 @@ export default function SignInForm() {
     formState: { errors },
   } = useForm<AuthSignInSchemaType>({
     mode: 'onChange',
-    resolver: yupResolver(AuthSignInSchema),
+    resolver: zodResolver(AuthSignInSchema),
   })
 
   const onSubmit: SubmitHandler<AuthSignInSchemaType> = async (inputs, e) => {

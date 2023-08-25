@@ -1,40 +1,35 @@
-import * as yup from 'yup'
+import * as z from 'zod'
 
-export const ContractCreateSchema = yup.object().shape({
-  userPhone: yup.string().length(11).required(),
-  serviceCode: yup.string().required(),
-  contractCode: yup.string().required(),
-  status: yup
-    .mixed()
-    .oneOf(['ACTIVE', 'SUSPENDED', 'FINISHED', 'CANCELED'])
-    .required(),
-  description: yup.string().optional(),
-  note: yup.string().optional(),
-  startedIn: yup.date().optional(),
-  period: yup
-    .mixed()
-    .oneOf(['MONTHLY', 'QUARTERLY', 'SEMESTERLY', 'YEARLY'])
-    .required(),
-  endedIn: yup.date().optional(),
-  payment: yup.mixed().oneOf(['CARD', 'ORDER', 'PIX']).required(),
-  discount: yup.number().default(0).optional(),
+const STATUS = ['ACTIVE', 'SUSPENDED', 'FINISHED', 'CANCELED'] as const
+const PERIOD = ['MONTHLY', 'QUARTERLY', 'SEMESTERLY', 'YEARLY'] as const
+const PAYMENT = ['CARD', 'ORDER', 'PIX'] as const
+
+export const ContractCreateSchema = z.object({
+  userPhone: z.string().length(11).optional(),
+  serviceCode: z.string().optional(),
+  contractCode: z.string(),
+  status: z.enum(STATUS),
+  description: z.string().optional(),
+  note: z.string().optional(),
+  startedIn: z.coerce.date().optional(),
+  period: z.enum(PERIOD),
+  endedIn: z.coerce.date().optional(),
+  payment: z.enum(PAYMENT),
+  discount: z.number().default(0).optional(),
 })
 
-export type ContractCreateSchemaType = yup.InferType<
-  typeof ContractCreateSchema
->
+export type ContractCreateSchemaType = z.infer<typeof ContractCreateSchema>
 
-export const ContractUpdateSchema = yup.object().shape({
-  status: yup.string().default(''),
-  description: yup.string().default(''),
-  note: yup.string().default(''),
-  startedIn: yup.date().optional(),
-  period: yup.string().default(''),
-  endedIn: yup.date().optional(),
-  payment: yup.string().default(''),
-  discount: yup.number().default(0),
-})
+export const ContractUpdateSchema = z
+  .object({
+    status: z.enum(STATUS).optional(),
+    description: z.string().optional(),
+    note: z.string().optional(),
+    startedIn: z.coerce.date().optional(),
+    period: z.enum(PERIOD).optional(),
+    endedIn: z.coerce.date().optional(),
+    payment: z.enum(PAYMENT).optional(),
+    discount: z.number().default(0),
+  })
 
-export type ContractUpdateSchemaType = yup.InferType<
-  typeof ContractUpdateSchema
->
+export type ContractUpdateSchemaType = z.infer<typeof ContractUpdateSchema>

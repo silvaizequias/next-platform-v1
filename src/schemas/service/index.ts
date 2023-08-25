@@ -1,26 +1,25 @@
-import * as yup from 'yup'
+import * as z from 'zod'
 
-export const ServiceCreateSchema = yup
-  .object()
-  .shape({
-    isActive: yup.boolean().required(),
-    serviceCode: yup.string().required(),
-    name: yup.string().required(),
-    solution: yup.mixed().oneOf(['NONE']).required(),
-    description: yup.string().required(),
-    price: yup.number().positive().required(),
-  })
-  .required()
+const SOLUTION = ['NONE'] as const
 
-export type ServiceCreateSchemaType = yup.InferType<typeof ServiceCreateSchema>
-
-export const ServiceUpdateSchema = yup.object().shape({
-  isActive: yup.boolean().default(false),
-  serviceCode: yup.string().default(''),
-  name: yup.string().default(''),
-  solution: yup.string().default(''),
-  description: yup.string().default(''),
-  price: yup.number().positive().default(0),
+export const ServiceCreateSchema = z.object({
+  isActive: z.boolean(),
+  serviceCode: z.string(),
+  name: z.string(),
+  solution: z.enum(SOLUTION),
+  description: z.string(),
+  price: z.number().positive(),
 })
 
-export type ServiceUpdateSchemaType = yup.InferType<typeof ServiceUpdateSchema>
+export type ServiceCreateSchemaType = z.infer<typeof ServiceCreateSchema>
+
+export const ServiceUpdateSchema = z.object({
+  isActive: z.boolean().default(false),
+  serviceCode: z.string().optional(),
+  name: z.string().optional(),
+  solution: z.enum(SOLUTION).optional(),
+  description: z.string().optional(),
+  price: z.number().positive().default(0),
+})
+
+export type ServiceUpdateSchemaType = z.infer<typeof ServiceUpdateSchema>

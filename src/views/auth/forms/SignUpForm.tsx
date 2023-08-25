@@ -1,5 +1,5 @@
 import { AuthSignUpSchema, AuthSignUpSchemaType } from '@/schemas/auth'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, FormControl, FormHelperText, TextField } from '@mui/material'
 import axios from 'axios'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
@@ -11,7 +11,7 @@ export default function SignUpForm() {
     formState: { errors },
   } = useForm<AuthSignUpSchemaType>({
     mode: 'onChange',
-    resolver: yupResolver(AuthSignUpSchema),
+    resolver: zodResolver(AuthSignUpSchema),
   })
 
   const onSubmit: SubmitHandler<AuthSignUpSchemaType> = async (inputs, e) => {

@@ -4,7 +4,7 @@ import { TwilioSMSSchema, TwilioSMSSchemaType } from '@/schemas/twilio'
 export const POST = async (request: Request) => {
   try {
     return await request.json().then(async (inputs: TwilioSMSSchemaType) => {
-      if (TwilioSMSSchema.validateSync(inputs)) {
+      if (await TwilioSMSSchema.parseAsync(inputs)) {
         const data: TwilioProps = {
           messageBody: inputs.messageBody,
           sendTo: inputs.sendTo,

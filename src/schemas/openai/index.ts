@@ -1,23 +1,15 @@
-import * as yup from 'yup'
+import * as z from 'zod'
 
-export const OpenAiCompletionSchema = yup
-  .object()
-  .shape({
-    content: yup.string().min(10).required(),
-    maxTokens: yup.number().positive().max(100).required(),
-  })
-  .required()
+export const OpenAiCompletionSchema = z.object({
+  content: z.string().min(10),
+  maxTokens: z.number().positive().max(100),
+})
 
-export type OpenAiCompletionSchemaType = yup.InferType<
-  typeof OpenAiCompletionSchema
->
+export type OpenAiCompletionSchemaType = z.infer<typeof OpenAiCompletionSchema>
 
-export const OpenAiStreamSchema = yup
-  .object()
-  .shape({
-    content: yup.string().min(10).required(),
-    stream: yup.boolean().required(),
-  })
-  .required()
+export const OpenAiStreamSchema = z.object({
+  content: z.string().min(10),
+  stream: z.boolean(),
+})
 
-export type OpenAiStreamSchemaType = yup.InferType<typeof OpenAiStreamSchema>
+export type OpenAiStreamSchemaType = z.infer<typeof OpenAiStreamSchema>

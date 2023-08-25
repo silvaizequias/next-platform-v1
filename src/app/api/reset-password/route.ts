@@ -9,7 +9,7 @@ export const POST = async (request: Request) => {
 
   try {
     return await request.json().then(async (inputs: AuthResetPasswordType) => {
-      if (AuthResetPassword.validateSync(inputs)) {
+      if (await AuthResetPassword.parseAsync(inputs)) {
         const { phone, email } = inputs
         const user = await prisma.user.findFirst({
           where: { phone: phone, email: email },
@@ -17,14 +17,13 @@ export const POST = async (request: Request) => {
         if (!user)
           return new Response(
             JSON.stringify(JSON.stringify('phone our email dont valid')),
-            { status: 401 },
+            { status: 406 },
           )
 
         const data: Prisma.UserUpdateInput = {
           passToken: randomToken,
           passHash: await hash(randomPassword, 10),
         }
-        console.log(randomPassword)
 
         return new Response(
           JSON.stringify(await prisma.user.update({ where: { phone }, data })),

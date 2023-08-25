@@ -1,32 +1,31 @@
-import * as yup from 'yup'
+import * as z from 'zod'
 
-export const ProfileUpdateSchema = yup.object().shape({
-  avatar: yup.string().default(''),
-  name: yup.string().default(''),
-  email: yup.string().default('').email(),
-  phone: yup.string().default(''),
-  docType: yup
-    .mixed()
-    .oneOf(['CPF', 'CNPJ', 'RG', 'CNH', 'CTPS', 'PASSPORT'])
-    .default('CPF'),
-  docCode: yup.string().default(''),
-  zipCode: yup.string().default(''),
-  street: yup.string().default(''),
-  number: yup.string().default(''),
-  complement: yup.string().default(''),
-  zone: yup.string().default(''),
-  district: yup.string().default(''),
-  city: yup.string().default(''),
-  state: yup.string().default(''),
+const DOC_TYPE = ['CPF', 'CNPJ', 'RG', 'CNH', 'CTPS', 'PASSPORT'] as const
+
+export const ProfileUpdateSchema = z.object({
+  avatar: z.string().optional(),
+  name: z.string().optional(),
+  email: z.string().email(),
+  phone: z.string().optional(),
+  docType: z.enum(DOC_TYPE).default('CPF'),
+  docCode: z.string().optional(),
+  zipCode: z.string().optional(),
+  street: z.string().optional(),
+  number: z.string().optional(),
+  complement: z.string().optional(),
+  zone: z.string().optional(),
+  district: z.string().optional(),
+  city: z.string().optional(),
+  state: z.string().optional(),
 })
 
-export type ProfileUpdateSchemaType = yup.InferType<typeof ProfileUpdateSchema>
+export type ProfileUpdateSchemaType = z.infer<typeof ProfileUpdateSchema>
 
-export const ProfilePasswordUpdateSchema = yup.object().shape({
-  oldPassword: yup.string().min(8).max(25).required(),
-  password: yup.string().min(8).max(25).required(),
+export const ProfilePasswordUpdateSchema = z.object({
+  oldPassword: z.string().min(8).max(25),
+  password: z.string().min(8).max(25),
 })
 
-export type ProfilePasswordUpdateSchemaType = yup.InferType<
+export type ProfilePasswordUpdateSchemaType = z.infer<
   typeof ProfilePasswordUpdateSchema
 >

@@ -16,7 +16,7 @@ export const PATCH = async (
     return await request
       .json()
       .then(async (inputs: UserPasswordUpdateSchemaType) => {
-        if (UserPasswordUpdateSchema.validateSync(inputs)) {
+        if (await UserPasswordUpdateSchema.parseAsync(inputs)) {
           const { password } = inputs
 
           const data: Prisma.UserUpdateInput = {

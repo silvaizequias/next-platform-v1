@@ -4,7 +4,7 @@ import { ServiceCreateSchema, ServiceCreateSchemaType } from '@/schemas/service'
 export const GET = async (request: Request) => {
   try {
     await prisma.$connect()
-    return new Response(JSON.stringify(request.method))
+    return new Response(JSON.stringify(await prisma.service.findMany()))
   } catch (error: any) {
     return new Response(error?.message || error, { status: 400 })
   } finally {
@@ -18,8 +18,10 @@ export const POST = async (request: Request) => {
     return await request
       .json()
       .then(async (inputs: ServiceCreateSchemaType) => {
-        if (ServiceCreateSchema.validateSync(inputs)) {
-          return new Response(JSON.stringify(inputs))
+        if (await ServiceCreateSchema.parseAsync(inputs)) {
+          return new Response(
+            JSON.stringify(await prisma.service.create({ data: inputs })),
+          )
         }
       })
   } catch (error: any) {

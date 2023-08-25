@@ -9,7 +9,7 @@ export const POST = async (request: Request) => {
     return await request
       .json()
       .then(async (inputs: OpenAiCompletionSchemaType) => {
-        if (OpenAiCompletionSchema.validateSync(inputs)) {
+        if (await OpenAiCompletionSchema.parseAsync(inputs)) {
           const { content, maxTokens } = inputs
 
           const data = (await openai()).completions

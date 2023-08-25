@@ -16,13 +16,13 @@ export const PATCH = async (
     return await request
       .json()
       .then(async (inputs: ProfilePasswordUpdateSchemaType) => {
-        if (ProfilePasswordUpdateSchema.validateSync(inputs)) {
+        if (await ProfilePasswordUpdateSchema.parseAsync(inputs)) {
           const { oldPassword, password } = inputs
 
           const user = await prisma.user.findFirst({
             where: { id },
           })
-          if (!user) return new Response('user not found', { status: 403 })
+          if (!user) return new Response('user not found', { status: 404 })
 
           const comparePassword = compareSync(
             oldPassword,

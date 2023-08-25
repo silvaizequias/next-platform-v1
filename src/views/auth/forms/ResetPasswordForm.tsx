@@ -1,5 +1,5 @@
 import { AuthResetPassword, AuthResetPasswordType } from '@/schemas/auth'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, FormControl, FormHelperText, TextField } from '@mui/material'
 import axios from 'axios'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
@@ -11,7 +11,7 @@ export default function ResetPasswordForm() {
     formState: { errors },
   } = useForm<AuthResetPasswordType>({
     mode: 'onChange',
-    resolver: yupResolver(AuthResetPassword),
+    resolver: zodResolver(AuthResetPassword),
   })
 
   const onSubmit: SubmitHandler<AuthResetPasswordType> = async (inputs, e) => {

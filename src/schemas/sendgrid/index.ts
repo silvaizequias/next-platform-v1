@@ -1,13 +1,10 @@
-import * as yup from 'yup'
+import * as z from 'zod'
 
-export const SendGridEmailSchema = yup
-  .object()
-  .shape({
-    sendTo: yup.string().email().required(),
-    fromEmail: yup.string().email().required(),
-    subjectMessage: yup.string().max(50).required(),
-    textMessage: yup.string().required(),
-  })
-  .required()
+export const SendGridEmailSchema = z.object({
+  sendTo: z.string().email(),
+  fromEmail: z.string().email(),
+  subjectMessage: z.string().max(50),
+  textMessage: z.string(),
+})
 
-export type SendGridEmailSchemaType = yup.InferType<typeof SendGridEmailSchema>
+export type SendGridEmailSchemaType = z.infer<typeof SendGridEmailSchema>

@@ -10,7 +10,7 @@ export const POST = async (request: Request) => {
   try {
     await prisma.$connect()
     return await request.json().then(async (inputs: AuthSignUpSchemaType) => {
-      if (await AuthSignUpSchema.validate(inputs)) {
+      if (await AuthSignUpSchema.parseAsync(inputs)) {
         const { phone, email } = inputs
         const userPhone = await prisma.user.findFirst({
           where: { phone: phone },

@@ -1,6 +1,5 @@
 import { prisma } from '@/libraries/prisma'
 import { UserUpdateSchema, UserUpdateSchemaType } from '@/schemas/user'
-import { Prisma } from '@prisma/client'
 
 export const GET = async (
   request: Request,
@@ -11,7 +10,7 @@ export const GET = async (
   try {
     await prisma.$connect()
     return new Response(
-      JSON.stringify(await prisma.user.findUnique({ where: { id } })),
+      JSON.stringify(await prisma.user.findFirst({ where: { id } })),
     )
   } catch (error: any) {
     return new Response(error?.message || error, { status: 400 })
@@ -30,13 +29,11 @@ export const PATCH = async (
     await prisma.$connect()
 
     return await request.json().then(async (inputs: UserUpdateSchemaType) => {
-      if (UserUpdateSchema.validateSync(inputs)) {
-        const data: Prisma.UserUpdateInput = {
-          ...inputs,
-        }
-
+      if (await UserUpdateSchema.parseAsync(inputs)) {
         return new Response(
-          JSON.stringify(await prisma.user.update({ where: { id }, data })),
+          JSON.stringify(
+            await prisma.user.update({ where: { id }, data: inputs }),
+          ),
         )
       }
     })
