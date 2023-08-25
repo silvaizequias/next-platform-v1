@@ -4,7 +4,7 @@ export const OpenAiCompletionSchema = yup
   .object()
   .shape({
     content: yup.string().min(10).required(),
-    maxTokens: yup.number().positive().max(30).required(),
+    maxTokens: yup.number().positive().max(100).required(),
   })
   .required()
 
