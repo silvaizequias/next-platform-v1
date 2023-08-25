@@ -1,3 +1,5 @@
+import { ContractType } from "@/views/contracts/types"
+
 export type UserType = {
   id: string
   createdAt: Date
@@ -22,5 +24,6 @@ export type UserType = {
   district: string
   city: string
   state: string
+  contracts: ContractType[]
 }
 

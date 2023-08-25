@@ -1,5 +1,9 @@
 export type ProfileType = {
   id: string
+  createdAt: Date
+  updatedAt: Date
+  deletedAt: Date
+  softDeleted: boolean
   avatar: string
   name: string
   email: string

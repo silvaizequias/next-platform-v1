@@ -3,11 +3,15 @@
 import { useFetch } from '@/hooks/useFetch'
 import { SessionProps } from '@/types'
 import { Fragment } from 'react'
-import { UserType } from './types'
+import { InvoiceType } from './types'
 
-export default function UsersView(props: SessionProps) {
+export default function InvoicesView(props: SessionProps) {
   const { user }: any = props?.session?.user
-  const { data: users, error, mutate } = useFetch<UserType[]>(`/api/users`)
+  const {
+    data: invoices,
+    error,
+    mutate,
+  } = useFetch<InvoiceType[]>(`/api/invoices`)
 
   return <Fragment>...</Fragment>
 }

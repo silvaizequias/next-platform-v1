@@ -1,22 +1,16 @@
 import { authOptions } from '@/libraries/next-auth'
-import ProfileView from '@/views/profile/ProfileView'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
-  title: 'Perfil :: Dedicado Digital',
+  title: 'Gestão de Serviços :: Dedicado Digital',
   description: 'Sistema Dedicado Personalizado',
 }
 
-export default async function ProfilePage() {
+export default async function ServiceManagementPage() {
   const session = await getServerSession(authOptions)
+  const { user }: any = session?.user
 
-  return session ? (
-    <main>
-      <ProfileView session={session!} />
-    </main>
-  ) : (
-    redirect('/')
-  )
+  return session && user?.role == 'MASTER' ? <main>...</main> : redirect('/')
 }

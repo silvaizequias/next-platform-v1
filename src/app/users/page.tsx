@@ -5,11 +5,11 @@ import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
-  title: 'Usuários do Sistema :: Dedicado Digital',
+  title: 'Gestão de Usuários :: Dedicado Digital',
   description: 'Sistema Dedicado Personalizado',
 }
 
-export default async function ManagerUsers() {
+export default async function UserManagementPage() {
   const session = await getServerSession(authOptions)
   const { user }: any = session?.user
 
