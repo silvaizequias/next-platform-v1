@@ -15,6 +15,10 @@ enum UserRole {
   GUEST
 }
 
+enum ServiceSolution {
+  NONE
+}
+
 enum DocType {
   CPF
   CNPJ
@@ -22,6 +26,32 @@ enum DocType {
   CNH
   CTPS
   PASSPORT
+}
+
+enum ContractStatus {
+  ACTIVE
+  SUSPENDED
+  FINISHED
+  CANCELED
+}
+
+enum ContractPeriod {
+  MONTHLY
+  QUARTERLY
+  SEMESTERLY
+  YEARLY
+}
+
+enum ContractPayment {
+  CARD
+  ORDER
+  PIX
+}
+
+enum InvoceStatus {
+  PENDING
+  INVOICED
+  CANCELED
 }
 
 model User {
@@ -45,7 +75,7 @@ model User {
   docType DocType? @default(CPF) @map("doc_type")
   docCode String?  @unique @map("doc_code")
 
-  zipCode    String? @map("zip_code")
+  zipCode    String?    @map("zip_code")
   street     String?
   number     String?
   complement String?
@@ -53,6 +83,79 @@ model User {
   district   String?
   city       String?
   state      String?
+  contracts  Contract[]
 
   @@map("users")
+}
+
+model Service {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at") @db.Date
+  softDeleted Boolean?  @default(false) @map("soft_deleted")
+
+  isActive    Boolean?         @default(false) @map("is_active")
+  serviceCode String?          @unique @map("service_code")
+  name        String?
+  solution    ServiceSolution?
+  description String?
+  price       Decimal?         @default(0) @db.Decimal(5, 2)
+  contracts   Contract[]
+
+  @@map("services")
+}
+
+model Contract {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at") @db.Date
+  softDeleted Boolean?  @default(false) @map("soft_deleted")
+
+  userId    String  @map("user_id")
+  user      User    @relation(fields: [userId], references: [id])
+  serviceId String  @map("service_id")
+  service   Service @relation(fields: [serviceId], references: [id])
+
+  contractCode String?          @unique @map("contract_code")
+  status       ContractStatus?  @default(ACTIVE)
+  description  String?
+  note         String?
+  startedIn    DateTime?        @map("started_in")
+  period       ContractPeriod?  @default(MONTHLY)
+  endedIn      DateTime?        @map("ended_in")
+  payment      ContractPayment? @default(PIX)
+  discount     Decimal?         @default(0) @db.Decimal(5, 2)
+  invoices     Invoice[]
+
+  @@index([userId])
+  @@index([serviceId])
+  @@map("contracts")
+}
+
+model Invoice {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at") @db.Date
+  softDeleted Boolean?  @default(false) @map("soft_deleted")
+
+  contractId String   @map("contractId")
+  contract   Contract @relation(fields: [contractId], references: [id])
+
+  invoiceCode String?       @unique @map("invoice_code")
+  barCode     String?       @unique @map("bar_code")
+  qrCode      String?       @map("qr_code")
+  status      InvoceStatus? @default(PENDING)
+  description String?
+  note        String?
+  tax         Decimal?      @default(0) @db.Decimal(5, 2)
+  amount      Decimal?      @default(0) @db.Decimal(5, 2)
+  payUpTo     DateTime?     @map("pay_up_to") @db.Date
+  wasPaid     Boolean?      @default(false) @map("was_paid")
+  paidAt      DateTime?     @map("paid_at") @db.Date
+
+  @@index([contractId])
+  @@map("invoices")
 }
