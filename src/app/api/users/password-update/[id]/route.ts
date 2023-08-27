@@ -28,7 +28,7 @@ export const PATCH = async (
         }
       })
   } catch (error: any) {
-    return new Response(JSON.stringify(error?.message || error), {
+    return new Response(error?.message || error , {
       status: 400,
     })
   } finally {
