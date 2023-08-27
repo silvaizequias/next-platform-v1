@@ -1,14 +1,14 @@
 'use client'
 
 import { SessionProps } from '@/types'
-import { Fragment } from 'react'
+import { Container } from '@mui/material'
 
 export default function AccountView(props: SessionProps) {
   const { user }: any = props.session?.user
 
   return (
-    <Fragment>
+    <Container maxWidth="xl">
       {user?.name}
-    </Fragment>
+    </Container>
   )
 }

@@ -5,7 +5,7 @@ import NavMenu from '../NavMenu'
 import { blue } from '@mui/material/colors'
 
 export default function DrawerNavBar(props: DrawerNavBarProps) {
-  const { open, onClose } = props
+  const { open, onClose, session } = props
 
   const handleClose = () => {
     onClose()
@@ -45,7 +45,7 @@ export default function DrawerNavBar(props: DrawerNavBarProps) {
         </IconButton>
       </Box>
       <Box sx={{ display: 'flex', flexDirection: 'column', py: 2 }}>
-        <NavMenu onClose={handleClose} />
+        <NavMenu onClose={handleClose} session={session} />
       </Box>
     </Drawer>
   )

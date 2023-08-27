@@ -2,8 +2,8 @@
 
 import { useFetch } from '@/hooks/useFetch'
 import { SessionProps } from '@/types'
-import { Fragment } from 'react'
 import { InvoiceType } from './types'
+import { Container } from '@mui/material'
 
 export default function InvoicesView(props: SessionProps) {
   const { user }: any = props?.session?.user
@@ -13,5 +13,5 @@ export default function InvoicesView(props: SessionProps) {
     mutate,
   } = useFetch<InvoiceType[]>(`/api/invoices`)
 
-  return <Fragment>...</Fragment>
+  return <Container maxWidth='xl'>{user?.name}</Container>
 }

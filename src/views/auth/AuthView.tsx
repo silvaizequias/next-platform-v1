@@ -45,8 +45,8 @@ export default function AuthView() {
             py: 4,
           }}
         >
-          <Typography variant='h4' color='white' textTransform='uppercase'>
-            Sistema Dedicado Digital
+          <Typography variant='h4' color='white' textTransform='uppercase' text-align='center'>
+            Dedicado Digital
           </Typography>
         </Box>
         <Card sx={{ zIndex: 1 }}>

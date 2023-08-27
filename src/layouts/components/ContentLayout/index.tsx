@@ -1,5 +1,5 @@
 import { LayoutProps } from '@/types'
-import { Box, Container } from '@mui/material'
+import { Box } from '@mui/material'
 
 export default function ContentLayout(props: LayoutProps) {
   const { children } = props

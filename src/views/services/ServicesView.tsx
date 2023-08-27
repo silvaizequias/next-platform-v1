@@ -2,8 +2,8 @@
 
 import { useFetch } from '@/hooks/useFetch'
 import { SessionProps } from '@/types'
-import { Fragment } from 'react'
 import { ServiceType } from './types'
+import { Container } from '@mui/material'
 
 export default function ServicesView(props: SessionProps) {
   const { user }: any = props?.session?.user
@@ -13,5 +13,5 @@ export default function ServicesView(props: SessionProps) {
     mutate,
   } = useFetch<ServiceType[]>(`/api/services`)
 
-  return <Fragment>...</Fragment>
+  return <Container maxWidth='xl'>{user?.name}</Container>
 }

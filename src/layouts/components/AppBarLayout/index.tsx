@@ -16,14 +16,16 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import {
   MdOutlineLogout,
-  MdPermContactCalendar,
   MdMenu,
   MdLensBlur,
+  MdBadge,
 } from 'react-icons/md'
 import DrawerNavBar from '../DrawerNavBar'
 import { blue } from '@mui/material/colors'
+import { SessionProps } from '@/types'
 
-export default function AppBarLayout() {
+export default function AppBarLayout(props: SessionProps) {
+  const { session }: any = props
   const [openNavBar, setOpenNavBar] = useState<boolean>(false)
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
   const router = useRouter()
@@ -77,7 +79,11 @@ export default function AppBarLayout() {
               </Tooltip>
             </Box>
           </Box>
-          <DrawerNavBar open={openNavBar} onClose={handleNavBar} />
+          <DrawerNavBar
+            open={openNavBar}
+            onClose={handleNavBar}
+            session={session}
+          />
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title='Abrir'>
@@ -102,7 +108,7 @@ export default function AppBarLayout() {
             >
               <MenuItem onClick={() => handleUserMenu('/profile')}>
                 <ListItemIcon>
-                  <MdPermContactCalendar />
+                  <MdBadge />
                 </ListItemIcon>
                 <ListItemText>Perfil</ListItemText>
               </MenuItem>

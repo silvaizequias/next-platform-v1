@@ -1,4 +1,5 @@
 import { authOptions } from '@/libraries/next-auth'
+import ServicesView from '@/views/services/ServicesView'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
@@ -12,5 +13,11 @@ export default async function ServiceManagementPage() {
   const session = await getServerSession(authOptions)
   const { user }: any = session?.user
 
-  return session && user?.role == 'MASTER' ? <main>...</main> : redirect('/')
+  return session && user?.role == 'MASTER' ? (
+    <main>
+      <ServicesView session={session} />
+    </main>
+  ) : (
+    redirect('/')
+  )
 }

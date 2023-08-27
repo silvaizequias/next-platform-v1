@@ -9,13 +9,13 @@ import Spinner from '@/components/Spinner'
 
 export default function AppLayout(props: LayoutProps) {
   const { children } = props
-  const { status } = useSession()
+  const { data: session, status } = useSession()
 
   return status === 'loading' ? (
     <Spinner />
   ) : (
     <Fragment>
-      {status === 'authenticated' && <AppBarLayout />}
+      {status === 'authenticated' && <AppBarLayout session={session} />}
       <ContentLayout>{children}</ContentLayout>
     </Fragment>
   )
