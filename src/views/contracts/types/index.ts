@@ -23,3 +23,7 @@ export type ContractType = {
   discount: number
   invoices: InvoiceType[]
 }
+
+export interface ContractDataGridProps {
+  contracts: ContractType[]
+}

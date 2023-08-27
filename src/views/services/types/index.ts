@@ -1,4 +1,4 @@
-import { ContractType } from "@/views/contracts/types"
+import { ContractType } from '@/views/contracts/types'
 
 export type ServiceType = {
   id: string
@@ -15,6 +15,10 @@ export type ServiceType = {
   contracts: ContractType[]
 }
 
-export interface ServicesProps {
+export interface ServiceDataGridProps {
   services: ServiceType[]
+}
+
+export interface ServiceCreateFormProps {
+  onClose: () => void
 }

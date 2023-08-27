@@ -17,6 +17,10 @@ export type InvoiceType = {
   paidAt: Date
 }
 
-export interface InvocesProps {
+export interface InvoiceDataGridProps {
   invoices: InvoiceType[]
+}
+
+export interface InvoiceCreateFormProps {
+  onClose: () => void
 }
