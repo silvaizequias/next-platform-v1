@@ -4,23 +4,23 @@ const ROLE = ['MASTER', 'MEMBER', 'CUSTOMER', 'GUEST'] as const
 const DOC_TYPE = ['CPF', 'CNPJ', 'RG', 'CNH', 'CTPS', 'PASSPORT'] as const
 
 export const UserCreateSchema = z.object({
-  isVerified: z.boolean().default(false),
-  isActive: z.boolean().default(false),
+  isVerified: z.boolean().default(false).optional(),
+  isActive: z.boolean().default(false).optional(),
   role: z.enum(ROLE),
-  avatar: z.string(),
+  avatar: z.string().optional(),
   name: z.string(),
   email: z.string().email(),
   phone: z.string().length(11),
-  docType: z.enum(DOC_TYPE),
-  docCode: z.string(),
-  zipCode: z.string().length(8),
-  street: z.string(),
-  number: z.string(),
-  complement: z.string(),
-  zone: z.string(),
-  district: z.string(),
-  city: z.string(),
-  state: z.string(),
+  docType: z.enum(DOC_TYPE).default('CPF').optional(),
+  docCode: z.string().optional(),
+  zipCode: z.string().length(8).optional(),
+  street: z.string().optional(),
+  number: z.string().optional(),
+  complement: z.string().optional(),
+  zone: z.string().optional(),
+  district: z.string().optional(),
+  city: z.string().optional(),
+  state: z.string().optional(),
 })
 
 export type UserCreateSchemaType = z.infer<typeof UserCreateSchema>
