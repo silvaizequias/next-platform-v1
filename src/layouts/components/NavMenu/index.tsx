@@ -2,7 +2,13 @@ import MenuList from '@mui/material/MenuList'
 import MenuItem from '@mui/material/MenuItem'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemIcon from '@mui/material/ListItemIcon'
-import { MdGroups, MdPayments, MdRecentActors, MdWindow } from 'react-icons/md'
+import {
+  MdGroups,
+  MdPayments,
+  MdRecentActors,
+  MdViewInAr,
+  MdWindow,
+} from 'react-icons/md'
 import { useRouter } from 'next/navigation'
 import { NavMenuProps } from '../types'
 import { Fragment } from 'react'
@@ -30,6 +36,12 @@ export default function NavMenu(props: NavMenuProps) {
       {user?.role == 'MASTER' && (
         <Fragment>
           <Divider />
+          <MenuItem onClick={() => handleNavigation('/services')}>
+            <ListItemIcon>
+              <MdViewInAr />
+            </ListItemIcon>
+            <ListItemText>Serviços</ListItemText>
+          </MenuItem>
           <MenuItem onClick={() => handleNavigation('/users')}>
             <ListItemIcon>
               <MdGroups />
