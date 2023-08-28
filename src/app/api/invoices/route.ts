@@ -20,9 +20,10 @@ export const POST = async (request: Request) => {
       .json()
       .then(async (inputs: InvoiceCreateSchemaType) => {
         if (await InvoiceCreateSchema.parseAsync(inputs)) {
+          const { contractCode } = inputs
           const contract = await prisma.contract.findFirst({
             where: {
-              contractCode: inputs?.contractCode,
+              contractCode: contractCode,
             },
           })
           if (!contract)
@@ -34,7 +35,7 @@ export const POST = async (request: Request) => {
             ...inputs,
             contract: {
               connect: {
-                contractCode: inputs?.contractCode,
+                contractCode: contractCode,
               },
             },
           }

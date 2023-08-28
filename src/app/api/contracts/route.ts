@@ -24,13 +24,15 @@ export const POST = async (request: Request) => {
       .json()
       .then(async (inputs: ContractCreateSchemaType) => {
         if (await ContractCreateSchema.parseAsync(inputs)) {
+          const { userPhone, serviceCode } = inputs
+
           const user = await prisma.user.findFirst({
-            where: { phone: inputs?.userPhone },
+            where: { phone: userPhone },
           })
           if (!user) return new Response('user not found', { status: 404 })
 
           const service = await prisma.service.findFirst({
-            where: { serviceCode: inputs?.serviceCode },
+            where: { serviceCode: serviceCode },
           })
           if (!service)
             return new Response('service not found', { status: 404 })
@@ -42,12 +44,12 @@ export const POST = async (request: Request) => {
             ...inputs,
             user: {
               connect: {
-                phone: inputs?.userPhone,
+                phone: userPhone,
               },
             },
             service: {
               connect: {
-                serviceCode: inputs?.serviceCode,
+                serviceCode: serviceCode,
               },
             },
           }
