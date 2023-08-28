@@ -4,7 +4,7 @@ import {
   UserPasswordUpdateSchemaType,
 } from '@/schemas/user'
 import { Prisma } from '@prisma/client'
-import { compareSync, hash } from 'bcrypt'
+import { hash } from 'bcrypt'
 
 export const PATCH = async (
   request: Request,

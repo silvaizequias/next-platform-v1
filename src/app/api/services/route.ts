@@ -6,7 +6,9 @@ export const GET = async (request: Request) => {
     await prisma.$connect()
     return new Response(JSON.stringify(await prisma.service.findMany()))
   } catch (error: any) {
-    return new Response(error?.message || error, { status: 400 })
+    return new Response(error?.message || error, {
+      status: 400,
+    })
   } finally {
     await prisma.$disconnect()
   }
@@ -25,7 +27,9 @@ export const POST = async (request: Request) => {
         }
       })
   } catch (error: any) {
-    return new Response(error?.message || error, { status: 400 })
+    return new Response(error?.message || error, {
+      status: 400,
+    })
   } finally {
     await prisma.$disconnect()
   }

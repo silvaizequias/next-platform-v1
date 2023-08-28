@@ -13,7 +13,9 @@ export const GET = async (
       JSON.stringify(await prisma.user.findFirst({ where: { id } })),
     )
   } catch (error: any) {
-    return new Response(error?.message || error, { status: 400 })
+    return new Response(error?.message || error, {
+      status: 400,
+    })
   } finally {
     await prisma.$disconnect()
   }
@@ -39,7 +41,7 @@ export const PATCH = async (
         }
       })
   } catch (error: any) {
-    return new Response(JSON.stringify(error?.message || error), {
+    return new Response(error?.message || error, {
       status: 400,
     })
   } finally {
