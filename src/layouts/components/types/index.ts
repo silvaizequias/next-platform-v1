@@ -1,12 +1,12 @@
-import { Session } from 'next-auth'
+import { ProfileType } from '@/views/profile/types'
 
 export interface DrawerNavBarProps {
   open: boolean
   onClose: () => void
-  session?: Session | null
+  profile?: ProfileType
 }
 
 export interface NavMenuProps {
   onClose: () => void
-  session?: Session | null
+  profile?: ProfileType
 }

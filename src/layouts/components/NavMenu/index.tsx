@@ -16,7 +16,7 @@ import { Divider } from '@mui/material'
 
 export default function NavMenu(props: NavMenuProps) {
   const { onClose } = props
-  const { user }: any = props.session?.user
+  const { profile }: any = props
   const router = useRouter()
 
   const handleNavigation = (url: string) => {
@@ -33,7 +33,7 @@ export default function NavMenu(props: NavMenuProps) {
         <ListItemText>Início</ListItemText>
       </MenuItem>
 
-      {user?.role == 'MASTER' && (
+      {profile?.role == 'MASTER' && (
         <Fragment>
           <Divider />
           <MenuItem onClick={() => handleNavigation('/services')}>

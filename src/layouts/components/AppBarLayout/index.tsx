@@ -14,18 +14,16 @@ import {
 import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import {
-  MdOutlineLogout,
-  MdMenu,
-  MdLensBlur,
-  MdBadge,
-} from 'react-icons/md'
+import { MdOutlineLogout, MdMenu, MdLensBlur, MdBadge } from 'react-icons/md'
 import DrawerNavBar from '../DrawerNavBar'
 import { blue } from '@mui/material/colors'
 import { SessionProps } from '@/types'
+import { useFetch } from '@/hooks/useFetch'
 
 export default function AppBarLayout(props: SessionProps) {
-  const { session }: any = props
+  const { user }: any = props?.session?.user
+  const { data: profile, error, mutate } = useFetch(`/api/profile/${user?.id}`)
+
   const [openNavBar, setOpenNavBar] = useState<boolean>(false)
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
   const router = useRouter()
@@ -63,6 +61,7 @@ export default function AppBarLayout(props: SessionProps) {
                 sx={{ cursor: 'pointer', bgcolor: blue[500] }}
                 alt='Dedicado Digital'
                 variant='rounded'
+                onClick={() => handleUserMenu('/')}
               >
                 <MdLensBlur />
               </Avatar>
@@ -82,7 +81,7 @@ export default function AppBarLayout(props: SessionProps) {
           <DrawerNavBar
             open={openNavBar}
             onClose={handleNavBar}
-            session={session}
+            profile={profile}
           />
 
           <Box sx={{ flexGrow: 0 }}>
@@ -92,7 +91,10 @@ export default function AppBarLayout(props: SessionProps) {
                 size='small'
                 onClick={handleOpenUserMenu}
               >
-                <Avatar alt='' src='/avatar.png' />
+                <Avatar
+                  alt={profile?.name}
+                  src={profile?.avatar || '/avatar.png'}
+                />
               </IconButton>
             </Tooltip>
 

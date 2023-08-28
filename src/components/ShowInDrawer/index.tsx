@@ -1,7 +1,7 @@
-import { Box, Drawer, IconButton, Typography } from '@mui/material'
+import { Box, Drawer, IconButton, Tooltip, Typography } from '@mui/material'
 import { ShowInDrawerProps } from './types'
-import { blue } from '@mui/material/colors'
-import { MdClear } from 'react-icons/md'
+import { blue, red } from '@mui/material/colors'
+import { MdDisabledByDefault } from 'react-icons/md'
 
 export default function ShowInDrawer(props: ShowInDrawerProps) {
   const { children, onClose, open, title } = props
@@ -31,13 +31,11 @@ export default function ShowInDrawer(props: ShowInDrawerProps) {
         <Typography variant='h6' color={'white'}>
           {title}
         </Typography>
-        <IconButton
-          size='small'
-          onClick={handleClose}
-          sx={{ color: 'text.secondary' }}
-        >
-          <MdClear />
-        </IconButton>
+        <Tooltip title='Fechar'>
+          <IconButton sx={{ p: 0, color: red[500] }} onClick={onClose}>
+            <MdDisabledByDefault />
+          </IconButton>
+        </Tooltip>
       </Box>
       <Box sx={{ display: 'flex', flexDirection: 'column', p: 1.5 }}>
         {children}

@@ -23,3 +23,8 @@ export type ProfileType = {
 export interface ProfileProps {
   profile: ProfileType
 }
+
+export interface ProfileImageUploadFormProps {
+  onClose: () => void
+  profile: ProfileType
+}
