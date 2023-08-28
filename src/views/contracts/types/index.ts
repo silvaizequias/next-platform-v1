@@ -27,3 +27,7 @@ export type ContractType = {
 export interface ContractDataGridProps {
   contracts: ContractType[]
 }
+
+export interface ContractCreateFormProps {
+  onClose: () => void
+}

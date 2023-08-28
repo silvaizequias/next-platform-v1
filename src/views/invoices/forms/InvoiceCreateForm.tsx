@@ -9,11 +9,13 @@ import {
   Select,
   TextField,
 } from '@mui/material'
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import axios from 'axios'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { InvoiceCreateFormProps } from '../types'
 import { useFetch } from '@/hooks/useFetch'
-import { Fragment, useState } from 'react'
+import { useState } from 'react'
 import { ContractType } from '@/views/contracts/types'
 
 export default function InvoiceCreateForm(props: InvoiceCreateFormProps) {
@@ -113,15 +115,14 @@ export default function InvoiceCreateForm(props: InvoiceCreateFormProps) {
           control={control}
           rules={{ required: true }}
           render={({ field: { value, onChange, onBlur } }) => (
-            <TextField
-              autoFocus
-              label={'Pagar até'}
-              value={value}
-              onBlur={onBlur}
-              onChange={onChange}
-              error={Boolean(errors.payUpTo)}
-              placeholder='Valor'
-            />
+            <LocalizationProvider dateAdapter={AdapterMoment}>
+              <DatePicker
+                autoFocus
+                label={'Pagar até'}
+                value={value}
+                onChange={onChange}
+              />
+            </LocalizationProvider>
           )}
         />
         {errors.payUpTo && (
