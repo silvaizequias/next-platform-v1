@@ -45,7 +45,7 @@ export default function ContractsView(props: SessionProps) {
               open={openDrawer}
               title={'Criar Contrato'}
             >
-              <ContractCreateForm />
+              <ContractCreateForm onClose={handleDrawer} />
             </ShowInDrawer>
             <CardContent>
               <Suspense fallback={'... carregando dados!'}>

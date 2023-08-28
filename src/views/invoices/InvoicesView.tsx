@@ -50,7 +50,7 @@ export default function InvoicesView(props: SessionProps) {
               open={openDrawer}
               title={'Criar Fatura'}
             >
-              <InvoiceCreateForm />
+              <InvoiceCreateForm onClose={handleDrawer} />
             </ShowInDrawer>
             <CardContent>
               <Suspense fallback={'... carregando dados!'}>
