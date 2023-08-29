@@ -10,7 +10,22 @@ export const GET = async (
   try {
     await prisma.$connect()
     return new Response(
-      JSON.stringify(await prisma.user.findFirst({ where: { id } })),
+      JSON.stringify(
+        await prisma.user.findFirst({
+          where: { id },
+          include: {
+            contracts: {
+              select: {
+                id: true,
+                contractCode: true,
+                status: true,
+                service: true,
+                invoices: true,
+              },
+            },
+          },
+        }),
+      ),
     )
   } catch (error: any) {
     return new Response(error?.message || error, {

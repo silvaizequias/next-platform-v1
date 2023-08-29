@@ -4,9 +4,25 @@ import { UserCreateSchema, UserCreateSchemaType } from '@/schemas/user'
 export const GET = async (request: Request) => {
   try {
     await prisma.$connect()
-    return new Response(JSON.stringify(await prisma.user.findMany()))
+    return new Response(
+      JSON.stringify(
+        await prisma.user.findMany({
+          include: {
+            contracts: {
+              select: {
+                id: true,
+                contractCode: true,
+                status: true,
+                service: true,
+                invoices: true,
+              },
+            },
+          },
+        }),
+      ),
+    )
   } catch (error: any) {
-    return new Response(error?.message || error , {
+    return new Response(error?.message || error, {
       status: 400,
     })
   } finally {
@@ -26,7 +42,7 @@ export const POST = async (request: Request) => {
       }
     })
   } catch (error: any) {
-    return new Response(error?.message || error , {
+    return new Response(error?.message || error, {
       status: 400,
     })
   } finally {

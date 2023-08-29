@@ -10,7 +10,28 @@ export const GET = async (
     await prisma.$connect()
 
     return new Response(
-      JSON.stringify(await prisma.invoice.findFirst({ where: { id } })),
+      JSON.stringify(
+        await prisma.invoice.findFirst({
+          where: { id },
+          include: {
+            contract: {
+              select: {
+                id: true,
+                contractCode: true,
+                service: true,
+                user: {
+                  select: {
+                    id: true,
+                    isActive: true,
+                    name: true,
+                    phone: true,
+                  },
+                },
+              },
+            },
+          },
+        }),
+      ),
     )
   } catch (error: any) {
     return new Response(error?.message || error, { status: 400 })

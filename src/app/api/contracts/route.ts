@@ -9,7 +9,32 @@ export const GET = async (request: Request) => {
   try {
     await prisma.$connect()
 
-    return new Response(JSON.stringify(await prisma.contract.findMany()))
+    return new Response(
+      JSON.stringify(
+        await prisma.contract.findMany({
+          include: {
+            user: {
+              select: {
+                id: true,
+                phone: true,
+                email: true,
+                isActive: true,
+                name: true,
+              },
+            },
+            invoices: {
+              select: {
+                id: true,
+                invoiceCode: true,
+                amount: true,
+                status: true,
+              },
+            },
+            service: true,
+          },
+        }),
+      ),
+    )
   } catch (error: any) {
     return new Response(error?.message || error, { status: 400 })
   } finally {

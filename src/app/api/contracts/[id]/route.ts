@@ -16,6 +16,11 @@ export const GET = async (
       JSON.stringify(
         await prisma.contract.findFirst({
           where: { id },
+          include: {
+            user: true,
+            invoices: true,
+            service: true,
+          },
         }),
       ),
     )
