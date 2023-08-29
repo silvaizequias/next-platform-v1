@@ -1,3 +1,5 @@
+'use client'
+
 import {
   AppBar,
   Avatar,
@@ -20,7 +22,7 @@ import { blue } from '@mui/material/colors'
 import { SessionProps } from '@/types'
 import { useFetch } from '@/hooks/useFetch'
 
-export default function AppBarLayout(props: SessionProps) {
+export default function TopBar(props: SessionProps) {
   const { user }: any = props?.session?.user
   const { data: profile, error, mutate } = useFetch(`/api/profile/${user?.id}`)
 

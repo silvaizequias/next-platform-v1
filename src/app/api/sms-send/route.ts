@@ -8,7 +8,7 @@ export const POST = async (request: Request) => {
         const data: TwilioProps = {
           messageBody: inputs.messageBody,
           sendTo: inputs.sendTo,
-          fromPhone: inputs.fromPhone,
+          fromPhone: inputs.fromPhone!,
         }
         return new Response(JSON.stringify(await SendSMS(data)))
       }

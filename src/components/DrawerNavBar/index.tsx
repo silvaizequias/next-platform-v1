@@ -1,8 +1,8 @@
 import { Avatar, Box, Drawer, IconButton } from '@mui/material'
-import { DrawerNavBarProps } from '../types'
 import { MdClear, MdLensBlur } from 'react-icons/md'
 import NavMenu from '../NavMenu'
 import { blue } from '@mui/material/colors'
+import { DrawerNavBarProps } from './types'
 
 export default function DrawerNavBar(props: DrawerNavBarProps) {
   const { open, onClose, profile } = props

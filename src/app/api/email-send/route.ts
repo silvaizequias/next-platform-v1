@@ -13,7 +13,7 @@ export const POST = async (request: Request) => {
         if (await SendGridEmailSchema.parseAsync(inputs)) {
           const data: SendGridProps = {
             sendTo: inputs.sendTo,
-            fromEmail: inputs.fromEmail,
+            fromEmail: inputs.fromEmail!,
             subjectMessage: inputs.subjectMessage,
             textMessage: inputs.textMessage,
           }
