@@ -1,7 +1,8 @@
 import DataTable from '@/components/DataTable'
 import { InvoiceDataGridProps } from './types'
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
-import { Box, Chip } from '@mui/material'
+import { Box } from '@mui/material'
+import { Suspense } from 'react'
 
 export default function InvoiceDataGrid(props: InvoiceDataGridProps) {
   const { invoices } = props
@@ -68,5 +69,9 @@ export default function InvoiceDataGrid(props: InvoiceDataGridProps) {
     },
   ]
 
-  return <DataTable data={invoices!} columns={columns} />
+  return (
+    <Suspense>
+      <DataTable data={invoices!} columns={columns} />
+    </Suspense>
+  )
 }

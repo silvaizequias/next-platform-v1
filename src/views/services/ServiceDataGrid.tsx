@@ -2,6 +2,7 @@ import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { ServiceDataGridProps } from './types'
 import DataTable from '@/components/DataTable'
 import { Box, Chip } from '@mui/material'
+import { Suspense } from 'react'
 
 export default function ServiceDataGrid(props: ServiceDataGridProps) {
   const { services } = props
@@ -80,5 +81,9 @@ export default function ServiceDataGrid(props: ServiceDataGridProps) {
     },
   ]
 
-  return <DataTable data={services!} columns={columns} />
+  return (
+    <Suspense>
+      <DataTable data={services!} columns={columns} />
+    </Suspense>
+  )
 }

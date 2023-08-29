@@ -1,3 +1,5 @@
+import { ContractType } from "@/views/contracts/types"
+
 export type ProfileType = {
   id: string
   createdAt: Date
@@ -18,6 +20,7 @@ export type ProfileType = {
   district: string
   city: string
   state: string
+  contracts: ContractType[]
 }
 
 export interface ProfileProps {

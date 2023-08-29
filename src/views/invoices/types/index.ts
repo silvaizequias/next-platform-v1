@@ -1,9 +1,13 @@
+import { ContractType } from '@/views/contracts/types'
+
 export type InvoiceType = {
   id: string
   createdAt: Date
   updatedAt: Date
   deletedAt: Date
   softDeleted: boolean
+  contractId: string
+  contract: ContractType
   invoiceCode: string
   barCode: string
   qrCode: string

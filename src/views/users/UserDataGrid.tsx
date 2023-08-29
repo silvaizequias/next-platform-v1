@@ -2,6 +2,7 @@ import DataTable from '@/components/DataTable'
 import { Avatar, Box, Chip, Typography } from '@mui/material'
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { UserDataGridProps } from './types'
+import { Suspense } from 'react'
 
 export default function UserDataGrid(props: UserDataGridProps) {
   const { users } = props
@@ -77,5 +78,9 @@ export default function UserDataGrid(props: UserDataGridProps) {
     },
   ]
 
-  return <DataTable data={users} columns={columns} />
+  return (
+    <Suspense>
+      <DataTable data={users} columns={columns} />
+    </Suspense>
+  )
 }

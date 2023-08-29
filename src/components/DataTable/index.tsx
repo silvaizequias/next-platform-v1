@@ -10,14 +10,14 @@ export default function DataTable(props: DataTableProps) {
     const userData = async () => {
       setRows(data!)
     }
-    if (data) {
+    if (data!) {
       userData()
     }
   }, [data])
 
   return (
     <DataGrid
-      getRowId={(row) => row.id}
+      getRowId={(row) => row?.id!}
       rows={rows!}
       columns={columns!}
       disableColumnSelector

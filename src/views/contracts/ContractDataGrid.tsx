@@ -2,6 +2,7 @@ import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { ContractDataGridProps } from './types'
 import DataTable from '@/components/DataTable'
 import { Box } from '@mui/material'
+import { Suspense } from 'react'
 
 export default function ContractDataGrid(props: ContractDataGridProps) {
   const { contracts } = props
@@ -54,5 +55,9 @@ export default function ContractDataGrid(props: ContractDataGridProps) {
     },
   ]
 
-  return <DataTable data={contracts!} columns={columns} />
+  return (
+    <Suspense>
+      <DataTable data={contracts!} columns={columns} />
+    </Suspense>
+  )
 }
