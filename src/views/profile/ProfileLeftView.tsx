@@ -1,5 +1,6 @@
 import {
   Badge,
+  Box,
   Card,
   CardContent,
   CardMedia,
@@ -12,7 +13,7 @@ import ShowInDialog from '@/components/ShowInDialog'
 import ProfileImageUploadForm from './forms/ProfileImageUploadForm'
 import { useState } from 'react'
 import { MdWifiProtectedSetup } from 'react-icons/md'
-import { blue } from '@mui/material/colors'
+import { blue, grey } from '@mui/material/colors'
 
 export default function ProfileLeftView(props: ProfileProps) {
   const { profile } = props
@@ -24,45 +25,39 @@ export default function ProfileLeftView(props: ProfileProps) {
   }
 
   return (
-    <Card>
-      <Card
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          p: 4,
-        }}
-      >
-        <Badge
-          overlap='rectangular'
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-          badgeContent={
-            <Tooltip title='Atualizar Imagem'>
-              <IconButton
-                sx={{ p: 0, color: blue[500], fontSize: 36 }}
-                onClick={handleDialog}
-              >
-                <MdWifiProtectedSetup />
-              </IconButton>
-            </Tooltip>
-          }
-        >
-          <CardMedia
-            component='img'
-            height='200'
-            alt={profile?.name}
-            image={profile?.avatar || '/avatar.png'}
-          />
-        </Badge>
-
+    <Box sx={{ width: '100%', typography: 'body1' }}>
+      <Card>
         <CardContent>
-          <Typography gutterBottom variant='h5' component='div'>
+          <Badge
+            overlap='rectangular'
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            badgeContent={
+              <Tooltip title='Atualizar Imagem'>
+                <IconButton
+                  sx={{ p: 0, color: blue[500], fontSize: 36 }}
+                  onClick={handleDialog}
+                >
+                  <MdWifiProtectedSetup />
+                </IconButton>
+              </Tooltip>
+            }
+          >
+            <CardMedia
+              component='img'
+              height='200'
+              alt={profile?.name}
+              image={profile?.avatar || '/avatar.png'}
+            />
+          </Badge>
+        </CardContent>
+        <CardContent>
+          <Typography variant='h6' color={blue[800]}>
             {profile?.name}
           </Typography>
-          <Typography variant='body2' color='text.secondary'>
+          <Typography variant='body2' color={grey[400]}>
             {profile?.email}
           </Typography>
-          <Typography variant='body2' color='text.secondary'>
+          <Typography variant='body2' color={grey[400]}>
             {profile?.phone}
           </Typography>
         </CardContent>
@@ -75,6 +70,6 @@ export default function ProfileLeftView(props: ProfileProps) {
           <ProfileImageUploadForm onClose={handleDialog} profile={profile} />
         </ShowInDialog>
       </Card>
-    </Card>
+    </Box>
   )
 }
