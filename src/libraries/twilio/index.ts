@@ -12,8 +12,8 @@ export const SendSMS = async (props: TwilioProps) => {
 
     await send.messages.create({
       body: messageBody,
-      to: sendTo,
-      from: fromPhone,
+      to: '+55' + sendTo,
+      from: fromPhone || process.env.NEXT_PUBLIC_TWILIO_PHONE_NUMBER,
     })
   } catch (error: any) {
     return new Error(error)
