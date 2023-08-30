@@ -7,8 +7,12 @@ export const InvoiceDataGridColumns: GridColDef[] = [
   {
     field: 'invoiceCode',
     headerName: 'Código',
+    headerAlign: 'center',
+    align: 'center',
     flex: 0.1,
     minWidth: 80,
+    sortable: true,
+    filterable: true,
     renderCell: (params: GridRenderCellParams<InvoiceType>) => (
       <Box
         sx={{
@@ -20,25 +24,52 @@ export const InvoiceDataGridColumns: GridColDef[] = [
     ),
   },
   {
-    field: 'status',
-    headerName: 'Status',
+    field: 'customer',
+    headerName: 'Cliente',
+    headerAlign: 'center',
+    align: 'center',
     flex: 0.1,
     minWidth: 80,
+    sortable: true,
+    filterable: true,
     renderCell: (params: GridRenderCellParams<InvoiceType>) => (
       <Box
         sx={{
           textTransform: 'uppercase',
         }}
       >
-        {params.row?.status}
+        {params.row?.contract?.user?.name}
+      </Box>
+    ),
+  },
+  {
+    field: 'service',
+    headerName: 'Serviço',
+    headerAlign: 'center',
+    align: 'center',
+    flex: 0.1,
+    minWidth: 80,
+    sortable: true,
+    filterable: true,
+    renderCell: (params: GridRenderCellParams<InvoiceType>) => (
+      <Box
+        sx={{
+          textTransform: 'uppercase',
+        }}
+      >
+        {params.row?.contract?.service?.name}
       </Box>
     ),
   },
   {
     field: 'amount',
     headerName: 'Valor',
+    headerAlign: 'center',
+    align: 'center',
     flex: 0.1,
     minWidth: 80,
+    sortable: true,
+    filterable: true,
     renderCell: (params: GridRenderCellParams<InvoiceType>) => (
       <Box
         sx={{
@@ -65,14 +96,33 @@ export const InvoiceDataGridColumns: GridColDef[] = [
     ),
   },
   {
-    field: 'options',
-    headerName: '',
-    sortable: false,
-    filterable: false,
-    flex: 0.1,
-    maxWidth: 50,
+    field: 'status',
+    headerName: 'Status',
     headerAlign: 'center',
     align: 'center',
+    flex: 0.1,
+    minWidth: 80,
+    sortable: true,
+    filterable: true,
+    renderCell: (params: GridRenderCellParams<InvoiceType>) => (
+      <Box
+        sx={{
+          textTransform: 'uppercase',
+        }}
+      >
+        {params.row?.status}
+      </Box>
+    ),
+  },
+  {
+    field: 'options',
+    headerName: '',
+    headerAlign: 'center',
+    align: 'center',
+    flex: 0.1,
+    maxWidth: 50,
+    sortable: false,
+    filterable: false,
     renderCell: (params: GridRenderCellParams<InvoiceType>) => (
       <InvoiceDataGridOptions id={params.row?.id} />
     ),

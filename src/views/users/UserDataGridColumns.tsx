@@ -5,10 +5,14 @@ import { UserType } from './types'
 
 export const UserDataGridColumns: GridColDef[] = [
   {
-    flex: 0.3,
-    minWidth: 140,
     field: 'name',
     headerName: 'Usuário',
+    headerAlign: 'left',
+    align: 'left',
+    flex: 0.2,
+    minWidth: 100,
+    sortable: false,
+    filterable: false,
     renderCell: (params: GridRenderCellParams<UserType>) => (
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Avatar
@@ -33,8 +37,12 @@ export const UserDataGridColumns: GridColDef[] = [
   {
     field: 'role',
     headerName: 'Função',
+    headerAlign: 'center',
+    align: 'center',
     flex: 0.1,
-    minWidth: 120,
+    minWidth: 80,
+    sortable: true,
+    filterable: true,
     renderCell: (params: GridRenderCellParams<UserType>) => (
       <Box
         sx={{
@@ -46,10 +54,34 @@ export const UserDataGridColumns: GridColDef[] = [
     ),
   },
   {
-    field: 'isActive',
-    headerName: 'Status',
+    field: 'createdAt',
+    headerName: 'Criada em',
+    headerAlign: 'center',
+    align: 'center',
     flex: 0.1,
     minWidth: 80,
+    sortable: true,
+    filterable: true,
+    renderCell: (params: GridRenderCellParams<UserType>) => (
+      <Box
+        sx={{
+          textTransform: 'uppercase',
+        }}
+      >
+        {new Date(params.row?.createdAt).toLocaleString()}
+      </Box>
+    ),
+  },
+  {
+    field: 'isActive',
+    headerName: 'Status',
+    headerAlign: 'center',
+    align: 'center',
+    flex: 0.1,
+    minWidth: 80,
+    sortable: true,
+    filterable: true,
+
     renderCell: (params: GridRenderCellParams<UserType>) => (
       <Box
         sx={{
@@ -65,14 +97,33 @@ export const UserDataGridColumns: GridColDef[] = [
     ),
   },
   {
-    field: 'options',
-    headerName: '',
-    sortable: false,
-    filterable: false,
-    flex: 0.1,
-    maxWidth: 50,
+    field: 'contracts',
+    headerName: 'Contratações',
     headerAlign: 'center',
     align: 'center',
+    flex: 0.1,
+    minWidth: 80,
+    sortable: false,
+    filterable: false,
+    renderCell: (params: GridRenderCellParams<UserType>) => (
+      <Box
+        sx={{
+          textTransform: 'uppercase',
+        }}
+      >
+        {params.row?.contracts.length!}
+      </Box>
+    ),
+  },
+  {
+    field: 'options',
+    headerName: '',
+    headerAlign: 'center',
+    align: 'center',
+    flex: 0.1,
+    maxWidth: 50,
+    sortable: false,
+    filterable: false,
     renderCell: (params: GridRenderCellParams<UserType>) => (
       <UserDataGridOptions id={params.row?.id} />
     ),
