@@ -2,14 +2,22 @@ import { useFetch } from '@/hooks/useFetch'
 import { AccountContractViewProps } from './types'
 import { Card, CardActionArea, CardContent, Typography } from '@mui/material'
 import { ContractType } from '../contracts/types'
+import { useState } from 'react'
+import ShowInDialog from '@/components/ShowInDialog'
+import AccountContractDetail from './AccountContractDetail'
 
 export default function AccountContractView(props: AccountContractViewProps) {
   const { id } = props
   const { data: contract } = useFetch<ContractType>(`/api/contracts/${id}`)
+  const [openDialog, setOpenDialog] = useState<boolean>(false)
+
+  const handleShowInDialog = () => {
+    setOpenDialog(!openDialog)
+  }
 
   return (
     <Card>
-      <CardActionArea>
+      <CardActionArea onClick={handleShowInDialog}>
         <CardContent>
           <Typography gutterBottom variant='h6' component='div'>
             {contract?.contractCode}
@@ -19,6 +27,13 @@ export default function AccountContractView(props: AccountContractViewProps) {
           </Typography>
         </CardContent>
       </CardActionArea>
+      <ShowInDialog
+        open={openDialog}
+        onClose={handleShowInDialog}
+        title={`${contract?.contractCode} : ${contract?.service?.name}`}
+      >
+        <AccountContractDetail contract={contract!} />
+      </ShowInDialog>
     </Card>
   )
 }

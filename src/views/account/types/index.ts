@@ -8,3 +8,7 @@ export interface AccountContractViewProps {
 export interface AccountInvoicesDataGridProps {
   profile: ProfileType
 }
+
+export interface AccountContractDetailProps {
+  contract: ContractType
+}
