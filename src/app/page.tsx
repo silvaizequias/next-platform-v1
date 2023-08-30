@@ -12,13 +12,7 @@ export const metadata: Metadata = {
 export default async function Account() {
   const session = await getServerSession(authOptions)
 
-  return session ? (
-    <main>
-      <AccountView session={session!} />
-    </main>
-  ) : (
-    <main>
-      <AuthView />
-    </main>
+  return (
+    <main>{session ? <AccountView session={session!} /> : <AuthView />}</main>
   )
 }
