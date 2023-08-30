@@ -28,7 +28,7 @@ export default function UsersView(props: SessionProps) {
 
   return (
     <Container maxWidth='xl'>
-      <Grid container spacing={6} marginTop={1}>
+      <Grid container spacing={2} marginTop={1}>
         <Grid item xs={12}>
           <Card>
             <TableHeader title={'Gestão de Usuários'}>

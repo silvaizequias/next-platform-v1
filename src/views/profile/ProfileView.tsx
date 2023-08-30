@@ -12,7 +12,7 @@ export default function ProfileView(props: SessionProps) {
 
   return (
     <Container maxWidth='xl'>
-      <Grid container spacing={6} marginTop={1}>
+      <Grid container spacing={4} marginTop={1}>
         <Grid item xs={12} sm={4}>
           <ProfileLeftView profile={profile} />
         </Grid>
