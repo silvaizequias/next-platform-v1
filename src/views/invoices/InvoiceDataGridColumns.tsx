@@ -1,0 +1,80 @@
+import { Box } from '@mui/material'
+import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
+import InvoiceDataGridOptions from './InvoiceDataGridOptions'
+import { InvoiceType } from './types'
+
+export const InvoiceDataGridColumns: GridColDef[] = [
+  {
+    field: 'invoiceCode',
+    headerName: 'Código',
+    flex: 0.1,
+    minWidth: 80,
+    renderCell: (params: GridRenderCellParams<InvoiceType>) => (
+      <Box
+        sx={{
+          textTransform: 'uppercase',
+        }}
+      >
+        {params.row?.invoiceCode}
+      </Box>
+    ),
+  },
+  {
+    field: 'status',
+    headerName: 'Status',
+    flex: 0.1,
+    minWidth: 80,
+    renderCell: (params: GridRenderCellParams<InvoiceType>) => (
+      <Box
+        sx={{
+          textTransform: 'uppercase',
+        }}
+      >
+        {params.row?.status}
+      </Box>
+    ),
+  },
+  {
+    field: 'amount',
+    headerName: 'Valor',
+    flex: 0.1,
+    minWidth: 80,
+    renderCell: (params: GridRenderCellParams<InvoiceType>) => (
+      <Box
+        sx={{
+          textTransform: 'uppercase',
+        }}
+      >
+        {params.row?.amount}
+      </Box>
+    ),
+  },
+  {
+    field: 'payUpTo',
+    headerName: 'Vence em',
+    flex: 0.1,
+    minWidth: 80,
+    renderCell: (params: GridRenderCellParams<InvoiceType>) => (
+      <Box
+        sx={{
+          textTransform: 'uppercase',
+        }}
+      >
+        {new Date(params.row?.payUpTo).toLocaleDateString()}
+      </Box>
+    ),
+  },
+  {
+    field: 'options',
+    headerName: '',
+    sortable: false,
+    filterable: false,
+    flex: 0.1,
+    maxWidth: 50,
+    headerAlign: 'center',
+    align: 'center',
+    renderCell: (params: GridRenderCellParams<InvoiceType>) => (
+      <InvoiceDataGridOptions id={params.row?.id} />
+    ),
+  },
+]
