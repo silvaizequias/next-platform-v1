@@ -46,20 +46,8 @@ export default function NavMenu(props: NavMenuProps) {
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Typography>Master Control</Typography>
           </AccordionSummary>
-          <AccordionDetails sx={{m: 0, p: 0}}>
+          <AccordionDetails sx={{ m: 0, p: 0 }}>
             <MenuList>
-              <MenuItem onClick={() => handleNavigation('/services')}>
-                <ListItemIcon>
-                  <MdViewInAr />
-                </ListItemIcon>
-                <ListItemText>Serviços</ListItemText>
-              </MenuItem>
-              <MenuItem onClick={() => handleNavigation('/users')}>
-                <ListItemIcon>
-                  <MdGroups />
-                </ListItemIcon>
-                <ListItemText>Usuários</ListItemText>
-              </MenuItem>
               <MenuItem onClick={() => handleNavigation('/contracts')}>
                 <ListItemIcon>
                   <MdRecentActors />
@@ -71,6 +59,18 @@ export default function NavMenu(props: NavMenuProps) {
                   <MdPayments />
                 </ListItemIcon>
                 <ListItemText>Pagamentos</ListItemText>
+              </MenuItem>
+              <MenuItem onClick={() => handleNavigation('/services')}>
+                <ListItemIcon>
+                  <MdViewInAr />
+                </ListItemIcon>
+                <ListItemText>Serviços</ListItemText>
+              </MenuItem>
+              <MenuItem onClick={() => handleNavigation('/users')}>
+                <ListItemIcon>
+                  <MdGroups />
+                </ListItemIcon>
+                <ListItemText>Usuários</ListItemText>
               </MenuItem>
             </MenuList>
           </AccordionDetails>
