@@ -15,7 +15,7 @@ export default function AccountView(props: SessionProps) {
 
   return (
     <Container maxWidth='xl'>
-      <Grid container spacing={6} marginY={1}>
+      <Grid container spacing={4} marginY={1}>
         <Grid item xs={12}>
           <Box
             sx={{
@@ -33,7 +33,7 @@ export default function AccountView(props: SessionProps) {
           </Box>
         </Grid>
         {profile?.contracts?.map((contract: ContractType) => (
-          <Grid item xs={4} key={contract?.id}>
+          <Grid item xs={12} sm={4} key={contract?.id}>
             <AccountContractView id={contract?.id} />
           </Grid>
         ))}
