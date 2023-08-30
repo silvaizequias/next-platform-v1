@@ -2,10 +2,18 @@ import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { ServiceDataGridProps } from './types'
 import DataTable from '@/components/DataTable'
 import { Box, Chip } from '@mui/material'
-import { Suspense } from 'react'
+import { Suspense, useState } from 'react'
+import ServiceDataGridOptions from './ServiceDataGridOptions'
 
 export default function ServiceDataGrid(props: ServiceDataGridProps) {
   const { services } = props
+
+  const [openDialog, setOpenDialog] = useState<boolean>(false)
+
+  const handleDialog = () => {
+    setOpenDialog(!openDialog)
+  }
+
   const columns: GridColDef[] = [
     {
       field: 'isActive',
@@ -77,6 +85,19 @@ export default function ServiceDataGrid(props: ServiceDataGridProps) {
         >
           {params.row?.price}
         </Box>
+      ),
+    },
+    {
+      field: 'options',
+      headerName: '',
+      sortable: false,
+      filterable: false,
+      flex: 0.1,
+      maxWidth: 50,
+      headerAlign: 'center',
+      align: 'center',
+      renderCell: (params: GridRenderCellParams) => (
+        <ServiceDataGridOptions id={params.row?.id} />
       ),
     },
   ]

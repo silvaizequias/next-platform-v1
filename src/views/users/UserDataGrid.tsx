@@ -1,11 +1,23 @@
 import DataTable from '@/components/DataTable'
-import { Avatar, Box, Chip, Typography } from '@mui/material'
+import {
+  Avatar,
+  Box,
+  Chip,
+  Typography,
+} from '@mui/material'
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { UserDataGridProps } from './types'
-import { Suspense } from 'react'
+import { Suspense, useState } from 'react'
+import UserDataGridOptions from './UserDataGridOptions'
 
 export default function UserDataGrid(props: UserDataGridProps) {
   const { users } = props
+
+  const [openDialog, setOpenDialog] = useState<boolean>(false)
+
+  const handleDialog = () => {
+    setOpenDialog(!openDialog)
+  }
 
   const columns: GridColDef[] = [
     {
@@ -74,6 +86,19 @@ export default function UserDataGrid(props: UserDataGridProps) {
             />
           )}
         </Box>
+      ),
+    },
+    {
+      field: 'options',
+      headerName: '',
+      sortable: false,
+      filterable: false,
+      flex: 0.1,
+      maxWidth: 50,
+      headerAlign: 'center',
+      align: 'center',
+      renderCell: (params: GridRenderCellParams) => (
+        <UserDataGridOptions id={params.row?.id} />
       ),
     },
   ]
