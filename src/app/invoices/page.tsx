@@ -13,7 +13,7 @@ export default async function InvoiceManagementPage() {
   const session = await getServerSession(authOptions)
   const { user }: any = session?.user
 
-  return session || user?.role! == 'MASTER' ? (
+  return session ? (
     <main>
       <InvoicesView session={session!} />
     </main>

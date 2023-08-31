@@ -13,7 +13,7 @@ export default async function ContractManagementPage() {
   const session = await getServerSession(authOptions)
   const { user }: any = session?.user
 
-  return session || user?.role! == 'MASTER' ? (
+  return session ? (
     <main>
       <ContractsView session={session!} />
     </main>
