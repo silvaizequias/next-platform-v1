@@ -15,7 +15,7 @@ export default function AccountView(props: SessionProps) {
 
   return (
     <Container maxWidth='xl'>
-      <Grid container spacing={4} marginY={1}>
+      <Grid container spacing={2} marginY={1}>
         <Grid item xs={12}>
           <Box
             sx={{
@@ -45,7 +45,6 @@ export default function AccountView(props: SessionProps) {
               fontSize: 28,
               color: blue[500],
               textTransform: 'uppercase',
-              pb: 2,
             }}
           >
             <MdPayments />
@@ -53,9 +52,10 @@ export default function AccountView(props: SessionProps) {
               Meus Pagamentos
             </Typography>
           </Box>
+        </Grid>
+        <Grid item xs={12}>
           <AccountInvoicesDataGrid profile={profile!} />
         </Grid>
-        <Grid item xs={12}></Grid>
       </Grid>
     </Container>
   )

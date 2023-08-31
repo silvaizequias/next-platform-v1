@@ -1,9 +1,9 @@
 import { Box } from '@mui/material'
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
-import InvoiceDataGridOptions from './InvoiceDataGridOptions'
-import { InvoiceType } from './types'
+import { InvoiceType } from '../invoices/types'
+import InvoiceDataGridOptions from '../invoices/InvoiceDataGridOptions'
 
-export const InvoiceDataGridColumns: GridColDef[] = [
+export const AccountInvoicesDataGridColumns: GridColDef[] = [
   {
     field: 'invoiceCode',
     headerName: 'Código',
@@ -20,25 +20,6 @@ export const InvoiceDataGridColumns: GridColDef[] = [
         }}
       >
         {params.row?.invoiceCode}
-      </Box>
-    ),
-  },
-  {
-    field: 'customer',
-    headerName: 'Cliente',
-    headerAlign: 'center',
-    align: 'center',
-    flex: 0.1,
-    minWidth: 80,
-    sortable: true,
-    filterable: true,
-    renderCell: (params: GridRenderCellParams<InvoiceType>) => (
-      <Box
-        sx={{
-          textTransform: 'uppercase',
-        }}
-      >
-        {params.row?.contract?.user?.name}
       </Box>
     ),
   },

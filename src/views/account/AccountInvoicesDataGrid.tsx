@@ -10,51 +10,23 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material'
+import { Suspense, useEffect, useState } from 'react'
+import DataTable from '@/components/DataTable'
+import { AccountInvoicesDataGridColumns } from './AccountInvoicesDataGridColumns'
 
 export default function AccountInvoicesDataGrid(
   props: AccountInvoicesDataGridProps,
 ) {
   const { profile } = props
-  const { data, error, mutate } = useFetch<InvoiceType[]>(`/api/invoices`)
+  const { data, error, mutate } = useFetch(`/api/invoices`)
+
+  const invoices = data?.filter((invoices: InvoiceType) => {
+    if (invoices?.contract?.user?.id == profile?.id) return invoices
+  })
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} size='small'>
-        <TableHead>
-          <TableRow>
-            <TableCell>Código</TableCell>
-            <TableCell>Criada em</TableCell>
-            <TableCell>Serviço</TableCell>
-            <TableCell>Valor</TableCell>
-            <TableCell>Pagar até</TableCell>
-            <TableCell>Status</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data?.map(
-            (invoice: InvoiceType) =>
-              invoice?.contract?.user?.id == profile?.id && (
-                <TableRow
-                  key={invoice?.id}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell component='th' scope='row'>
-                    {invoice?.invoiceCode}
-                  </TableCell>
-                  <TableCell>
-                    {new Date(invoice?.createdAt).toLocaleDateString()}
-                  </TableCell>
-                  <TableCell>{invoice?.contract?.service?.name}</TableCell>
-                  <TableCell>{invoice?.amount}</TableCell>
-                  <TableCell>
-                    {new Date(invoice?.payUpTo).toLocaleDateString()}
-                  </TableCell>
-                  <TableCell>{invoice?.status}</TableCell>
-                </TableRow>
-              ),
-          )}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <Suspense>
+      <DataTable data={invoices!} columns={AccountInvoicesDataGridColumns} />
+    </Suspense>
   )
 }

@@ -28,3 +28,7 @@ export interface InvoiceDataGridProps {
 export interface InvoiceCreateFormProps {
   onClose: () => void
 }
+
+export interface InvoiceDetailProps {
+  invoice: InvoiceType
+}

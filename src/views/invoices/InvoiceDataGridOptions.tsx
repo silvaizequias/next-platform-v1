@@ -10,6 +10,7 @@ import {
 } from '@mui/material'
 import { MouseEvent, useState } from 'react'
 import { MdMoreVert, MdRemoveRedEye } from 'react-icons/md'
+import InvoiceDetail from './InvoiceDetail'
 
 interface Props {
   id: string
@@ -60,7 +61,7 @@ export default function InvoiceDataGridOptions({ id }: Props) {
         </MenuItem>
       </Menu>
       <ShowInDialog onClose={handleMenu} open={openDialog}>
-        {id}
+        <InvoiceDetail id={id} />
       </ShowInDialog>
     </Box>
   )
