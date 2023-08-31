@@ -80,15 +80,34 @@ export default function ContractCreateForm(props: ContractCreateFormProps) {
           value={service}
           onChange={(e) => setService(e?.target?.value)}
           error={Boolean(errors.serviceCode)}
-          inputProps={{ placeholder: 'Função' }}
+          inputProps={{ placeholder: 'Serviço' }}
         >
           {/* //TODOS: criar condiçao para filtrar os serviços */}
           <MenuItem value=''></MenuItem>
           {services?.map((service: ServiceType) => (
             <MenuItem key={service?.id} value={service?.serviceCode}>
-              {service?.serviceCode}
+              {service?.name}
             </MenuItem>
           ))}
+        </Select>
+      </FormControl>
+      <FormControl fullWidth sx={{ mb: 2 }}>
+        <InputLabel id='period'>Período</InputLabel>
+        <Select
+          {...register('period')}
+          required
+          autoFocus
+          label={'Período'}
+          value={service}
+          onChange={(e) => setService(e?.target?.value)}
+          error={Boolean(errors.period)}
+          inputProps={{ placeholder: 'Período' }}
+        >
+          {/* //TODOS: criar condiçao para filtrar os serviços */}
+          <MenuItem value='MONTHLY'>Mensal</MenuItem>
+          <MenuItem value='QUARTERLY'>Trimestral</MenuItem>
+          <MenuItem value='SEMESTERLY'>Semestral</MenuItem>
+          <MenuItem value='YEARLY'>Anual</MenuItem>
         </Select>
       </FormControl>
       <FormControl fullWidth sx={{ mb: 2 }}>
@@ -101,7 +120,7 @@ export default function ContractCreateForm(props: ContractCreateFormProps) {
           value={service}
           onChange={(e) => setService(e?.target?.value)}
           error={Boolean(errors.userPhone)}
-          inputProps={{ placeholder: 'Função' }}
+          inputProps={{ placeholder: 'Usuário' }}
         >
           {/* //TODOS: criar condiçao para filtrar os usuários */}
           <MenuItem value=''></MenuItem>

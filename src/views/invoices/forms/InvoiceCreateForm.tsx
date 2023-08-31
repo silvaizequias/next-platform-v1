@@ -83,7 +83,7 @@ export default function InvoiceCreateForm(props: InvoiceCreateFormProps) {
           <MenuItem value=''></MenuItem>
           {contracts?.map((contract: ContractType) => (
             <MenuItem key={contract?.id} value={contract?.contractCode}>
-              {contract?.contractCode}
+              {`${contract?.user?.name} : ${contract?.service?.name}`}
             </MenuItem>
           ))}
         </Select>
