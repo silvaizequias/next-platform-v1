@@ -1,4 +1,5 @@
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 import { ProfileProps } from '../types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ProfileUpdateSchema, ProfileUpdateSchemaType } from '@/schemas/profile'
@@ -36,12 +37,14 @@ export default function ProfileAddressUpdateForm(props: ProfileProps) {
       await axios
         .patch(`/api/profile/${profile?.id}`, inputs)
         .then(async (res) => {
+          toast.success('Endereço atualizado')
           await mutate(...data, res.data, {
             revalidate: true,
             rollbackOnError: true,
           })
         })
         .catch((error: any) => {
+          toast.error(error?.message)
           console.error(error?.message || error)
         })
     } catch (error: any) {

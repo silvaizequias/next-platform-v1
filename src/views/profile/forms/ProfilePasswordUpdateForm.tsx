@@ -14,6 +14,7 @@ import {
   TextField,
 } from '@mui/material'
 import { signOut } from 'next-auth/react'
+import toast from 'react-hot-toast'
 
 export default function ProfilePasswordUpdateForm(props: ProfileProps) {
   const { profile } = props
@@ -38,9 +39,13 @@ export default function ProfilePasswordUpdateForm(props: ProfileProps) {
       await axios
         .patch(`/api/profile/password-update/${profile?.id}`, inputs)
         .then(async (res) => {
-          if (res.status == 200) await signOut()
+          if (res.status! == 200) {
+            toast.success(res.data!)
+            await signOut()
+          }
         })
         .catch((error: any) => {
+          toast.error(error?.message)
           console.error(error?.message || error)
         })
     } catch (error: any) {

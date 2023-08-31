@@ -14,6 +14,7 @@ import { ProfileUpdateSchemaType } from '@/schemas/profile'
 import { useFetch } from '@/hooks/useFetch'
 import axios from 'axios'
 import ProgressBar from '@/components/ProgressBar'
+import toast from 'react-hot-toast'
 
 export default function ProfileImageUploadForm(
   props: ProfileImageUploadFormProps,
@@ -47,14 +48,15 @@ export default function ProfileImageUploadForm(
           setProgressUpload(progress)
           switch (snapshot.state) {
             case 'paused':
-              console.log('upload is paused')
+              toast.error('upload is paused')
               break
             case 'running':
-              console.log('upload is running')
+              toast.success('upload is running')
               break
           }
         },
         (error) => {
+          toast.error(error?.message)
           console.error(error?.message)
         },
         () => {
@@ -64,7 +66,7 @@ export default function ProfileImageUploadForm(
         },
       )
     } else {
-      console.log('file not found')
+      toast.error('file not found')
     }
   }
 
@@ -82,12 +84,14 @@ export default function ProfileImageUploadForm(
         .patch(`/api/profile/${profile?.id}`, inputs)
         .then(async (res) => {
           onClose()
+          toast.success('A imagem foi atualizada!')
           await mutate(...data, res.data, {
             revalidate: true,
             rollbackOnError: true,
           })
         })
         .catch((error: any) => {
+          toast.error(error?.message)
           console.error(error?.message || error)
         })
     }

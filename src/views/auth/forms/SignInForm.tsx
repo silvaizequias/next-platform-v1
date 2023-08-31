@@ -5,6 +5,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { Button, FormControl, FormHelperText, TextField } from '@mui/material'
+import toast from 'react-hot-toast'
 
 export default function SignInForm() {
   const [showPassword, setShowPassword] = useState<boolean>(false)
@@ -30,19 +31,19 @@ export default function SignInForm() {
       })
         .then((res: any) => {
           if (!res?.error && res?.url) {
-            alert(JSON.stringify(`Boas Vindas!`))
+            toast.success('Boas vindas!')
             router.refresh()
           } else {
-            alert(JSON.stringify('O Celular ou a Senha estão Incorretos!'))
+            toast.error('O Celular ou a Senha estão Incorretos!')
           }
         })
         .catch((error: any) => {
+          toast.error(error?.message)
           alert(JSON.stringify(error?.message || error))
-          new Error(error?.message || error)
         })
     } catch (error: any) {
+      toast.error(error?.message)
       console.error(error?.message || error)
-      new Error(error?.message || error)
     }
   }
 

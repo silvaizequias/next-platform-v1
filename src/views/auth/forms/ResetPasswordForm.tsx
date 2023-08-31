@@ -3,6 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, FormControl, FormHelperText, TextField } from '@mui/material'
 import axios from 'axios'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 
 export default function ResetPasswordForm() {
   const {
@@ -20,15 +21,15 @@ export default function ResetPasswordForm() {
       await axios
         .post(`/api/reset-password`, inputs)
         .then((res: any) => {
-          alert(JSON.stringify(res.data))
+          toast.success(res.data!)
         })
         .catch((error: any) => {
-          alert(JSON.stringify(error?.message || error))
+          toast.error(error?.message)
           new Error(error?.message || error)
         })
     } catch (error: any) {
+      toast.error(error?.message)
       console.error(error?.message || error)
-      new Error(error?.message || error)
     }
   }
 
