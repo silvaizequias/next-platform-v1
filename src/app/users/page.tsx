@@ -13,9 +13,9 @@ export default async function UserManagementPage() {
   const session = await getServerSession(authOptions)
   const { user }: any = session?.user
 
-  return session && user?.role == 'MASTER' ? (
+  return session || user?.role! == 'MASTER' ? (
     <main>
-      <UsersView session={session} />
+      <UsersView session={session!} />
     </main>
   ) : (
     redirect('/')

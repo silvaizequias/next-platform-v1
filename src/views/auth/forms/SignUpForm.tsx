@@ -20,11 +20,7 @@ export default function SignUpForm() {
       await axios
         .post(`/api/signup`, inputs)
         .then((res: any) => {
-          alert(
-            JSON.stringify(
-              `Seja bem vindo ${res.data?.name}! Sua senha de acesso foi enviada para o e-mail ${res.data?.email}`,
-            ),
-          )
+          alert(JSON.stringify(res?.data))
         })
         .catch((error: any) => {
           alert(JSON.stringify(error?.message || error))

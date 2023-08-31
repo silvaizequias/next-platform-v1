@@ -10,10 +10,13 @@ export const SendEmail = async (props: SendGridProps) => {
     sendgrid.setApiKey(SENDGRID_API_KEY)
     await sendgrid.send({
       to: sendTo,
-      from: fromEmail || NEXT_PUBLIC_SENDGRID_FROM_EMAIL,
+      from: {
+        email: fromEmail || NEXT_PUBLIC_SENDGRID_FROM_EMAIL,
+        name: 'Dedicado Digital',
+      },
       subject: subjectMessage,
       text: textMessage,
-      html: `<span>${textMessage}</span>`,
+      html: textMessage,
     })
   } catch (error: any) {
     console.error(error)

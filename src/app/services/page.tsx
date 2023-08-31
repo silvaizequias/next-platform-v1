@@ -13,9 +13,9 @@ export default async function ServiceManagementPage() {
   const session = await getServerSession(authOptions)
   const { user }: any = session?.user
 
-  return session && user?.role == 'MASTER' ? (
+  return session || user?.role! == 'MASTER' ? (
     <main>
-      <ServicesView session={session} />
+      <ServicesView session={session!} />
     </main>
   ) : (
     redirect('/')

@@ -1,4 +1,4 @@
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { ProfileProps } from '../types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
@@ -6,7 +6,13 @@ import {
   ProfilePasswordUpdateSchemaType,
 } from '@/schemas/profile'
 import axios from 'axios'
-import { Button, Grid } from '@mui/material'
+import {
+  Button,
+  FormControl,
+  FormHelperText,
+  Grid,
+  TextField,
+} from '@mui/material'
 import { signOut } from 'next-auth/react'
 
 export default function ProfilePasswordUpdateForm(props: ProfileProps) {
@@ -45,14 +51,55 @@ export default function ProfilePasswordUpdateForm(props: ProfileProps) {
   return (
     <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={12}>
-          odPassword
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth>
+            <Controller
+              {...register('oldPassword')}
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { value, onChange, onBlur } }) => (
+                <TextField
+                  fullWidth
+                  autoFocus
+                  type={'password'}
+                  label={'Senha Atual'}
+                  value={value}
+                  onBlur={onBlur}
+                  onChange={onChange}
+                  error={Boolean(errors.oldPassword!)}
+                  placeholder={'*********'}
+                />
+              )}
+            />
+            {errors.oldPassword && (
+              <FormHelperText>{errors.oldPassword.message}</FormHelperText>
+            )}
+          </FormControl>
         </Grid>
         <Grid item xs={12} sm={6}>
-          newPassword
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          confirmNewPassord
+          <FormControl fullWidth>
+            <Controller
+              {...register('password')}
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { value, onChange, onBlur } }) => (
+                <TextField
+                  fullWidth
+                  autoFocus
+                  type={'password'}
+                  label={'Nova Senha'}
+                  value={value}
+                  onBlur={onBlur}
+                  onChange={onChange}
+                  error={Boolean(errors.password!)}
+                  placeholder={'*********'}
+                />
+              )}
+            />
+            {errors.password && (
+              <FormHelperText>{errors.password.message}</FormHelperText>
+            )}
+          </FormControl>
         </Grid>
         <Grid item xs={12} sm={12}>
           <Button

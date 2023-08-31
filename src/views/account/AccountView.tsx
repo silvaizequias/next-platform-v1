@@ -15,48 +15,54 @@ export default function AccountView(props: SessionProps) {
 
   return (
     <Container maxWidth='xl'>
-      <Grid container spacing={2} marginY={1}>
-        <Grid item xs={12}>
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              fontSize: 28,
-              color: blue[500],
-              textTransform: 'uppercase',
-            }}
-          >
-            <MdViewInAr />
-            <Typography variant='h5' ml={2}>
-              Meus Contratos
-            </Typography>
-          </Box>
-        </Grid>
-        {profile?.contracts?.map((contract: ContractType) => (
-          <Grid item xs={12} sm={4} key={contract?.id}>
-            <AccountContractView id={contract?.id} />
+      {profile?.contracts.length! > 0 ? (
+        <Grid container spacing={2} marginY={1}>
+          <Grid item xs={12}>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                fontSize: 28,
+                color: blue[500],
+                textTransform: 'uppercase',
+              }}
+            >
+              <MdViewInAr />
+              <Typography variant='h5' ml={2}>
+                Meus Contratos
+              </Typography>
+            </Box>
           </Grid>
-        ))}
-        <Grid item xs={12}>
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              fontSize: 28,
-              color: blue[500],
-              textTransform: 'uppercase',
-            }}
-          >
-            <MdPayments />
-            <Typography variant='h5' ml={2}>
-              Meus Pagamentos
-            </Typography>
-          </Box>
+          {profile?.contracts?.map((contract: ContractType) => (
+            <Grid item xs={12} sm={4} key={contract?.id}>
+              <AccountContractView id={contract?.id} />
+            </Grid>
+          ))}
+          <Grid item xs={12}>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                fontSize: 28,
+                color: blue[500],
+                textTransform: 'uppercase',
+              }}
+            >
+              <MdPayments />
+              <Typography variant='h5' ml={2}>
+                Meus Pagamentos
+              </Typography>
+            </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <AccountInvoicesDataGrid profile={profile!} />
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <AccountInvoicesDataGrid profile={profile!} />
-        </Grid>
-      </Grid>
+      ) : (
+        <Typography variant='h4' textAlign={'center'} marginY={4} color={blue[500]}>
+          Você ainda não possui contratos!
+        </Typography>
+      )}
     </Container>
   )
 }

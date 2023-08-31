@@ -6,6 +6,7 @@ export type ProfileType = {
   updatedAt: Date
   deletedAt: Date
   softDeleted: boolean
+  role: 'MASTER' | 'MEMBER' | 'CUSTOMER' | 'GUEST'
   avatar: string
   name: string
   email: string

@@ -4,6 +4,7 @@ import {
   Card,
   CardContent,
   CardMedia,
+  Chip,
   IconButton,
   Tooltip,
   Typography,
@@ -26,7 +27,15 @@ export default function ProfileLeftView(props: ProfileProps) {
 
   return (
     <Box sx={{ width: '100%', typography: 'body1' }}>
-      <Card>
+      <Card
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignContent: 'center',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
         <CardContent>
           <Badge
             overlap='rectangular'
@@ -50,7 +59,7 @@ export default function ProfileLeftView(props: ProfileProps) {
             />
           </Badge>
         </CardContent>
-        <CardContent>
+        <CardContent sx={{ textAlign: 'center' }}>
           <Typography variant='h6' color={blue[800]}>
             {profile?.name}
           </Typography>
@@ -60,6 +69,12 @@ export default function ProfileLeftView(props: ProfileProps) {
           <Typography variant='body2' color={grey[400]}>
             {profile?.phone}
           </Typography>
+          <Chip
+            label={profile?.role}
+            color='success'
+            variant='outlined'
+            sx={{ marginTop: 2 }}
+          />
         </CardContent>
 
         <ShowInDialog

@@ -1,5 +1,7 @@
 import { prisma } from '@/libraries/prisma'
 import { AuthResetPassword, AuthResetPasswordType } from '@/schemas/auth'
+import { resetPasswordEmailTemplate } from '@/templates/email'
+import { resetPasswordSmsTemplate } from '@/templates/sms'
 import { Prisma } from '@prisma/client'
 import { hash } from 'bcrypt'
 
@@ -11,12 +13,15 @@ export const POST = async (request: Request) => {
     return await request.json().then(async (inputs: AuthResetPasswordType) => {
       if (await AuthResetPassword.parseAsync(inputs)) {
         const { phone, email } = inputs
+
         const user = await prisma.user.findFirst({
           where: { phone: phone, email: email },
         })
         if (!user)
           return new Response(
-            JSON.stringify(JSON.stringify('phone our email dont valid')),
+            JSON.stringify(
+              'O número de celular ou email são inválidos para esta solicitação!',
+            ),
             { status: 406 },
           )
 
@@ -24,9 +29,27 @@ export const POST = async (request: Request) => {
           passToken: randomToken,
           passHash: await hash(randomPassword, 10),
         }
+        await prisma.user.update({ where: { phone }, data })
+
+        const sendResetPasswordEmail = {
+          name: user?.name!,
+          email: email,
+          password: randomPassword,
+          phone: phone,
+        }
+        await resetPasswordEmailTemplate(sendResetPasswordEmail)
+
+        const sendResetPasswordSms = {
+          name: user?.name!,
+          password: randomPassword,
+          phone: phone,
+        }
+        resetPasswordSmsTemplate(sendResetPasswordSms)
 
         return new Response(
-          JSON.stringify(await prisma.user.update({ where: { phone }, data })),
+          JSON.stringify(
+            `A senha foi redefinida e enviada para o e-mail ${email} e celular ${phone}`,
+          ),
         )
       }
     })
