@@ -30,7 +30,7 @@ export default function ProfileImageUploadForm(
     if (files && files[0].size < 500000) {
       setSelectedFile(files[0])
     } else {
-      console.log('File size to large')
+      toast.error('O arquivo escolhido é maior que 5MB!')
     }
   }
 
@@ -48,10 +48,10 @@ export default function ProfileImageUploadForm(
           setProgressUpload(progress)
           switch (snapshot.state) {
             case 'paused':
-              toast.error('upload is paused')
+              toast.error('Envio pausado...')
               break
             case 'running':
-              toast.success('upload is running')
+              toast.success('Enviando imagem para o repositório!')
               break
           }
         },
@@ -66,7 +66,7 @@ export default function ProfileImageUploadForm(
         },
       )
     } else {
-      toast.error('file not found')
+      toast.error('Arquivo não encontrado!')
     }
   }
 
@@ -91,7 +91,6 @@ export default function ProfileImageUploadForm(
           })
         })
         .catch((error: any) => {
-          toast.error(error?.message)
           console.error(error?.message || error)
         })
     }
