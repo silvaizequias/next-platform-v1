@@ -80,20 +80,25 @@ export default function ProfileImageUploadForm(
         avatar: imageUrl,
       }
 
-      await axios
-        .patch(`/api/profile/${profile?.id}`, inputs)
-        .then(async (res) => {
-          onClose()
-          toast.success('A imagem foi atualizada!')
-          await mutate(...data, res.data, {
-            revalidate: true,
-            rollbackOnError: true,
+      try {
+        await axios
+          .patch(`/api/profile/${profile?.id}`, inputs)
+          .then(async (res) => {
+            onClose()
+            toast.success('A imagem foi atualizada!')
+            await mutate(...data, res.data, {
+              revalidate: true,
+              rollbackOnError: true,
+            })
           })
-        })
-        .catch((error: any) => {
-          toast.error(error?.message)
-          console.error(error?.message || error)
-        })
+          .catch((error: any) => {
+            toast.error(error?.message)
+          })
+      } catch (error: any) {
+        console.error(error?.message || error)
+      }
+    } else {
+      toast.error('Nenhuma imagem foi carregada!')
     }
   }
 
