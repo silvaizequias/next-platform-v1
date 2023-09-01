@@ -25,7 +25,6 @@ export default function ResetPasswordForm() {
         })
         .catch((error: any) => {
           toast.error(error?.message)
-          new Error(error?.message || error)
         })
     } catch (error: any) {
       toast.error(error?.message)

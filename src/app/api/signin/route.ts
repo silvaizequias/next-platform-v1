@@ -25,15 +25,19 @@ export const POST = async (request: Request) => {
           },
         })
         if (!user)
-          return new Response(JSON.stringify('phone not found'), {
-            status: 404,
-          })
+          return new Response(
+            JSON.stringify(
+              `O número celular ${phone} não existe em nosso sistema!`,
+            ),
+            { status: 404 },
+          )
 
         const passHash = compareSync(password, user?.passHash as string)
         if (!passHash)
-          return new Response(JSON.stringify('invalid password'), {
-            status: 401,
-          })
+          return new Response(
+            JSON.stringify(`A senha informada não é válida e está incorreta!`),
+            { status: 403 },
+          )
 
         //@ts-ignore
         delete user?.passHash

@@ -11,7 +11,7 @@ export const InvoiceCreateSchema = z.object({
   description: z.string().optional(),
   note: z.string().optional(),
   tax: z.coerce.number().default(0).optional(),
-  amount: z.coerce.number().positive().default(0),
+  amount: z.coerce.number().positive().default(0).optional(),
   payUpTo: z.coerce.date(),
 })
 

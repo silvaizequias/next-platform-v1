@@ -31,9 +31,7 @@ export const POST = async (request: Request) => {
         if (userEmail)
           return new Response(
             JSON.stringify(`O e-mail ${email} já existe em nosso sistema!`),
-            {
-              status: 409,
-            },
+            { status: 409 },
           )
 
         const data: Prisma.UserCreateInput = {

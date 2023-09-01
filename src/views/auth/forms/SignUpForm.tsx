@@ -24,12 +24,11 @@ export default function SignUpForm() {
           toast.success(res.data!)
         })
         .catch((error: any) => {
-          toast.error(error?.message)
-          alert(JSON.stringify(error?.message || error))
+          toast.error(error?.message!)
         })
     } catch (error: any) {
-      toast.error(error?.message)
-      console.error(error?.message || error)
+      toast.error(error?.message!)
+      console.error(error?.message! || error)
     }
   }
 

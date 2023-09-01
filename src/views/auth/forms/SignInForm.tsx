@@ -30,16 +30,15 @@ export default function SignInForm() {
         password: password,
       })
         .then((res: any) => {
-          if (!res?.error && res?.url) {
-            toast.success('Boas vindas!')
+          if (!res?.error) {
+            toast.success('Boas vindas ao seu Dedicado Digital!')
             router.refresh()
           } else {
-            toast.error('O Celular ou a Senha estão Incorretos!')
+            toast.error('O celular ou a senha estão incorretos!')
           }
         })
         .catch((error: any) => {
           toast.error(error?.message)
-          alert(JSON.stringify(error?.message || error))
         })
     } catch (error: any) {
       toast.error(error?.message)

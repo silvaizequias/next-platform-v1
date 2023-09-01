@@ -18,12 +18,7 @@ export const POST = async (request: Request) => {
           where: { phone: phone, email: email },
         })
         if (!user)
-          return new Response(
-            JSON.stringify(
-              'O número de celular ou email são inválidos para esta solicitação!',
-            ),
-            { status: 406 },
-          )
+          return new Response('O número de celular ou email são inválidos para esta solicitação!')
 
         const data: Prisma.UserUpdateInput = {
           passToken: randomToken,

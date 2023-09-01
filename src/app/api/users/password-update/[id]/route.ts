@@ -24,7 +24,7 @@ export const PATCH = async (
           }
           await prisma.user.update({ where: { id }, data })
 
-          return new Response(JSON.stringify('the password has been updated'))
+          return new Response(JSON.stringify('A senha foi atualizada!'))
         }
       })
   } catch (error: any) {
