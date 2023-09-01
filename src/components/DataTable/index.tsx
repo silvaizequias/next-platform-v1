@@ -18,7 +18,7 @@ export default function DataTable(props: DataTableProps) {
   return (
     <DataGrid
       sx={{ border: 0 }}
-      rowHeight={28}
+      autoHeight
       getRowId={(row) => row?.id!}
       rows={rows!}
       columns={columns!}
