@@ -11,11 +11,11 @@ import {
 } from 'react-icons/md'
 import { useRouter } from 'next/navigation'
 import { NavMenuProps } from './types'
-import { Fragment } from 'react'
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Box,
   Typography,
 } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
@@ -31,23 +31,29 @@ export default function NavMenu(props: NavMenuProps) {
   }
 
   return (
-    <Fragment>
-      <MenuList sx={{ textTransform: 'uppercase' }}>
+    <Box>
+      <MenuList>
         <MenuItem onClick={() => handleNavigation('/')}>
           <ListItemIcon>
             <MdWindow />
           </ListItemIcon>
           <ListItemText>Início</ListItemText>
         </MenuItem>
+        <MenuItem onClick={() => handleNavigation('/invoice-history')}>
+          <ListItemIcon>
+            <MdPayments />
+          </ListItemIcon>
+          <ListItemText>Histórico de Faturas</ListItemText>
+        </MenuItem>
       </MenuList>
 
       {profile?.role == 'MASTER' && (
         <Accordion elevation={0}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography textTransform={'uppercase'}>Master Control</Typography>
+            <Typography>Master Control</Typography>
           </AccordionSummary>
           <AccordionDetails sx={{ m: 0, p: 0 }}>
-            <MenuList sx={{ textTransform: 'uppercase' }}>
+            <MenuList>
               <MenuItem onClick={() => handleNavigation('/contracts')}>
                 <ListItemIcon>
                   <MdRecentActors />
@@ -76,6 +82,6 @@ export default function NavMenu(props: NavMenuProps) {
           </AccordionDetails>
         </Accordion>
       )}
-    </Fragment>
+    </Box>
   )
 }

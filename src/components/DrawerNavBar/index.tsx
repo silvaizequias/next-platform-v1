@@ -18,7 +18,7 @@ export default function DrawerNavBar(props: DrawerNavBarProps) {
       variant='temporary'
       onClose={handleClose}
       ModalProps={{ keepMounted: true }}
-      sx={{ '& .MuiDrawer-paper': { width: 210 } }}
+      sx={{ '& .MuiDrawer-paper': { maxWidth: 210 } }}
     >
       <Box
         sx={{

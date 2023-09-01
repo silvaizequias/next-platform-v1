@@ -3,7 +3,7 @@ import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { InvoiceType } from '../invoices/types'
 import InvoiceDataGridOptions from '../invoices/InvoiceDataGridOptions'
 
-export const AccountInvoicesDataGridColumns: GridColDef[] = [
+export const InvoiceHistoryDataGridColumns: GridColDef[] = [
   {
     field: 'invoiceCode',
     headerName: 'Código',
@@ -77,6 +77,25 @@ export const AccountInvoicesDataGridColumns: GridColDef[] = [
         }}
       >
         {new Date(params.row?.payUpTo).toLocaleDateString()}
+      </Box>
+    ),
+  },
+  {
+    field: 'status',
+    headerName: 'Status',
+    headerAlign: 'center',
+    align: 'center',
+    flex: 0.1,
+    minWidth: 80,
+    sortable: true,
+    filterable: true,
+    renderCell: (params: GridRenderCellParams<InvoiceType>) => (
+      <Box
+        sx={{
+          textTransform: 'uppercase',
+        }}
+      >
+        {params.row?.status}
       </Box>
     ),
   },
