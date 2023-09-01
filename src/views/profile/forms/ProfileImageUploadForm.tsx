@@ -91,6 +91,7 @@ export default function ProfileImageUploadForm(
           })
         })
         .catch((error: any) => {
+          toast.error(error?.message)
           console.error(error?.message || error)
         })
     }

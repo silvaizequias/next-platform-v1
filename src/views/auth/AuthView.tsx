@@ -45,7 +45,12 @@ export default function AuthView() {
             py: 4,
           }}
         >
-          <Typography variant='h4' color='white' textTransform='uppercase' text-align='center'>
+          <Typography
+            variant='h4'
+            color='white'
+            textTransform='uppercase'
+            text-align='center'
+          >
             Dedicado Digital
           </Typography>
         </Box>
@@ -55,15 +60,17 @@ export default function AuthView() {
           >
             <Box sx={{ width: '100%', typography: 'subtitle' }}>
               <TabContext value={value}>
-                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                <Box
+                  sx={{ borderBottom: 1, borderColor: 'divider' }}
+                >
                   <TabList
                     onChange={handleChange}
                     aria-label='auth tab'
                     centered
                   >
-                    <Tab icon={<MdLogin />} value='signin' />
-                    <Tab icon={<MdAppRegistration />} value='signup' />
-                    <Tab icon={<MdLockReset />} value='reset-password' />
+                    <Tab sx={{fontSize: 24}} icon={<MdLogin />} value='signin' />
+                    <Tab sx={{fontSize: 24}} icon={<MdAppRegistration />} value='signup' />
+                    <Tab sx={{fontSize: 24}} icon={<MdLockReset />} value='reset-password' />
                   </TabList>
                 </Box>
                 <TabPanel value='signin'>

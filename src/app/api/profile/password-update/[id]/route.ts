@@ -22,23 +22,21 @@ export const PATCH = async (
           const user = await prisma.user.findFirst({
             where: { id },
           })
-          if (!user) return new Response('user not found', { status: 404 })
+          if (!user) return new Response('Esta conta não existe no sistema!', { status: 404 })
 
           const comparePassword = compareSync(
             oldPassword,
             user?.passHash as string,
           )
           if (!comparePassword)
-            return new Response(JSON.stringify('invalid password'), {
-              status: 401,
-            })
+            return new Response(JSON.stringify('A senha informada não está correta e não poderá ser validada!'))
 
           const data: Prisma.UserUpdateInput = {
             passHash: await hash(password, 10),
           }
           await prisma.user.update({ where: { id }, data })
 
-          return new Response(JSON.stringify('the password has been updated'))
+          return new Response(JSON.stringify('Sua senha foi atualizada!'))
         }
       })
   } catch (error: any) {
