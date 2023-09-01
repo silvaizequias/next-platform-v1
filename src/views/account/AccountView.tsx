@@ -8,10 +8,20 @@ import AccountContractView from './AccountContractView'
 import { MdPayments, MdViewInAr } from 'react-icons/md'
 import { blue } from '@mui/material/colors'
 import AccountInvoicesDataGrid from './AccountInvoicesDataGrid'
+import { InvoiceType } from '../invoices/types'
+import { Fragment } from 'react'
 
 export default function AccountView(props: SessionProps) {
   const { user }: any = props?.session?.user
-  const { data: profile, error, mutate } = useFetch(`/api/profile/${user?.id}`)
+  const { data: profile } = useFetch(`/api/profile/${user?.id}`)
+  const { data } = useFetch(`/api/invoices`)
+  const invoices = data?.filter((invoices: InvoiceType) => {
+    if (
+      invoices?.contract?.user?.id == profile?.id &&
+      invoices?.status == 'PENDING'
+    )
+      return invoices
+  })
 
   return (
     <Container maxWidth='xl'>
@@ -28,38 +38,48 @@ export default function AccountView(props: SessionProps) {
               }}
             >
               <MdViewInAr />
-              <Typography variant='h5' ml={2}>
-                Meus Contratos
+              <Typography variant='h6' ml={2}>
+                Minhas Contratações
               </Typography>
             </Box>
           </Grid>
           {profile?.contracts?.map((contract: ContractType) => (
-            <Grid item xs={12} sm={4} key={contract?.id}>
+            <Grid item xs={12} sm={6} md={4} lg={2} key={contract?.id}>
               <AccountContractView id={contract?.id} />
             </Grid>
           ))}
-          <Grid item xs={12}>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                fontSize: 28,
-                color: blue[500],
-                textTransform: 'uppercase',
-              }}
-            >
-              <MdPayments />
-              <Typography variant='h5' ml={2}>
-                Meus Pagamentos
-              </Typography>
-            </Box>
-          </Grid>
-          <Grid item xs={12}>
-            <AccountInvoicesDataGrid profile={profile!} />
-          </Grid>
+
+          {invoices?.length! > 0 && (
+            <Fragment>
+              <Grid item xs={12}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    fontSize: 28,
+                    color: blue[500],
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  <MdPayments />
+                  <Typography variant='h6' ml={2}>
+                    Faturas dos Serviços
+                  </Typography>
+                </Box>
+              </Grid>
+              <Grid item xs={12}>
+                <AccountInvoicesDataGrid invoices={invoices!} />
+              </Grid>
+            </Fragment>
+          )}
         </Grid>
       ) : (
-        <Typography variant='h4' textAlign={'center'} marginY={4} color={blue[500]}>
+        <Typography
+          variant='h4'
+          textAlign={'center'}
+          marginY={4}
+          color={blue[500]}
+        >
           Você ainda não possui contratos!
         </Typography>
       )}

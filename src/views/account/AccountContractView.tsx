@@ -1,6 +1,13 @@
 import { useFetch } from '@/hooks/useFetch'
 import { AccountContractViewProps } from './types'
-import { Card, CardActionArea, CardContent, Typography } from '@mui/material'
+import {
+  Box,
+  Card,
+  CardActionArea,
+  CardContent,
+  Chip,
+  Typography,
+} from '@mui/material'
 import { ContractType } from '../contracts/types'
 import { useState } from 'react'
 import ShowInDialog from '@/components/ShowInDialog'
@@ -19,11 +26,30 @@ export default function AccountContractView(props: AccountContractViewProps) {
     <Card>
       <CardActionArea onClick={handleShowInDialog}>
         <CardContent>
-          <Typography gutterBottom variant='h6' component='div'>
-            {contract?.contractCode}
-          </Typography>
-          <Typography variant='body2' color='text.secondary'>
-            {contract?.service?.name}
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignContent: 'center',
+              alignItems: 'center'
+            }}
+          >
+            <Typography
+              gutterBottom
+              variant={'body1'}
+              textTransform={'uppercase'}
+            >
+              {contract?.service?.name}
+            </Typography>
+            <Chip
+              label={contract?.status}
+              color='info'
+              variant='outlined'
+              sx={{ fontSize: 11 }}
+            />
+          </Box>
+          <Typography variant={'body2'} color={'text.secondary'}>
+            {contract?.service?.description}
           </Typography>
         </CardContent>
       </CardActionArea>

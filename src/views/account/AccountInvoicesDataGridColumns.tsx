@@ -63,7 +63,7 @@ export const AccountInvoicesDataGridColumns: GridColDef[] = [
   },
   {
     field: 'payUpTo',
-    headerName: 'Vence em',
+    headerName: 'Vencimento',
     headerAlign: 'center',
     align: 'center',
     flex: 0.1,

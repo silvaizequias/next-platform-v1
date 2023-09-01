@@ -1,12 +1,12 @@
 import { ContractType } from '@/views/contracts/types'
-import { ProfileType } from '@/views/profile/types'
+import { InvoiceType } from '@/views/invoices/types'
 
 export interface AccountContractViewProps {
   id: string
 }
 
 export interface AccountInvoicesDataGridProps {
-  profile: ProfileType
+  invoices: InvoiceType[]
 }
 
 export interface AccountContractDetailProps {

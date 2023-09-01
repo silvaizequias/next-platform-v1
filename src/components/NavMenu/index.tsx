@@ -32,7 +32,7 @@ export default function NavMenu(props: NavMenuProps) {
 
   return (
     <Fragment>
-      <MenuList>
+      <MenuList sx={{ textTransform: 'uppercase' }}>
         <MenuItem onClick={() => handleNavigation('/')}>
           <ListItemIcon>
             <MdWindow />
@@ -44,10 +44,10 @@ export default function NavMenu(props: NavMenuProps) {
       {profile?.role == 'MASTER' && (
         <Accordion elevation={0}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>Master Control</Typography>
+            <Typography textTransform={'uppercase'}>Master Control</Typography>
           </AccordionSummary>
           <AccordionDetails sx={{ m: 0, p: 0 }}>
-            <MenuList>
+            <MenuList sx={{ textTransform: 'uppercase' }}>
               <MenuItem onClick={() => handleNavigation('/contracts')}>
                 <ListItemIcon>
                   <MdRecentActors />

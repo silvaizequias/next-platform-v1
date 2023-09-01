@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { DataTableProps } from './types'
-import { DataGrid } from '@mui/x-data-grid'
+import { DataGrid, ptBR } from '@mui/x-data-grid'
 
 export default function DataTable(props: DataTableProps) {
   const { data, columns } = props
@@ -17,10 +17,18 @@ export default function DataTable(props: DataTableProps) {
 
   return (
     <DataGrid
+      sx={{ border: 0 }}
+      rowHeight={28}
       getRowId={(row) => row?.id!}
       rows={rows!}
       columns={columns!}
       disableColumnSelector
+      initialState={{
+        ...data?.initialState!,
+        pagination: { paginationModel: { pageSize: 5 } },
+      }}
+      pageSizeOptions={[5, 10, 25]}
+      localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
     />
   )
 }

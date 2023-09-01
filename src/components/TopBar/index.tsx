@@ -4,6 +4,7 @@ import {
   AppBar,
   Avatar,
   Box,
+  Chip,
   Container,
   IconButton,
   ListItemIcon,
@@ -21,6 +22,7 @@ import DrawerNavBar from '../DrawerNavBar'
 import { blue } from '@mui/material/colors'
 import { SessionProps } from '@/types'
 import { useFetch } from '@/hooks/useFetch'
+import InvoicesCountBadge from './InvoicesCountBadge'
 
 export default function TopBar(props: SessionProps) {
   const { user }: any = props?.session?.user
@@ -87,6 +89,14 @@ export default function TopBar(props: SessionProps) {
           />
 
           <Box sx={{ flexGrow: 0 }}>
+            <InvoicesCountBadge profile={profile} />
+
+            <Chip
+              label={profile?.role}
+              color='primary'
+              variant='filled'
+              sx={{ marginX: 1 }}
+            />
             <Tooltip title='Abrir'>
               <IconButton
                 sx={{ p: 0 }}
@@ -108,7 +118,7 @@ export default function TopBar(props: SessionProps) {
               onClose={() => handleUserMenu()}
               transformOrigin={{ horizontal: 'right', vertical: 'top' }}
               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-              sx={{ mt: '15px' }}
+              sx={{ mt: '15px', textTransform: 'uppercase' }}
             >
               <MenuItem onClick={() => handleUserMenu('/profile')}>
                 <ListItemIcon>
