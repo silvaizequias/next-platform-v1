@@ -7,7 +7,7 @@ import ProfileLeftView from './ProfileLeftView'
 import ProfileRightView from './ProfileRightView'
 
 export default function ProfileView(props: SessionProps) {
-  const { user }: any = props?.session?.user
+  const { user }: any = props?.session
   const { data: profile, error, mutate } = useFetch(`/api/profile/${user?.id}`)
 
   return (

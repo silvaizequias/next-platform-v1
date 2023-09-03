@@ -11,11 +11,14 @@ import {
 import { grey } from '@mui/material/colors'
 import axios from 'axios'
 import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { FcGoogle } from 'react-icons/fc'
 
 export default function SignUpForm() {
+  const router = useRouter()
+
   const {
     handleSubmit,
     control,
@@ -24,6 +27,11 @@ export default function SignUpForm() {
     mode: 'onChange',
     resolver: zodResolver(AuthSignUpSchema),
   })
+
+  const handleGoogleSignUp = () => {
+    signIn('google')
+    router.push('/')
+  }
 
   const onSubmit: SubmitHandler<AuthSignUpSchemaType> = async (inputs, e) => {
     e?.preventDefault()
@@ -124,7 +132,7 @@ export default function SignUpForm() {
           variant='contained'
           color='info'
           sx={{ m: 2 }}
-          onClick={() => signIn('google')}
+          onClick={handleGoogleSignUp}
           startIcon={<FcGoogle />}
         >
           Registrar-se com o Google

@@ -19,7 +19,7 @@ import ShowInDrawer from '@/components/ShowInDrawer'
 import ServiceCreateForm from './forms/ServiceCreateForm'
 
 export default function ServicesView(props: SessionProps) {
-  const { user }: any = props?.session?.user
+  const { user }: any = props?.session
   const { data: services, error, mutate } = useFetch(`/api/services`)
   const [openDrawer, setOpenDrawer] = useState<boolean>(false)
 

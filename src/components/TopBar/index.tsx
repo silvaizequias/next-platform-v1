@@ -25,7 +25,7 @@ import { useFetch } from '@/hooks/useFetch'
 import InvoicesCountBadge from './InvoicesCountBadge'
 
 export default function TopBar(props: SessionProps) {
-  const { user }: any = props?.session?.user
+  const { user }: any = props?.session
   const { data: profile, error, mutate } = useFetch(`/api/profile/${user?.id}`)
 
   const [openNavBar, setOpenNavBar] = useState<boolean>(false)

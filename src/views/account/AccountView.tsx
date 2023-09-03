@@ -12,7 +12,7 @@ import { InvoiceType } from '../invoices/types'
 import { Fragment } from 'react'
 
 export default function AccountView(props: SessionProps) {
-  const { user }: any = props?.session?.user
+  const { user }: any = props?.session
   const { data: profile } = useFetch(`/api/profile/${user?.id}`)
   const { data } = useFetch(`/api/invoices`)
   const invoices = data?.filter((invoices: InvoiceType) => {

@@ -29,6 +29,11 @@ export default function SignInForm() {
     resolver: zodResolver(AuthSignInSchema),
   })
 
+  const handleGoogleSignIn = () => {
+    signIn('google')
+    router.push('/')
+  }
+
   const onSubmit: SubmitHandler<AuthSignInSchemaType> = async (inputs, e) => {
     e?.preventDefault()
 
@@ -119,7 +124,7 @@ export default function SignInForm() {
           variant='contained'
           color='info'
           sx={{ m: 2 }}
-          onClick={() => signIn('google')}
+          onClick={handleGoogleSignIn}
           startIcon={<FcGoogle />}
         >
           Acessar com o Google

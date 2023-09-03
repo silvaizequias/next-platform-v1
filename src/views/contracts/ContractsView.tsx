@@ -18,7 +18,7 @@ import ShowInDrawer from '@/components/ShowInDrawer'
 import ContractCreateForm from './forms/ContractCreateForm'
 
 export default function ContractsView(props: SessionProps) {
-  const { user }: any = props?.session?.user
+  const { user }: any = props?.session
   const { data: contracts, error, mutate } = useFetch(`/api/contracts`)
   const [openDrawer, setOpenDrawer] = useState<boolean>(false)
 

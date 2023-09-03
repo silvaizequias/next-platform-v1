@@ -17,7 +17,7 @@ import { blue } from '@mui/material/colors'
 import { MdPayments } from 'react-icons/md'
 
 export default function InvoiceHistoryView(props: SessionProps) {
-  const { user }: any = props?.session?.user!
+  const { user }: any = props?.session
   const { data: profile } = useFetch(`/api/profile/${user?.id!}`)
   const { data } = useFetch(`/api/invoices`)
   const invoices = data?.filter((invoices: InvoiceType) => {

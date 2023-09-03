@@ -19,7 +19,7 @@ import ShowInDrawer from '@/components/ShowInDrawer'
 import InvoiceCreateForm from './forms/InvoiceCreateForm'
 
 export default function InvoicesView(props: SessionProps) {
-  const { user }: any = props?.session?.user
+  const { user }: any = props?.session
   const {
     data: invoices,
     error,
