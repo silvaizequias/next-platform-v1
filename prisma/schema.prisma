@@ -54,6 +54,14 @@ enum InvoceStatus {
   CANCELED
 }
 
+model VerificationToken {
+  identifier String   @unique
+  token      String   @unique
+  expires    DateTime
+
+  @@map("verification_token")
+}
+
 model User {
   id          String    @id @default(cuid())
   createdAt   DateTime  @default(now()) @map("created_at")
@@ -75,7 +83,7 @@ model User {
   docType DocType? @default(CPF) @map("doc_type")
   docCode String?  @unique @map("doc_code")
 
-  zipCode    String?    @map("zip_code")
+  zipCode    String? @map("zip_code")
   street     String?
   number     String?
   complement String?
@@ -83,9 +91,47 @@ model User {
   district   String?
   city       String?
   state      String?
-  contracts  Contract[]
+
+  accounts  Account[]
+  sessions  Session[]
+  contracts Contract[]
 
   @@map("users")
+}
+
+model Account {
+  id String @id @default(cuid())
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refreshToken      String? @map("refresh_token") @db.Text
+  accessToken       String? @map("access_token") @db.Text
+  expiresAt         Int?    @map("expires_at")
+  tokenType         String? @map("token_type")
+  scope             String?
+  idToken           String? @map("id_token") @db.Text
+  sessionState      String? @map("session_state")
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+  @@map("accounts")
+}
+
+model Session {
+  id String @id @default(cuid())
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  sessionToken String   @unique @map("session_token")
+  expires      DateTime
+
+  @@index([userId])
+  @@map("sessions")
 }
 
 model Service {
