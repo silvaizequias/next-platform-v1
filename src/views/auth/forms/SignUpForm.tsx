@@ -1,9 +1,19 @@
 import { AuthSignUpSchema, AuthSignUpSchemaType } from '@/schemas/auth'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, FormControl, FormHelperText, TextField } from '@mui/material'
+import {
+  Box,
+  Button,
+  Divider,
+  FormControl,
+  FormHelperText,
+  TextField,
+} from '@mui/material'
+import { grey } from '@mui/material/colors'
 import axios from 'axios'
+import { signIn } from 'next-auth/react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
+import { FcGoogle } from 'react-icons/fc'
 
 export default function SignUpForm() {
   const {
@@ -95,16 +105,31 @@ export default function SignUpForm() {
           <FormHelperText>{errors.phone.message}</FormHelperText>
         )}
       </FormControl>
-      <Button
-        fullWidth
-        size='small'
-        type='submit'
-        variant='contained'
-        color='info'
-        sx={{ mb: 4 }}
-      >
-        Registrar-se
-      </Button>
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Button
+          fullWidth
+          size='small'
+          type='submit'
+          variant='contained'
+          color='primary'
+          sx={{ mb: 2 }}
+        >
+          Registrar-se
+        </Button>
+        <Divider textAlign='center' sx={{ fontSize: 12, color: grey[400] }}>
+          ou
+        </Divider>
+        <Button
+          size='small'
+          variant='contained'
+          color='info'
+          sx={{ m: 2 }}
+          onClick={() => signIn('google')}
+          startIcon={<FcGoogle />}
+        >
+          Registrar-se com o Google
+        </Button>
+      </Box>
     </form>
   )
 }

@@ -82,7 +82,7 @@ export default function ResetPasswordForm() {
         type='submit'
         variant='contained'
         color='info'
-        sx={{ mb: 4 }}
+        sx={{ mb: 2 }}
       >
         Redefinir Senha
       </Button>

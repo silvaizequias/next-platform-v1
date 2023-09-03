@@ -4,8 +4,18 @@ import { signIn } from 'next-auth/react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { Button, FormControl, FormHelperText, TextField } from '@mui/material'
+import {
+  Box,
+  Button,
+  Divider,
+  FormControl,
+  FormHelperText,
+  TextField,
+  Typography,
+} from '@mui/material'
 import toast from 'react-hot-toast'
+import { grey } from '@mui/material/colors'
+import { FcGoogle } from 'react-icons/fc'
 
 export default function SignInForm() {
   const [showPassword, setShowPassword] = useState<boolean>(false)
@@ -91,16 +101,30 @@ export default function SignInForm() {
           <FormHelperText>{errors.password.message}</FormHelperText>
         )}
       </FormControl>
-      <Button
-        fullWidth
-        size='small'
-        type='submit'
-        variant='contained'
-        color='info'
-        sx={{ mb: 4 }}
-      >
-        Autenticar-se
-      </Button>
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Button
+          size='small'
+          type='submit'
+          variant='contained'
+          color='primary'
+          sx={{ mb: 2 }}
+        >
+          Acessar
+        </Button>
+        <Divider textAlign='center' sx={{ fontSize: 12, color: grey[400] }}>
+          ou
+        </Divider>
+        <Button
+          size='small'
+          variant='contained'
+          color='info'
+          sx={{ m: 2 }}
+          onClick={() => signIn('google')}
+          startIcon={<FcGoogle />}
+        >
+          Acessar com o Google
+        </Button>
+      </Box>
     </form>
   )
 }
