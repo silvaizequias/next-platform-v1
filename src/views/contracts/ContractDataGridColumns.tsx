@@ -100,25 +100,6 @@ export const ContractDataGridColumns: GridColDef[] = [
     ),
   },
   {
-    field: 'payment',
-    headerName: 'Pagamento',
-    headerAlign: 'center',
-    align: 'center',
-    flex: 0.1,
-    minWidth: 80,
-    sortable: true,
-    filterable: true,
-    renderCell: (params: GridRenderCellParams<ContractType>) => (
-      <Box
-        sx={{
-          textTransform: 'uppercase',
-        }}
-      >
-        {params.row?.payment}
-      </Box>
-    ),
-  },
-  {
     field: 'options',
     headerName: '',
     headerAlign: 'center',

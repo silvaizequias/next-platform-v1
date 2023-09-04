@@ -38,6 +38,8 @@ export const GET = async (request: Request) => {
 }
 
 export const POST = async (request: Request) => {
+  const randomCode = Math.random().toString(32).substr(2, 12).toUpperCase()
+
   try {
     await prisma.$connect()
     return await request
@@ -45,7 +47,14 @@ export const POST = async (request: Request) => {
       .then(async (inputs: ServiceCreateSchemaType) => {
         if (await ServiceCreateSchema.parseAsync(inputs)) {
           return new Response(
-            JSON.stringify(await prisma.service.create({ data: inputs })),
+            JSON.stringify(
+              await prisma.service.create({
+                data: {
+                  ...inputs,
+                  serviceCode: randomCode,
+                },
+              }),
+            ),
           )
         }
       })

@@ -65,11 +65,6 @@ export default function ContractCreateForm(props: ContractCreateFormProps) {
 
   return (
     <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
-      <input
-        {...register('contractCode')}
-        hidden
-        value={Math.random().toString(32).substr(2, 8).toUpperCase()}
-      />
       <FormControl fullWidth sx={{ my: 2 }}>
         <InputLabel id='serviceCode'>Serviço</InputLabel>
         <Select

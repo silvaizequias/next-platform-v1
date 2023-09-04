@@ -3,6 +3,7 @@ import {
   ContractCreateSchema,
   ContractCreateSchemaType,
 } from '@/schemas/contract'
+import { invoiceGenerator } from '@/services/invoice-generator'
 import { Prisma } from '@prisma/client'
 
 export const GET = async (request: Request) => {
@@ -43,6 +44,8 @@ export const GET = async (request: Request) => {
 }
 
 export const POST = async (request: Request) => {
+  const randomCode = Math.random().toString(32).substr(2, 12).toUpperCase()
+
   try {
     await prisma.$connect()
     return await request
@@ -67,6 +70,7 @@ export const POST = async (request: Request) => {
 
           const data: Prisma.ContractCreateInput = {
             ...inputs,
+            contractCode: randomCode,
             user: {
               connect: {
                 phone: userPhone,
@@ -78,9 +82,23 @@ export const POST = async (request: Request) => {
               },
             },
           }
+          await prisma.contract.create({ data }).then(async (res) => {
+            await prisma.invoice.create({
+              data: {
+                invoiceCode: randomCode,
+                contractId: res.id,
+                payUpTo: new Date(Date.now()),
+                amount: service?.price,
+              },
+            })
+          })
 
           return new Response(
-            JSON.stringify(await prisma.contract.create({ data })),
+            JSON.stringify(
+              JSON.stringify(
+                'O contrato foi criado e a fatura para pagamento do serviço gerada!',
+              ),
+            ),
           )
         }
       })

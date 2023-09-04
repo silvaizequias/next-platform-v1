@@ -6,7 +6,6 @@ const PERIOD = ['MONTHLY', 'QUARTERLY', 'SEMESTERLY', 'YEARLY'] as const
 export const ContractCreateSchema = z.object({
   userPhone: z.string().length(11).optional(),
   serviceCode: z.string().optional(),
-  contractCode: z.string(),
   status: z.enum(STATUS).default('ACTIVE').optional(),
   description: z.string().optional(),
   note: z.string().optional(),

@@ -58,11 +58,6 @@ export default function ServiceCreateForm(props: ServiceCreateFormProps) {
 
   return (
     <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
-      <input
-        {...register('serviceCode')}
-        hidden
-        value={Math.random().toString(32).substr(2, 8).toUpperCase()}
-      />
       <FormControl fullWidth sx={{ my: 2 }}>
         <InputLabel id='solution'>Solução</InputLabel>
         <Select

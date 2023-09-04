@@ -36,6 +36,8 @@ export const GET = async (request: Request) => {
 }
 
 export const POST = async (request: Request) => {
+  const randomCode = Math.random().toString(32).substr(2, 12).toUpperCase()
+
   try {
     await prisma.$connect()
     return await request
@@ -43,6 +45,7 @@ export const POST = async (request: Request) => {
       .then(async (inputs: InvoiceCreateSchemaType) => {
         if (await InvoiceCreateSchema.parseAsync(inputs)) {
           const { contractCode } = inputs
+
           const contract = await prisma.contract.findFirst({
             where: {
               contractCode: contractCode,
@@ -51,18 +54,32 @@ export const POST = async (request: Request) => {
           if (!contract)
             return new Response('contract not found', { status: 404 })
 
+          const service = await prisma.service.findFirst({
+            where: {
+              id: contract?.serviceId,
+            },
+          })
+          if (!service)
+            return new Response('service not found', { status: 404 })
+
+          const totalAmount = service?.price!
+
           delete inputs?.contractCode
 
           const data: Prisma.InvoiceCreateInput = {
             ...inputs,
+            invoiceCode: randomCode,
+            amount: totalAmount,
             contract: {
               connect: {
                 contractCode: contractCode,
               },
             },
           }
+          await prisma.invoice.create({ data })
+
           return new Response(
-            JSON.stringify(await prisma.invoice.create({ data })),
+            JSON.stringify(JSON.stringify('A fatura foi gerada!')),
           )
         }
       })

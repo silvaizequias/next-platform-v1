@@ -4,7 +4,6 @@ const STATUS = ['PENDING', 'INVOICED', 'CANCELED'] as const
 
 export const InvoiceCreateSchema = z.object({
   contractCode: z.string().optional(),
-  invoiceCode: z.string(),
   barCode: z.string().optional(),
   qrCode: z.string().optional(),
   status: z.enum(STATUS).default('PENDING').optional(),

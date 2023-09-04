@@ -68,12 +68,6 @@ export const authOptions: NextAuthOptions = {
   cookies: {},
   callbacks: {
     signIn: async ({ user, account, profile, credentials }) => {
-      console.log('SIGNIN CALLBACK', {
-        user,
-        account,
-        profile,
-        credentials,
-      })
       if (profile) {
         const data = await prisma.user.findFirst({
           where: {
@@ -95,7 +89,7 @@ export const authOptions: NextAuthOptions = {
       return true
     },
     jwt: async ({ token, user }) => {
-      console.log('JWT CALLBACK', { token, user })
+      //console.log('JWT CALLBACK', { token, user })
       const data = await prisma.user.findFirst({
         where: {
           email: user?.email! || token?.email!,
@@ -115,7 +109,7 @@ export const authOptions: NextAuthOptions = {
       }
     },
     session: async ({ session, token }) => {
-      console.log('SESSION CALLBACK', { session, token })
+      //console.log('SESSION CALLBACK', { session, token })
       if (token) {
         session.user.id = token.id
         session.user.role = token.role

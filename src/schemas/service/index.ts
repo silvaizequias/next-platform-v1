@@ -4,7 +4,6 @@ const SOLUTION = ['NONE'] as const
 
 export const ServiceCreateSchema = z.object({
   isActive: z.boolean().default(true).optional(),
-  serviceCode: z.string(),
   name: z.string(),
   solution: z.enum(SOLUTION),
   description: z.string(),

@@ -61,11 +61,6 @@ export default function InvoiceCreateForm(props: InvoiceCreateFormProps) {
 
   return (
     <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
-      <input
-        {...register('invoiceCode')}
-        hidden
-        value={Math.random().toString(32).substr(2, 8).toUpperCase()}
-      />
       <FormControl fullWidth sx={{ my: 2 }}>
         <InputLabel id='contractCode'>Contrato</InputLabel>
         <Select
@@ -89,24 +84,22 @@ export default function InvoiceCreateForm(props: InvoiceCreateFormProps) {
       </FormControl>
       <FormControl fullWidth sx={{ mb: 2 }}>
         <Controller
-          {...register('amount', { valueAsNumber: true })}
+          {...register('tax', { valueAsNumber: true })}
           control={control}
-          rules={{ required: true }}
+          rules={{ required: false }}
           render={({ field: { value, onChange, onBlur } }) => (
             <TextField
               autoFocus
-              label={'Valor da Fatura'}
+              label={'Taxa adicional'}
               value={value}
               onBlur={onBlur}
               onChange={onChange}
-              error={Boolean(errors.amount)}
+              error={Boolean(errors.tax)}
               placeholder='Valor'
             />
           )}
         />
-        {errors.amount && (
-          <FormHelperText>{errors.amount.message}</FormHelperText>
-        )}
+        {errors.tax && <FormHelperText>{errors.tax.message}</FormHelperText>}
       </FormControl>
       <FormControl fullWidth sx={{ mb: 2 }}>
         <Controller
