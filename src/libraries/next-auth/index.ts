@@ -61,29 +61,38 @@ export const authOptions: NextAuthOptions = {
   cookies: {},
   callbacks: {
     jwt: async ({ token, session, user, account, profile, isNewUser }) => {
-      if (user) {
-        token.id = user.id
-        token.role = user.role!
-        token.name = user.name
-        token.email = user.email
-        token.picture = user.image
+      const data = await prisma.user.findFirst({
+        where: {
+          email: token.email!,
+        },
+      })
+      if (!data) {
+        token.id = user!.id
+        return token
       }
       if (profile) {
+        token.sub = profile.sub
         token.name = profile.name
         token.email = profile.email
         token.picture = profile.image
+        token.role = 'GUEST'
       }
-      return token
+
+      return {
+        id: data?.id!,
+        role: data?.role!,
+        name: data?.name!,
+        email: data?.email!,
+        picture: data?.avatar!,
+      }
     },
     session: async ({ session, token }) => {
-      if (session.user) {
+      if (token) {
+        session.user.id = token.id
         session.user.role = token.role
         session.user.name = token.name
         session.user.email = token.email
         session.user.image = token.picture
-      }
-      if (token) {
-        session.user = token
       }
       return session
     },
@@ -95,4 +104,5 @@ export const authOptions: NextAuthOptions = {
     verifyRequest: `/`,
     newUser: '/profile',
   },
+  debug: false,
 }

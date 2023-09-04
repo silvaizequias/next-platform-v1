@@ -29,9 +29,16 @@ export default function SignInForm() {
     resolver: zodResolver(AuthSignInSchema),
   })
 
-  const handleGoogleSignIn = () => {
-    signIn('google')
-    router.push('/')
+  const handleGoogleSignIn = async () => {
+    await signIn('google')
+      .then(async (res) => {
+        console.log(res)
+        toast.success('Boas vindas ao seu Dedicado Digital!')
+        //router.push('/profile')
+      })
+      .catch((error: any) => {
+        console.log(error)
+      })
   }
 
   const onSubmit: SubmitHandler<AuthSignInSchemaType> = async (inputs, e) => {
@@ -46,7 +53,7 @@ export default function SignInForm() {
       })
         .then((res: any) => {
           if (!res?.error) {
-            toast.success('Boas vindas ao seu Dedicado Digital!')
+            toast.success(`Boas vindas ao seu Dedicado Digital!`)
             router.refresh()
           } else {
             toast.error('O celular ou a senha estão incorretos!')

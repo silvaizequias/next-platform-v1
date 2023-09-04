@@ -28,9 +28,16 @@ export default function SignUpForm() {
     resolver: zodResolver(AuthSignUpSchema),
   })
 
-  const handleGoogleSignUp = () => {
-    signIn('google')
-    router.push('/')
+  const handleGoogleSignUp = async () => {
+    await signIn('google')
+      .then(async (res) => {
+        console.log(res)
+        toast.success('Boas vindas ao seu Dedicado Digital!')
+        //router.push('/profile')
+      })
+      .catch((error: any) => {
+        console.log(error)
+      })
   }
 
   const onSubmit: SubmitHandler<AuthSignUpSchemaType> = async (inputs, e) => {
