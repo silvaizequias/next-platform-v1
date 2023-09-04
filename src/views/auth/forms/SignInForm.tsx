@@ -30,14 +30,13 @@ export default function SignInForm() {
   })
 
   const handleGoogleSignIn = async () => {
-    await signIn('google')
+    await signIn('google', {callbackUrl: '/'})
       .then(async (res) => {
-        console.log(res)
-        toast.success('Boas vindas ao seu Dedicado Digital!')
+        if(!res?.error) toast.success('Boas vindas ao seu Dedicado Digital!')
         //router.push('/profile')
       })
       .catch((error: any) => {
-        console.log(error)
+        console.error(error)
       })
   }
 

@@ -1,3 +1,4 @@
+import { CrispChatProvider } from '@/components/CrispChat/provider'
 import Spinner from '@/components/Spinner'
 import ThemeRegistry from '@/components/ThemeRegistry'
 import TopBar from '@/components/TopBar'
@@ -12,7 +13,8 @@ export default async function AppLayout(props: LayoutProps) {
   const session = await getServerSession(authOptions)
 
   return (
-    <html lang='en'>
+    <html lang='en' suppressHydrationWarning>
+      <CrispChatProvider />
       <body>
         <ThemeRegistry>
           {session && <TopBar session={session} />}
