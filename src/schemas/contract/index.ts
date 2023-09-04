@@ -2,7 +2,6 @@ import * as z from 'zod'
 
 const STATUS = ['ACTIVE', 'SUSPENDED', 'FINISHED', 'CANCELED'] as const
 const PERIOD = ['MONTHLY', 'QUARTERLY', 'SEMESTERLY', 'YEARLY'] as const
-const PAYMENT = ['CARD', 'ORDER', 'PIX'] as const
 
 export const ContractCreateSchema = z.object({
   userPhone: z.string().length(11).optional(),
@@ -14,7 +13,6 @@ export const ContractCreateSchema = z.object({
   startedIn: z.coerce.date().default(new Date()).optional(),
   period: z.enum(PERIOD).default('MONTHLY').optional(),
   endedIn: z.coerce.date().optional(),
-  payment: z.enum(PAYMENT).default('PIX').optional(),
   discount: z.coerce.number().default(0).optional(),
 })
 
@@ -28,7 +26,6 @@ export const ContractUpdateSchema = z
     startedIn: z.coerce.date().optional(),
     period: z.enum(PERIOD).optional(),
     endedIn: z.coerce.date().optional(),
-    payment: z.enum(PAYMENT).optional(),
     discount: z.coerce.number().default(0),
   })
 

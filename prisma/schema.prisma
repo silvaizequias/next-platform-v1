@@ -42,12 +42,6 @@ enum ContractPeriod {
   YEARLY
 }
 
-enum ContractPayment {
-  CARD
-  ORDER
-  PIX
-}
-
 enum InvoceStatus {
   PENDING
   INVOICED
@@ -171,7 +165,6 @@ model Contract {
   startedIn    DateTime?        @map("started_in")
   period       ContractPeriod?  @default(MONTHLY)
   endedIn      DateTime?        @map("ended_in")
-  payment      ContractPayment? @default(PIX)
   discount     Decimal?         @default(0) @db.Decimal(10, 2)
   invoices     Invoice[]
 

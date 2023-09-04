@@ -19,7 +19,6 @@ export type ContractType = {
   startedIn: Date
   period: 'MONTHLY' | 'QUARTERLY' | 'SEMESTERLY' | 'YEARLY'
   endedIn: Date
-  payment: 'CARD' | 'ORDER' | 'PIX'
   discount: number
   invoices: InvoiceType[]
 }
