@@ -55,12 +55,20 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRE,
+      profile(profile): any {
+        return {
+          id: profile?.sub!,
+          name: profile?.name!,
+          email: profile?.email!,
+          image: profile?.picture!,
+        }
+      },
     }),
   ],
   session: { strategy: 'jwt', maxAge: 15 * 24 * 30 * 60 },
   cookies: {},
   callbacks: {
-    jwt: async ({ token, session, user, account, profile, isNewUser }) => {
+    jwt: async ({ token, session, user }) => {
       const data = await prisma.user.findFirst({
         where: {
           email: token.email!,
@@ -69,13 +77,6 @@ export const authOptions: NextAuthOptions = {
       if (!data) {
         token.id = user!.id
         return token
-      }
-      if (profile) {
-        token.sub = profile.sub
-        token.name = profile.name
-        token.email = profile.email
-        token.picture = profile.image
-        token.role = 'GUEST'
       }
 
       return {
@@ -87,6 +88,7 @@ export const authOptions: NextAuthOptions = {
       }
     },
     session: async ({ session, token }) => {
+      console.log('SESSION CALLBACK', { session, token, })
       if (token) {
         session.user.id = token.id
         session.user.role = token.role
