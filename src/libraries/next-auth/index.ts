@@ -6,7 +6,6 @@ import GoogleProvider from 'next-auth/providers/google'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { compareSync } from 'bcrypt'
 import { AuthSignInSchema } from '@/schemas/auth'
-import { profile } from 'console'
 
 const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET
 const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string
@@ -68,27 +67,55 @@ export const authOptions: NextAuthOptions = {
   session: { strategy: 'jwt', maxAge: 15 * 24 * 30 * 60 },
   cookies: {},
   callbacks: {
-    jwt: async ({ token, session, user }) => {
+    signIn: async ({ user, account, profile, credentials }) => {
+      console.log('SIGNIN CALLBACK', {
+        user,
+        account,
+        profile,
+        credentials,
+      })
+      if (profile) {
+        const data = await prisma.user.findFirst({
+          where: {
+            email: profile.email!,
+          },
+        })
+        if (!data) {
+          await prisma.user.create({
+            data: {
+              name: profile?.name!,
+              email: profile?.email!,
+              avatar: profile?.image!,
+            },
+          })
+        }
+
+        return true
+      }
+      return true
+    },
+    jwt: async ({ token, user }) => {
+      console.log('JWT CALLBACK', { token, user })
       const data = await prisma.user.findFirst({
         where: {
-          email: token.email!,
+          email: user?.email! || token?.email!,
         },
       })
-      if (!data) {
-        token.id = user!.id
+      if (!user) {
+        token.id = data!.id
         return token
       }
 
       return {
         id: data?.id!,
         role: data?.role!,
-        name: data?.name!,
-        email: data?.email!,
-        picture: data?.avatar!,
+        name: user?.name!,
+        email: user?.email!,
+        picture: user?.image! || data?.avatar,
       }
     },
     session: async ({ session, token }) => {
-      console.log('SESSION CALLBACK', { session, token, })
+      console.log('SESSION CALLBACK', { session, token })
       if (token) {
         session.user.id = token.id
         session.user.role = token.role
@@ -102,8 +129,8 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: `/`,
     signOut: `/`,
-    error: `/`,
-    verifyRequest: `/`,
+    error: `/auth/error`,
+    verifyRequest: `/auth/verify-request`,
     newUser: '/profile',
   },
   debug: false,
