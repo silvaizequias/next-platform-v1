@@ -3,7 +3,6 @@ import {
   ContractCreateSchema,
   ContractCreateSchemaType,
 } from '@/schemas/contract'
-import { invoiceGenerator } from '@/services/invoice-generator'
 import { Prisma } from '@prisma/client'
 
 export const GET = async (request: Request) => {
