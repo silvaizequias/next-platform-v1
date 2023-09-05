@@ -6,7 +6,7 @@ export default function PaymentDialog(props: PaymentDialogProps) {
 
   return (
     <ShowInDialog onClose={onClose} open={open}>
-      {invoice.invoiceCode}
+      {invoice?.invoiceCode!}
     </ShowInDialog>
   )
 }
