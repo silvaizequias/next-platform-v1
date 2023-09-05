@@ -1,7 +1,7 @@
 import { Box } from '@mui/material'
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
-import InvoiceDataGridOptions from './InvoiceDataGridOptions'
 import { InvoiceType } from './types'
+import InvoiceDataGridOptions from './InvoiceDataGridOptions'
 
 export const InvoiceDataGridColumns: GridColDef[] = [
   {

@@ -1,7 +1,7 @@
 import { Box } from '@mui/material'
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { InvoiceType } from '../invoices/types'
-import InvoiceDataGridOptions from '../invoices/InvoiceDataGridOptions'
+import PaymentButton from '@/components/PaymentButton'
 
 export const AccountInvoicesDataGridColumns: GridColDef[] = [
   {
@@ -81,16 +81,22 @@ export const AccountInvoicesDataGridColumns: GridColDef[] = [
     ),
   },
   {
-    field: 'options',
+    field: 'paymentButton',
     headerName: '',
     headerAlign: 'center',
     align: 'center',
     flex: 0.1,
-    maxWidth: 50,
+    minWidth: 100,
     sortable: false,
     filterable: false,
     renderCell: (params: GridRenderCellParams<InvoiceType>) => (
-      <InvoiceDataGridOptions id={params.row?.id} />
+      <Box
+        sx={{
+          textTransform: 'uppercase',
+        }}
+      >
+        <PaymentButton id={params.row?.id} />
+      </Box>
     ),
   },
 ]
