@@ -1,4 +1,5 @@
-import { ContractType } from '@/views/contracts/types'
+import { SolutionType } from '@/views/solutions/types'
+import { SubscriptionType } from '@/views/subscriptions/types'
 
 export type ServiceType = {
   id: string
@@ -6,13 +7,13 @@ export type ServiceType = {
   updatedAt: Date
   deletedAt: Date
   softDeleted: boolean
-  isActive: boolean
-  serviceCode: string
+  solutionId: string
+  solution: SolutionType
+  isAvaliable: boolean
   name: string
-  solution: 'NONE'
   description: string
   price: number
-  contracts: ContractType[]
+  subscriptions: SubscriptionType[]
 }
 
 export interface ServiceDataGridProps {
