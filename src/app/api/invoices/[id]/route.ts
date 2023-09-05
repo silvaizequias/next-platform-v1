@@ -25,6 +25,7 @@ export const GET = async (
                     isActive: true,
                     name: true,
                     phone: true,
+                    email: true,
                   },
                 },
               },
