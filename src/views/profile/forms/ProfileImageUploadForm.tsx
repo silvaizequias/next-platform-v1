@@ -77,7 +77,7 @@ export default function ProfileImageUploadForm(
   const handleImageUpload = async () => {
     if (imageUrl) {
       const inputs: ProfileUpdateSchemaType = {
-        avatar: imageUrl,
+        image: imageUrl,
       }
 
       try {
@@ -108,7 +108,7 @@ export default function ProfileImageUploadForm(
         component='img'
         alt={profile?.name}
         height='400'
-        image={!imageUrl ? profile?.avatar || '/avatar.png' : imageUrl}
+        image={!imageUrl ? profile?.image || '/avatar.png' : imageUrl}
       />
       <CardContent sx={{ display: 'flex', flexDirection: 'column' }}>
         <Stack sx={{ py: 2 }}>

@@ -104,8 +104,8 @@ export default function TopBar(props: SessionProps) {
                 onClick={handleOpenUserMenu}
               >
                 <Avatar
-                  alt={profile?.name}
-                  src={profile?.avatar || '/avatar.png'}
+                  alt={profile?.name!}
+                  src={profile?.image! || '/avatar.png'}
                 />
               </IconButton>
             </Tooltip>

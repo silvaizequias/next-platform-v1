@@ -48,12 +48,46 @@ enum InvoceStatus {
   CANCELED
 }
 
-model VerificationToken {
-  identifier String   @unique
-  token      String   @unique
-  expires    DateTime
+model Account {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at") @db.Date
+  softDeleted Boolean?  @default(false) @map("soft_deleted")
 
-  @@map("verification_token")
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @map("refresh_token") @db.Text
+  access_token      String? @map("access_token") @db.Text
+  expires_at        Int?    @map("expires_at")
+  token_type        String? @map("token_type")
+  scope             String?
+  id_token          String? @map("id_token") @db.Text
+  session_state     String? @map("session_state")
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at") @db.Date
+  softDeleted Boolean?  @default(false) @map("soft_deleted")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  sessionToken String   @map("session_token")
+  expires      DateTime
+
+  @@unique([sessionToken])
+  @@map("sessions")
 }
 
 model User {
@@ -68,14 +102,15 @@ model User {
 
   role      UserRole? @default(GUEST)
   passToken String?   @unique @map("pass_token")
-  passHash  String?   @unique @map("pass_hash")
+  passHash  String?   @map("pass_hash")
 
-  avatar  String?
-  name    String?
-  email   String   @unique
-  phone   String?  @unique
-  docType DocType? @default(CPF) @map("doc_type")
-  docCode String?  @unique @map("doc_code")
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime? @map("email_verified")
+  image         String?
+  phone         String?   @unique
+  docType       DocType?  @default(CPF) @map("doc_type")
+  docCode       String?   @unique @map("doc_code")
 
   zipCode    String? @map("zip_code")
   street     String?
@@ -87,45 +122,20 @@ model User {
   state      String?
 
   accounts  Account[]
-  sessions  Session[]
   contracts Contract[]
+  sessions  Session[]
 
+  @@unique([email, phone, docCode, passToken])
   @@map("users")
 }
 
-model Account {
-  id String @id @default(cuid())
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
 
-  userId String @map("user_id")
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  type              String
-  provider          String
-  providerAccountId String  @map("provider_account_id")
-  refreshToken      String? @map("refresh_token") @db.Text
-  accessToken       String? @map("access_token") @db.Text
-  expiresAt         Int?    @map("expires_at")
-  tokenType         String? @map("token_type")
-  scope             String?
-  idToken           String? @map("id_token") @db.Text
-  sessionState      String? @map("session_state")
-
-  @@unique([provider, providerAccountId])
-  @@index([userId])
-  @@map("accounts")
-}
-
-model Session {
-  id String @id @default(cuid())
-
-  userId String @map("user_id")
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  sessionToken String   @unique @map("session_token")
-  expires      DateTime
-
-  @@index([userId])
-  @@map("sessions")
+  @@unique([identifier, token])
+  @@map("verification_tokens")
 }
 
 model Service {
@@ -136,13 +146,14 @@ model Service {
   softDeleted Boolean?  @default(false) @map("soft_deleted")
 
   isActive    Boolean?         @default(false) @map("is_active")
-  serviceCode String?          @unique @map("service_code")
+  serviceCode String?          @map("service_code")
   name        String?
   solution    ServiceSolution?
   description String?
   price       Decimal?         @default(0) @db.Decimal(10, 2)
   contracts   Contract[]
 
+  @@unique([serviceCode])
   @@map("services")
 }
 
@@ -158,16 +169,17 @@ model Contract {
   serviceId String  @map("service_id")
   service   Service @relation(fields: [serviceId], references: [id])
 
-  contractCode String?          @unique @map("contract_code")
-  status       ContractStatus?  @default(ACTIVE)
+  contractCode String?         @map("contract_code")
+  status       ContractStatus? @default(ACTIVE)
   description  String?
   note         String?
-  startedIn    DateTime?        @map("started_in")
-  period       ContractPeriod?  @default(MONTHLY)
-  endedIn      DateTime?        @map("ended_in")
-  discount     Decimal?         @default(0) @db.Decimal(10, 2)
+  startedIn    DateTime?       @map("started_in")
+  period       ContractPeriod? @default(MONTHLY)
+  endedIn      DateTime?       @map("ended_in")
+  discount     Decimal?        @default(0) @db.Decimal(10, 2)
   invoices     Invoice[]
 
+  @@unique([contractCode])
   @@index([userId])
   @@index([serviceId])
   @@map("contracts")
@@ -183,7 +195,7 @@ model Invoice {
   contractId String   @map("contractId")
   contract   Contract @relation(fields: [contractId], references: [id])
 
-  invoiceCode String?       @unique @map("invoice_code")
+  invoiceCode String?       @map("invoice_code")
   barCode     String?       @unique @map("bar_code")
   qrCode      String?       @map("qr_code")
   status      InvoceStatus? @default(PENDING)
@@ -195,6 +207,7 @@ model Invoice {
   wasPaid     Boolean?      @default(false) @map("was_paid")
   paidAt      DateTime?     @map("paid_at") @db.Date
 
+  @@unique([invoiceCode])
   @@index([contractId])
   @@map("invoices")
 }

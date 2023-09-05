@@ -16,7 +16,7 @@ export const UserDataGridColumns: GridColDef[] = [
     renderCell: (params: GridRenderCellParams<UserType>) => (
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Avatar
-          src={params.row?.avatar || '/avatar.png'}
+          src={params.row?.image || '/avatar.png'}
           sx={{ mr: 3, width: 34, height: 34 }}
         />
         <Box

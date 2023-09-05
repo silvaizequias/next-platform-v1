@@ -10,7 +10,7 @@ export type UserType = {
   isActive: boolean
   role: 'MASTER' | 'MEMBER' | 'CUSTOMER' | 'GUEST'
   passToken: string
-  avatar: string
+  image: string
   name: string
   email: string
   phone: string

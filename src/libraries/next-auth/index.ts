@@ -39,7 +39,7 @@ export const authOptions: NextAuthOptions = {
               name: user?.name!,
               phone: user?.phone!,
               email: user?.email!,
-              avatar: user?.avatar!,
+              image: user?.image!,
               isActive: user?.isActive!,
               isVerified: user?.isVerified!,
             }
@@ -79,16 +79,18 @@ export const authOptions: NextAuthOptions = {
             data: {
               name: profile?.name!,
               email: profile?.email!,
-              avatar: profile?.image!,
+              image: profile?.image!,
+              role: 'GUEST',
+              isActive: true,
+              isVerified: true,
             },
           })
         }
-
         return true
       }
-      return true
+      return false
     },
-    jwt: async ({ token, user }) => {
+    jwt: async ({ token, user, isNewUser }) => {
       //console.log('JWT CALLBACK', { token, user })
       const data = await prisma.user.findFirst({
         where: {
@@ -105,7 +107,7 @@ export const authOptions: NextAuthOptions = {
         role: data?.role!,
         name: user?.name!,
         email: user?.email!,
-        picture: user?.image! || data?.avatar,
+        picture: user?.image! || data?.image,
       }
     },
     session: async ({ session, token }) => {
@@ -121,11 +123,8 @@ export const authOptions: NextAuthOptions = {
     },
   },
   pages: {
-    signIn: `/`,
-    signOut: `/`,
-    error: `/auth/error`,
-    verifyRequest: `/auth/verify-request`,
-    newUser: '/profile',
+    signIn: '/',
+    newUser: '/profile'
   },
   debug: false,
 }

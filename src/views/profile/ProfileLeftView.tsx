@@ -55,7 +55,7 @@ export default function ProfileLeftView(props: ProfileProps) {
               component='img'
               height='200'
               alt={profile?.name}
-              image={profile?.avatar || '/avatar.png'}
+              image={profile?.image || '/avatar.png'}
             />
           </Badge>
         </CardContent>

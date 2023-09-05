@@ -10,7 +10,7 @@ const ACCEPTED_IMAGE_TYPES = [
 ]
 
 export const ProfileUpdateSchema = z.object({
-  avatar: z.string().optional(),
+  image: z.string().optional(),
   name: z.string().optional(),
   email: z.string().email().optional(),
   phone: z.string().optional(),
