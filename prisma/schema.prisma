@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider     = "postgres"
+  provider     = "mysql"
   url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
@@ -15,10 +15,6 @@ enum UserRole {
   GUEST
 }
 
-enum ServiceSolution {
-  NONE
-}
-
 enum DocType {
   CPF
   CNPJ
@@ -28,24 +24,21 @@ enum DocType {
   PASSPORT
 }
 
-enum ContractStatus {
+enum SubscriptionStatus {
+  INCOMPLETE
+  INCOMPLETE_EXPIRED
+  TRIALING
   ACTIVE
-  SUSPENDED
-  FINISHED
+  PAST_DUE
   CANCELED
+  UNPAID
 }
 
-enum ContractPeriod {
-  MONTHLY
-  QUARTERLY
-  SEMESTERLY
-  YEARLY
-}
-
-enum InvoceStatus {
-  PENDING
-  INVOICED
-  CANCELED
+enum SunscriptionRecurringInterval {
+  DAY
+  WEEK
+  MONTH
+  YEAR
 }
 
 model Account {
@@ -70,6 +63,7 @@ model Account {
   session_state     String? @map("session_state")
 
   @@unique([provider, providerAccountId])
+  @@index([userId])
   @@map("accounts")
 }
 
@@ -87,6 +81,7 @@ model Session {
   expires      DateTime
 
   @@unique([sessionToken])
+  @@index([userId])
   @@map("sessions")
 }
 
@@ -97,12 +92,8 @@ model User {
   deletedAt   DateTime? @map("deleted_at") @db.Date
   softDeleted Boolean?  @default(false) @map("soft_deleted")
 
-  isVerified Boolean? @default(false) @map("is_verified")
-  isActive   Boolean? @default(false) @map("is_active")
-
-  role      UserRole? @default(GUEST)
-  passToken String?   @unique @map("pass_token")
-  passHash  String?   @map("pass_hash")
+  isActive Boolean?  @default(false) @map("is_active")
+  role     UserRole? @default(GUEST)
 
   name          String?
   email         String?   @unique
@@ -112,20 +103,11 @@ model User {
   docType       DocType?  @default(CPF) @map("doc_type")
   docCode       String?   @unique @map("doc_code")
 
-  zipCode    String? @map("zip_code")
-  street     String?
-  number     String?
-  complement String?
-  zone       String?
-  district   String?
-  city       String?
-  state      String?
+  accounts      Account[]
+  subscriptions Subscription[]
+  sessions      Session[]
 
-  accounts  Account[]
-  contracts Contract[]
-  sessions  Session[]
-
-  @@unique([email, phone, docCode, passToken])
+  @@unique([email, phone, docCode])
   @@map("users")
 }
 
@@ -138,6 +120,24 @@ model VerificationToken {
   @@map("verification_tokens")
 }
 
+model Solution {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at") @db.Date
+  softDeleted Boolean?  @default(false) @map("soft_deleted")
+
+  name     String
+  url      String
+  cloud    String?
+  isActive Boolean? @default(true) @map("is_active")
+
+  services Service[]
+
+  @@unique([name])
+  @@map("solutions")
+}
+
 model Service {
   id          String    @id @default(cuid())
   createdAt   DateTime  @default(now()) @map("created_at")
@@ -145,69 +145,51 @@ model Service {
   deletedAt   DateTime? @map("deleted_at") @db.Date
   softDeleted Boolean?  @default(false) @map("soft_deleted")
 
-  isActive    Boolean?         @default(false) @map("is_active")
-  serviceCode String?          @map("service_code")
-  name        String?
-  solution    ServiceSolution?
-  description String?
-  price       Decimal?         @default(0) @db.Decimal(10, 2)
-  contracts   Contract[]
+  solutionId String   @map("solution_id")
+  solution   Solution @relation(fields: [solutionId], references: [id])
 
-  @@unique([serviceCode])
+  isAvaliable Boolean? @default(false) @map("is_avaliable")
+  name        String
+  description String?
+  price       Decimal? @default(0) @db.Decimal(10, 2)
+
+  subscriptions Subscription[]
+
+  @@unique([name, solutionId])
+  @@index([solutionId])
   @@map("services")
 }
 
-model Contract {
+model Subscription {
   id          String    @id @default(cuid())
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime  @updatedAt @map("updated_at")
   deletedAt   DateTime? @map("deleted_at") @db.Date
   softDeleted Boolean?  @default(false) @map("soft_deleted")
 
-  userId    String  @map("user_id")
-  user      User    @relation(fields: [userId], references: [id])
   serviceId String  @map("service_id")
   service   Service @relation(fields: [serviceId], references: [id])
 
-  contractCode String?         @map("contract_code")
-  status       ContractStatus? @default(ACTIVE)
-  description  String?
-  note         String?
-  startedIn    DateTime?       @map("started_in")
-  period       ContractPeriod? @default(MONTHLY)
-  endedIn      DateTime?       @map("ended_in")
-  discount     Decimal?        @default(0) @db.Decimal(10, 2)
-  invoices     Invoice[]
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
 
-  @@unique([contractCode])
-  @@index([userId])
-  @@index([serviceId])
-  @@map("contracts")
-}
+  stripeCustomerId     String? @unique @map(name: "stripe_customer_id")
+  stripeSubscriptionId String? @unique @map(name: "stripe_subscription_id")
+  stripePriceId        String? @map(name: "stripe_price_id")
 
-model Invoice {
-  id          String    @id @default(cuid())
-  createdAt   DateTime  @default(now()) @map("created_at")
-  updatedAt   DateTime  @updatedAt @map("updated_at")
-  deletedAt   DateTime? @map("deleted_at") @db.Date
-  softDeleted Boolean?  @default(false) @map("soft_deleted")
+  currentPeriodStart DateTime?                      @map("current_period_start")
+  recurringInterval  SunscriptionRecurringInterval? @default(MONTH) @map("recurring_interval")
+  currentPeriodEnd   DateTime?                      @map("current_period_end")
 
-  contractId String   @map("contractId")
-  contract   Contract @relation(fields: [contractId], references: [id])
-
-  invoiceCode String?       @map("invoice_code")
-  barCode     String?       @unique @map("bar_code")
-  qrCode      String?       @map("qr_code")
-  status      InvoceStatus? @default(PENDING)
+  status      SubscriptionStatus? @default(ACTIVE)
   description String?
   note        String?
-  tax         Decimal?      @default(0) @db.Decimal(10, 2)
-  amount      Decimal?      @default(0) @db.Decimal(10, 2)
-  payUpTo     DateTime?     @map("pay_up_to") @db.Date
-  wasPaid     Boolean?      @default(false) @map("was_paid")
-  paidAt      DateTime?     @map("paid_at") @db.Date
 
-  @@unique([invoiceCode])
-  @@index([contractId])
-  @@map("invoices")
+  discount Decimal? @default(0) @db.Decimal(10, 2)
+  tax      Decimal? @default(0) @db.Decimal(10, 2)
+  amount   Decimal? @default(0) @db.Decimal(10, 2)
+
+  @@index([userId])
+  @@index([serviceId])
+  @@map("subscriptions")
 }
