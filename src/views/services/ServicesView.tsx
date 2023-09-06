@@ -17,6 +17,8 @@ import ShowInDrawer from '@/components/ShowInDrawer'
 import ServiceCreateForm from './forms/ServiceCreateForm'
 import { blue } from '@mui/material/colors'
 import PageHeader from '@/components/PageHeader'
+import ServiceCard from './ServiceCard'
+import { ServiceType } from './types'
 
 export default function ServicesView(props: SessionProps) {
   const { data: services, error, mutate } = useFetch(`/api/services`)
@@ -47,24 +49,26 @@ export default function ServicesView(props: SessionProps) {
             </ShowInDrawer>
           </PageHeader>
         </Grid>
-        <Grid item xs={12}>
-          <Card>
-            <CardContent>
-              {services?.length! > 0 ? (
-                <Suspense fallback={'... carregando dados!'}></Suspense>
-              ) : (
-                <Typography
-                  variant={'h5'}
-                  textAlign={'center'}
-                  color={blue[600]}
-                  textTransform={'capitalize'}
-                >
-                  Sem serviços para listar!
-                </Typography>
-              )}
-            </CardContent>
-          </Card>
-        </Grid>
+        {services?.length! > 0 ? (
+          <Suspense fallback={'... carregando dados!'}>
+            {services?.map((service: ServiceType) => (
+              <Grid key={service?.id!} item xs={12} sm={6} md={3}>
+                <ServiceCard service={service} />
+              </Grid>
+            ))}
+          </Suspense>
+        ) : (
+          <Grid item xs={12}>
+            <Typography
+              variant={'h5'}
+              textAlign={'center'}
+              color={blue[600]}
+              textTransform={'capitalize'}
+            >
+              Sem serviços para listar!
+            </Typography>
+          </Grid>
+        )}
       </Grid>
     </Container>
   )

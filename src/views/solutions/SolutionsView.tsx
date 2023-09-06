@@ -6,8 +6,6 @@ import { SessionProps } from '@/types'
 import {
   BottomNavigation,
   BottomNavigationAction,
-  Card,
-  CardContent,
   Container,
   Grid,
   Typography,
@@ -17,6 +15,8 @@ import { MdAddBox } from 'react-icons/md'
 import SolutionCreateForm from './forms/SolutionCreateForm'
 import { blue } from '@mui/material/colors'
 import PageHeader from '@/components/PageHeader'
+import { SolutionType } from './types'
+import SolutionCard from './SolutionCard'
 
 export default function SolutionsView(props: SessionProps) {
   const { data: solutions, error, mutate } = useFetch(`/api/solutions`)
@@ -47,24 +47,26 @@ export default function SolutionsView(props: SessionProps) {
             </ShowInDrawer>
           </PageHeader>
         </Grid>
-        <Grid item xs={12}>
-          <Card>
-            <CardContent>
-              {solutions?.length! > 0 ? (
-                <Suspense fallback={'... carregando dados!'}></Suspense>
-              ) : (
-                <Typography
-                  variant={'h5'}
-                  textAlign={'center'}
-                  color={blue[600]}
-                  textTransform={'capitalize'}
-                >
-                  Sem soluções para listar!
-                </Typography>
-              )}
-            </CardContent>
-          </Card>
-        </Grid>
+        {solutions?.length! > 0 ? (
+          <Suspense fallback={'... carregando dados!'}>
+            {solutions?.map((solution: SolutionType) => (
+              <Grid key={solution?.id!} item xs={12} sm={6} md={3}>
+                <SolutionCard solution={solution} />
+              </Grid>
+            ))}
+          </Suspense>
+        ) : (
+          <Grid item xs={12}>
+            <Typography
+              variant={'h5'}
+              textAlign={'center'}
+              color={blue[600]}
+              textTransform={'capitalize'}
+            >
+              Sem soluções para listar!
+            </Typography>
+          </Grid>
+        )}
       </Grid>
     </Container>
   )

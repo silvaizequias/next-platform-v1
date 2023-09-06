@@ -16,7 +16,7 @@ export default function PageHeader(props: PageHeaderProps) {
       }}
     >
       <Typography
-        variant='body1'
+        variant='h5'
         sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', color: blue[800] }}
       >
         {title}

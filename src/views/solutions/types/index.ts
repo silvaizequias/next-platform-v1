@@ -16,3 +16,7 @@ export type SolutionType = {
 export interface SolutionCreateFormProps {
   onClose: () => void
 }
+
+export interface SolutionCardProps {
+  solution: SolutionType
+}

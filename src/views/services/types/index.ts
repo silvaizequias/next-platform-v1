@@ -19,3 +19,7 @@ export type ServiceType = {
 export interface ServiceCreateFormProps {
   onClose: () => void
 }
+
+export interface ServiceCardProps {
+  service: ServiceType
+}
