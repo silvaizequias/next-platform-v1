@@ -16,10 +16,6 @@ export type ServiceType = {
   subscriptions: SubscriptionType[]
 }
 
-export interface ServiceDataGridProps {
-  services: ServiceType[]
-}
-
 export interface ServiceCreateFormProps {
   onClose: () => void
 }

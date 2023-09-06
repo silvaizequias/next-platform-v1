@@ -14,11 +14,14 @@ import { useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { ServiceCreateFormProps } from '../types'
 import { useFetch } from '@/hooks/useFetch'
+import { SolutionType } from '@/views/solutions/types'
+import toast from 'react-hot-toast'
 
 export default function ServiceCreateForm(props: ServiceCreateFormProps) {
   const { onClose } = props
   const [solution, setSolution] = useState<string>()
   const { data, mutate } = useFetch('/api/services')
+  const { data: solutions } = useFetch('/api/solutions')
   // TODO: Listar as soluções para seleção
 
   const {
@@ -47,12 +50,14 @@ export default function ServiceCreateForm(props: ServiceCreateFormProps) {
             revalidate: true,
             rollbackOnError: true,
           })
+          toast.success(`O serviço ${res.data?.name!} foi criado!`)
         })
         .catch((error: any) => {
-          new Error(error?.message || error)
+          toast.error(error?.message)
+          console.error(error)
         })
     } catch (error: any) {
-      console.error(error?.message || error)
+      console.error(error)
       return new Error(error?.message || error)
     }
   }
@@ -72,7 +77,11 @@ export default function ServiceCreateForm(props: ServiceCreateFormProps) {
           inputProps={{ placeholder: 'Função' }}
         >
           <MenuItem value=''></MenuItem>
-          <MenuItem value='NONE'>NENHUMA</MenuItem>
+          {solutions?.map((solution: SolutionType) => (
+            <MenuItem key={solution?.id!} value={solution?.id!}>
+              {solution?.name!}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
       <FormControl fullWidth sx={{ mb: 2 }}>

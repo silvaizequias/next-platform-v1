@@ -31,3 +31,11 @@ export type SubscriptionType = {
   tax: number
   amount: number
 }
+
+export interface SubscriptionCreateFormProps {
+  onClose: () => void
+}
+
+export interface SubscriptionDataGridProps {
+  subscriptions: SubscriptionType[]
+}

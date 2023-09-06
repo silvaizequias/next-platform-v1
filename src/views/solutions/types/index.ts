@@ -12,3 +12,7 @@ export type SolutionType = {
   isActive: boolean
   services: ServiceType[]
 }
+
+export interface SolutionCreateFormProps {
+  onClose: () => void
+}

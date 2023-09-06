@@ -1,7 +1,7 @@
 import DataTable from '@/components/DataTable'
-import { UserDataGridProps } from './types'
+import { UserDataGridProps } from '../types'
 import { Suspense } from 'react'
-import { UserDataGridColumns } from './UserDataGridColumns'
+import { UserDataGridColumns } from './columns'
 
 export default function UserDataGrid(props: UserDataGridProps) {
   const { users } = props

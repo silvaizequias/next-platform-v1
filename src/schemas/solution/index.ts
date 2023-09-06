@@ -4,7 +4,7 @@ export const SolutionCreateSchema = z.object({
   name: z.string(),
   url: z.string().url(),
   cloud: z.string(),
-  isActive: z.boolean().default(true),
+  isActive: z.boolean().default(true).optional(),
 })
 
 export type SolutionCreateSchemaType = z.infer<typeof SolutionCreateSchema>

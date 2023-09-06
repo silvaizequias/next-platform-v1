@@ -2,7 +2,6 @@
 
 import { useFetch } from '@/hooks/useFetch'
 import { SessionProps } from '@/types'
-import { ServiceType } from './types'
 import {
   BottomNavigation,
   BottomNavigationAction,
@@ -10,16 +9,16 @@ import {
   CardContent,
   Container,
   Grid,
+  Typography,
 } from '@mui/material'
-import TableHeader from '@/components/TableHeader'
 import { MdAddBox } from 'react-icons/md'
 import { Suspense, useState } from 'react'
-import ServiceDataGrid from './ServiceDataGrid'
 import ShowInDrawer from '@/components/ShowInDrawer'
 import ServiceCreateForm from './forms/ServiceCreateForm'
+import { blue } from '@mui/material/colors'
+import PageHeader from '@/components/PageHeader'
 
 export default function ServicesView(props: SessionProps) {
-  const { user }: any = props?.session
   const { data: services, error, mutate } = useFetch(`/api/services`)
   const [openDrawer, setOpenDrawer] = useState<boolean>(false)
 
@@ -29,18 +28,16 @@ export default function ServicesView(props: SessionProps) {
 
   return (
     <Container maxWidth='xl'>
-      <Grid container spacing={4} marginTop={1}>
+      <Grid container spacing={2} marginTop={1}>
         <Grid item xs={12}>
-          <Card>
-            <TableHeader title={'Gestão de Serviços'}>
-              <BottomNavigation>
-                <BottomNavigationAction
-                  sx={{ fontSize: 24, color: 'green' }}
-                  icon={<MdAddBox />}
-                  onClick={handleDrawer}
-                />
-              </BottomNavigation>
-            </TableHeader>
+          <PageHeader title='Gestão de Serviços'>
+            <BottomNavigation>
+              <BottomNavigationAction
+                sx={{ fontSize: 24, color: 'green' }}
+                icon={<MdAddBox />}
+                onClick={handleDrawer}
+              />
+            </BottomNavigation>
             <ShowInDrawer
               onClose={handleDrawer}
               open={openDrawer}
@@ -48,10 +45,23 @@ export default function ServicesView(props: SessionProps) {
             >
               <ServiceCreateForm onClose={handleDrawer} />
             </ShowInDrawer>
+          </PageHeader>
+        </Grid>
+        <Grid item xs={12}>
+          <Card>
             <CardContent>
-              <Suspense fallback={'... carregando dados!'}>
-                <ServiceDataGrid services={services!} />
-              </Suspense>
+              {services?.length! > 0 ? (
+                <Suspense fallback={'... carregando dados!'}></Suspense>
+              ) : (
+                <Typography
+                  variant={'h5'}
+                  textAlign={'center'}
+                  color={blue[600]}
+                  textTransform={'capitalize'}
+                >
+                  Sem serviços para listar!
+                </Typography>
+              )}
             </CardContent>
           </Card>
         </Grid>

@@ -1,7 +1,7 @@
 import { Avatar, Box, Chip, Typography } from '@mui/material'
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
-import UserDataGridOptions from './UserDataGridOptions'
-import { UserType } from './types'
+import UserDataGridOptions from './options'
+import { UserType } from '../types'
 
 export const UserDataGridColumns: GridColDef[] = [
   {
