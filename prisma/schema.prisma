@@ -92,7 +92,7 @@ model User {
   deletedAt   DateTime? @map("deleted_at") @db.Date
   softDeleted Boolean?  @default(false) @map("soft_deleted")
 
-  isActive Boolean?  @default(false) @map("is_active")
+  isActive Boolean?  @default(true) @map("is_active")
   role     UserRole? @default(GUEST)
 
   name          String?

@@ -19,6 +19,7 @@ export default function ServiceCreateForm(props: ServiceCreateFormProps) {
   const { onClose } = props
   const [solution, setSolution] = useState<string>()
   const { data, mutate } = useFetch('/api/services')
+  // TODO: Listar as soluções para seleção
 
   const {
     control,
@@ -61,13 +62,13 @@ export default function ServiceCreateForm(props: ServiceCreateFormProps) {
       <FormControl fullWidth sx={{ my: 2 }}>
         <InputLabel id='solution'>Solução</InputLabel>
         <Select
-          {...register('solution')}
+          {...register('solutionId')}
           required
           autoFocus
           label={'Solução'}
           value={solution}
           onChange={(e) => setSolution(e?.target?.value)}
-          error={Boolean(errors.solution)}
+          error={Boolean(errors.solutionId)}
           inputProps={{ placeholder: 'Função' }}
         >
           <MenuItem value=''></MenuItem>

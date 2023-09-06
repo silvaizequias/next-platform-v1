@@ -1,14 +1,7 @@
 import { AuthSignUpSchema, AuthSignUpSchemaType } from '@/schemas/auth'
 import { prisma } from '@/libraries/prisma'
-import { Prisma } from '@prisma/client'
-import { hash } from 'bcrypt'
-import { welcomeEmailTemlate } from '@/templates/email'
-import { welcomeSmsTemplate } from '@/templates/sms'
 
 export const POST = async (request: Request) => {
-  const randomToken = Math.random().toString(32).substr(2, 6).toUpperCase()
-  const randomPassword = Math.random().toString(32).substr(2, 12)
-
   try {
     await prisma.$connect()
     return await request.json().then(async (inputs: AuthSignUpSchemaType) => {
@@ -34,34 +27,9 @@ export const POST = async (request: Request) => {
             { status: 409 },
           )
 
-        const data: Prisma.UserCreateInput = {
-          ...inputs,
-          passToken: randomToken,
-          passHash: await hash(randomPassword, 10),
-        }
+        await prisma.user.create({ data: inputs })
 
-        await prisma.user.create({ data })
-
-        const sendWelcomeEmail = {
-          name: name,
-          email: email,
-          password: randomPassword,
-          phone: phone,
-        }
-        await welcomeEmailTemlate(sendWelcomeEmail)
-
-        const sendWelcomeSms = {
-          name: name,
-          password: randomPassword,
-          phone: phone,
-        }
-        await welcomeSmsTemplate(sendWelcomeSms)
-
-        return new Response(
-          JSON.stringify(
-            `A conta foi criada e as informações de acesso foram enviadas para o e-mail ${email} e celular ${phone}`,
-          ),
-        )
+        return new Response(JSON.stringify(`A conta foi criada!`))
       }
     })
   } catch (error: any) {

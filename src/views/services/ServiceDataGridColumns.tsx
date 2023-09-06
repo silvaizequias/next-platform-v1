@@ -5,25 +5,6 @@ import { ServiceType } from './types'
 
 export const ServiceDataGridColumns: GridColDef[] = [
   {
-    field: 'serviceCode',
-    headerName: 'Código',
-    headerAlign: 'center',
-    align: 'center',
-    flex: 0.1,
-    minWidth: 80,
-    sortable: true,
-    filterable: true,
-    renderCell: (params: GridRenderCellParams<ServiceType>) => (
-      <Box
-        sx={{
-          textTransform: 'uppercase',
-        }}
-      >
-        {params.row?.serviceCode}
-      </Box>
-    ),
-  },
-  {
     field: 'name',
     headerName: 'Nome do Serviço',
     headerAlign: 'center',
@@ -57,7 +38,7 @@ export const ServiceDataGridColumns: GridColDef[] = [
           textTransform: 'uppercase',
         }}
       >
-        {params.row?.solution}
+        {params.row?.solution?.name}
       </Box>
     ),
   },
@@ -95,7 +76,7 @@ export const ServiceDataGridColumns: GridColDef[] = [
           textTransform: 'uppercase',
         }}
       >
-        {params.row?.contracts.length!}
+        {params.row?.subscriptions.length!}
       </Box>
     ),
   },
@@ -114,7 +95,7 @@ export const ServiceDataGridColumns: GridColDef[] = [
           textTransform: 'uppercase',
         }}
       >
-        {params.row?.isActive == true ? (
+        {params.row?.isAvaliable == true ? (
           <Chip label={'ativo'} sx={{ bgcolor: 'green' }} variant='outlined' />
         ) : (
           <Chip label={'inativo'} sx={{ bgColor: 'gray' }} variant='outlined' />

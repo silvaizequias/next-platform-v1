@@ -1,3 +1,4 @@
+import { signOut } from 'next-auth/react'
 import axios from 'axios'
 import { prisma } from '@/libraries/prisma'
 import { NextAuthOptions } from 'next-auth'
@@ -19,19 +20,16 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       credentials: {
         phone: { type: 'text' },
-        password: { type: 'password' },
+        email: { type: 'email' },
       },
       authorize: async (credentials) => {
         try {
           if (await AuthSignInSchema.parseAsync(credentials!)) {
-            const { phone, password } = credentials!
+            const { phone, email } = credentials!
             const user = await prisma.user.findFirst({
-              where: { phone: phone },
+              where: { phone: phone, email: email },
             })
             if (!user) return null
-
-            const isValidPassword = compareSync(password, user?.passHash!)
-            if (!isValidPassword) return null
 
             return {
               id: user?.id!,
@@ -41,7 +39,6 @@ export const authOptions: NextAuthOptions = {
               email: user?.email!,
               image: user?.image!,
               isActive: user?.isActive!,
-              isVerified: user?.isVerified!,
             }
           }
           return null
@@ -65,33 +62,10 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   session: { strategy: 'jwt', maxAge: 15 * 24 * 30 * 60 },
-  cookies: {},
+
   callbacks: {
-    signIn: async ({ user, account, profile, credentials }) => {
-      if (profile) {
-        const data = await prisma.user.findFirst({
-          where: {
-            email: profile.email!,
-          },
-        })
-        if (!data) {
-          await prisma.user.create({
-            data: {
-              name: profile?.name!,
-              email: profile?.email!,
-              image: profile?.image!,
-              role: 'GUEST',
-              isActive: true,
-              isVerified: true,
-            },
-          })
-        }
-        return true
-      }
-      return false
-    },
-    jwt: async ({ token, user, isNewUser }) => {
-      //console.log('JWT CALLBACK', { token, user })
+    jwt: async ({ token, user }) => {
+      //console.log('JWT CALLBACK', { token, user, isNewUser })
       const data = await prisma.user.findFirst({
         where: {
           email: user?.email! || token?.email!,
@@ -122,9 +96,10 @@ export const authOptions: NextAuthOptions = {
       return session
     },
   },
+
   pages: {
     signIn: '/',
-    newUser: '/profile'
+    signOut: '/',
   },
   debug: false,
 }

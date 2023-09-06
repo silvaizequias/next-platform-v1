@@ -1,28 +1,31 @@
 'use client'
 
 import * as React from 'react'
-import Tab from '@mui/material/Tab'
-import TabContext from '@mui/lab/TabContext'
-import TabList from '@mui/lab/TabList'
-import TabPanel from '@mui/lab/TabPanel'
-import { Box, CardContent, Typography } from '@mui/material'
+import { Box, Button, Divider, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import MuiCard, { CardProps } from '@mui/material/Card'
-import SignInForm from './forms/SignInForm'
-import SignUpForm from './forms/SignUpForm'
-import ResetPasswordForm from './forms/ResetPasswordForm'
-import { MdAppRegistration, MdLockReset, MdLogin } from 'react-icons/md'
-import { blue } from '@mui/material/colors'
+import { blue, grey } from '@mui/material/colors'
+import { FcGoogle } from 'react-icons/fc'
+import { signIn } from 'next-auth/react'
+import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 
 const Card = styled(MuiCard)<CardProps>(({ theme }) => ({
   [theme.breakpoints.up('sm')]: { width: 450 },
 }))
 
 export default function AuthView() {
-  const [value, setValue] = React.useState<string>('signin')
+  const router = useRouter()
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue)
+  const handleGoogleSignIn = async () => {
+    await signIn('google', { callbackUrl: '/' })
+      .then(async (res) => {
+        if (!res?.error) toast.success('Boas vindas ao seu Dedicado Digital!')
+        router.push('/user')
+      })
+      .catch((error: any) => {
+        console.error(error)
+      })
   }
 
   return (
@@ -54,38 +57,19 @@ export default function AuthView() {
             Dedicado Digital
           </Typography>
         </Box>
-        <Card sx={{ zIndex: 1 }}>
-          <CardContent
-            sx={{ p: (theme) => `${theme.spacing(2, 2)} !important` }}
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          <Divider textAlign='center' sx={{ fontSize: 12, color: grey[200] }} />
+          <Button
+            size='small'
+            variant='contained'
+            color='info'
+            sx={{ m: 2 }}
+            onClick={handleGoogleSignIn}
+            startIcon={<FcGoogle />}
           >
-            <Box sx={{ width: '100%', typography: 'subtitle' }}>
-              <TabContext value={value}>
-                <Box
-                  sx={{ borderBottom: 1, borderColor: 'divider' }}
-                >
-                  <TabList
-                    onChange={handleChange}
-                    aria-label='auth tab'
-                    centered
-                  >
-                    <Tab sx={{fontSize: 24}} icon={<MdLogin />} value='signin' />
-                    <Tab sx={{fontSize: 24}} icon={<MdAppRegistration />} value='signup' />
-                    <Tab sx={{fontSize: 24}} icon={<MdLockReset />} value='reset-password' />
-                  </TabList>
-                </Box>
-                <TabPanel value='signin'>
-                  <SignInForm />
-                </TabPanel>
-                <TabPanel value='signup'>
-                  <SignUpForm />
-                </TabPanel>
-                <TabPanel value='reset-password'>
-                  <ResetPasswordForm />
-                </TabPanel>
-              </TabContext>
-            </Box>
-          </CardContent>
-        </Card>
+            Acesse com o Google
+          </Button>
+        </Box>
       </Box>
     </Box>
   )

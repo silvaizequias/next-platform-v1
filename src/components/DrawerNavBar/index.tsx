@@ -5,7 +5,7 @@ import { blue } from '@mui/material/colors'
 import { DrawerNavBarProps } from './types'
 
 export default function DrawerNavBar(props: DrawerNavBarProps) {
-  const { open, onClose, profile } = props
+  const { open, onClose, user } = props
 
   const handleClose = () => {
     onClose()
@@ -18,7 +18,7 @@ export default function DrawerNavBar(props: DrawerNavBarProps) {
       variant='temporary'
       onClose={handleClose}
       ModalProps={{ keepMounted: true }}
-      sx={{ '& .MuiDrawer-paper': { maxWidth: 210 } }}
+      sx={{ '& .MuiDrawer-paper': { minWidth: 210 } }}
     >
       <Box
         sx={{
@@ -45,7 +45,7 @@ export default function DrawerNavBar(props: DrawerNavBarProps) {
         </IconButton>
       </Box>
       <Box sx={{ display: 'flex', flexDirection: 'column', py: 2 }}>
-        <NavMenu onClose={handleClose} profile={profile} />
+        <NavMenu onClose={handleClose} user={user} />
       </Box>
     </Drawer>
   )

@@ -2,7 +2,7 @@ import { storage } from '@/libraries/firebase'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 
 export const imageUpload = async (file: any) => {
-  const uploadRef = ref(storage, `users/avatar/${file?.name}`)
+  const uploadRef = ref(storage, `users/image/${file?.name}`)
 
   try {
     return await uploadBytes(uploadRef, file).then((snapshot) => {

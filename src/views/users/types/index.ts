@@ -1,5 +1,4 @@
 import { AccountType, SessionType } from '@/types'
-import { ContractType } from '@/views/contracts/types'
 import { SubscriptionType } from '@/views/subscriptions/types'
 
 export type UserType = {

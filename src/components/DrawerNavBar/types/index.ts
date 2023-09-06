@@ -1,7 +1,7 @@
-import { ProfileType } from '@/views/profile/types'
+import { UserType } from '@/views/users/types'
 
 export interface DrawerNavBarProps {
   open: boolean
   onClose: () => void
-  profile?: ProfileType
+  user?: UserType
 }

@@ -11,8 +11,7 @@ export const POST = async (request: Request) => {
       .json()
       .then(async (inputs: StripeCheckoutSchemaType) => {
         if (await StripeCheckoutSchema.parseAsync(inputs)) {
-          const { invoiceId, amount, service, description, userId, userEmail } =
-            inputs
+          const { amount, service, description, userId, userEmail } = inputs
           const session = await stripe.checkout.sessions.create({
             line_items: [
               {

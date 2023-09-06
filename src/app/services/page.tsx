@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default async function ServiceManagementPage() {
   const session = await getServerSession(authOptions)
 
-  return session ? (
+  return session && session?.user?.role == 'MASTER' ? (
     <main>
       <ServicesView session={session!} />
     </main>

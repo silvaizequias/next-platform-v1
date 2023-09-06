@@ -1,6 +1,6 @@
-import { ProfileType } from '@/views/profile/types'
+import { UserType } from '@/views/users/types'
 
 export interface NavMenuProps {
   onClose: () => void
-  profile?: ProfileType
+  user?: UserType
 }

@@ -1,9 +1,5 @@
 import { prisma } from '@/libraries/prisma'
 import { UserCreateSchema, UserCreateSchemaType } from '@/schemas/user'
-import { welcomeEmailTemlate } from '@/templates/email'
-import { welcomeSmsTemplate } from '@/templates/sms'
-import { Prisma } from '@prisma/client'
-import { hash } from 'bcrypt'
 
 export const GET = async (request: Request) => {
   try {
@@ -12,15 +8,9 @@ export const GET = async (request: Request) => {
       JSON.stringify(
         await prisma.user.findMany({
           include: {
-            contracts: {
-              select: {
-                id: true,
-                contractCode: true,
-                status: true,
-                service: true,
-                invoices: true,
-              },
-            },
+            accounts: true,
+            sessions: true,
+            subscriptions: true,
           },
         }),
       ),
@@ -35,9 +25,6 @@ export const GET = async (request: Request) => {
 }
 
 export const POST = async (request: Request) => {
-  const randomToken = Math.random().toString(32).substr(2, 6).toUpperCase()
-  const randomPassword = Math.random().toString(32).substr(2, 12)
-
   try {
     await prisma.$connect()
 
@@ -65,33 +52,9 @@ export const POST = async (request: Request) => {
             { status: 409 },
           )
 
-        const data: Prisma.UserCreateInput = {
-          ...inputs,
-          passToken: randomToken,
-          passHash: await hash(randomPassword, 10),
-        }
-        await prisma.user.create({ data })
+        await prisma.user.create({ data: inputs })
 
-        const sendWelcomeEmail = {
-          name: name,
-          email: email,
-          password: randomPassword,
-          phone: phone,
-        }
-        await welcomeEmailTemlate(sendWelcomeEmail)
-
-        const sendWelcomeSms = {
-          name: name,
-          password: randomPassword,
-          phone: phone,
-        }
-        await welcomeSmsTemplate(sendWelcomeSms)
-
-        return new Response(
-          JSON.stringify(
-            `A conta foi criada e as informações de acesso foram enviadas para o e-mail ${email} e celular ${phone}`,
-          ),
-        )
+        return new Response(JSON.stringify(`A conta foi criada!`))
       }
     })
   } catch (error: any) {

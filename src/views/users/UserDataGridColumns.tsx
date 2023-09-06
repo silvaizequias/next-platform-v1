@@ -111,7 +111,7 @@ export const UserDataGridColumns: GridColDef[] = [
           textTransform: 'uppercase',
         }}
       >
-        {params.row?.contracts.length!}
+        {params.row?.subscriptions.length!}
       </Box>
     ),
   },

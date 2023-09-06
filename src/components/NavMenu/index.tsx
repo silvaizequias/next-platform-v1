@@ -4,7 +4,7 @@ import ListItemText from '@mui/material/ListItemText'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import {
   MdGroups,
-  MdPayments,
+  MdLensBlur,
   MdRecentActors,
   MdViewInAr,
   MdWindow,
@@ -22,7 +22,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 export default function NavMenu(props: NavMenuProps) {
   const { onClose } = props
-  const { profile }: any = props
+  const { user }: any = props
   const router = useRouter()
 
   const handleNavigation = (url: string) => {
@@ -39,39 +39,36 @@ export default function NavMenu(props: NavMenuProps) {
           </ListItemIcon>
           <ListItemText>Início</ListItemText>
         </MenuItem>
-        <MenuItem onClick={() => handleNavigation('/invoice-history')}>
-          <ListItemIcon>
-            <MdPayments />
-          </ListItemIcon>
-          <ListItemText>Histórico de Faturas</ListItemText>
-        </MenuItem>
       </MenuList>
 
-      {profile?.role == 'MASTER' && (
+      {user?.role == 'MASTER' && (
         <Accordion elevation={0}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Typography>Master Control</Typography>
           </AccordionSummary>
           <AccordionDetails sx={{ m: 0, p: 0 }}>
             <MenuList>
-              <MenuItem onClick={() => handleNavigation('/contracts')}>
+              <MenuItem onClick={() => handleNavigation('/subscriptions')}>
                 <ListItemIcon>
                   <MdRecentActors />
                 </ListItemIcon>
-                <ListItemText>Contratos</ListItemText>
+                <ListItemText>Contratações</ListItemText>
               </MenuItem>
-              <MenuItem onClick={() => handleNavigation('/invoices')}>
-                <ListItemIcon>
-                  <MdPayments />
-                </ListItemIcon>
-                <ListItemText>Pagamentos</ListItemText>
-              </MenuItem>
+
               <MenuItem onClick={() => handleNavigation('/services')}>
                 <ListItemIcon>
                   <MdViewInAr />
                 </ListItemIcon>
                 <ListItemText>Serviços</ListItemText>
               </MenuItem>
+
+              <MenuItem onClick={() => handleNavigation('/solutions')}>
+                <ListItemIcon>
+                  <MdLensBlur />
+                </ListItemIcon>
+                <ListItemText>Soluções</ListItemText>
+              </MenuItem>
+
               <MenuItem onClick={() => handleNavigation('/users')}>
                 <ListItemIcon>
                   <MdGroups />

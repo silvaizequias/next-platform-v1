@@ -18,7 +18,6 @@ import ShowInDrawer from '@/components/ShowInDrawer'
 import UserCreateForm from './forms/UserCreateForm'
 
 export default function UsersView(props: SessionProps) {
-  const { user }: any = props?.session
   const { data: users, error, mutate } = useFetch(`/api/users`)
   const [openDrawer, setOpenDrawer] = useState<boolean>(false)
 

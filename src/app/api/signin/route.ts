@@ -8,18 +8,18 @@ export const POST = async (request: Request) => {
     await prisma.$connect()
     return await request.json().then(async (inputs: AuthSignInSchemaType) => {
       if (await AuthSignInSchema.parseAsync(inputs)) {
-        const { phone, password } = inputs
+        const { phone, email } = inputs
 
         const user = await prisma.user.findFirst({
           where: {
             phone: phone,
+            email: email,
           },
           select: {
             id: true,
             name: true,
             email: true,
             phone: true,
-            passHash: true,
             role: true,
             isActive: true,
           },
@@ -27,20 +27,10 @@ export const POST = async (request: Request) => {
         if (!user)
           return new Response(
             JSON.stringify(
-              `O número celular ${phone} não existe em nosso sistema!`,
+              `O número celular ${phone} e e-mail ${email} não existe em nosso sistema!`,
             ),
             { status: 404 },
           )
-
-        const passHash = compareSync(password, user?.passHash as string)
-        if (!passHash)
-          return new Response(
-            JSON.stringify(`A senha informada não é válida e está incorreta!`),
-            { status: 403 },
-          )
-
-        //@ts-ignore
-        delete user?.passHash
 
         const encryptedToken = jwt.sign(
           {

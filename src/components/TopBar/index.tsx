@@ -13,6 +13,7 @@ import {
   MenuItem,
   Toolbar,
   Tooltip,
+  Typography,
 } from '@mui/material'
 import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
@@ -21,12 +22,9 @@ import { MdOutlineLogout, MdMenu, MdLensBlur, MdBadge } from 'react-icons/md'
 import DrawerNavBar from '../DrawerNavBar'
 import { blue } from '@mui/material/colors'
 import { SessionProps } from '@/types'
-import { useFetch } from '@/hooks/useFetch'
-import InvoicesCountBadge from './InvoicesCountBadge'
 
 export default function TopBar(props: SessionProps) {
-  const { user }: any = props?.session
-  const { data: profile, error, mutate } = useFetch(`/api/profile/${user?.id}`)
+  const { user }: any = props.session
 
   const [openNavBar, setOpenNavBar] = useState<boolean>(false)
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
@@ -40,7 +38,7 @@ export default function TopBar(props: SessionProps) {
     setOpenNavBar(!openNavBar)
   }
 
-  const handleUserMenu = (url?: string) => {
+  const handleTopBarMenu = (url?: string) => {
     if (url) {
       router.push(url)
     }
@@ -49,7 +47,7 @@ export default function TopBar(props: SessionProps) {
 
   const handleLogout = () => {
     signOut()
-    handleUserMenu()
+    handleTopBarMenu()
   }
 
   return (
@@ -65,7 +63,7 @@ export default function TopBar(props: SessionProps) {
                 sx={{ cursor: 'pointer', bgcolor: blue[500] }}
                 alt='Dedicado Digital'
                 variant='rounded'
-                onClick={() => handleUserMenu('/')}
+                onClick={() => handleTopBarMenu('/')}
               >
                 <MdLensBlur />
               </Avatar>
@@ -82,17 +80,11 @@ export default function TopBar(props: SessionProps) {
               </Tooltip>
             </Box>
           </Box>
-          <DrawerNavBar
-            open={openNavBar}
-            onClose={handleNavBar}
-            profile={profile}
-          />
+          <DrawerNavBar open={openNavBar} onClose={handleNavBar} user={user} />
 
           <Box sx={{ flexGrow: 0 }}>
-            <InvoicesCountBadge profile={profile} />
-
             <Chip
-              label={profile?.role}
+              label={`Olá ${user?.name.split(' ')[0]}`}
               color='primary'
               variant='filled'
               sx={{ marginX: 1 }}
@@ -103,10 +95,7 @@ export default function TopBar(props: SessionProps) {
                 size='small'
                 onClick={handleOpenUserMenu}
               >
-                <Avatar
-                  alt={profile?.name!}
-                  src={profile?.image! || '/avatar.png'}
-                />
+                <Avatar alt={user?.name!} src={user?.image! || '/avatar.png'} />
               </IconButton>
             </Tooltip>
 
@@ -115,22 +104,18 @@ export default function TopBar(props: SessionProps) {
               anchorEl={anchorElUser}
               keepMounted
               open={Boolean(anchorElUser)}
-              onClose={() => handleUserMenu()}
+              onClose={() => handleTopBarMenu()}
               transformOrigin={{ horizontal: 'right', vertical: 'top' }}
               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
               sx={{ mt: '15px', textTransform: 'uppercase' }}
             >
-              <MenuItem onClick={() => handleUserMenu('/profile')}>
-                <ListItemIcon>
-                  <MdBadge />
-                </ListItemIcon>
-                <ListItemText>Perfil</ListItemText>
-              </MenuItem>
               <MenuItem onClick={handleLogout}>
                 <ListItemIcon>
                   <MdOutlineLogout sx={{ pr: 2 }} />
                 </ListItemIcon>
-                <ListItemText>Sair</ListItemText>
+                <ListItemText>
+                  <Typography fontSize={12}>Sair</Typography>
+                </ListItemText>
               </MenuItem>
             </Menu>
           </Box>

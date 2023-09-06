@@ -1,5 +1,6 @@
 import { prisma } from '@/libraries/prisma'
 import { ServiceUpdateSchema, ServiceUpdateSchemaType } from '@/schemas/service'
+import { Prisma } from '@prisma/client'
 
 export const GET = async (
   request: Request,
@@ -14,22 +15,8 @@ export const GET = async (
         await prisma.service.findFirst({
           where: { id },
           include: {
-            contracts: {
-              select: {
-                id: true,
-                contractCode: true,
-                user: {
-                  select: {
-                    id: true,
-                    isActive: true,
-                    name: true,
-                    phone: true,
-                    email: true,
-                  },
-                },
-                invoices: true,
-              },
-            },
+            solution: true,
+            subscriptions: true,
           },
         }),
       ),
@@ -52,9 +39,35 @@ export const PATCH = async (
       .json()
       .then(async (inputs: ServiceUpdateSchemaType) => {
         if (await ServiceUpdateSchema.parseAsync(inputs)) {
+          const { solutionId } = inputs
+          delete inputs?.solutionId
+          if (!solutionId) {
+            await prisma.service.update({ where: { id }, data: inputs })
+          }
+
+          const solution = await prisma.solution.findFirst({
+            where: {
+              id: solutionId,
+            },
+          })
+          if (!solution)
+            return new Response(
+              JSON.stringify('A solução informada não existe'),
+              { status: 404 },
+            )
+
+          const data: Prisma.ServiceUpdateInput = {
+            ...inputs,
+            solution: {
+              update: {
+                id: solution?.id!,
+              },
+            },
+          }
+
           return new Response(
             JSON.stringify(
-              await prisma.service.update({ where: { id }, data: inputs }),
+              await prisma.service.update({ where: { id }, data }),
             ),
           )
         }
