@@ -7,7 +7,6 @@ import MuiCard, { CardProps } from '@mui/material/Card'
 import { blue, grey } from '@mui/material/colors'
 import { FcGoogle } from 'react-icons/fc'
 import { signIn } from 'next-auth/react'
-import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 
 const Card = styled(MuiCard)<CardProps>(({ theme }) => ({
@@ -18,14 +17,7 @@ export default function AuthView() {
   const router = useRouter()
 
   const handleGoogleSignIn = async () => {
-    await signIn('google', { callbackUrl: '/' })
-      .then(async (res) => {
-        if (!res?.error) toast.success('Boas vindas ao seu Dedicado Digital!')
-        router.push('/user')
-      })
-      .catch((error: any) => {
-        console.error(error)
-      })
+    await signIn('google')
   }
 
   return (
