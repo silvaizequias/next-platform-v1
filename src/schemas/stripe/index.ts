@@ -1,9 +1,10 @@
 import * as z from 'zod'
 
 export const StripeCheckoutSchema = z.object({
-  amount: z.coerce.number().positive(),
-  service: z.string(),
-  description: z.string(),
+  serviceId: z.string(),
+  serviceName: z.string(),
+  serviceDescription: z.string(),
+  serviceAmount: z.coerce.number().positive(),
   userId: z.string(),
   userEmail: z.string().email(),
 })
