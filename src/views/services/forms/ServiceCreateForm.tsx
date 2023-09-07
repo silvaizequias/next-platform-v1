@@ -22,7 +22,6 @@ export default function ServiceCreateForm(props: ServiceCreateFormProps) {
   const [solution, setSolution] = useState<string>()
   const { data, mutate } = useFetch('/api/services')
   const { data: solutions } = useFetch('/api/solutions')
-  // TODO: Listar as soluções para seleção
 
   const {
     control,
@@ -77,11 +76,14 @@ export default function ServiceCreateForm(props: ServiceCreateFormProps) {
           inputProps={{ placeholder: 'Função' }}
         >
           <MenuItem value=''></MenuItem>
-          {solutions?.map((solution: SolutionType) => (
-            <MenuItem key={solution?.id!} value={solution?.id!}>
-              {solution?.name!}
-            </MenuItem>
-          ))}
+          {solutions?.map(
+            (solution: SolutionType) =>
+              solution?.isActive! == true && (
+                <MenuItem key={solution?.id!} value={solution?.id!}>
+                  {solution?.name!}
+                </MenuItem>
+              ),
+          )}
         </Select>
       </FormControl>
       <FormControl fullWidth sx={{ mb: 2 }}>
