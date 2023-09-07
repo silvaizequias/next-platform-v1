@@ -25,14 +25,14 @@ export const POST = async (request: Request) => {
           } = inputs
 
           const subscription = await prisma?.subscription.findFirst({
-            where: { userId },
+            where: { userId: userId, serviceId: serviceId },
           })
           if (subscription && subscription?.stripeCustomerId) {
             const stripeSession = await stripe.billingPortal.sessions.create({
               customer: subscription?.stripeCustomerId,
               return_url: NEXTAUTH_URL,
             })
-
+            
             return new Response(JSON.stringify({ url: stripeSession?.url }))
           }
 
@@ -41,8 +41,8 @@ export const POST = async (request: Request) => {
             payment_method_types: ['card'],
             billing_address_collection: 'auto',
             customer_email: userEmail,
-            success_url: `${NEXTAUTH_URL}`, //TODOS: criar rota de configurações do usuário
-            cancel_url: `${NEXTAUTH_URL}`,
+            success_url: `${NEXTAUTH_URL}/`, //TODOS: criar rota de configurações do usuário
+            cancel_url: `${NEXTAUTH_URL}/`,
             line_items: [
               {
                 price_data: {
