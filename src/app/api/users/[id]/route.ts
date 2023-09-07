@@ -16,7 +16,11 @@ export const GET = async (
           include: {
             accounts: true,
             sessions: true,
-            subscriptions: true,
+            subscriptions: {
+              include: {
+                service: true
+              }
+            },
           },
         }),
       ),
