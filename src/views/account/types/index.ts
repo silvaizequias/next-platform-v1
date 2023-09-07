@@ -10,4 +10,17 @@ export interface SubscriptionServiceCardProps {
   user: UserType
 }
 
-export interface ShowServicesSubscriptionBoxProps {}
+export interface ServiceSubscriptionDetailsProps {
+  service: ServiceType
+  user: UserType
+  onClose: () => void
+}
+
+export interface ShowServicesSubscriptionBoxProps {
+  user: UserType | undefined
+}
+
+export interface ShowMyServiceSubscriptionDetailProps {
+  service: ServiceType
+  onClose: () => void
+}
