@@ -15,7 +15,7 @@ export default function ShowServicesBox(props: ShowServicesBoxProps) {
         (service: ServiceType) =>
           service?.isAvaliable == true && (
             <Grid key={service?.id} item xs={12} sm={6} md={3}>
-              <SubscriptionServiceCard service={service} user={user} />
+              <SubscriptionServiceCard service={service} user={user!} />
             </Grid>
           ),
       )}

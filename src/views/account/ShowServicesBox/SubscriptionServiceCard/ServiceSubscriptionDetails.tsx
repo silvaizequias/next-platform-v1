@@ -3,7 +3,15 @@ import { ServiceSubscriptionDetailsProps } from '../../types'
 import { StripeCheckoutSchemaType } from '@/schemas/stripe'
 import axios from 'axios'
 import { getStipePromise } from '@/libraries/stripe'
-import { Box, Button, Typography } from '@mui/material'
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Stack,
+  Typography,
+} from '@mui/material'
+import { grey } from '@mui/material/colors'
 
 export default function ServiceSubscriptionDetails(
   props: ServiceSubscriptionDetailsProps,
@@ -40,12 +48,24 @@ export default function ServiceSubscriptionDetails(
 
   return (
     <Box>
-      <Typography variant='body2' color='text.secondary' textAlign={'center'}>
-        {service?.description!}
-      </Typography>
-      <Typography variant='body2' color='text.secondary' textAlign={'center'}>
-        R$ {service?.price.toLocaleString()} mensais
-      </Typography>
+      <Card sx={{ mb: 2 }}>
+        <CardContent sx={{ bgcolor: grey[50] }}>
+          <Typography
+            variant='body2'
+            color='text.secondary'
+            textAlign={'center'}
+          >
+            {service?.description!}
+          </Typography>
+          <Typography
+            variant='body2'
+            color='text.secondary'
+            textAlign={'center'}
+          >
+            R$ {service?.price.toLocaleString()} mensais
+          </Typography>
+        </CardContent>
+      </Card>
       <Button
         variant='contained'
         size='small'

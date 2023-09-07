@@ -53,7 +53,35 @@ export default function AccountView(props: SessionProps) {
               <ShowServicesBox user={user} />
             </Fragment>
           ) : (
-            <ShowServicesSubscriptionBox user={user} />
+            <Fragment>
+              <Grid item xs={12} sm={12}>
+                <Typography
+                  variant='body1'
+                  color={blue[600]}
+                  textTransform={'uppercase'}
+                  fontWeight={400}
+                >
+                  Minhas Contratações
+                </Typography>
+              </Grid>
+              <ShowServicesSubscriptionBox user={user!} />
+              <Grid item xs={12} sm={12}>
+                <Divider
+                  sx={{ display: 'flex', mx: 8, my: 2, color: blue[600] }}
+                >
+                  <MdBlurOn size={24} />
+                </Divider>
+                <Typography
+                  variant='body1'
+                  color={blue[600]}
+                  textTransform={'uppercase'}
+                  fontWeight={500}
+                >
+                  Contratar Novo Serviço
+                </Typography>
+              </Grid>
+              <ShowServicesBox user={user!} />
+            </Fragment>
           )}
         </Suspense>
       </Grid>

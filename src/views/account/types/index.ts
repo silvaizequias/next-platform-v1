@@ -2,7 +2,7 @@ import { ServiceType } from '@/views/services/types'
 import { UserType } from '@/views/users/types'
 
 export interface ShowServicesBoxProps {
-  user: UserType
+  user: UserType | undefined
 }
 
 export interface SubscriptionServiceCardProps {
