@@ -9,6 +9,7 @@ import Spinner from '@/components/Spinner'
 import { blue } from '@mui/material/colors'
 import ShowServicesBox from './ShowServicesBox'
 import { MdBlurOn } from 'react-icons/md'
+import ShowServicesSubscriptionBox from './ShowServicesSubscriptionsBox'
 
 export default function AccountView(props: SessionProps) {
   const { data: user } = useFetch<UserType>(
@@ -19,7 +20,7 @@ export default function AccountView(props: SessionProps) {
     <Container maxWidth='xl'>
       <Grid container spacing={2} marginTop={1}>
         <Suspense fallback={<Spinner />}>
-          {user?.subscriptions?.length == 0 && (
+          {user?.subscriptions?.length == 0 ? (
             <Fragment>
               <Grid item xs={12} sm={12}>
                 <Box
@@ -51,6 +52,8 @@ export default function AccountView(props: SessionProps) {
               </Grid>
               <ShowServicesBox user={user} />
             </Fragment>
+          ) : (
+            <ShowServicesSubscriptionBox user={user} />
           )}
         </Suspense>
       </Grid>
