@@ -20,7 +20,3 @@ export interface ShowServicesSubscriptionBoxProps {
   user: UserType | undefined
 }
 
-export interface ShowMyServiceSubscriptionDetailProps {
-  service: ServiceType
-  onClose: () => void
-}

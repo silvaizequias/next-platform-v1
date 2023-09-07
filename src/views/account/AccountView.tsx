@@ -10,17 +10,25 @@ import { blue } from '@mui/material/colors'
 import ShowServicesBox from './ShowServicesBox'
 import { MdBlurOn } from 'react-icons/md'
 import ShowServicesSubscriptionBox from './ShowServicesSubscriptionsBox'
+import { SubscriptionType } from '../subscriptions/types'
 
 export default function AccountView(props: SessionProps) {
   const { data: user } = useFetch<UserType>(
     `/api/users/${props.session?.user?.id}`,
   )
 
+  const subscriptions = user?.subscriptions.filter(
+    (subscriptions: SubscriptionType) => {
+      return subscriptions
+    },
+  )
+
+  //TODO: melhorar lógica de listagem de serviços já contratados
   return (
     <Container maxWidth='xl'>
       <Grid container spacing={2} marginTop={1}>
         <Suspense fallback={<Spinner />}>
-          {user?.subscriptions?.length == 0 ? (
+          {subscriptions?.length == 0 ? (
             <Fragment>
               <Grid item xs={12} sm={12}>
                 <Box
@@ -64,7 +72,11 @@ export default function AccountView(props: SessionProps) {
                   Minhas Contratações
                 </Typography>
               </Grid>
-              <ShowServicesSubscriptionBox user={user!} />
+              {subscriptions?.map((subscription: SubscriptionType) => (
+                <Grid key={subscription?.id} item xs={12} sm={6} md={3}>
+                  <ShowServicesSubscriptionBox id={subscription?.id!} />
+                </Grid>
+              ))}
               <Grid item xs={12} sm={12}>
                 <Divider
                   sx={{ display: 'flex', mx: 8, my: 2, color: blue[600] }}

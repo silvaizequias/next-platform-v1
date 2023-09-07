@@ -1,10 +1,13 @@
+import { useFetch } from '@/hooks/useFetch'
+import { ServiceType } from '@/views/services/types'
 import { Box, Typography } from '@mui/material'
-import { ShowMyServiceSubscriptionDetailProps } from '../types'
 
-export default function ShowMyServiceSubscriptionDetail(
-  props: ShowMyServiceSubscriptionDetailProps,
-) {
-  const { service, onClose } = props
+interface Props {
+  id: string
+}
+
+export default function ShowMyServiceSubscriptionDetail({ id }: Props) {
+  const { data: service } = useFetch<ServiceType>(`/api/services/${id}`)
 
   return (
     <Box>
