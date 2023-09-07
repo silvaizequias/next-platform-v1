@@ -39,7 +39,7 @@ export default function ShowInDialog(props: ShowInDialogProps) {
           </IconButton>
         </Tooltip>
       </Box>
-      <DialogTitle sx={{ textAlign: 'center' }}>
+      <DialogTitle sx={{ textAlign: 'center', mt: 0, pt: 0 }}>
         <Typography variant='h6' color='text.secondary'>
           {title!}
         </Typography>
