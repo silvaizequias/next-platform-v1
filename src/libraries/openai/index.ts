@@ -1,11 +1,14 @@
 import OpenAI from 'openai'
+import { Configuration, OpenAIApi } from 'openai-edge'
 
-export const openai = async () => {
-  const OPENAI_API_KEY = process.env.NEXT_PUBLIC_OPENAI_API_KEY as string
+const OPENAI_API_KEY = process.env.NEXT_PUBLIC_OPENAI_API_KEY!
 
-  const api = new OpenAI({
-    apiKey: OPENAI_API_KEY,
-  })
+export const openai = new OpenAI({
+  apiKey: OPENAI_API_KEY,
+})
 
-  return api
-}
+const configuration = new Configuration({
+  apiKey: OPENAI_API_KEY,
+})
+
+export const apiai = new OpenAIApi(configuration)

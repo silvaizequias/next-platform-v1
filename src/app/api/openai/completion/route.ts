@@ -10,19 +10,19 @@ export const POST = async (request: Request) => {
       .json()
       .then(async (inputs: OpenAiCompletionSchemaType) => {
         if (await OpenAiCompletionSchema.parseAsync(inputs)) {
-          const { content, maxTokens } = inputs
+          const { content, maxTokens, model } = inputs
 
-          const data = (await openai()).completions
+          const completions = await openai.completions
             .create({
-              model: 'text-davinci-003',
-              prompt: content,
               max_tokens: maxTokens,
+              model: model,
+              prompt: content,
             })
             .then(async (res) => {
               const { text }: any = res.choices[0]
               return await text
             })
-          return new Response(await data)
+          return new Response(await completions)
         }
       })
   } catch (error: any) {
