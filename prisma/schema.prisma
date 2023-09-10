@@ -182,7 +182,6 @@ model Subscription {
   currentPeriodEnd   DateTime?                      @map("current_period_end")
 
   status      SubscriptionStatus? @default(ACTIVE)
-  description String?
   note        String?
 
   discount Decimal? @default(0) @db.Decimal(10, 2)
