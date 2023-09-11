@@ -20,7 +20,7 @@ import PageHeader from '@/components/PageHeader'
 import ServiceCard from './ServiceCard'
 import { ServiceType } from './types'
 
-export default function ServicesView(props: PageViewProps) {
+export default function ServicesControlView(props: PageViewProps) {
   const { data: services, error, mutate } = useFetch(`/api/services`)
   const [openDrawer, setOpenDrawer] = useState<boolean>(false)
 

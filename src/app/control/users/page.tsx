@@ -1,5 +1,5 @@
 import { authOptions } from '@/libraries/next-auth'
-import UsersView from '@/views/control/users/UsersView'
+import UsersControlView from '@/views/control/users/UsersControlView'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 
@@ -13,7 +13,7 @@ export default async function UserControlPage() {
 
   return (
     <main>
-      <UsersView metadata={metadata} session={session!} />
+      <UsersControlView metadata={metadata} session={session!} />
     </main>
   )
 }

@@ -6,20 +6,21 @@ import { PageViewProps } from '@/types'
 import {
   BottomNavigation,
   BottomNavigationAction,
+  Card,
+  CardContent,
   Container,
   Grid,
   Typography,
 } from '@mui/material'
 import { Suspense, useState } from 'react'
 import { MdAddBox } from 'react-icons/md'
-import SolutionCreateForm from './forms/SolutionCreateForm'
+import SubscriptionCreateForm from './forms/SubscriptionCreateForm'
+import SubscriptionDataGrid from './SubscriptionDataGrid'
 import { blue } from '@mui/material/colors'
 import PageHeader from '@/components/PageHeader'
-import { SolutionType } from './types'
-import SolutionCard from './SolutionCard'
 
-export default function SolutionsView(props: PageViewProps) {
-  const { data: solutions, error, mutate } = useFetch(`/api/solutions`)
+export default function SubscriptionsControlView(props: PageViewProps) {
+  const { data: subscriptions, error, mutate } = useFetch(`/api/subscriptions`)
   const [openDrawer, setOpenDrawer] = useState<boolean>(false)
 
   const handleDrawer = () => {
@@ -41,32 +42,32 @@ export default function SolutionsView(props: PageViewProps) {
             <ShowInDrawer
               onClose={handleDrawer}
               open={openDrawer}
-              title={'Criar Solução'}
+              title={'Atribuir Contratação'}
             >
-              <SolutionCreateForm onClose={handleDrawer} />
+              <SubscriptionCreateForm onClose={handleDrawer} />
             </ShowInDrawer>
           </PageHeader>
         </Grid>
-        {solutions?.length! > 0 ? (
-          <Suspense fallback={'... carregando dados!'}>
-            {solutions?.map((solution: SolutionType) => (
-              <Grid key={solution?.id!} item xs={12} sm={6} md={3}>
-                <SolutionCard solution={solution} />
-              </Grid>
-            ))}
-          </Suspense>
-        ) : (
-          <Grid item xs={12}>
-            <Typography
-              variant={'h5'}
-              textAlign={'center'}
-              color={blue[600]}
-              textTransform={'capitalize'}
-            >
-              Sem soluções para listar!
-            </Typography>
-          </Grid>
-        )}
+        <Grid item xs={12}>
+          <Card>
+            <CardContent>
+              {subscriptions?.length! > 0 ? (
+                <Suspense fallback={'... carregando dados!'}>
+                  <SubscriptionDataGrid subscriptions={subscriptions!} />
+                </Suspense>
+              ) : (
+                <Typography
+                  variant={'h5'}
+                  textAlign={'center'}
+                  color={blue[600]}
+                  textTransform={'capitalize'}
+                >
+                  Sem contratações para listar!
+                </Typography>
+              )}
+            </CardContent>
+          </Card>
+        </Grid>
       </Grid>
     </Container>
   )

@@ -16,7 +16,11 @@ export const GET = async (
           where: { id },
           include: {
             solution: true,
-            subscriptions: true,
+            subscriptions: {
+              include: {
+                user: true
+              }
+            },
           },
         }),
       ),

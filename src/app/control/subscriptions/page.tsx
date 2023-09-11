@@ -1,5 +1,5 @@
 import { authOptions } from '@/libraries/next-auth'
-import SubscriptionsView from '@/views/control/subscriptions/SubscriptionsView'
+import SubscriptionsControlView from '@/views/control/subscriptions/SubscriptionsControlView'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 
@@ -13,7 +13,7 @@ export default async function SubscriptionControlPage() {
 
   return (
     <main>
-      <SubscriptionsView metadata={metadata} session={session!} />
+      <SubscriptionsControlView metadata={metadata} session={session!} />
     </main>
   )
 }

@@ -1,22 +1,18 @@
+import { useState } from 'react'
+import { ShowServicesProps } from '../types'
 import {
-  Box,
   Button,
   Card,
   CardActionArea,
   CardContent,
   Divider,
-  Stack,
   Typography,
 } from '@mui/material'
-import { SubscriptionServiceCardProps } from '../../types'
 import { blue, green } from '@mui/material/colors'
-import { useState } from 'react'
 import ShowInDialog from '@/components/ShowInDialog'
-import ServiceSubscriptionDetails from './ServiceSubscriptionDetails'
+import ServiceSubscribe from './ServiceSubscribe'
 
-export default function SubscriptionServiceCard(
-  props: SubscriptionServiceCardProps,
-) {
+export default function ShowServices(props: ShowServicesProps) {
   const { service, user } = props
   const [showDialog, setShowDialog] = useState<boolean>(false)
 
@@ -57,8 +53,12 @@ export default function SubscriptionServiceCard(
             Contratar
           </Button>
         </Divider>
-        <ShowInDialog open={showDialog} onClose={handleShowDetail} title={service?.name!}>
-          <ServiceSubscriptionDetails
+        <ShowInDialog
+          open={showDialog}
+          onClose={handleShowDetail}
+          title={service?.name!}
+        >
+          <ServiceSubscribe
             user={user}
             service={service}
             onClose={handleShowDetail}

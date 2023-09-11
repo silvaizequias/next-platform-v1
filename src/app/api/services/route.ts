@@ -10,7 +10,11 @@ export const GET = async (request: Request) => {
         await prisma.service.findMany({
           include: {
             solution: true,
-            subscriptions: true,
+            subscriptions: {
+              include: {
+                user: true,
+              },
+            },
           },
         }),
       ),

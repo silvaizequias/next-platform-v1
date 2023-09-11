@@ -17,7 +17,7 @@ import ShowInDrawer from '@/components/ShowInDrawer'
 import UserCreateForm from './forms/UserCreateForm'
 import PageHeader from '@/components/PageHeader'
 
-export default function UsersView(props: PageViewProps) {
+export default function UsersControlView(props: PageViewProps) {
   const { data: users, error, mutate } = useFetch(`/api/users`)
   const [openDrawer, setOpenDrawer] = useState<boolean>(false)
 

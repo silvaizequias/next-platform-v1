@@ -1,21 +1,12 @@
-import toast from 'react-hot-toast'
-import { ServiceSubscriptionDetailsProps } from '../../types'
 import { StripeCheckoutSchemaType } from '@/schemas/stripe'
-import axios from 'axios'
+import { ServiceSubscribeProps } from '../types'
 import { getStipePromise } from '@/libraries/stripe'
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Stack,
-  Typography,
-} from '@mui/material'
+import axios from 'axios'
+import toast from 'react-hot-toast'
+import { Box, Button, Card, CardContent, Typography } from '@mui/material'
 import { grey } from '@mui/material/colors'
 
-export default function ServiceSubscriptionDetails(
-  props: ServiceSubscriptionDetailsProps,
-) {
+export default function ServiceSubscribe(props: ServiceSubscribeProps) {
   const { user, service, onClose } = props
 
   const handleCheckout = async () => {

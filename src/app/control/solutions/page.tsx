@@ -1,5 +1,5 @@
 import { authOptions } from '@/libraries/next-auth'
-import SolutionsView from '@/views/control/solutions/SolutionsView'
+import SolutionsControlView from '@/views/control/solutions/SolutionsControlView'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 
@@ -13,7 +13,7 @@ export default async function SolutionControlPage() {
 
   return (
     <main>
-      <SolutionsView metadata={metadata} session={session!} />
+      <SolutionsControlView metadata={metadata} session={session!} />
     </main>
   )
 }
