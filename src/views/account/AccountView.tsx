@@ -2,14 +2,13 @@
 
 import { useFetch } from '@/hooks/useFetch'
 import { PageViewProps } from '@/types'
-import { Box, Container, Divider, Grid, Typography } from '@mui/material'
+import { Box, Container, Grid, Typography } from '@mui/material'
 import { SubscriptionType } from '../control/subscriptions/types'
 import { UserType } from '../control/users/types'
 import { Fragment, Suspense } from 'react'
 import Spinner from '@/components/Spinner'
 import ShowServices from './ShowServices'
 import { blue } from '@mui/material/colors'
-import { MdBlurOn } from 'react-icons/md'
 import ShowSubscriptions from './ShowSubscriptions'
 import { ServiceType } from '../control/services/types'
 
@@ -74,14 +73,22 @@ export default function AccountView(props: PageViewProps) {
                   você ainda não contratou nenhum serviço?
                 </Typography>
               </Box>
-              <Divider sx={{ display: 'flex', mx: 8, my: 2, color: blue[600] }}>
-                <MdBlurOn size={24} />
-              </Divider>
             </Grid>
           )}
         </Suspense>
       </Grid>
       <Grid container spacing={2} marginTop={1}>
+        <Grid item xs={12} sm={12}>
+          <Typography
+            variant='h6'
+            color={blue[600]}
+            textTransform={'uppercase'}
+            textAlign={'center'}
+            fontWeight={200}
+          >
+            Contratar novo Serviço
+          </Typography>
+        </Grid>
         <Suspense fallback={<Spinner />}>
           {services?.map(
             (service: ServiceType) =>
