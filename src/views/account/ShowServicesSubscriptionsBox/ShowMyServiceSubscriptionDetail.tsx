@@ -1,5 +1,5 @@
 import { useFetch } from '@/hooks/useFetch'
-import { ServiceType } from '@/views/services/types'
+import { ServiceType } from '@/views/control/services/types'
 import { Box, Typography } from '@mui/material'
 
 interface Props {

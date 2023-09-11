@@ -19,6 +19,9 @@ export const UserCreateSchema = z.object({
   phone: z.string().length(11),
   docType: z.enum(DOC_TYPE).default('CPF').optional(),
   docCode: z.string().optional(),
+  zipCode: z.string().length(8).optional(),
+  addressNumber: z.string().optional(),
+  addressComplement: z.string().optional(),
 })
 
 export type UserCreateSchemaType = z.infer<typeof UserCreateSchema>
@@ -32,6 +35,9 @@ export const UserUpdateSchema = z.object({
   phone: z.string().optional(),
   docType: z.enum(DOC_TYPE).optional(),
   docCode: z.string().optional(),
+  zipCode: z.string().length(8).optional(),
+  addressNumber: z.string().optional(),
+  addressComplement: z.string().optional(),
 })
 
 export type UserUpdateSchemaType = z.infer<typeof UserUpdateSchema>

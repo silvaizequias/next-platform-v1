@@ -10,11 +10,11 @@ export const POST = async (request: Request) => {
       .json()
       .then(async (inputs: OpenAiCompletionSchemaType) => {
         if (await OpenAiCompletionSchema.parseAsync(inputs)) {
-          const { content, maxTokens, model } = inputs
+          const { content, model } = inputs
 
           const completions = await openai.completions
             .create({
-              max_tokens: maxTokens,
+              max_tokens: 200,
               model: model,
               prompt: content,
             })

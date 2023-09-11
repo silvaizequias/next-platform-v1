@@ -2,7 +2,7 @@
 
 import ShowInDrawer from '@/components/ShowInDrawer'
 import { useFetch } from '@/hooks/useFetch'
-import { SessionProps } from '@/types'
+import { PageViewProps } from '@/types'
 import {
   BottomNavigation,
   BottomNavigationAction,
@@ -19,7 +19,7 @@ import SubscriptionDataGrid from './SubscriptionDataGrid'
 import { blue } from '@mui/material/colors'
 import PageHeader from '@/components/PageHeader'
 
-export default function SubscriptionsView(props: SessionProps) {
+export default function SubscriptionsView(props: PageViewProps) {
   const { data: subscriptions, error, mutate } = useFetch(`/api/subscriptions`)
   const [openDrawer, setOpenDrawer] = useState<boolean>(false)
 
@@ -31,7 +31,7 @@ export default function SubscriptionsView(props: SessionProps) {
     <Container maxWidth='xl'>
       <Grid container spacing={2} marginTop={1}>
         <Grid item xs={12}>
-          <PageHeader title='Gestão de Contratações'>
+          <PageHeader metadata={props.metadata!}>
             <BottomNavigation>
               <BottomNavigationAction
                 sx={{ fontSize: 24, color: 'green' }}

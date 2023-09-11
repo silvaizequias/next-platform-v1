@@ -1,7 +1,5 @@
 import * as z from 'zod'
 
-const SOLUTION = ['NONE'] as const
-
 export const ServiceCreateSchema = z.object({
   isAvaliable: z.boolean().default(true).optional(),
   name: z.string(),

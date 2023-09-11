@@ -1,17 +1,14 @@
 import {
-  Box,
   Button,
   Card,
   CardActionArea,
   CardContent,
   Divider,
-  Grid,
   Typography,
 } from '@mui/material'
-import { ShowServicesSubscriptionBoxProps } from '../types'
-import { SubscriptionType } from '@/views/subscriptions/types'
+import { SubscriptionType } from '@/views/control/subscriptions/types'
 import { blue } from '@mui/material/colors'
-import { Fragment, useState } from 'react'
+import { useState } from 'react'
 import ShowInDialog from '@/components/ShowInDialog'
 import ShowMyServiceSubscriptionDetail from './ShowMyServiceSubscriptionDetail'
 import { useFetch } from '@/hooks/useFetch'

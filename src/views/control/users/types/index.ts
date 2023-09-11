@@ -1,5 +1,5 @@
 import { AccountType, SessionType } from '@/types'
-import { SubscriptionType } from '@/views/subscriptions/types'
+import { SubscriptionType } from '@/views/control/subscriptions/types'
 
 export type UserType = {
   id: string

@@ -3,7 +3,8 @@ import { PageHeaderProps } from './types'
 import { blue } from '@mui/material/colors'
 
 export default function PageHeader(props: PageHeaderProps) {
-  const { children, title } = props
+  const { children, metadata } = props
+  const { title }: any = metadata
 
   return (
     <Box
@@ -17,9 +18,14 @@ export default function PageHeader(props: PageHeaderProps) {
     >
       <Typography
         variant='h5'
-        sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', color: blue[800] }}
+        sx={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          alignItems: 'center',
+          color: blue[800],
+        }}
       >
-        {title}
+        {title!}
       </Typography>
       <Box
         sx={{

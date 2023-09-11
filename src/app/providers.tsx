@@ -1,7 +1,6 @@
 'use client'
 
 import ThemeRegistry from '@/components/ThemeRegistry'
-import ToastProvider from '@/components/ToastProvider'
 import { LayoutProps } from '@/types'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'

@@ -1,4 +1,5 @@
-import { UserType } from '@/views/users/types'
+import { UserType } from '@/views/control/users/types'
+import { Metadata } from 'next'
 import { Session } from 'next-auth'
 import { ReactNode } from 'react'
 
@@ -44,6 +45,7 @@ export interface LayoutProps {
   children: ReactNode
 }
 
-export interface SessionProps {
+export interface PageViewProps {
   session: Session | null
+  metadata: Metadata
 }

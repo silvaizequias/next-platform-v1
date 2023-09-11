@@ -18,10 +18,10 @@ import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { MdOutlineLogout, MdApps } from 'react-icons/md'
-import { SessionProps } from '@/types'
 import { blue } from '@mui/material/colors'
+import { TopBarProps } from './types'
 
-export default function TopBar(props: SessionProps) {
+export default function TopBar(props: TopBarProps) {
   const { user }: any = props.session
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)

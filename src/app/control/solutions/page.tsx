@@ -1,8 +1,7 @@
 import { authOptions } from '@/libraries/next-auth'
-import SolutionsView from '@/views/solutions/SolutionsView'
+import SolutionsView from '@/views/control/solutions/SolutionsView'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
-import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: 'Gestão de Soluções :: Dedicado Digital',
@@ -12,11 +11,9 @@ export const metadata: Metadata = {
 export default async function SolutionManagementPage() {
   const session = await getServerSession(authOptions)
 
-  return session && session?.user?.role == 'MASTER' ? (
+  return (
     <main>
-      <SolutionsView session={session!} />
+      <SolutionsView metadata={metadata} session={session!} />
     </main>
-  ) : (
-    redirect('/')
   )
 }

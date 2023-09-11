@@ -1,25 +1,27 @@
 'use client'
 
-import ShowInDrawer from '@/components/ShowInDrawer'
 import { useFetch } from '@/hooks/useFetch'
-import { SessionProps } from '@/types'
+import { PageViewProps } from '@/types'
 import {
   BottomNavigation,
   BottomNavigationAction,
+  Card,
+  CardContent,
   Container,
   Grid,
   Typography,
 } from '@mui/material'
-import { Suspense, useState } from 'react'
 import { MdAddBox } from 'react-icons/md'
-import SolutionCreateForm from './forms/SolutionCreateForm'
+import { Suspense, useState } from 'react'
+import ShowInDrawer from '@/components/ShowInDrawer'
+import ServiceCreateForm from './forms/ServiceCreateForm'
 import { blue } from '@mui/material/colors'
 import PageHeader from '@/components/PageHeader'
-import { SolutionType } from './types'
-import SolutionCard from './SolutionCard'
+import ServiceCard from './ServiceCard'
+import { ServiceType } from './types'
 
-export default function SolutionsView(props: SessionProps) {
-  const { data: solutions, error, mutate } = useFetch(`/api/solutions`)
+export default function ServicesView(props: PageViewProps) {
+  const { data: services, error, mutate } = useFetch(`/api/services`)
   const [openDrawer, setOpenDrawer] = useState<boolean>(false)
 
   const handleDrawer = () => {
@@ -30,7 +32,7 @@ export default function SolutionsView(props: SessionProps) {
     <Container maxWidth='xl'>
       <Grid container spacing={2} marginTop={1}>
         <Grid item xs={12}>
-          <PageHeader title='Gestão de Soluções'>
+          <PageHeader metadata={props.metadata!}>
             <BottomNavigation>
               <BottomNavigationAction
                 sx={{ fontSize: 24, color: 'green' }}
@@ -41,17 +43,17 @@ export default function SolutionsView(props: SessionProps) {
             <ShowInDrawer
               onClose={handleDrawer}
               open={openDrawer}
-              title={'Criar Solução'}
+              title={'Criar Serviço'}
             >
-              <SolutionCreateForm onClose={handleDrawer} />
+              <ServiceCreateForm onClose={handleDrawer} />
             </ShowInDrawer>
           </PageHeader>
         </Grid>
-        {solutions?.length! > 0 ? (
+        {services?.length! > 0 ? (
           <Suspense fallback={'... carregando dados!'}>
-            {solutions?.map((solution: SolutionType) => (
-              <Grid key={solution?.id!} item xs={12} sm={6} md={3}>
-                <SolutionCard solution={solution} />
+            {services?.map((service: ServiceType) => (
+              <Grid key={service?.id!} item xs={12} sm={6} md={3}>
+                <ServiceCard service={service} />
               </Grid>
             ))}
           </Suspense>
@@ -63,7 +65,7 @@ export default function SolutionsView(props: SessionProps) {
               color={blue[600]}
               textTransform={'capitalize'}
             >
-              Sem soluções para listar!
+              Sem serviços para listar!
             </Typography>
           </Grid>
         )}

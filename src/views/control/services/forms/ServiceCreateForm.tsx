@@ -14,7 +14,7 @@ import { useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { ServiceCreateFormProps } from '../types'
 import { useFetch } from '@/hooks/useFetch'
-import { SolutionType } from '@/views/solutions/types'
+import { SolutionType } from '@/views/control/solutions/types'
 import toast from 'react-hot-toast'
 
 export default function ServiceCreateForm(props: ServiceCreateFormProps) {

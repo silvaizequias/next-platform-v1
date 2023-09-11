@@ -1,8 +1,7 @@
 import { authOptions } from '@/libraries/next-auth'
-import SubscriptionsView from '@/views/subscriptions/SubscriptionsView'
+import SubscriptionsView from '@/views/control/subscriptions/SubscriptionsView'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
-import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: 'Gestão de Contratações :: Dedicado Digital',
@@ -12,11 +11,9 @@ export const metadata: Metadata = {
 export default async function SubscriptionManagementPage() {
   const session = await getServerSession(authOptions)
 
-  return session && session?.user?.role == 'MASTER' ? (
+  return (
     <main>
-      <SubscriptionsView session={session!} />
+      <SubscriptionsView metadata={metadata} session={session!} />
     </main>
-  ) : (
-    redirect('/')
   )
 }

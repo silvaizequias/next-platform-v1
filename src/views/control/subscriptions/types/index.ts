@@ -1,5 +1,5 @@
-import { ServiceType } from '@/views/services/types'
-import { UserType } from '@/views/users/types'
+import { ServiceType } from '@/views/control/services/types'
+import { UserType } from '@/views/control/users/types'
 
 export type SubscriptionType = {
   id: string

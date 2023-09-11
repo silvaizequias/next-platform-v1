@@ -1,6 +1,5 @@
 import { AuthSignInSchema, AuthSignInSchemaType } from '@/schemas/auth'
 import { prisma } from '@/libraries/prisma'
-import { compareSync } from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 export const POST = async (request: Request) => {

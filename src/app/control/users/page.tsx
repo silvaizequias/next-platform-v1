@@ -1,24 +1,19 @@
 import { authOptions } from '@/libraries/next-auth'
-import AccountView from '@/views/account/AccountView'
-import LandingView from '@/views/landing/LandingView'
+import UsersView from '@/views/control/users/UsersView'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 
 export const metadata: Metadata = {
-  title: 'Dedicado Digital',
+  title: 'Gestão de Usuários :: Dedicado Digital',
   description: 'Sistema Dedicado Personalizado',
 }
 
-export default async function LandingPage() {
+export default async function UserManagementPage() {
   const session = await getServerSession(authOptions)
 
   return (
     <main>
-      {session ? (
-        <AccountView metadata={metadata} session={session!} />
-      ) : (
-        <LandingView />
-      )}
+      <UsersView metadata={metadata} session={session!} />
     </main>
   )
 }

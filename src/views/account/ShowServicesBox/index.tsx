@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material'
 import { ShowServicesBoxProps } from '../types'
 import { useFetch } from '@/hooks/useFetch'
-import { ServiceType } from '@/views/services/types'
+import { ServiceType } from '@/views/control/services/types'
 import SubscriptionServiceCard from './SubscriptionServiceCard'
 import { Fragment } from 'react'
 

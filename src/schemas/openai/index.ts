@@ -28,7 +28,6 @@ const CHAT_COMPLETION_MODEL = [
 
 export const OpenAiCompletionSchema = z.object({
   content: z.string().min(10),
-  maxTokens: z.number().positive().max(100),
   model: z.enum(COMPLETION_MODEL),
 })
 

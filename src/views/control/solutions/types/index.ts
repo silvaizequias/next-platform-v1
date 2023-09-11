@@ -1,4 +1,4 @@
-import { ServiceType } from '@/views/services/types'
+import { ServiceType } from '@/views/control/services/types'
 
 export type SolutionType = {
   id: string

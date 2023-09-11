@@ -1,18 +1,18 @@
 'use client'
 
 import { useFetch } from '@/hooks/useFetch'
-import { SessionProps } from '@/types'
+import { PageViewProps } from '@/types'
 import { Box, Container, Divider, Grid, Typography } from '@mui/material'
-import { UserType } from '../users/types'
+import { UserType } from '../control/users/types'
 import { Fragment, Suspense } from 'react'
 import Spinner from '@/components/Spinner'
 import { blue } from '@mui/material/colors'
 import ShowServicesBox from './ShowServicesBox'
 import { MdBlurOn } from 'react-icons/md'
 import ShowServicesSubscriptionBox from './ShowServicesSubscriptionsBox'
-import { SubscriptionType } from '../subscriptions/types'
+import { SubscriptionType } from '../control/subscriptions/types'
 
-export default function AccountView(props: SessionProps) {
+export default function AccountView(props: PageViewProps) {
   const { data: user } = useFetch<UserType>(
     `/api/users/${props.session?.user?.id}`,
   )

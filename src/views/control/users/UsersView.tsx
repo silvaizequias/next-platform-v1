@@ -1,7 +1,7 @@
 'use client'
 
 import { useFetch } from '@/hooks/useFetch'
-import { SessionProps } from '@/types'
+import { PageViewProps } from '@/types'
 import {
   BottomNavigation,
   BottomNavigationAction,
@@ -11,14 +11,13 @@ import {
   Grid,
 } from '@mui/material'
 import UserDataGrid from './UserDataGrid'
-import TableHeader from '@/components/TableHeader'
 import { MdPersonAddAlt1 } from 'react-icons/md'
 import { Suspense, useState } from 'react'
 import ShowInDrawer from '@/components/ShowInDrawer'
 import UserCreateForm from './forms/UserCreateForm'
 import PageHeader from '@/components/PageHeader'
 
-export default function UsersView(props: SessionProps) {
+export default function UsersView(props: PageViewProps) {
   const { data: users, error, mutate } = useFetch(`/api/users`)
   const [openDrawer, setOpenDrawer] = useState<boolean>(false)
 
@@ -30,7 +29,7 @@ export default function UsersView(props: SessionProps) {
     <Container maxWidth='xl'>
       <Grid container spacing={2} marginTop={1}>
         <Grid item xs={12}>
-          <PageHeader title='Gestão de Usuários'>
+          <PageHeader metadata={props.metadata!}>
             <BottomNavigation>
               <BottomNavigationAction
                 sx={{ fontSize: 24, color: 'green' }}

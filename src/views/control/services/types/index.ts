@@ -1,5 +1,5 @@
-import { SolutionType } from '@/views/solutions/types'
-import { SubscriptionType } from '@/views/subscriptions/types'
+import { SolutionType } from '@/views/control/solutions/types'
+import { SubscriptionType } from '@/views/control/subscriptions/types'
 
 export type ServiceType = {
   id: string
