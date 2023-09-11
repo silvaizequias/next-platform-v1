@@ -2,20 +2,11 @@
 
 import * as React from 'react'
 import { Box, Button, Divider, Typography } from '@mui/material'
-import { styled } from '@mui/material/styles'
-import MuiCard, { CardProps } from '@mui/material/Card'
 import { blue, grey } from '@mui/material/colors'
 import { FcGoogle } from 'react-icons/fc'
 import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
 
-const Card = styled(MuiCard)<CardProps>(({ theme }) => ({
-  [theme.breakpoints.up('sm')]: { width: 450 },
-}))
-
-export default function AuthView() {
-  const router = useRouter()
-
+export default function LandingView() {
   const handleGoogleSignIn = async () => {
     await signIn('google')
   }

@@ -20,7 +20,7 @@ export default async function AppLayout(props: LayoutProps) {
       <html lang='en' suppressHydrationWarning>
         {!onDevelopment && <CrispChatProvider />}
         <body>
-          {session && <TopBar session={session} />}
+          {session && <TopBar session={session!} />}
           <Suspense fallback={<Spinner />}>{children}</Suspense>
           {!onDevelopment && <Analytics />}
           <ToastProvider />
