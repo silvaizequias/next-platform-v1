@@ -4,11 +4,11 @@ import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 
 export const metadata: Metadata = {
-  title: 'Gestão de Serviços :: Dedicado Digital',
+  title: 'Controle de Serviços :: Dedicado Digital',
   description: 'Sistema Dedicado Personalizado',
 }
 
-export default async function ServiceManagementPage() {
+export default async function ServiceControlPage() {
   const session = await getServerSession(authOptions)
 
   return (

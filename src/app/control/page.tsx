@@ -4,7 +4,7 @@ import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 
 export const metadata: Metadata = {
-  title: 'Gestão de Usuários :: Dedicado Digital',
+  title: 'Painel de Controle :: Dedicado Digital',
   description: 'Sistema Dedicado Personalizado',
 }
 

@@ -59,7 +59,7 @@ export default function TopBar(props: TopBarProps) {
             <Tooltip title={user?.name}>
               <IconButton
                 sx={{ p: 0 }}
-                size='small'
+                size='large'
                 onClick={handleOpenUserMenu}
               >
                 <Avatar alt={user?.name!} src={user?.image! || '/avatar.png'} />
