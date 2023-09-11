@@ -4,7 +4,6 @@ import {
   AppBar,
   Avatar,
   Box,
-  Chip,
   Container,
   IconButton,
   ListItemIcon,
@@ -18,24 +17,18 @@ import {
 import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { MdOutlineLogout, MdMenu, MdLensBlur, MdBadge } from 'react-icons/md'
-import DrawerNavBar from '../DrawerNavBar'
-import { blue } from '@mui/material/colors'
+import { MdOutlineLogout, MdApps } from 'react-icons/md'
 import { SessionProps } from '@/types'
+import { blue } from '@mui/material/colors'
 
 export default function TopBar(props: SessionProps) {
   const { user }: any = props.session
 
-  const [openNavBar, setOpenNavBar] = useState<boolean>(false)
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
   const router = useRouter()
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget)
-  }
-
-  const handleNavBar = () => {
-    setOpenNavBar(!openNavBar)
   }
 
   const handleTopBarMenu = (url?: string) => {
@@ -51,45 +44,19 @@ export default function TopBar(props: SessionProps) {
   }
 
   return (
-    <AppBar position='sticky'>
+    <AppBar position='sticky' elevation={0} sx={{ bgcolor: 'transparent' }}>
       <Container maxWidth='xl'>
         <Toolbar
           disableGutters
-          sx={{ display: 'flex', justifyContent: 'space-between' }}
+          sx={{ display: 'flex', justifyContent: 'right' }}
         >
-          <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
-            <Box sx={{ pr: 2 }}>
-              <Avatar
-                sx={{ cursor: 'pointer', bgcolor: blue[500] }}
-                alt='Dedicado Digital'
-                variant='rounded'
-                onClick={() => handleTopBarMenu('/')}
-              >
-                <MdLensBlur />
-              </Avatar>
-            </Box>
-
-            <Box>
-              <Tooltip title='Menu'>
-                <IconButton
-                  sx={{ p: 0, color: 'white' }}
-                  onClick={handleNavBar}
-                >
-                  <MdMenu />
-                </IconButton>
-              </Tooltip>
-            </Box>
-          </Box>
-          <DrawerNavBar open={openNavBar} onClose={handleNavBar} user={user} />
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Chip
-              label={`Olá ${user?.name.split(' ')[0]}`}
-              color='primary'
-              variant='filled'
-              sx={{ marginX: 1 }}
-            />
-            <Tooltip title='Abrir'>
+          <Box>
+            <Tooltip title='Serviços'>
+              <IconButton sx={{ p: 1, color: blue[600] }} size='large'>
+                <MdApps />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title={user?.name}>
               <IconButton
                 sx={{ p: 0 }}
                 size='small'
