@@ -17,12 +17,14 @@ export default function PageHeader(props: PageHeaderProps) {
       }}
     >
       <Typography
-        variant='h5'
+        variant='h6'
         sx={{
           display: 'flex',
           flexWrap: 'wrap',
           alignItems: 'center',
-          color: blue[800],
+          textTransform: 'uppercase',
+          fontWeight: '200',
+          color: blue[600],
         }}
       >
         {title!}

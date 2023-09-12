@@ -2,6 +2,6 @@ import { Metadata } from 'next'
 import { ReactNode } from 'react'
 
 export interface PageHeaderProps {
-  children: ReactNode
+  children?: ReactNode
   metadata: Metadata
 }
