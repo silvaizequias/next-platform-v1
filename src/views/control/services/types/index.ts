@@ -1,4 +1,3 @@
-import { SolutionType } from '@/views/control/solutions/types'
 import { SubscriptionType } from '@/views/control/subscriptions/types'
 
 export type ServiceType = {
@@ -7,11 +6,11 @@ export type ServiceType = {
   updatedAt: Date
   deletedAt: Date
   softDeleted: boolean
-  solutionId: string
-  solution: SolutionType
   isAvaliable: boolean
   name: string
   description: string
+  solution: string
+  url: string
   price: number
   subscriptions: SubscriptionType[]
 }

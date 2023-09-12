@@ -15,11 +15,10 @@ export const GET = async (
         await prisma.service.findFirst({
           where: { id },
           include: {
-            solution: true,
             subscriptions: {
               include: {
-                user: true
-              }
+                user: true,
+              },
             },
           },
         }),
@@ -43,30 +42,8 @@ export const PATCH = async (
       .json()
       .then(async (inputs: ServiceUpdateSchemaType) => {
         if (await ServiceUpdateSchema.parseAsync(inputs)) {
-          const { solutionId } = inputs
-          delete inputs?.solutionId
-          if (!solutionId) {
-            await prisma.service.update({ where: { id }, data: inputs })
-          }
-
-          const solution = await prisma.solution.findFirst({
-            where: {
-              id: solutionId,
-            },
-          })
-          if (!solution)
-            return new Response(
-              JSON.stringify('A solução informada não existe'),
-              { status: 404 },
-            )
-
           const data: Prisma.ServiceUpdateInput = {
             ...inputs,
-            solution: {
-              update: {
-                id: solution?.id!,
-              },
-            },
           }
 
           return new Response(

@@ -14,7 +14,6 @@ import { useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { ServiceCreateFormProps } from '../types'
 import { useFetch } from '@/hooks/useFetch'
-import { SolutionType } from '@/views/control/solutions/types'
 import toast from 'react-hot-toast'
 
 export default function ServiceCreateForm(props: ServiceCreateFormProps) {
@@ -64,29 +63,6 @@ export default function ServiceCreateForm(props: ServiceCreateFormProps) {
   return (
     <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
       <FormControl fullWidth sx={{ my: 2 }}>
-        <InputLabel id='solution'>Solução</InputLabel>
-        <Select
-          {...register('solutionId')}
-          required
-          autoFocus
-          label={'Solução'}
-          value={solution}
-          onChange={(e) => setSolution(e?.target?.value)}
-          error={Boolean(errors.solutionId)}
-          inputProps={{ placeholder: 'Função' }}
-        >
-          <MenuItem value=''></MenuItem>
-          {solutions?.map(
-            (solution: SolutionType) =>
-              solution?.isActive! == true && (
-                <MenuItem key={solution?.id!} value={solution?.id!}>
-                  {solution?.name!}
-                </MenuItem>
-              ),
-          )}
-        </Select>
-      </FormControl>
-      <FormControl fullWidth sx={{ mb: 2 }}>
         <Controller
           {...register('name')}
           control={control}
@@ -127,6 +103,46 @@ export default function ServiceCreateForm(props: ServiceCreateFormProps) {
         {errors.description && (
           <FormHelperText>{errors.description.message}</FormHelperText>
         )}
+      </FormControl>
+      <FormControl fullWidth sx={{ my: 2 }}>
+        <Controller
+          {...register('solution')}
+          control={control}
+          rules={{ required: true }}
+          render={({ field: { value, onChange, onBlur } }) => (
+            <TextField
+              autoFocus
+              label={'Nome da Solução'}
+              value={value}
+              onBlur={onBlur}
+              onChange={onChange}
+              error={Boolean(errors.solution)}
+              placeholder='Nome da Solução'
+            />
+          )}
+        />
+        {errors.solution && (
+          <FormHelperText>{errors.solution.message}</FormHelperText>
+        )}
+      </FormControl>
+      <FormControl fullWidth sx={{ my: 2 }}>
+        <Controller
+          {...register('url')}
+          control={control}
+          rules={{ required: true }}
+          render={({ field: { value, onChange, onBlur } }) => (
+            <TextField
+              autoFocus
+              label={'URL da Solução'}
+              value={value}
+              onBlur={onBlur}
+              onChange={onChange}
+              error={Boolean(errors.url)}
+              placeholder='URL da Solução'
+            />
+          )}
+        />
+        {errors.url && <FormHelperText>{errors.url.message}</FormHelperText>}
       </FormControl>
       <FormControl fullWidth sx={{ mb: 2 }}>
         <Controller

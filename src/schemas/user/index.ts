@@ -1,6 +1,6 @@
 import * as z from 'zod'
 
-const ROLE = ['MASTER', 'MEMBER', 'CUSTOMER', 'GUEST'] as const
+const ROLE = ['MASTER', 'OWNER', 'ADMINISTRATOR', 'MEMBER', 'CUSTOMER', 'GUEST'] as const
 const DOC_TYPE = ['CPF', 'CNPJ', 'RG', 'CNH', 'CTPS', 'PASSPORT'] as const
 const MAX_FILE_SIZE = 500000
 const ACCEPTED_IMAGE_TYPES = [

@@ -48,7 +48,7 @@ export default function ServiceCard(props: ServiceCardProps) {
                 }
                 color='success'
               >
-                <MdPerson/>
+                <MdPerson />
               </Badge>
             </Stack>
           </Box>
@@ -60,10 +60,10 @@ export default function ServiceCard(props: ServiceCardProps) {
         </CardContent>
         <CardContent>
           <Typography variant='body2' color='text.secondary'>
-            {service?.solution?.url!}
+            {service?.solution!}
           </Typography>
           <Typography variant='body2' color='text.secondary'>
-            {service?.solution?.cloud!}
+            {service?.url!}
           </Typography>
         </CardContent>
       </CardActionArea>

@@ -8,7 +8,7 @@ export type UserType = {
   deletedAt: Date
   softDeleted: boolean
   isActive: boolean
-  role: 'MASTER' | 'MEMBER' | 'CUSTOMER' | 'GUEST'
+  role: 'MASTER' | 'OWNER' | 'ADMINISTRATOR' | 'MEMBER' | 'CUSTOMER' | 'GUEST'
   name: string
   email: string
   emailVerified: Date

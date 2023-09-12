@@ -9,7 +9,6 @@ export const GET = async (request: Request) => {
       JSON.stringify(
         await prisma.service.findMany({
           include: {
-            solution: true,
             subscriptions: {
               include: {
                 user: true,
@@ -37,27 +36,8 @@ export const POST = async (request: Request) => {
       .json()
       .then(async (inputs: ServiceCreateSchemaType) => {
         if (await ServiceCreateSchema.parseAsync(inputs)) {
-          const { solutionId } = inputs
-
-          const solution = await prisma.solution.findFirst({
-            where: {
-              id: solutionId,
-            },
-          })
-          if (!solution)
-            return new Response(
-              JSON.stringify('A solução informada não existe'),
-              { status: 404 },
-            )
-
-          delete inputs?.solutionId
           const data: Prisma.ServiceCreateInput = {
             ...inputs,
-            solution: {
-              connect: {
-                id: solution?.id!,
-              },
-            },
           }
           return new Response(
             JSON.stringify(await prisma.service.create({ data })),

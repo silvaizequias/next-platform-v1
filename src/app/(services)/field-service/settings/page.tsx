@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: 'Sistema Dedicado Personalizado',
 }
 
-export default async function ConfigFieldServicePage() {
+export default async function SettingFieldServicePage() {
   const session = await getServerSession(authOptions)
 
   return session ? '' : redirect('/')

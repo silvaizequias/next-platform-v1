@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: 'Sistema Dedicado Personalizado',
 }
 
-export default async function ConfigDrivingPage() {
+export default async function SettingDrivingPage() {
   const session = await getServerSession(authOptions)
 
   return session ? '' : redirect('/')
