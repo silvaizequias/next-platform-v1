@@ -75,6 +75,8 @@ export default function UserCreateForm(props: UserCreateFormProps) {
         >
           <MenuItem value=''></MenuItem>
           <MenuItem value='MASTER'>MASTER</MenuItem>
+          <MenuItem value='OWNER'>PROPRIETÁRIO</MenuItem>
+          <MenuItem value='ADMINISTRATOR'>ADMINISTRADOR</MenuItem>
           <MenuItem value='MEMBER'>MEMBRO</MenuItem>
           <MenuItem value='CUSTOMER'>CLIENTE</MenuItem>
           <MenuItem value='GUEST'>VISITANTE</MenuItem>
