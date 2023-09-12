@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@mui/material'
 import { ShowInDialogProps } from './types'
-import { red } from '@mui/material/colors'
+import { blue, red } from '@mui/material/colors'
 import { MdDisabledByDefault } from 'react-icons/md'
 
 export default function ShowInDialog(props: ShowInDialogProps) {
@@ -40,7 +40,15 @@ export default function ShowInDialog(props: ShowInDialogProps) {
         </Tooltip>
       </Box>
       <DialogTitle sx={{ textAlign: 'center', mt: 0, pt: 0 }}>
-        <Typography variant='h6' color='text.secondary'>
+        <Typography
+          variant='h6'
+          sx={{
+            textTransform: 'uppercase',
+            textAlign: 'center',
+            fontWeight: '200',
+            color: blue[600],
+          }}
+        >
           {title!}
         </Typography>
       </DialogTitle>
