@@ -4,13 +4,9 @@ import {
   Button,
   FormControl,
   FormHelperText,
-  InputLabel,
-  MenuItem,
-  Select,
   TextField,
 } from '@mui/material'
 import axios from 'axios'
-import { useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { ServiceCreateFormProps } from '../types'
 import { useFetch } from '@/hooks/useFetch'
@@ -18,16 +14,13 @@ import toast from 'react-hot-toast'
 
 export default function ServiceCreateForm(props: ServiceCreateFormProps) {
   const { onClose } = props
-  const [solution, setSolution] = useState<string>()
   const { data, mutate } = useFetch('/api/services')
-  const { data: solutions } = useFetch('/api/solutions')
 
   const {
     control,
     formState: { errors },
     handleSubmit,
     register,
-    reset,
   } = useForm<ServiceCreateSchemaType>({
     mode: 'onChange',
     resolver: zodResolver(ServiceCreateSchema),
@@ -104,7 +97,7 @@ export default function ServiceCreateForm(props: ServiceCreateFormProps) {
           <FormHelperText>{errors.description.message}</FormHelperText>
         )}
       </FormControl>
-      <FormControl fullWidth sx={{ my: 2 }}>
+      <FormControl fullWidth sx={{ mb: 2 }}>
         <Controller
           {...register('solution')}
           control={control}
@@ -125,7 +118,7 @@ export default function ServiceCreateForm(props: ServiceCreateFormProps) {
           <FormHelperText>{errors.solution.message}</FormHelperText>
         )}
       </FormControl>
-      <FormControl fullWidth sx={{ my: 2 }}>
+      <FormControl fullWidth sx={{ mb: 2 }}>
         <Controller
           {...register('url')}
           control={control}
@@ -171,7 +164,7 @@ export default function ServiceCreateForm(props: ServiceCreateFormProps) {
         type='submit'
         variant='contained'
         color='success'
-        sx={{ mb: 4 }}
+        sx={{ my: 2 }}
       >
         Criar Serviço
       </Button>

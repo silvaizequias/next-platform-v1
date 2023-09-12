@@ -1,24 +1,22 @@
-'use client'
-
 import { useFetch } from '@/hooks/useFetch'
-import { PageViewProps } from '@/types'
 import {
   BottomNavigation,
   BottomNavigationAction,
   Card,
   CardContent,
-  Container,
   Grid,
 } from '@mui/material'
-import UserDataGrid from './UserDataGrid'
-import { MdPersonAddAlt1 } from 'react-icons/md'
 import { Suspense, useState } from 'react'
+import UserDataGrid from './UserDataGrid'
+import TableHeader from '@/components/TableHeader'
 import ShowInDrawer from '@/components/ShowInDrawer'
 import UserCreateForm from './forms/UserCreateForm'
-import PageHeader from '@/components/PageHeader'
+import { MdPersonAddAlt1 } from 'react-icons/md'
+import { green } from '@mui/material/colors'
 
-export default function UsersControlView(props: PageViewProps) {
+export default function UsersControlTab() {
   const { data: users, error, mutate } = useFetch(`/api/users`)
+
   const [openDrawer, setOpenDrawer] = useState<boolean>(false)
 
   const handleDrawer = () => {
@@ -26,13 +24,19 @@ export default function UsersControlView(props: PageViewProps) {
   }
 
   return (
-    <Container maxWidth='xl'>
-      <Grid container spacing={2} marginTop={1}>
-        <Grid item xs={12}>
-          <PageHeader metadata={props.metadata!}>
+    <Grid container spacing={2} marginTop={1}>
+      <Grid item xs={12}>
+        <Card>
+          <TableHeader>
             <BottomNavigation>
               <BottomNavigationAction
-                sx={{ fontSize: 24, color: 'green' }}
+                sx={{
+                  color: green[400],
+                  '&:hover': {
+                    color: green[600],
+                  },
+                  fontSize: 24,
+                }}
                 icon={<MdPersonAddAlt1 />}
                 onClick={handleDrawer}
               />
@@ -44,16 +48,14 @@ export default function UsersControlView(props: PageViewProps) {
             >
               <UserCreateForm onClose={handleDrawer} />
             </ShowInDrawer>
-          </PageHeader>
-          <Card>
-            <CardContent>
-              <Suspense fallback={'... carregando dados!'}>
-                <UserDataGrid users={users} />
-              </Suspense>
-            </CardContent>
-          </Card>
-        </Grid>
+          </TableHeader>
+          <CardContent>
+            <Suspense fallback={'... carregando dados!'}>
+              <UserDataGrid users={users} />
+            </Suspense>
+          </CardContent>
+        </Card>
       </Grid>
-    </Container>
+    </Grid>
   )
 }
