@@ -86,7 +86,7 @@ export default function AccountView(props: PageViewProps) {
             textAlign={'center'}
             fontWeight={200}
           >
-            Contratar novo Serviço
+            contrate um novo serviço
           </Typography>
         </Grid>
         <Suspense fallback={<Spinner />}>
