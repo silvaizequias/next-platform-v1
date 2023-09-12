@@ -7,7 +7,6 @@ export default function TableHeader(props: TableHeaderProps) {
   return (
     <Box
       sx={{
-        p: 2,
         display: 'flex',
         flexWrap: 'wrap',
         alignItems: 'center',
