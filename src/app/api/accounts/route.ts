@@ -13,6 +13,8 @@ export const GET = async (request: Request) => {
       ),
     )
   } catch (error: any) {
+    await prisma.$disconnect()
+    process.exit(1)
     return new Response(error?.message || error, {
       status: 400,
     })
