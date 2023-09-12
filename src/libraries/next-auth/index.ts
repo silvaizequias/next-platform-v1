@@ -12,7 +12,6 @@ const GOOGLE_CLIENT_SECRE = process.env
 
 export const authOptions: NextAuthOptions = {
   secret: NEXTAUTH_SECRET,
-  //@ts-ignore
   adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
@@ -98,6 +97,7 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/',
     signOut: '/',
+    error: '/'
   },
   debug: false,
 }
