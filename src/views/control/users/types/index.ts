@@ -16,6 +16,8 @@ export type UserType = {
   phone: string
   docType: 'CPF' | 'CNPJ' | 'CNH' | 'CTPS' | 'PASSPORT'
   docCode: string
+  zipCode: string
+  complement: string
   accounts: AccountType[]
   sessions: SessionType[]
   subscriptions: SubscriptionType[]

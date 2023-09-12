@@ -1,6 +1,13 @@
 import * as z from 'zod'
 
-const ROLE = ['MASTER', 'OWNER', 'ADMINISTRATOR', 'MEMBER', 'CUSTOMER', 'GUEST'] as const
+const ROLE = [
+  'MASTER',
+  'OWNER',
+  'ADMINISTRATOR',
+  'MEMBER',
+  'CUSTOMER',
+  'GUEST',
+] as const
 const DOC_TYPE = ['CPF', 'CNPJ', 'RG', 'CNH', 'CTPS', 'PASSPORT'] as const
 const MAX_FILE_SIZE = 500000
 const ACCEPTED_IMAGE_TYPES = [
@@ -20,8 +27,7 @@ export const UserCreateSchema = z.object({
   docType: z.enum(DOC_TYPE).default('CPF').optional(),
   docCode: z.string().optional(),
   zipCode: z.string().length(8).optional(),
-  addressNumber: z.string().optional(),
-  addressComplement: z.string().optional(),
+  complement: z.string().optional(),
 })
 
 export type UserCreateSchemaType = z.infer<typeof UserCreateSchema>
@@ -36,8 +42,7 @@ export const UserUpdateSchema = z.object({
   docType: z.enum(DOC_TYPE).optional(),
   docCode: z.string().optional(),
   zipCode: z.string().length(8).optional(),
-  addressNumber: z.string().optional(),
-  addressComplement: z.string().optional(),
+  complement: z.string().optional(),
 })
 
 export type UserUpdateSchemaType = z.infer<typeof UserUpdateSchema>
