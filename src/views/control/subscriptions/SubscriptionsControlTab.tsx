@@ -10,7 +10,7 @@ export default function SubscriptionsControlTab() {
   return (
     <Grid container spacing={2} marginTop={0}>
       <Grid item xs={12}>
-        <Card>
+        <Card elevation={0}>
           <CardContent>
             {subscriptions?.length! > 0 ? (
               <Suspense fallback={'... carregando dados!'}>

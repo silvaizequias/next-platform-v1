@@ -24,9 +24,9 @@ export default function UsersControlTab() {
   }
 
   return (
-    <Grid container spacing={2} marginTop={1}>
+    <Grid container spacing={2} marginTop={0}>
       <Grid item xs={12}>
-        <Card>
+        <Card elevation={0}>
           <TableHeader>
             <BottomNavigation>
               <BottomNavigationAction
