@@ -1,4 +1,4 @@
-import { prismaDedicated } from '@/libraries/prisma'
+import { prisma } from '@/libraries/prisma'
 import { stripe } from '@/libraries/stripe'
 import {
   StripeCheckoutSchema,
@@ -10,7 +10,7 @@ export const POST = async (request: Request) => {
   const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
 
   try {
-    await prismaDedicated?.$connect()
+    await prisma?.$connect()
     return await request
       .json()
       .then(async (inputs: StripeCheckoutSchemaType) => {
@@ -24,7 +24,7 @@ export const POST = async (request: Request) => {
             userEmail,
           } = inputs
 
-          const subscription = await prismaDedicated?.subscription.findFirst({
+          const subscription = await prisma?.subscription.findFirst({
             where: { userId: userId, serviceId: serviceId },
           })
           if (subscription && subscription?.stripeCustomerId) {
@@ -71,6 +71,6 @@ export const POST = async (request: Request) => {
     console.error('[STRIPE_CHECKOUT_ERROR]: ', error)
     return new Response(error?.message || error, { status: 400 })
   } finally {
-    await prismaDedicated?.$disconnect()
+    await prisma?.$disconnect()
   }
 }

@@ -1,11 +1,11 @@
-import { prismaDedicated } from '@/libraries/prisma'
+import { prisma } from '@/libraries/prisma'
 
 export const GET = async (request: Request) => {
   try {
-    await prismaDedicated.$connect()
+    await prisma.$connect()
     return new Response(
       JSON.stringify(
-        await prismaDedicated.account.findMany({
+        await prisma.account.findMany({
           include: {
             user: true,
           },
@@ -17,6 +17,6 @@ export const GET = async (request: Request) => {
       status: 400,
     })
   } finally {
-    await prismaDedicated.$disconnect()
+    await prisma.$disconnect()
   }
 }

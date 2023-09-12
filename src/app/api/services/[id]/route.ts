@@ -1,4 +1,4 @@
-import { prismaDedicated } from '@/libraries/prisma'
+import { prisma } from '@/libraries/prisma'
 import { ServiceUpdateSchema, ServiceUpdateSchemaType } from '@/schemas/service'
 import { Prisma } from '@prisma/client'
 
@@ -8,11 +8,11 @@ export const GET = async (
 ) => {
   const id = params?.id
   try {
-    await prismaDedicated.$connect()
+    await prisma.$connect()
 
     return new Response(
       JSON.stringify(
-        await prismaDedicated.service.findFirst({
+        await prisma.service.findFirst({
           where: { id },
           include: {
             subscriptions: {
@@ -27,7 +27,7 @@ export const GET = async (
   } catch (error: any) {
     return new Response(error?.message || error, { status: 400 })
   } finally {
-    await prismaDedicated.$disconnect()
+    await prisma.$disconnect()
   }
 }
 
@@ -37,7 +37,7 @@ export const PATCH = async (
 ) => {
   const id = params?.id
   try {
-    await prismaDedicated.$connect()
+    await prisma.$connect()
     return await request
       .json()
       .then(async (inputs: ServiceUpdateSchemaType) => {
@@ -48,7 +48,7 @@ export const PATCH = async (
 
           return new Response(
             JSON.stringify(
-              await prismaDedicated.service.update({ where: { id }, data }),
+              await prisma.service.update({ where: { id }, data }),
             ),
           )
         }
@@ -56,6 +56,6 @@ export const PATCH = async (
   } catch (error: any) {
     return new Response(error?.message || error, { status: 400 })
   } finally {
-    await prismaDedicated.$disconnect()
+    await prisma.$disconnect()
   }
 }

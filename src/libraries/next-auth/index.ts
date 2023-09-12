@@ -1,4 +1,4 @@
-import { prisma, prismaDedicated } from '@/libraries/prisma'
+import { prisma } from '@/libraries/prisma'
 import { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
@@ -12,6 +12,7 @@ const GOOGLE_CLIENT_SECRE = process.env
 
 export const authOptions: NextAuthOptions = {
   secret: NEXTAUTH_SECRET,
+  //@ts-ignore
   adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
@@ -23,7 +24,7 @@ export const authOptions: NextAuthOptions = {
         try {
           if (await AuthSignInSchema.parseAsync(credentials!)) {
             const { phone, email } = credentials!
-            const user = await prismaDedicated.user.findFirst({
+            const user = await prisma.user.findFirst({
               where: { phone: phone, email: email },
             })
             if (!user) return null
@@ -63,7 +64,7 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     jwt: async ({ token, user }) => {
       //console.log('JWT CALLBACK', { token, user, isNewUser })
-      const data = await prismaDedicated.user.findFirst({
+      const data = await prisma.user.findFirst({
         where: {
           email: user?.email! || token?.email!,
         },

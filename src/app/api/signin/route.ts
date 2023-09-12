@@ -1,15 +1,15 @@
 import { AuthSignInSchema, AuthSignInSchemaType } from '@/schemas/auth'
-import { prismaDedicated } from '@/libraries/prisma'
+import { prisma } from '@/libraries/prisma'
 import jwt from 'jsonwebtoken'
 
 export const POST = async (request: Request) => {
   try {
-    await prismaDedicated.$connect()
+    await prisma.$connect()
     return await request.json().then(async (inputs: AuthSignInSchemaType) => {
       if (await AuthSignInSchema.parseAsync(inputs)) {
         const { phone, email } = inputs
 
-        const user = await prismaDedicated.user.findFirst({
+        const user = await prisma.user.findFirst({
           where: {
             phone: phone,
             email: email,
@@ -55,6 +55,6 @@ export const POST = async (request: Request) => {
       status: 400,
     })
   } finally {
-    await prismaDedicated.$disconnect()
+    await prisma.$disconnect()
   }
 }

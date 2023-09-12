@@ -1,4 +1,4 @@
-import { prismaDedicated } from '@/libraries/prisma'
+import { prisma } from '@/libraries/prisma'
 
 export const GET = async (
   request: Request,
@@ -7,10 +7,10 @@ export const GET = async (
   const id = params?.id
 
   try {
-    await prismaDedicated.$connect()
+    await prisma.$connect()
     return new Response(
       JSON.stringify(
-        await prismaDedicated.session.findFirst({
+        await prisma.session.findFirst({
           where: { id },
           include: {
             user: true,
@@ -23,6 +23,6 @@ export const GET = async (
       status: 400,
     })
   } finally {
-    await prismaDedicated.$disconnect()
+    await prisma.$disconnect()
   }
 }
