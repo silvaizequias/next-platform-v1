@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const { PrismaPlugin } = require('@prisma/nextjs-monorepo-workaround-plugin')
 
-const nextConfig = {
+module.exports = {
   reactStrictMode: true,
   swcMinify: true,
   modularizeImports: {
@@ -17,5 +17,3 @@ const nextConfig = {
     return config
   },
 }
-
-export default nextConfig
