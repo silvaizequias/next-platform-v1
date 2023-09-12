@@ -10,6 +10,8 @@ datasource db {
 
 enum UserRole {
   MASTER
+  OWNER
+  ADMINISTRATOR
   MEMBER
   CUSTOMER
   GUEST
@@ -124,24 +126,6 @@ model VerificationToken {
   @@map("verification_tokens")
 }
 
-model Solution {
-  id          String    @id @default(cuid())
-  createdAt   DateTime  @default(now()) @map("created_at")
-  updatedAt   DateTime  @updatedAt @map("updated_at")
-  deletedAt   DateTime? @map("deleted_at") @db.Date
-  softDeleted Boolean?  @default(false) @map("soft_deleted")
-
-  name     String
-  url      String
-  cloud    String?
-  isActive Boolean? @default(true) @map("is_active")
-
-  services Service[]
-
-  @@unique([name])
-  @@map("solutions")
-}
-
 model Service {
   id          String    @id @default(cuid())
   createdAt   DateTime  @default(now()) @map("created_at")
@@ -149,18 +133,16 @@ model Service {
   deletedAt   DateTime? @map("deleted_at") @db.Date
   softDeleted Boolean?  @default(false) @map("soft_deleted")
 
-  solutionId String   @map("solution_id")
-  solution   Solution @relation(fields: [solutionId], references: [id])
-
   isAvaliable Boolean? @default(false) @map("is_avaliable")
   name        String
   description String?
+  solution    String?
+  url         String?
   price       Decimal? @default(0) @db.Decimal(10, 2)
 
   subscriptions Subscription[]
 
-  @@unique([name, solutionId])
-  @@index([solutionId])
+  @@unique([name])
   @@map("services")
 }
 
