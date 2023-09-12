@@ -97,17 +97,17 @@ model User {
   isActive Boolean?  @default(true) @map("is_active")
   role     UserRole? @default(GUEST)
 
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime? @map("email_verified")
-  image         String?
-  phone         String?   @unique
-  docType       DocType?  @default(CPF) @map("doc_type")
-  docCode       String?   @unique @map("doc_code")
-
-  zipCode           String? @map("zip_code")
-  addressNumber     String? @map("address_number")
-  addressComplement String? @map("address_complement")
+  name              String?
+  email             String?   @unique
+  emailVerified     DateTime? @map("email_verified")
+  image             String?
+  phone             String?   @unique
+  docType           DocType?  @default(CPF) @map("doc_type")
+  docCode           String?   @unique @map("doc_code")
+  //TODOS ajustar complemento
+  zipCode           String?   @map("zip_code")
+  addressNumber     String?   @map("address_number")
+  addressComplement String?   @map("address_complement")
 
   accounts      Account[]
   subscriptions Subscription[]
