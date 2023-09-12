@@ -112,6 +112,7 @@ model User {
   accounts      Account[]
   subscriptions Subscription[]
   sessions      Session[]
+  posts         Post[]
 
   @@unique([email, phone, docCode])
   @@map("users")
@@ -177,4 +178,30 @@ model Subscription {
   @@index([serviceId])
   @@index([userId])
   @@map("subscriptions")
+}
+
+model Post {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at") @db.Date
+  softDeleted Boolean?  @default(false) @map("soft_deleted")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
+
+  subject     String
+  tags        String?
+  title       String
+  slug        String
+  resume      String?
+  image       String?
+  video       String?
+  audio       String?
+  content     String
+  like        Int?    @default(0)
+  isAvaliable Boolean @default(true)
+
+  @@index([userId])
+  @@map("posts")
 }
