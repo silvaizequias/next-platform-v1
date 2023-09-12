@@ -1,4 +1,4 @@
-import { prisma } from '@/libraries/prisma'
+import { prismaDedicated } from '@/libraries/prisma'
 import { UserUpdateSchema, UserUpdateSchemaType } from '@/schemas/user'
 
 export const GET = async (
@@ -8,18 +8,18 @@ export const GET = async (
   const id = params?.id
 
   try {
-    await prisma.$connect()
+    await prismaDedicated.$connect()
     return new Response(
       JSON.stringify(
-        await prisma.user.findFirst({
+        await prismaDedicated.user.findFirst({
           where: { id },
           include: {
             accounts: true,
             sessions: true,
             subscriptions: {
               include: {
-                service: true
-              }
+                service: true,
+              },
             },
           },
         }),
@@ -30,7 +30,7 @@ export const GET = async (
       status: 400,
     })
   } finally {
-    await prisma.$disconnect()
+    await prismaDedicated.$disconnect()
   }
 }
 
@@ -41,13 +41,13 @@ export const PATCH = async (
   const id = params?.id
 
   try {
-    await prisma.$connect()
+    await prismaDedicated.$connect()
 
     return await request.json().then(async (inputs: UserUpdateSchemaType) => {
       if (await UserUpdateSchema.parseAsync(inputs)) {
         return new Response(
           JSON.stringify(
-            await prisma.user.update({ where: { id }, data: inputs }),
+            await prismaDedicated.user.update({ where: { id }, data: inputs }),
           ),
         )
       }
@@ -57,6 +57,6 @@ export const PATCH = async (
       status: 400,
     })
   } finally {
-    await prisma.$disconnect()
+    await prismaDedicated.$disconnect()
   }
 }

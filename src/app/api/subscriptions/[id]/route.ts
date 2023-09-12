@@ -1,4 +1,4 @@
-import { prisma } from '@/libraries/prisma'
+import { prismaDedicated } from '@/libraries/prisma'
 import {
   SubscriptionUpdateSchema,
   SubscriptionUpdateSchemaType,
@@ -12,10 +12,10 @@ export const GET = async (
   const id = params?.id
 
   try {
-    await prisma.$connect()
+    await prismaDedicated.$connect()
     return new Response(
       JSON.stringify(
-        await prisma.subscription.findFirst({
+        await prismaDedicated.subscription.findFirst({
           where: { id },
           include: {
             user: true,
@@ -29,7 +29,7 @@ export const GET = async (
       status: 400,
     })
   } finally {
-    await prisma.$disconnect()
+    await prismaDedicated.$disconnect()
   }
 }
 
@@ -40,7 +40,7 @@ export const PATCH = async (
   const id = params?.id
 
   try {
-    await prisma.$connect()
+    await prismaDedicated.$connect()
     return await request
       .json()
       .then(async (inputs: SubscriptionUpdateSchemaType) => {
@@ -49,10 +49,13 @@ export const PATCH = async (
           delete inputs?.userId
 
           if (!userId) {
-            await prisma.subscription.update({ where: { id }, data: inputs })
+            await prismaDedicated.subscription.update({
+              where: { id },
+              data: inputs,
+            })
           }
 
-          const user = await prisma.user.findFirst({
+          const user = await prismaDedicated.user.findFirst({
             where: { id: userId },
           })
           if (!user)
@@ -60,9 +63,12 @@ export const PATCH = async (
 
           delete inputs?.serviceId
           if (!serviceId) {
-            await prisma.subscription.update({ where: { id }, data: inputs })
+            await prismaDedicated.subscription.update({
+              where: { id },
+              data: inputs,
+            })
           }
-          const service = await prisma.service.findFirst({
+          const service = await prismaDedicated.service.findFirst({
             where: { id: serviceId },
           })
           if (!service)
@@ -81,7 +87,7 @@ export const PATCH = async (
               },
             },
           }
-          await prisma.subscription.update({ where: { id }, data })
+          await prismaDedicated.subscription.update({ where: { id }, data })
 
           return new Response(JSON.stringify('A contratação foi atualizada'))
         }
@@ -91,6 +97,6 @@ export const PATCH = async (
       status: 400,
     })
   } finally {
-    await prisma.$disconnect()
+    await prismaDedicated.$disconnect()
   }
 }

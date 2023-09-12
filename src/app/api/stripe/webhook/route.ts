@@ -1,5 +1,5 @@
 import { stripe } from '@/libraries/stripe'
-import { prisma } from '@/libraries/prisma'
+import { prismaDedicated } from '@/libraries/prisma'
 import { headers } from 'next/headers'
 import Stripe from 'stripe'
 
@@ -41,7 +41,7 @@ export const POST = async (request: Request) => {
       })
     }
 
-    await prisma.subscription.create({
+    await prismaDedicated.subscription.create({
       data: {
         userId: session?.metadata?.userId,
         stripeSubscriptionId: subscription.id,
@@ -60,7 +60,7 @@ export const POST = async (request: Request) => {
       session.subscription as string,
     )
 
-    await prisma.subscription.update({
+    await prismaDedicated.subscription.update({
       where: { stripeCustomerId: subscription.id },
       data: {
         stripePriceId: subscription.items.data[0].price.id,

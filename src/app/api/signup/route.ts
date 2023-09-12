@@ -1,13 +1,13 @@
 import { AuthSignUpSchema, AuthSignUpSchemaType } from '@/schemas/auth'
-import { prisma } from '@/libraries/prisma'
+import { prismaDedicated } from '@/libraries/prisma'
 
 export const POST = async (request: Request) => {
   try {
-    await prisma.$connect()
+    await prismaDedicated.$connect()
     return await request.json().then(async (inputs: AuthSignUpSchemaType) => {
       if (await AuthSignUpSchema.parseAsync(inputs)) {
         const { name, phone, email } = inputs
-        const userPhone = await prisma.user.findFirst({
+        const userPhone = await prismaDedicated.user.findFirst({
           where: { phone: phone },
         })
         if (userPhone)
@@ -18,7 +18,7 @@ export const POST = async (request: Request) => {
             { status: 409 },
           )
 
-        const userEmail = await prisma.user.findFirst({
+        const userEmail = await prismaDedicated.user.findFirst({
           where: { email: email },
         })
         if (userEmail)
@@ -27,7 +27,7 @@ export const POST = async (request: Request) => {
             { status: 409 },
           )
 
-        await prisma.user.create({ data: inputs })
+        await prismaDedicated.user.create({ data: inputs })
 
         return new Response(JSON.stringify(`A conta foi criada!`))
       }
@@ -37,6 +37,6 @@ export const POST = async (request: Request) => {
       status: 400,
     })
   } finally {
-    await prisma.$disconnect()
+    await prismaDedicated.$disconnect()
   }
 }

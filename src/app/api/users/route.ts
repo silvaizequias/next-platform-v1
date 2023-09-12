@@ -1,12 +1,12 @@
-import { prisma } from '@/libraries/prisma'
+import { prismaDedicated } from '@/libraries/prisma'
 import { UserCreateSchema, UserCreateSchemaType } from '@/schemas/user'
 
 export const GET = async (request: Request) => {
   try {
-    await prisma.$connect()
+    await prismaDedicated.$connect()
     return new Response(
       JSON.stringify(
-        await prisma.user.findMany({
+        await prismaDedicated.user.findMany({
           include: {
             accounts: true,
             sessions: true,
@@ -20,19 +20,19 @@ export const GET = async (request: Request) => {
       status: 400,
     })
   } finally {
-    await prisma.$disconnect()
+    await prismaDedicated.$disconnect()
   }
 }
 
 export const POST = async (request: Request) => {
   try {
-    await prisma.$connect()
+    await prismaDedicated.$connect()
 
     return await request.json().then(async (inputs: UserCreateSchemaType) => {
       if (await UserCreateSchema.parseAsync(inputs)) {
         const { name, email, phone } = inputs
 
-        const userPhone = await prisma.user.findFirst({
+        const userPhone = await prismaDedicated.user.findFirst({
           where: { phone: phone },
         })
         if (userPhone)
@@ -43,7 +43,7 @@ export const POST = async (request: Request) => {
             { status: 409 },
           )
 
-        const userEmail = await prisma.user.findFirst({
+        const userEmail = await prismaDedicated.user.findFirst({
           where: { email: email },
         })
         if (userEmail)
@@ -52,7 +52,7 @@ export const POST = async (request: Request) => {
             { status: 409 },
           )
 
-        await prisma.user.create({ data: inputs })
+        await prismaDedicated.user.create({ data: inputs })
 
         return new Response(JSON.stringify(`A conta foi criada!`))
       }
@@ -62,6 +62,6 @@ export const POST = async (request: Request) => {
       status: 400,
     })
   } finally {
-    await prisma.$disconnect()
+    await prismaDedicated.$disconnect()
   }
 }

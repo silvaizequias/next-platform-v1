@@ -1,13 +1,13 @@
-import { prisma } from '@/libraries/prisma'
+import { prismaDedicated } from '@/libraries/prisma'
 import { ServiceCreateSchema, ServiceCreateSchemaType } from '@/schemas/service'
 import { Prisma } from '@prisma/client'
 
 export const GET = async (request: Request) => {
   try {
-    await prisma.$connect()
+    await prismaDedicated.$connect()
     return new Response(
       JSON.stringify(
-        await prisma.service.findMany({
+        await prismaDedicated.service.findMany({
           include: {
             subscriptions: {
               include: {
@@ -23,7 +23,7 @@ export const GET = async (request: Request) => {
       status: 400,
     })
   } finally {
-    await prisma.$disconnect()
+    await prismaDedicated.$disconnect()
   }
 }
 
@@ -31,7 +31,7 @@ export const POST = async (request: Request) => {
   const randomCode = Math.random().toString(32).substr(2, 12).toUpperCase()
 
   try {
-    await prisma.$connect()
+    await prismaDedicated.$connect()
     return await request
       .json()
       .then(async (inputs: ServiceCreateSchemaType) => {
@@ -40,7 +40,7 @@ export const POST = async (request: Request) => {
             ...inputs,
           }
           return new Response(
-            JSON.stringify(await prisma.service.create({ data })),
+            JSON.stringify(await prismaDedicated.service.create({ data })),
           )
         }
       })
@@ -49,6 +49,6 @@ export const POST = async (request: Request) => {
       status: 400,
     })
   } finally {
-    await prisma.$disconnect()
+    await prismaDedicated.$disconnect()
   }
 }
