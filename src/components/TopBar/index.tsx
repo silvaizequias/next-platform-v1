@@ -52,7 +52,7 @@ export default function TopBar(props: TopBarProps) {
         >
           <Box>
             <Tooltip title='Serviços'>
-              <IconButton sx={{ p: 1, color: blue[600] }} size='large'>
+              <IconButton sx={{ p: 1, color: blue[400] }} size='large'>
                 <MdApps />
               </IconButton>
             </Tooltip>
