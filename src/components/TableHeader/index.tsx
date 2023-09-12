@@ -21,7 +21,7 @@ export default function TableHeader(props: TableHeaderProps) {
           alignItems: 'center',
         }}
       >
-        <Typography variant='h5'>{title}</Typography>
+        <Typography variant='body2'>{title!}</Typography>
       </Box>
       <Box
         sx={{
