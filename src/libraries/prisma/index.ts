@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
-import { PrismaClient as PrismaClientDedicated } from '../../../node_modules/@schema-generations/client/dedicated'
-import { PrismaClient as PrismaClientDriving } from '../../../node_modules/@schema-generations/client/driving'
+import { PrismaClient as PrismaClientDedicated } from '../../../node_modules/.prisma/client/dedicated'
+import { PrismaClient as PrismaClientDriving } from '../../../node_modules/.prisma/client/driving'
 
 declare global {
   var prisma: PrismaClient | undefined
