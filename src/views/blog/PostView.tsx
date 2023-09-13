@@ -131,6 +131,7 @@ export default function PostView(props: PostViewProps) {
                   justifyContent: 'center',
                   alignItems: 'center',
                   fontStyle: 'italic',
+                  px: 6
                 }}
               >
                 <Typography variant='caption' textAlign={'center'}>
@@ -139,7 +140,7 @@ export default function PostView(props: PostViewProps) {
               </Box>
             </Grid>
             <Grid item xs={12} sm={12}>
-              <Card sx={{ width: '100%', typography: 'body1' }}>
+              <Card sx={{ width: '100%', typography: 'body1', bgcolor: grey[100] }}>
                 <CardContent>
                   <Typography paragraph variant='body1' textAlign={'justify'}>
                     {post?.content}
@@ -148,11 +149,11 @@ export default function PostView(props: PostViewProps) {
               </Card>
               <Typography
                 variant='body2'
-                marginTop={2}
-                marginRight={2}
+                my={2}
+                mr={2}
                 textAlign={'right'}
               >
-                Publicado por: {post?.user?.name}
+                Publicado por {post?.user?.name}
               </Typography>
             </Grid>
           </Fragment>

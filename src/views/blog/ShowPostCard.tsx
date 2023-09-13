@@ -99,8 +99,8 @@ export default function ShowPostCard(props: ShowPostCardProps) {
         )}
         <Collapse in={expanded} timeout='auto' unmountOnExit>
           <CardContent>
-            <Typography variant='caption'>Resumo</Typography>
-            <Typography paragraph textAlign='justify'>
+            <Typography variant='button'>Resumo</Typography>
+            <Typography variant='caption' paragraph textAlign='justify'>
               {post?.resume!}
             </Typography>
           </CardContent>

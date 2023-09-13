@@ -194,11 +194,11 @@ model Post {
   tags        String?
   title       String
   slug        String
-  resume      String?
+  resume      String? @db.MediumText
   image       String?
   video       String?
   audio       String?
-  content     String
+  content     String  @db.LongText
   like        Int?    @default(0)
   isAvaliable Boolean @default(true)
 
