@@ -52,13 +52,13 @@ export default function TopBar(props: TopBarProps) {
         >
           <Box>
             <Tooltip title='Serviços'>
-              <IconButton sx={{ p: 1, color: blue[400] }} size='large'>
+              <IconButton sx={{ p: 1, ml: 1, color: blue[400] }} size='large'>
                 <MdApps />
               </IconButton>
             </Tooltip>
             <Tooltip title={user?.name}>
               <IconButton
-                sx={{ p: 0 }}
+                sx={{ p: 0, ml: 1 }}
                 size='large'
                 onClick={handleOpenUserMenu}
               >
