@@ -1,4 +1,5 @@
 import { AccountType, SessionType } from '@/types'
+import { PostType } from '@/views/blog/types'
 import { SubscriptionType } from '@/views/control/subscriptions/types'
 
 export type UserType = {
@@ -21,6 +22,7 @@ export type UserType = {
   accounts: AccountType[]
   sessions: SessionType[]
   subscriptions: SubscriptionType[]
+  posts: PostType[]
 }
 
 export interface UserDataGridProps {
