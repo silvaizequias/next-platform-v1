@@ -1,5 +1,5 @@
 import { authOptions } from '@/libraries/next-auth'
-import PostsView from '@/views/blog/PostsView'
+import ArticlesView from '@/views/blog/ArticlesView'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 
@@ -8,12 +8,12 @@ export const metadata: Metadata = {
   description: 'Sistema Dedicado Personalizado',
 }
 
-export default async function PostsPage() {
+export default async function ArticlesPage() {
   const session = await getServerSession(authOptions)
 
   return (
     <main>
-      <PostsView session={session!} metadata={metadata!} />
+      <ArticlesView session={session!} metadata={metadata!} />
     </main>
   )
 }

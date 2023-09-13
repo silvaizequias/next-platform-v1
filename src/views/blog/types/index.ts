@@ -1,7 +1,7 @@
 import { UserType } from '@/views/control/users/types'
 import { Session } from 'next-auth'
 
-export type PostType = {
+export type ArticleType = {
   id: string
   createdAt: Date
   updatedAt: Date
@@ -22,11 +22,11 @@ export type PostType = {
   isAvaliable: boolean
 }
 
-export interface PostViewProps {
+export interface ArticleViewProps {
   session: Session | null
   slug: string
 }
 
-export interface ShowPostCardProps {
-  post: PostType
+export interface ShowArticleCardProps {
+  article: ArticleType
 }

@@ -5,13 +5,13 @@ import { useFetch } from '@/hooks/useFetch'
 import { PageViewProps } from '@/types'
 import { Box, Divider, Grid, Typography } from '@mui/material'
 import { Suspense } from 'react'
-import { PostType } from './types'
-import ShowPostCard from './ShowPostCard'
+import { ArticleType } from './types'
+import ShowArticleCard from './ShowArticleCard'
 import { grey } from '@mui/material/colors'
 
-export default function PostsView(props: PageViewProps) {
+export default function ArticleView(props: PageViewProps) {
   const { session, metadata } = props
-  const { data: posts, mutate, error } = useFetch(`/api/blog/posts`)
+  const { data: articles, mutate, error } = useFetch(`/api/blog/articles`)
 
   return (
     <Grid container spacing={2} marginTop={1}>
@@ -57,10 +57,10 @@ export default function PostsView(props: PageViewProps) {
       </Grid>
       <Grid item xs={12} sm={12}></Grid>
       <Suspense fallback={<Spinner />}>
-        {posts ? (
-          posts?.map((post: PostType) => (
-            <Grid key={post?.id} item xs={12} sm={6} md={3}>
-              <ShowPostCard post={post!} />
+        {articles ? (
+          articles?.map((article: ArticleType) => (
+            <Grid key={article?.id} item xs={12} sm={6} md={3}>
+              <ShowArticleCard article={article!} />
             </Grid>
           ))
         ) : (

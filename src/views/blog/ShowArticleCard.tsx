@@ -2,22 +2,19 @@ import * as React from 'react'
 import { styled } from '@mui/material/styles'
 
 import IconButton, { IconButtonProps } from '@mui/material/IconButton'
-import { blue, grey } from '@mui/material/colors'
+import { grey } from '@mui/material/colors'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { ShowPostCardProps } from './types'
+import { ShowArticleCardProps } from './types'
 import {
   Box,
   Card,
   CardActionArea,
   CardActions,
   CardContent,
-  CardMedia,
   Collapse,
   Divider,
-  Tooltip,
   Typography,
 } from '@mui/material'
-import { MdRemoveRedEye } from 'react-icons/md'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
@@ -36,8 +33,8 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }))
 
-export default function ShowPostCard(props: ShowPostCardProps) {
-  const { post } = props
+export default function ShowArticleCard(props: ShowArticleCardProps) {
+  const { article } = props
   const [expanded, setExpanded] = useState<boolean>(false)
 
   const router = useRouter()
@@ -46,8 +43,8 @@ export default function ShowPostCard(props: ShowPostCardProps) {
     setExpanded(!expanded)
   }
 
-  const handlePostView = () => {
-    router.push(`/blog/${post?.slug}`)
+  const handleArticleView = () => {
+    router.push(`/blog/${article?.slug}`)
   }
 
   return (
@@ -62,12 +59,12 @@ export default function ShowPostCard(props: ShowPostCardProps) {
             minHeight: 220,
             bgcolor: 'hsl(0, 0%, 55%)',
             backgroundBlendMode: 'color-burn',
-            backgroundImage: `url(${post?.image! || '/bg.jpg'})`,
+            backgroundImage: `url(${article?.image! || '/bg.jpg'})`,
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
             backgroundSize: 'cover',
           }}
-          onClick={handlePostView}
+          onClick={handleArticleView}
         >
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Typography
@@ -78,15 +75,15 @@ export default function ShowPostCard(props: ShowPostCardProps) {
               color={grey[50]}
               paddingX={2}
             >
-              {post?.title}
+              {article?.title}
             </Typography>
             <Divider sx={{ color: grey[50], fontSize: 12, m: 2  }}>
-              {new Date(post?.createdAt).toLocaleDateString()}
+              {new Date(article?.createdAt).toLocaleDateString()}
             </Divider>
           </Box>
         </Box>
 
-        {post?.resume! && (
+        {article?.resume! && (
           <CardActions disableSpacing>
             <ExpandMore
               expand={expanded}
@@ -101,7 +98,7 @@ export default function ShowPostCard(props: ShowPostCardProps) {
           <CardContent>
             <Typography variant='button'>Resumo</Typography>
             <Typography variant='caption' paragraph textAlign='justify'>
-              {post?.resume!}
+              {article?.resume!}
             </Typography>
           </CardContent>
         </Collapse>

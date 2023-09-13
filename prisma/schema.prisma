@@ -112,7 +112,7 @@ model User {
   accounts      Account[]
   subscriptions Subscription[]
   sessions      Session[]
-  posts         Post[]
+  articles      Article[]
 
   @@unique([email, phone, docCode])
   @@map("users")
@@ -180,7 +180,7 @@ model Subscription {
   @@map("subscriptions")
 }
 
-model Post {
+model Article {
   id          String    @id @default(cuid())
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime  @updatedAt @map("updated_at")
@@ -203,5 +203,5 @@ model Post {
   isAvaliable Boolean @default(true)
 
   @@index([userId])
-  @@map("posts")
+  @@map("articles")
 }

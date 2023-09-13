@@ -10,7 +10,7 @@ export const GET = async (
 
     return new Response(
       JSON.stringify(
-        await prisma.post.findFirst({
+        await prisma.article.findFirst({
           where: {
             slug,
           },

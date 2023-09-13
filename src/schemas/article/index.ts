@@ -1,6 +1,6 @@
 import * as z from 'zod'
 
-export const CreatePostSchema = z.object({
+export const CreateArticleSchema = z.object({
   userId: z.string().optional(),
   subject: z.string(),
   tags: z.string().optional(),
@@ -12,9 +12,9 @@ export const CreatePostSchema = z.object({
   content: z.string(),
 })
 
-export type CreatePostSchemaType = z.infer<typeof CreatePostSchema>
+export type CreateArticleSchemaType = z.infer<typeof CreateArticleSchema>
 
-export const UpdatePostSchema = z.object({
+export const UpdateArticleSchema = z.object({
   userId: z.string().optional(),
   subject: z.string().optional(),
   tags: z.string().optional(),
@@ -26,4 +26,4 @@ export const UpdatePostSchema = z.object({
   like: z.number().positive().optional(),
 })
 
-export type UpdatePostSchemaType = z.infer<typeof UpdatePostSchema>
+export type UpdateArticleSchemaType = z.infer<typeof UpdateArticleSchema>
