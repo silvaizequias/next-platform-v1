@@ -136,7 +136,7 @@ export default function ArticleView(props: ArticleViewProps) {
                 }}
               >
                 <Typography variant='caption' textAlign={'center'}>
-                  {parse(`${article?.resume}`)}
+                  {parse(article?.resume)}
                 </Typography>
               </Box>
             </Grid>
@@ -146,7 +146,7 @@ export default function ArticleView(props: ArticleViewProps) {
               >
                 <CardContent>
                   <Typography variant='body1' textAlign={'justify'}>
-                    {parse(`${article?.content}`)}
+                    {parse(article?.content)}
                   </Typography>
                 </CardContent>
               </Card>

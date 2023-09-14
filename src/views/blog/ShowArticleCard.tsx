@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { styled } from '@mui/material/styles'
-
+import parse from 'html-react-parser'
 import IconButton, { IconButtonProps } from '@mui/material/IconButton'
 import { grey } from '@mui/material/colors'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
@@ -77,7 +77,7 @@ export default function ShowArticleCard(props: ShowArticleCardProps) {
             >
               {article?.title}
             </Typography>
-            <Divider sx={{ color: grey[50], fontSize: 12, m: 2  }}>
+            <Divider sx={{ color: grey[50], fontSize: 12, m: 2 }}>
               {new Date(article?.createdAt).toLocaleDateString()}
             </Divider>
           </Box>
@@ -98,7 +98,7 @@ export default function ShowArticleCard(props: ShowArticleCardProps) {
           <CardContent>
             <Typography variant='button'>Resumo</Typography>
             <Typography variant='caption' paragraph textAlign='justify'>
-              {article?.resume!}
+              {parse(article?.resume!)}
             </Typography>
           </CardContent>
         </Collapse>
