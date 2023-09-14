@@ -30,3 +30,8 @@ export interface ArticleViewProps {
 export interface ShowArticleCardProps {
   article: ArticleType
 }
+
+export interface ArticleCreateFormProps {
+  userId: string
+  onClose: () => void
+}

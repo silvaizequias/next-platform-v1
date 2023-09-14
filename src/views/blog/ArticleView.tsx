@@ -1,5 +1,6 @@
 'use client'
 
+import parse from 'html-react-parser'
 import { useFetch } from '@/hooks/useFetch'
 import {
   Badge,
@@ -70,7 +71,7 @@ export default function ArticleView(props: ArticleViewProps) {
                 }}
               >
                 <Box sx={{ display: 'flex' }}>
-                  <Tooltip title='Outras Postagens'>
+                  <Tooltip title='Outros Artigos'>
                     <IconButton
                       sx={{
                         p: 1,
@@ -135,7 +136,7 @@ export default function ArticleView(props: ArticleViewProps) {
                 }}
               >
                 <Typography variant='caption' textAlign={'center'}>
-                  {article?.resume}
+                  {parse(`${article?.resume}`)}
                 </Typography>
               </Box>
             </Grid>
@@ -144,8 +145,8 @@ export default function ArticleView(props: ArticleViewProps) {
                 sx={{ width: '100%', typography: 'body1', bgcolor: grey[100] }}
               >
                 <CardContent>
-                  <Typography paragraph variant='body1' textAlign={'justify'}>
-                    {article?.content}
+                  <Typography variant='body1' textAlign={'justify'}>
+                    {parse(`${article?.content}`)}
                   </Typography>
                 </CardContent>
               </Card>
