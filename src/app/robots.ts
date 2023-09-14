@@ -6,9 +6,9 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: '*',
-      allow: ['/', '/blog', '/blog/*'],
-      disallow: ['/api', 'control'],
+      allow: ['/blog', '/blog/*'],
+      disallow: ['/', '/api', 'control'],
     },
-    sitemap: NEXTAUTH_URL,
+    sitemap: NEXTAUTH_URL + '/sitemap.xml',
   }
 }
