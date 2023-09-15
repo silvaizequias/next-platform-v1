@@ -5,7 +5,6 @@ import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: 'Painel CFC :: Dedicado Digital',
-  description: 'Sistema Dedicado Personalizado',
 }
 
 export default async function DrivingPage() {

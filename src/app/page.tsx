@@ -6,7 +6,6 @@ import { getServerSession } from 'next-auth'
 
 export const metadata: Metadata = {
   title: 'Dedicado Digital',
-  description: 'Sistema Dedicado Personalizado',
 }
 
 export default async function LandingPage() {
