@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `${article?.subject!} :: Dedicado Digital`,
       description: article?.resume!,
       authors: [article?.user?.name!],
-      publishedTime: new Date(article?.createdAt).toDateString(),
+      publishedTime: new Date(article?.createdAt).toString(),
       images: article?.image! || '/500x500-logotipo5.png',
       locale: 'pt_BR',
     },
