@@ -42,7 +42,7 @@ export default function ArticleView(props: PageViewProps) {
         >
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Typography
-              variant='h4'
+              variant='h3'
               fontWeight='600'
               textAlign='center'
               textTransform='uppercase'
@@ -58,7 +58,7 @@ export default function ArticleView(props: PageViewProps) {
                 m: 2,
               }}
             >
-              Conteúdo de Tecnologia
+              O universo dos serviços de software na nuvem.
             </Divider>
           </Box>
         </Box>
