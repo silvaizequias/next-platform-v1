@@ -26,6 +26,7 @@ export default function LandingView() {
         <Box
           sx={{
             display: 'flex',
+            flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
             py: 4,
