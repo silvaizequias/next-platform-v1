@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: ['/', '/blog', '/blog/*'],
-      disallow: ['/api', 'control'],
+      disallow: ['/api', '/control'],
     },
     sitemap: NEXTAUTH_URL + '/sitemap.xml',
   }
