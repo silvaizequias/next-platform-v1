@@ -10,7 +10,10 @@ import Providers from './providers'
 import { Analytics } from '@vercel/analytics/react'
 import { Metadata } from 'next'
 
+const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
+
 export const metadata: Metadata = {
+  metadataBase: new URL(NEXTAUTH_URL),
   applicationName: 'Dedicado Digital',
   generator: 'Dedicado Digital',
   category: 'technology',

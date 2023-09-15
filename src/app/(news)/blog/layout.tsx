@@ -3,7 +3,10 @@ import { Container } from '@mui/material'
 import { Metadata } from 'next'
 import { Fragment } from 'react'
 
+const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
+
 export const metadata: Metadata = {
+  metadataBase: new URL(NEXTAUTH_URL),
   applicationName: 'Dedicado Digital',
   generator: 'Dedicado Digital',
   category: 'technology',
