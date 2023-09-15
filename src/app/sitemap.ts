@@ -5,20 +5,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     {
-      url: NEXTAUTH_URL,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
       url: NEXTAUTH_URL + '/blog',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.5,
-    },
-    {
-      url: NEXTAUTH_URL + '/blog/*',
-      lastModified: new Date(),
+      lastModified: new Date().toLocaleDateString(),
       changeFrequency: 'daily',
       priority: 0.5,
     },
