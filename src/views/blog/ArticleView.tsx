@@ -120,7 +120,7 @@ export default function ArticleView(props: ArticleViewProps) {
                     </IconButton>
                   </Tooltip>
                 </Box>
-                <Typography variant='body2' marginRight={2}>
+                <Typography variant='body2' marginRight={2} textAlign='right'>
                   Publicado em {new Date(article?.createdAt).toLocaleString()}
                 </Typography>
               </Box>
