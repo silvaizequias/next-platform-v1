@@ -17,6 +17,8 @@ export default function ArticleView(props: PageViewProps) {
   const { data: articles, mutate, error } = useFetch<ArticleType[]>(`/api/blog/articles`)
   const [openDialog, setOpenDialog] = useState<boolean>(false)
 
+  const unsplashRandom = 'https://source.unsplash.com/random/?Technology&Website&Ai'
+
   const handleDialog = () => {
     setOpenDialog(!openDialog)
   }
@@ -33,8 +35,8 @@ export default function ArticleView(props: PageViewProps) {
             justifyContent: 'center',
             minHeight: 220,
             bgcolor: 'hsl(0, 0%, 55%)',
-            backgroundBlendMode: 'color-burn',
-            backgroundImage: `url('/bg.jpg')`,
+            backgroundBlendMode: 'darken',
+            backgroundImage: `url(${unsplashRandom})`,
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
             backgroundSize: 'cover',

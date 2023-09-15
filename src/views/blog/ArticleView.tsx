@@ -27,6 +27,8 @@ export default function ArticleView(props: ArticleViewProps) {
     error,
   } = useFetch<ArticleType>(`/api/blog/article/${slug}`)
 
+  const unsplashRandom = 'https://source.unsplash.com/random/?Technology&Ai'
+
   const router = useRouter()
 
   return (
@@ -44,8 +46,8 @@ export default function ArticleView(props: ArticleViewProps) {
                   justifyContent: 'center',
                   minHeight: 220,
                   bgcolor: 'hsl(0, 0%, 55%)',
-                  backgroundBlendMode: 'color-burn',
-                  backgroundImage: `url(${article?.image! || '/bg.jpg'})`,
+                  backgroundBlendMode: 'darken',
+                  backgroundImage: `url(${article?.image! || unsplashRandom})`,
                   backgroundRepeat: 'no-repeat',
                   backgroundPosition: 'center',
                   backgroundSize: 'cover',

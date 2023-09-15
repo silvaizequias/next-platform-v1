@@ -39,6 +39,8 @@ export default function ShowArticleCard(props: ShowArticleCardProps) {
 
   const router = useRouter()
 
+  const unsplashRandom = 'https://source.unsplash.com/random/?Technology'
+
   const handleExpandClick = () => {
     setExpanded(!expanded)
   }
@@ -58,8 +60,8 @@ export default function ShowArticleCard(props: ShowArticleCardProps) {
             justifyContent: 'center',
             minHeight: 220,
             bgcolor: 'hsl(0, 0%, 55%)',
-            backgroundBlendMode: 'color-burn',
-            backgroundImage: `url(${article?.image! || '/bg.jpg'})`,
+            backgroundBlendMode: 'darken',
+            backgroundImage: `url(${article?.image! || unsplashRandom})`,
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
             backgroundSize: 'cover',

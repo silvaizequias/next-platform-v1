@@ -2,6 +2,9 @@
 const { PrismaPlugin } = require('@prisma/nextjs-monorepo-workaround-plugin')
 
 module.exports = {
+  images: {
+    domains: ['source.unsplash.com'],
+  },
   reactStrictMode: true,
   swcMinify: true,
   modularizeImports: {
