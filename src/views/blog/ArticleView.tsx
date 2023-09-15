@@ -33,7 +33,7 @@ export default function ArticleView(props: ArticleViewProps) {
 
   return (
     <Suspense fallback={<Spinner />}>
-      <Grid container spacing={2} marginTop={1}>
+      <Grid container spacing={2} marginY={1}>
         {article && article?.isAvaliable ? (
           <Fragment>
             <Grid item xs={12} sm={12}>
@@ -171,6 +171,7 @@ export default function ArticleView(props: ArticleViewProps) {
             </Box>
           </Grid>
         )}
+        <Grid item xs={12}></Grid>
       </Grid>
     </Suspense>
   )

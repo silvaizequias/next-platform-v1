@@ -14,17 +14,22 @@ import { MdOutlineAdd } from 'react-icons/md'
 
 export default function ArticleView(props: PageViewProps) {
   const { session, metadata } = props
-  const { data: articles, mutate, error } = useFetch<ArticleType[]>(`/api/blog/articles`)
+  const {
+    data: articles,
+    mutate,
+    error,
+  } = useFetch<ArticleType[]>(`/api/blog/articles`)
   const [openDialog, setOpenDialog] = useState<boolean>(false)
 
-  const unsplashRandom = 'https://source.unsplash.com/random/?color-background?gradient'
+  const unsplashRandom =
+    'https://source.unsplash.com/random/?color-background?gradient'
 
   const handleDialog = () => {
     setOpenDialog(!openDialog)
   }
 
   return (
-    <Grid container spacing={2} marginTop={1}>
+    <Grid container spacing={2} marginY={1}>
       <Grid item xs={12} sm={12}>
         <Box
           sx={{
@@ -108,6 +113,7 @@ export default function ArticleView(props: PageViewProps) {
           </ShowInDialog>
         </Fragment>
       )}
+      <Grid item xs={12}></Grid>
     </Grid>
   )
 }
