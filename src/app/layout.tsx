@@ -24,6 +24,7 @@ export const metadata: Metadata = {
     'ferramenta de gestão empresarial',
     'soluções de tecnologia',
   ],
+  icons: { icon: '/favicon.ico' },
   alternates: {
     canonical: process.env.NEXTAUTH_URL!,
   },
