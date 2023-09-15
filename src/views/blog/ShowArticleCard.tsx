@@ -39,7 +39,7 @@ export default function ShowArticleCard(props: ShowArticleCardProps) {
 
   const router = useRouter()
 
-  const unsplashRandom = 'https://source.unsplash.com/random/?Technology'
+  const unsplashRandom = 'https://source.unsplash.com/random/?gradient'
 
   const handleExpandClick = () => {
     setExpanded(!expanded)

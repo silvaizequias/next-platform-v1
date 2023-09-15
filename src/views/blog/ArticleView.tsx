@@ -27,7 +27,7 @@ export default function ArticleView(props: ArticleViewProps) {
     error,
   } = useFetch<ArticleType>(`/api/blog/article/${slug}`)
 
-  const unsplashRandom = 'https://source.unsplash.com/random/?Technology&Ai'
+  const unsplashRandom = 'https://source.unsplash.com/random/?color-background'
 
   const router = useRouter()
 

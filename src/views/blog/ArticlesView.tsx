@@ -17,7 +17,7 @@ export default function ArticleView(props: PageViewProps) {
   const { data: articles, mutate, error } = useFetch<ArticleType[]>(`/api/blog/articles`)
   const [openDialog, setOpenDialog] = useState<boolean>(false)
 
-  const unsplashRandom = 'https://source.unsplash.com/random/?Technology&Website&Ai'
+  const unsplashRandom = 'https://source.unsplash.com/random/?color-background?gradient'
 
   const handleDialog = () => {
     setOpenDialog(!openDialog)
