@@ -28,9 +28,9 @@ export const metadata: Metadata = {
     canonical: process.env.NEXTAUTH_URL!,
   },
   openGraph: {
-    siteName: 'Blog :: Dedicado Digital',
+    siteName: 'Dedicado Digital',
     type: 'website',
-    title: 'Blog :: Dedicado Digital',
+    title: 'Dedicado Digital',
     description:
       'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
     images: '/500x500-logotipo5.png',
