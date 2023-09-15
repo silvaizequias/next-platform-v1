@@ -31,6 +31,15 @@ export default function LandingView() {
             py: 4,
           }}
         >
+          <Divider
+            sx={{
+              textAlign: 'center',
+              color: grey[200],
+              textTransform: 'uppercase',
+            }}
+          >
+            Portal do Sistema
+          </Divider>
           <Typography
             variant='h4'
             color='white'
@@ -41,7 +50,6 @@ export default function LandingView() {
           </Typography>
         </Box>
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-          <Divider textAlign='center' sx={{ fontSize: 12, color: grey[200] }} />
           <Button
             size='small'
             variant='contained'
