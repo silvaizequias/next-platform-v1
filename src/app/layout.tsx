@@ -32,6 +32,7 @@ export const metadata: Metadata = {
     canonical: process.env.NEXTAUTH_URL!,
   },
   openGraph: {
+    url: new URL(NEXTAUTH_URL),
     siteName: 'Dedicado Digital',
     type: 'website',
     title: 'Dedicado Digital',
