@@ -8,7 +8,7 @@ export default async function FieldServiceLayout(props: LayoutProps) {
   const { children } = props
   const session = await getServerSession(authOptions)
 
-  return session && session.user.role !== 'GUEST' ? (
+  return session && session.user.profile !== 'GUEST' ? (
     <Fragment>{children}</Fragment>
   ) : (
     redirect('/')

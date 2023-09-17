@@ -15,6 +15,7 @@ export const GET = async (
           where: { id },
           include: {
             accounts: true,
+            services: true,
             sessions: true,
             subscriptions: {
               include: {

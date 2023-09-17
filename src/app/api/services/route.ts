@@ -14,6 +14,7 @@ export const GET = async (request: Request) => {
                 user: true,
               },
             },
+            users: true,
           },
         }),
       ),

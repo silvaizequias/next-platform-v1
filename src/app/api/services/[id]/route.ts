@@ -20,6 +20,7 @@ export const GET = async (
                 user: true,
               },
             },
+            users: true,
           },
         }),
       ),
