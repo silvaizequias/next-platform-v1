@@ -31,6 +31,7 @@ export const authOptions: NextAuthOptions = {
             return {
               id: user?.id!,
               role: user?.role!,
+              profile: user?.profile!,
               name: user?.name!,
               phone: user?.phone!,
               email: user?.email!,
@@ -76,6 +77,7 @@ export const authOptions: NextAuthOptions = {
       return {
         id: data?.id!,
         role: data?.role!,
+        profile: data?.profile!,
         name: user?.name!,
         email: user?.email!,
         picture: user?.image! || data?.image,
@@ -86,6 +88,7 @@ export const authOptions: NextAuthOptions = {
       if (token) {
         session.user.id = token.id
         session.user.role = token.role
+        session.user.profile = token.profile
         session.user.name = token.name
         session.user.email = token.email
         session.user.image = token.picture
@@ -97,7 +100,7 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/',
     signOut: '/',
-    error: '/'
+    error: '/',
   },
   debug: false,
 }

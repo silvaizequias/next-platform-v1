@@ -17,7 +17,8 @@ import { UserCreateFormProps } from '../types'
 
 export default function UserCreateForm(props: UserCreateFormProps) {
   const { onClose } = props
-  const [role, setRole] = useState<string>()
+  const [role, setRole] = useState<string>('USER')
+  const [profile, setProfile] = useState<string>('GUEST')
   const { data, mutate } = useFetch('/api/users')
 
   const {
@@ -60,8 +61,26 @@ export default function UserCreateForm(props: UserCreateFormProps) {
   }
 
   return (
-    <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <FormControl fullWidth sx={{ my: 2 }}>
+        <InputLabel id='profile'>Perfil</InputLabel>
+        <Select
+          {...register('profile')}
+          required
+          autoFocus
+          label={'Perfil'}
+          value={profile}
+          onChange={(e) => setProfile(e?.target?.value)}
+          error={Boolean(errors.profile)}
+        >
+          <MenuItem value=''></MenuItem>
+          <MenuItem value='OWNER'>PROPRIETÁRIO</MenuItem>
+          <MenuItem value='MEMBER'>MEMBRO</MenuItem>
+          <MenuItem value='CUSTOMER'>CLIENTE</MenuItem>
+          <MenuItem value='GUEST'>VISITANTE</MenuItem>
+        </Select>
+      </FormControl>
+      <FormControl fullWidth sx={{ mb: 2 }}>
         <InputLabel id='role'>Função</InputLabel>
         <Select
           {...register('role')}
@@ -71,15 +90,16 @@ export default function UserCreateForm(props: UserCreateFormProps) {
           value={role}
           onChange={(e) => setRole(e?.target?.value)}
           error={Boolean(errors.role)}
-          inputProps={{ placeholder: 'Função' }}
         >
           <MenuItem value=''></MenuItem>
           <MenuItem value='MASTER'>MASTER</MenuItem>
-          <MenuItem value='OWNER'>PROPRIETÁRIO</MenuItem>
           <MenuItem value='ADMINISTRATOR'>ADMINISTRADOR</MenuItem>
-          <MenuItem value='MEMBER'>MEMBRO</MenuItem>
-          <MenuItem value='CUSTOMER'>CLIENTE</MenuItem>
-          <MenuItem value='GUEST'>VISITANTE</MenuItem>
+          <MenuItem value='SUPERVISOR'>SUPERVISOR</MenuItem>
+          <MenuItem value='ANALYST'>ANALISTA</MenuItem>
+          <MenuItem value='INSTRUCTOR'>INSTRUTOR</MenuItem>
+          <MenuItem value='TECHNICIAN'>TÉCNICO</MenuItem>
+          <MenuItem value='DRIVER'>MOTORISTA</MenuItem>
+          <MenuItem value='USER'>UTILIZADOR</MenuItem>
         </Select>
       </FormControl>
       <FormControl fullWidth sx={{ mb: 2 }}>

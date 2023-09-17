@@ -1,3 +1,4 @@
+import { UserType } from '@/views/control/users/types'
 import { SubscriptionType } from '@/views/control/subscriptions/types'
 
 export type ServiceType = {
@@ -13,6 +14,7 @@ export type ServiceType = {
   url: string
   price: number
   subscriptions: SubscriptionType[]
+  users: UserType[]
 }
 
 export interface ServiceCreateFormProps {
