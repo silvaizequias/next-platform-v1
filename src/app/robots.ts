@@ -1,4 +1,4 @@
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from "next"
 
 export default function robots(): MetadataRoute.Robots {
   const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: ['/', '/blog', '/blog/*'],
       disallow: ['/api', '/control'],
     },
-    sitemap: NEXTAUTH_URL + '/sitemap.xml',
+    sitemap: `${NEXTAUTH_URL}/sitemap.xml`,
   }
 }

@@ -4,7 +4,7 @@ import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
-  title: 'Painel de Serviço de Campo :: Dedicado Digital',
+  title: 'Painel de Serviço de Campo',
 }
 
 export default async function FieldServicePage() {

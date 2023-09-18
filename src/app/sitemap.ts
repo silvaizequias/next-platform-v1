@@ -1,6 +1,5 @@
 import { ArticleType } from '@/views/blog/types'
 import axios from 'axios'
-
 export default async function sitemap() {
   const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
 
@@ -13,8 +12,8 @@ export default async function sitemap() {
       return {
         url: `${NEXTAUTH_URL}/blog/${article?.slug!}`,
         lastModified: new Date(article?.updatedAt!),
-        changeFrequency: 'daily',
-        priority: 0.5,
+        //changeFrequency: 'daily',
+        //priority: 0.5,
       }
     }) ?? []
 
@@ -22,8 +21,8 @@ export default async function sitemap() {
     {
       url: NEXTAUTH_URL + '/',
       lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.5,
+      //changeFrequency: 'daily',
+      //priority: 0.5,
     },
     ...articleMap,
   ]

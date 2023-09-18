@@ -4,7 +4,7 @@ import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
-  title: 'Painel CFC :: Dedicado Digital',
+  title: 'Painel CFC',
 }
 
 export default async function DrivingPage() {

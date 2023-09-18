@@ -4,7 +4,7 @@ import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
-  title: 'Painel de Tarefas :: Dedicado Digital',
+  title: 'Painel de Tarefas',
 }
 
 export default async function TasksPage() {
