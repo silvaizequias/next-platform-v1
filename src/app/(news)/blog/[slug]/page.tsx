@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       siteName: 'Dedicado Digital',
       type: 'article',
-      title: `${article?.subject!} :: Dedicado Digital`,
+      title: `${article?.subject!}`,
       description: article?.resume!,
       authors: [article?.user?.name!],
       publishedTime: new Date(article?.createdAt).toString(),

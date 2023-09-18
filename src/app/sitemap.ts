@@ -1,6 +1,5 @@
 import { ArticleType } from '@/views/blog/types'
 import axios from 'axios'
-import { MetadataRoute } from 'next'
 
 export default async function sitemap() {
   const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
@@ -8,7 +7,7 @@ export default async function sitemap() {
   const articles: ArticleType[] = await (
     await axios.get(`${NEXTAUTH_URL}/api/blog/articles`)
   ).data
-  console.log(articles)
+
   const articleMap =
     articles?.map((article: ArticleType) => {
       return {

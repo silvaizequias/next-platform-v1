@@ -4,7 +4,7 @@ import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 
 export const metadata: Metadata = {
-  title: 'Blog :: Dedicado Digital',
+  title: 'Blog',
 }
 
 export default async function ArticlesPage() {

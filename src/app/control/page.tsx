@@ -4,7 +4,7 @@ import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 
 export const metadata: Metadata = {
-  title: 'Painel de Controle :: Dedicado Digital',
+  title: 'Painel de Controle',
 }
 
 export default async function ControlPage() {
