@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   ],
   icons: { icon: '/favicon.ico' },
   alternates: {
-    canonical: process.env.NEXTAUTH_URL!,
+    canonical: NEXTAUTH_URL,
   },
   openGraph: {
     url: new URL(NEXTAUTH_URL),

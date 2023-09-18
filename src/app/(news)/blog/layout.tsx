@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   keywords: ['tecnologia da informação', 'era digital', 'blog de tecnologia'],
   icons: { icon: '/favicon.ico' },
   alternates: {
-    canonical: process.env.NEXTAUTH_URL!,
+    canonical: `${NEXTAUTH_URL}/blog`,
   },
   openGraph: {
     url: new URL(NEXTAUTH_URL),

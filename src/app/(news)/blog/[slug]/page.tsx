@@ -22,6 +22,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     keywords: [article?.tags!],
     creator: article?.user?.name!,
     publisher: article?.user?.name!,
+    alternates: {
+      canonical: `${NEXTAUTH_URL}/blog/${article?.slug!}`,
+    },
     openGraph: {
       siteName: 'Dedicado Digital',
       type: 'article',
