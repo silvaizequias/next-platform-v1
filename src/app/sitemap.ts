@@ -12,8 +12,8 @@ export default async function sitemap() {
       return {
         url: `${NEXTAUTH_URL}/blog/${article?.slug!}`,
         lastModified: new Date(article?.updatedAt!),
-        //changeFrequency: 'daily',
-        //priority: 0.5,
+        changeFrequency: 'daily',
+        priority: 1,
       }
     }) ?? []
 
@@ -21,8 +21,8 @@ export default async function sitemap() {
     {
       url: NEXTAUTH_URL + '/',
       lastModified: new Date(),
-      //changeFrequency: 'daily',
-      //priority: 0.5,
+      changeFrequency: 'daily',
+      priority: 0.5,
     },
     ...articleMap,
   ]
