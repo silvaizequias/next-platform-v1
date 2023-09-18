@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   applicationName: 'Dedicado Digital',
   generator: 'Dedicado Digital',
   category: 'technology',
-  title: 'Blog :: Dedicado Digital',
+  title: { default: 'Dedicado Digital', template: `%s | Dedicado Digital` },
   description:
     'Prepare-se para mergulhar na era da eficiência digital enquanto navegamos pelo universo dos serviços de software na nuvem.',
   keywords: ['tecnologia da informação', 'era digital', 'blog de tecnologia'],
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     url: new URL(NEXTAUTH_URL),
     siteName: 'Dedicado Digital',
     type: 'website',
-    title: 'Blog :: Dedicado Digital',
+    title: { default: 'Dedicado Digital', template: `%s | Dedicado Digital` },
     description:
       'Prepare-se para mergulhar na era da eficiência digital enquanto navegamos pelo universo dos serviços de software na nuvem.',
     images: '/500x500-logotipo5.png',
