@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article: ArticleType = res.data
 
   return {
-    title: `${article?.subject!} :: Dedicado Digital`,
+    title: `${article?.subject!}`,
     description: article?.resume!,
     keywords: [article?.tags!],
     creator: article?.user?.name!,
