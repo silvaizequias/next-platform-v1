@@ -31,7 +31,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: NEXTAUTH_URL,
   },
-  robots: { index: true, follow: true, nocache: true },
   openGraph: {
     url: new URL(NEXTAUTH_URL),
     siteName: 'Dedicado Digital',

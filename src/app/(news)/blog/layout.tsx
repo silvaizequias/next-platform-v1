@@ -14,7 +14,6 @@ export const metadata: Metadata = {
   description:
     'Prepare-se para mergulhar na era da eficiência digital enquanto navegamos pelo universo dos serviços de software na nuvem.',
   keywords: ['tecnologia da informação', 'era digital', 'blog de tecnologia'],
-  robots: { index: true, follow: true, nocache: true },
   icons: { icon: '/favicon.ico' },
   alternates: {
     canonical: `${NEXTAUTH_URL}/blog`,
