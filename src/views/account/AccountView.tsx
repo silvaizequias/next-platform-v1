@@ -28,7 +28,7 @@ export default function AccountView(props: PageViewProps) {
 
   return (
     <Container maxWidth='xl'>
-      <Grid container spacing={2} marginTop={1}>
+      <Grid container spacing={2} marginTop={2}>
         <Suspense fallback={<Spinner />}>
           {subscriptions?.length !== 0 ? (
             <Fragment>

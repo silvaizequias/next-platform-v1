@@ -44,7 +44,7 @@ export default function TopBar(props: TopBarProps) {
   }
 
   return (
-    <AppBar position='sticky' elevation={0} sx={{ bgcolor: 'transparent' }}>
+    <AppBar position='sticky' elevation={0} sx={{ bgcolor: 'transparent', position: 'absolute', top: 0 }}>
       <Container maxWidth='xl'>
         <Toolbar
           disableGutters

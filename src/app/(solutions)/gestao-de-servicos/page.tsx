@@ -14,7 +14,14 @@ export default async function FieldServicePage() {
   return (
     <main>
       {session ? (
-        <ServiceManagementPrivateView session={session!} metadata={metadata!} />
+        session.user.profile == 'GUEST' ? (
+          <ServiceManagementPublicView />
+        ) : (
+          <ServiceManagementPrivateView
+            session={session!}
+            metadata={metadata!}
+          />
+        )
       ) : (
         <ServiceManagementPublicView />
       )}
