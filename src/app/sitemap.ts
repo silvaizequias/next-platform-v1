@@ -18,6 +18,18 @@ export default async function sitemap() {
         changeFrequency: 'daily',
         priority: 0.5,
       },
+      {
+        url: `${NEXTAUTH_URL}/gestao-de-servicos`,
+        lastModified: new Date(),
+        changeFrequency: 'daily',
+        priority: 0.5,
+      },
+      {
+        url: `${NEXTAUTH_URL}/blog`,
+        lastModified: new Date(),
+        changeFrequency: 'daily',
+        priority: 0.5,
+      },
       ...articles,
     ]
   } catch (error: any) {
