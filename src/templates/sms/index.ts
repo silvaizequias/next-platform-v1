@@ -7,7 +7,7 @@ export const welcomeSmsTemplate = async (props: WelcomeSmsTemplateProps) => {
 
   const data = {
     sendTo: phone,
-    messageBody: `${name}, sua conta foi criada na https://dedicado.digital, e poderá acesar com seu celular e senha ${password}`,
+    messageBody: `${name}, sua conta foi criada na https://dedicado.digital, e a senha definida para acesso é <strong>${password}</strong>`,
   }
 
   return await axios
@@ -26,7 +26,7 @@ export const resetPasswordSmsTemplate = async (
 
   const data = {
     sendTo: phone,
-    messageBody: `${name}, sua senha para acessar https://dedicado.digital, foi redefinida para ${password}`,
+    messageBody: `${name}, sua senha para acessar https://dedicado.digital, foi definida para <strong>${password}</strong>`,
   }
 
   return await axios

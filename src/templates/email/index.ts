@@ -11,7 +11,7 @@ export const welcomeEmailTemlate = async (props: WelcomeEmailTemplateProps) => {
   const data = {
     sendTo: email,
     subjectMessage: `${name}, Boas vindas ao seu Dedicado Digital!`,
-    textMessage: `<p><strong>${name}</strong>, sua conta foi criada em nosso sistema.<br /> Acesse dedicado.digital informando seu celular <strong>${phone}</strong> e a senha <strong>${password}</strong>.</p>`,
+    textMessage: `<p><strong>${name}</strong>, sua conta foi criada em nosso sistema.<br /> Acesse dedicado.digital informando o número do seu celular <strong>${phone}</strong> e a senha <strong>${password}</strong>.</p>`,
   }
 
   return await axios
@@ -29,8 +29,8 @@ export const resetPasswordEmailTemplate = async (
 
   const data = {
     sendTo: email,
-    subjectMessage: `${name}, Sua senha foi redefinida!`,
-    textMessage: `<p><strong>${name}</strong>, atendendo sua solicitação sua senha para acessar https://dedicado.digital foi redefinida.<br /> Agora poderá utilizar seu celular <strong>${phone}</strong> e a nova senha <strong>${password}</strong>.</p>`,
+    subjectMessage: `${name}, uma nova senha para sua conta!`,
+    textMessage: `<p><strong>${name}</strong>,uma nova senha foi definida para acessar https://dedicado.digital .<br />Utilize o número do seu celular <strong>${phone}</strong> e a nova senha <strong>${password}</strong>.</p>`,
   }
 
   return await axios

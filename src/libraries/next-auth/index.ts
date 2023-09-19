@@ -4,8 +4,10 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { AuthSignInSchema } from '@/schemas/auth'
+import axios from 'axios'
 
-const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET
+const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
+const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET!
 const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string
 const GOOGLE_CLIENT_SECRE = process.env
   .NEXT_PUBLIC_GOOGLE_CLIENT_SECRE as string
@@ -17,26 +19,24 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       credentials: {
         phone: { type: 'text' },
-        email: { type: 'email' },
+        password: { type: 'password' },
       },
       authorize: async (credentials) => {
         try {
           if (await AuthSignInSchema.parseAsync(credentials!)) {
-            const { phone, email } = credentials!
-            const user = await prisma.user.findFirst({
-              where: { phone: phone, email: email },
+            const res = await axios.post(`${NEXTAUTH_URL}/api/sign-in`, {
+              email: credentials?.phone,
+              password: credentials?.password,
             })
-            if (!user) return null
+            const user = await res.data
 
-            return {
-              id: user?.id!,
-              role: user?.role!,
-              profile: user?.profile!,
-              name: user?.name!,
-              phone: user?.phone!,
-              email: user?.email!,
-              image: user?.image!,
-              isActive: user?.isActive!,
+            if (res.data && user) {
+              return {
+                ...user.data,
+                authorization: user.Authorization,
+              }
+            } else {
+              return null
             }
           }
           return null
@@ -68,6 +68,9 @@ export const authOptions: NextAuthOptions = {
         where: {
           email: user?.email! || token?.email!,
         },
+        include: {
+          services: true,
+        },
       })
       if (!user) {
         token.id = data!.id
@@ -81,6 +84,7 @@ export const authOptions: NextAuthOptions = {
         name: user?.name!,
         email: user?.email!,
         picture: user?.image! || data?.image,
+        services: user?.services!,
       }
     },
     session: async ({ session, token }) => {
@@ -92,6 +96,7 @@ export const authOptions: NextAuthOptions = {
         session.user.name = token.name
         session.user.email = token.email
         session.user.image = token.picture
+        session.user.services = token.services
       }
       return session
     },
