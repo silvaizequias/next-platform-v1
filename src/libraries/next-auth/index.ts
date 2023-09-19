@@ -25,7 +25,7 @@ export const authOptions: NextAuthOptions = {
         try {
           if (await AuthSignInSchema.parseAsync(credentials!)) {
             const res = await axios.post(`${NEXTAUTH_URL}/api/sign-in`, {
-              email: credentials?.phone,
+              phone: credentials?.phone,
               password: credentials?.password,
             })
             const user = await res.data

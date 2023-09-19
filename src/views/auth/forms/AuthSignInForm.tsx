@@ -2,10 +2,12 @@ import { AuthSignInSchema, AuthSignInSchemaType } from '@/schemas/auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, FormControl, FormHelperText, TextField } from '@mui/material'
 import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
 export default function AuthSignInForm() {
+  const router = useRouter()
   const {
     control,
     formState: { errors },
@@ -29,6 +31,7 @@ export default function AuthSignInForm() {
         .then(async (res: any) => {
           if (res.url && !res.error) {
             toast.success('Boas vindas!')
+            router.refresh()
           } else {
             toast.error('O telefone ou a senha estão incorretos')
           }

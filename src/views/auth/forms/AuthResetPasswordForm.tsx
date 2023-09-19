@@ -2,10 +2,12 @@ import { AuthResetPassword, AuthResetPasswordType } from '@/schemas/auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, FormControl, FormHelperText, TextField } from '@mui/material'
 import axios from 'axios'
+import { useRouter } from 'next/navigation'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
 export default function AuthResetPasswordForm() {
+  const router = useRouter()
   const {
     control,
     handleSubmit,
@@ -25,6 +27,7 @@ export default function AuthResetPasswordForm() {
         .then((res: any) => {
           if (res.data) {
             toast.success(res.data)
+            router.refresh()
           } else {
             toast.error('Ocorreu um erro inesperado!')
           }

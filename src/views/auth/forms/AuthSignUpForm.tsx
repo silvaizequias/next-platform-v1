@@ -2,10 +2,13 @@ import { AuthSignUpSchema, AuthSignUpSchemaType } from '@/schemas/auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, FormControl, FormHelperText, TextField } from '@mui/material'
 import axios from 'axios'
+import { useRouter } from 'next/navigation'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
 export default function AuthSignUpForm() {
+  const router = useRouter()
+  
   const {
     control,
     formState: { errors },
@@ -23,8 +26,9 @@ export default function AuthSignUpForm() {
       await axios
         .post(`/api/sign-up`, inputs)
         .then((res: any) => {
-          if (res?.data) {
+          if (res.data) {
             toast.success(res.data)
+            router.refresh()
           } else {
             toast.error('Ocorreu um erro inesperado!')
           }
