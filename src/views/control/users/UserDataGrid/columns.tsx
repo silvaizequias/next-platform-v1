@@ -36,7 +36,7 @@ export const UserDataGridColumns: GridColDef[] = [
   },
   {
     field: 'role',
-    headerName: 'Função',
+    headerName: 'Perfil',
     headerAlign: 'center',
     align: 'center',
     flex: 0.1,
@@ -49,7 +49,7 @@ export const UserDataGridColumns: GridColDef[] = [
           textTransform: 'uppercase',
         }}
       >
-        {params.row?.role}
+        {params.row?.profile}
       </Box>
     ),
   },
