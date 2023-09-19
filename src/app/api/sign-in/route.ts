@@ -19,6 +19,8 @@ export const POST = async (request: Request) => {
             services: {
               select: {
                 serviceId: true,
+                isActive: true,
+                role: true
               },
             },
           },
@@ -56,7 +58,6 @@ export const POST = async (request: Request) => {
               name: user?.name!,
               email: user?.email!,
               phone: user.phone!,
-              role: user?.role!,
               profile: user?.profile!,
               isActive: user?.isActive!,
               services: user?.services!,

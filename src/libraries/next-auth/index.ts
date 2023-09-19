@@ -79,7 +79,6 @@ export const authOptions: NextAuthOptions = {
 
       return {
         id: data?.id!,
-        role: data?.role!,
         profile: data?.profile!,
         name: user?.name!,
         email: user?.email!,
@@ -91,7 +90,6 @@ export const authOptions: NextAuthOptions = {
       //console.log('SESSION CALLBACK', { session, token })
       if (token) {
         session.user.id = token.id
-        session.user.role = token.role
         session.user.profile = token.profile
         session.user.name = token.name
         session.user.email = token.email

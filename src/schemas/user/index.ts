@@ -1,16 +1,6 @@
 import * as z from 'zod'
 
-const ROLE = [
-  'MASTER',
-  'ADMINISTRATOR',
-  'SUPERVISOR',
-  'ANALYST',
-  'INSTRUCTOR',
-  'TECHNICIAN',
-  'DRIVER',
-  'USER',
-] as const
-const PROFILE = ['OWNER', 'MEMBER', 'CUSTOMER', 'GUEST'] as const
+const PROFILE = ['MASTER', 'OWNER', 'MEMBER', 'CUSTOMER', 'GUEST'] as const
 const DOC_TYPE = ['CPF', 'CNPJ', 'RG', 'CNH', 'CTPS', 'PASSPORT'] as const
 const MAX_FILE_SIZE = 500000
 const ACCEPTED_IMAGE_TYPES = [
@@ -22,7 +12,6 @@ const ACCEPTED_IMAGE_TYPES = [
 
 export const UserCreateSchema = z.object({
   isActive: z.boolean().default(false).optional(),
-  role: z.enum(ROLE),
   profile: z.enum(PROFILE),
   image: z.string().optional(),
   name: z.string(),
@@ -38,7 +27,6 @@ export type UserCreateSchemaType = z.infer<typeof UserCreateSchema>
 
 export const UserUpdateSchema = z.object({
   isActive: z.boolean().default(false).optional(),
-  role: z.enum(ROLE).optional(),
   profile: z.enum(PROFILE).optional(),
   image: z.string().optional(),
   name: z.string().optional(),

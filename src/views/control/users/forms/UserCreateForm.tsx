@@ -74,32 +74,11 @@ export default function UserCreateForm(props: UserCreateFormProps) {
           error={Boolean(errors.profile)}
         >
           <MenuItem value=''></MenuItem>
+          <MenuItem value='MASTER'>MASTER</MenuItem>
           <MenuItem value='OWNER'>PROPRIETÁRIO</MenuItem>
           <MenuItem value='MEMBER'>MEMBRO</MenuItem>
           <MenuItem value='CUSTOMER'>CLIENTE</MenuItem>
           <MenuItem value='GUEST'>VISITANTE</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl fullWidth sx={{ mb: 2 }}>
-        <InputLabel id='role'>Função</InputLabel>
-        <Select
-          {...register('role')}
-          required
-          autoFocus
-          label={'Função'}
-          value={role}
-          onChange={(e) => setRole(e?.target?.value)}
-          error={Boolean(errors.role)}
-        >
-          <MenuItem value=''></MenuItem>
-          <MenuItem value='MASTER'>MASTER</MenuItem>
-          <MenuItem value='ADMINISTRATOR'>ADMINISTRADOR</MenuItem>
-          <MenuItem value='SUPERVISOR'>SUPERVISOR</MenuItem>
-          <MenuItem value='ANALYST'>ANALISTA</MenuItem>
-          <MenuItem value='INSTRUCTOR'>INSTRUTOR</MenuItem>
-          <MenuItem value='TECHNICIAN'>TÉCNICO</MenuItem>
-          <MenuItem value='DRIVER'>MOTORISTA</MenuItem>
-          <MenuItem value='USER'>UTILIZADOR</MenuItem>
         </Select>
       </FormControl>
       <FormControl fullWidth sx={{ mb: 2 }}>

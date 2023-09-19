@@ -8,9 +8,9 @@ datasource db {
   relationMode = "prisma"
 }
 
-enum UserRole {
-  MASTER
+enum UsersAndServicesRole {
   ADMINISTRATOR
+  MANAGER
   SUPERVISOR
   ANALYST
   INSTRUCTOR
@@ -20,6 +20,7 @@ enum UserRole {
 }
 
 enum UserProfile {
+  MASTER
   OWNER
   MEMBER
   CUSTOMER
@@ -104,7 +105,6 @@ model User {
   softDeleted Boolean?  @default(false) @map("soft_deleted")
 
   isActive Boolean?     @default(true) @map("is_active")
-  role     UserRole?    @default(USER)
   profile  UserProfile? @default(GUEST)
 
   name          String?
@@ -184,8 +184,11 @@ model Service {
 }
 
 model UsersAndServices {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now()) @map("created_at")
+  id        String    @id @default(cuid())
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  isActive  Boolean?  @default(true)
+  role      UsersAndServicesRole? @default(USER)
 
   userId String @map("user_id")
   user   User   @relation(fields: [userId], references: [id])

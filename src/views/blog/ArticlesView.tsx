@@ -82,7 +82,7 @@ export default function ArticleView(props: PageViewProps) {
           <Grid item xs={12} sm={12}></Grid>
         )}
       </Suspense>
-      {session && session.user.role == 'MASTER' && (
+      {session && session.user.profile == 'MASTER' && (
         <Fragment>
           <Fab
             sx={{
