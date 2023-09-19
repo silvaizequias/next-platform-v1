@@ -22,7 +22,7 @@ export const GET = async (
                 image: true,
                 email: true,
                 phone: true,
-                role: true,
+                profile: true,
               },
             },
           },

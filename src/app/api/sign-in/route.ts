@@ -40,7 +40,6 @@ export const POST = async (request: Request) => {
         const encryptedToken = jwt.sign(
           {
             phone,
-            role: user?.role,
             profile: user?.profile!,
             services: user?.services!,
             iat: Math.floor(Date.now() / 1000) - 30,

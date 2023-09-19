@@ -9,6 +9,7 @@ export const GET = async (request: Request) => {
         await prisma.user.findMany({
           include: {
             accounts: true,
+            companies: true,
             services: true,
             sessions: true,
             subscriptions: true,
