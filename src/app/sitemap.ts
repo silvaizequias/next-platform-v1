@@ -1,29 +1,27 @@
-import { ArticleType } from '@/views/blog/types'
-import axios from 'axios'
 export default async function sitemap() {
-  const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
+  try {
+    const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
 
-  const articles: ArticleType[] = await (
-    await axios.get(`${NEXTAUTH_URL}/api/blog/articles`)
-  ).data
+    const res = await (await fetch(`${NEXTAUTH_URL}/api/blog/articles`)).json()
 
-  const articleMap =
-    articles?.map((article: ArticleType) => {
-      return {
-        url: `${NEXTAUTH_URL}/blog/${article?.slug!}`,
-        lastModified: new Date(article?.updatedAt!),
-        changeFrequency: 'daily',
-        priority: 1,
-      }
-    }) ?? []
-
-  return [
-    {
-      url: NEXTAUTH_URL + '/',
-      lastModified: new Date(),
+    const articles = res.map((article: any) => ({
+      url: `${NEXTAUTH_URL}/blog/${article?.slug!}`,
+      lastModified: new Date(article?.updatedAt!),
       changeFrequency: 'daily',
-      priority: 0.5,
-    },
-    ...articleMap,
-  ]
+      priority: 1,
+    }))
+
+    return [
+      {
+        url: NEXTAUTH_URL,
+        lastModified: new Date(),
+        changeFrequency: 'daily',
+        priority: 0.5,
+      },
+      ...articles,
+    ]
+  } catch (error: any) {
+    console.error(error)
+    return new Error(error)
+  }
 }
