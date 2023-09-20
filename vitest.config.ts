@@ -9,5 +9,13 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./vitest.setup.ts'],
+    coverage: {
+      reporter: ['text', 'json', 'html'],
+    },
+    reporters: ['html'],
+    browser: {
+      enabled: true,
+      name: 'edge',
+    },
   },
 })
