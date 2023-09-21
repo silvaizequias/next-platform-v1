@@ -19,6 +19,7 @@ export default async function GET(
             email: true,
             phone: true,
             image: true,
+            profile: true,
             isActive: true,
             orgs: {
               select: {
