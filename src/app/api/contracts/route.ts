@@ -3,6 +3,7 @@ import {
   ContractCreateSchema,
   ContractCreateSchemaType,
 } from '@/types/contract/schema'
+import { Prisma } from '@prisma/client'
 
 export async function GET(request: Request) {
   try {
@@ -36,7 +37,44 @@ export async function POST(request: Request) {
       .json()
       .then(async (inputs: ContractCreateSchemaType) => {
         if (await ContractCreateSchema.parseAsync(inputs)) {
-          return new Response(JSON.stringify(inputs))
+          const { userId, solutionId, discount, tax, amount } = inputs
+          const user = await prisma.user.findFirst({
+            where: { id: userId, softDeleted: false, isActive: true },
+          })
+          if (!user)
+            return new Response(
+              JSON.stringify('esta conta não pode contratar serviços'),
+              { status: 403 },
+            )
+
+          const solution = await prisma.solution.findFirst({
+            where: { id: solutionId },
+          })
+          if (!solution)
+            return new Response(
+              JSON.stringify('a solução não está disponível para contratação'),
+              { status: 404 },
+            )
+
+          const totalAmount: number = Math.floor(amount! - discount! + tax!)
+
+          const data: Prisma.ContractCreateInput = {
+            ...inputs,
+            amount: totalAmount,
+            user: {
+              connect: {
+                id: userId,
+              },
+            },
+            solution: {
+              connect: {
+                id: solutionId,
+              },
+            },
+          }
+          return new Response(
+            JSON.stringify(await prisma.contract.create({ data })),
+          )
         }
       })
   } catch (error: any) {
