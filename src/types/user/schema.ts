@@ -9,7 +9,7 @@ export const UserCreateSchema = z.object({
   name: z.string(),
   email: z.string().email(),
   image: z.string().optional(),
-  phone: z.string(),
+  phone: z.string().length(11),
   password: z.string().min(8).max(24).optional(),
   docType: z.enum(DOCUMENT).default('CPF').optional(),
   docCode: z.string().optional(),
@@ -25,7 +25,7 @@ export const UserUpdateSchema = z.object({
   name: z.string().optional(),
   email: z.string().email().optional(),
   image: z.string().optional(),
-  phone: z.string().optional(),
+  phone: z.string().length(11).optional(),
   password: z.string().min(8).max(24).optional(),
   docType: z.enum(DOCUMENT).default('CPF').optional(),
   docCode: z.string().optional(),
@@ -34,3 +34,18 @@ export const UserUpdateSchema = z.object({
 })
 
 export type UserUpdateSchemaType = z.infer<typeof UserUpdateSchema>
+
+export const UserPasswordUpdateSchema = z
+  .object({
+    password: z.string().min(8).max(24),
+    newPassword: z.string().min(8).max(24),
+    confirmNewPassword: z.string().min(8).max(24),
+  })
+  .refine((data) => data.newPassword === data.confirmNewPassword, {
+    message: 'a nova senha não foi validada!',
+    path: ['confirmNewPassword'],
+  })
+
+export type UserPasswordUpdateSchemaType = z.infer<
+  typeof UserPasswordUpdateSchema
+>
