@@ -47,7 +47,7 @@ export async function GET(request: Request) {
   } catch (error: any) {
     await prisma.$disconnect()
     console.error(error)
-    return new Error(error?.message || error)
+    return new Response(JSON.stringify(error?.message || error), { status: 400 })
   } finally {
     await prisma.$disconnect()
   }
@@ -92,7 +92,7 @@ export async function POST(request: Request) {
   } catch (error: any) {
     await prisma.$disconnect()
     console.error(error)
-    return new Error(error?.message || error)
+    return new Response(JSON.stringify(error?.message || error), { status: 400 })
   } finally {
     await prisma.$disconnect()
   }

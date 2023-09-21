@@ -14,7 +14,7 @@ export async function GET(request: Request) {
   } catch (error: any) {
     await prisma.$disconnect()
     console.error(error)
-    return new Error(error?.message || error)
+    return new Response(error?.message || error)
   } finally {
     await prisma.$disconnect()
   }

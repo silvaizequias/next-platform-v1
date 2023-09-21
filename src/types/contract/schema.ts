@@ -1,8 +1,8 @@
 import * as z from 'zod'
 
 export const ContractCreateSchema = z.object({
-  userId: z.string(),
-  solutionId: z.string(),
+  userDocCode: z.string().optional(),
+  solutionUrl: z.string().url().optional(),
   stripeCustomerId: z.string(),
   stripeSubscriptionId: z.string(),
   stripePriceId: z.string(),
@@ -18,8 +18,8 @@ export const ContractCreateSchema = z.object({
 export type ContractCreateSchemaType = z.infer<typeof ContractCreateSchema>
 
 export const ContractUpdateSchema = z.object({
-  userId: z.string(),
-  solutionId: z.string(),
+  userDocCode: z.string().optional(),
+  solutionUrl: z.string().url().optional(),
   stripeCustomerId: z.string().optional(),
   stripeSubscriptionId: z.string().optional(),
   stripePriceId: z.string().optional(),

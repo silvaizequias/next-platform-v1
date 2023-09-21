@@ -20,13 +20,42 @@ export async function GET(
             id: id,
             softDeleted: false,
           },
+          include: {
+            solution: true,
+            organization: {
+              select: {
+                id: true,
+                cnpj: true,
+                user: {
+                  select: {
+                    id: true,
+                    name: true,
+                    phone: true,
+                    docCode: true,
+                    contracts: {
+                      select: {
+                        id: true,
+                        isActive: true,
+                        solution: {
+                          select: {
+                            id: true,
+                            url: true,
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
         }),
       ),
     )
   } catch (error: any) {
     await prisma.$disconnect()
     console.error(error)
-    return new Error(error?.message || error)
+    return new Response(JSON.stringify(error?.message || error), { status: 400 })
   } finally {
     await prisma.$disconnect()
   }
@@ -44,10 +73,10 @@ export async function PATCH(
       .json()
       .then(async (inputs: OrganizationSolutionUpdateSchemaType) => {
         if (await OrganizationSolutionUpdateSchema.parseAsync(inputs)) {
-          const { solutionId, organizationId } = inputs
+          const { solutionUrl, organizationCnpj } = inputs
 
           const solution = await prisma.solution.findFirst({
-            where: { id: solutionId },
+            where: { url: solutionUrl },
           })
           if (!solution)
             return new Response(
@@ -57,7 +86,7 @@ export async function PATCH(
 
           const organization = await prisma.organization.findFirst({
             where: {
-              id: organizationId,
+              cnpj: organizationCnpj,
             },
           })
           if (!organization)
@@ -68,16 +97,19 @@ export async function PATCH(
               },
             )
 
+          delete inputs?.solutionUrl
+          delete inputs?.organizationCnpj
+
           const data: Prisma.SolutionOfOrganizationUpdateInput = {
             ...inputs,
             solution: {
               update: {
-                id: solutionId,
+                id: solution?.id!,
               },
             },
             organization: {
               update: {
-                id: organizationId,
+                id: organization?.id!,
               },
             },
           }
@@ -94,7 +126,7 @@ export async function PATCH(
   } catch (error: any) {
     await prisma.$disconnect()
     console.error(error)
-    return new Error(error?.message || error)
+    return new Response(JSON.stringify(error?.message || error), { status: 400 })
   } finally {
     await prisma.$disconnect()
   }

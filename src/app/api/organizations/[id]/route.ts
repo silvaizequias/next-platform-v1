@@ -31,6 +31,12 @@ export async function GET(
                     email: true,
                     image: true,
                     profile: true,
+                    docType: true,
+                    docCode: true,
+                    zipCode: true,
+                    complement: true,
+                    latitude: true,
+                    longitude: true,
                   },
                 },
               },
@@ -43,7 +49,9 @@ export async function GET(
   } catch (error: any) {
     await prisma.$disconnect()
     console.error(error)
-    return new Error(error?.message || error)
+    return new Response(JSON.stringify(error?.message || error), {
+      status: 400,
+    })
   } finally {
     await prisma.$disconnect()
   }
@@ -61,9 +69,9 @@ export async function PATCH(
       .json()
       .then(async (inputs: OrganizationUpdateSchemaType) => {
         if (await OrganizationUpdateSchema.parseAsync(inputs)) {
-          const { userId } = inputs
+          const { userDocCode } = inputs
           const user = await prisma.user.findFirst({
-            where: { id: userId },
+            where: { docCode: userDocCode },
           })
           if (!user)
             return new Response(
@@ -71,7 +79,7 @@ export async function PATCH(
               { status: 404 },
             )
 
-          if (!userId)
+          if (!inputs?.userDocCode)
             return new Response(
               JSON.stringify(
                 await prisma.organization.update({
@@ -81,11 +89,13 @@ export async function PATCH(
               ),
             )
 
+          delete inputs?.userDocCode
+
           const data: Prisma.OrganizationUpdateInput = {
             ...inputs,
             user: {
               update: {
-                id: userId,
+                docCode: user?.docCode!,
               },
             },
           }
@@ -100,7 +110,9 @@ export async function PATCH(
   } catch (error: any) {
     await prisma.$disconnect()
     console.error(error)
-    return new Error(error?.message || error)
+    return new Response(JSON.stringify(error?.message || error), {
+      status: 400,
+    })
   } finally {
     await prisma.$disconnect()
   }

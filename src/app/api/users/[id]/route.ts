@@ -49,7 +49,7 @@ export async function GET(
   } catch (error: any) {
     await prisma.$disconnect()
     console.error(error)
-    return new Error(error?.message || error)
+    return new Response(JSON.stringify(error?.message || error), { status: 400 })
   } finally {
     await prisma.$disconnect()
   }
@@ -75,7 +75,7 @@ export async function PATCH(
   } catch (error: any) {
     await prisma.$disconnect()
     console.error(error)
-    return new Error(error?.message || error)
+    return new Response(JSON.stringify(error?.message || error), { status: 400 })
   } finally {
     await prisma.$disconnect()
   }

@@ -15,6 +15,8 @@ export const UserCreateSchema = z.object({
   docCode: z.string().optional(),
   zipCode: z.string().length(8).optional(),
   complement: z.string().optional(),
+  latitude: z.coerce.number().optional(),
+  longitude: z.coerce.number().optional(),
 })
 
 export type UserCreateSchemaType = z.infer<typeof UserCreateSchema>
@@ -31,6 +33,8 @@ export const UserUpdateSchema = z.object({
   docCode: z.string().optional(),
   zipCode: z.string().length(8).optional(),
   complement: z.string().optional(),
+  latitude: z.coerce.number().optional(),
+  longitude: z.coerce.number().optional(),
 })
 
 export type UserUpdateSchemaType = z.infer<typeof UserUpdateSchema>

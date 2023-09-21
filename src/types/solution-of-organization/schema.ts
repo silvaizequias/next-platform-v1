@@ -1,9 +1,9 @@
 import * as z from 'zod'
 
 export const OrganizationSolutionCreateSchema = z.object({
-  solutionId: z.string(),
-  organizationId: z.string(),
-  isActive: z.boolean().default(true).optional(),
+  solutionUrl: z.string().url().optional(),
+  organizationCnpj: z.string().length(14).optional(),
+  isActive: z.boolean(),
 })
 
 export type OrganizationSolutionCreateSchemaType = z.infer<
@@ -11,8 +11,8 @@ export type OrganizationSolutionCreateSchemaType = z.infer<
 >
 
 export const OrganizationSolutionUpdateSchema = z.object({
-  solutionId: z.string(),
-  organizationId: z.string(),
+  solutionUrl: z.string().url().optional(),
+  organizationCnpj: z.string().length(14).optional(),
   isActive: z.boolean().default(true).optional(),
 })
 

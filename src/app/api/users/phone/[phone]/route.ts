@@ -1,6 +1,6 @@
 import { prisma } from '@/libraries/prisma'
 
-export default async function GET(
+export async function GET(
   request: Request,
   { params }: { params: { phone: string } },
 ) {
@@ -21,6 +21,8 @@ export default async function GET(
             image: true,
             profile: true,
             isActive: true,
+            latitude: true,
+            longitude: true,
             orgs: {
               select: {
                 role: true,
@@ -41,7 +43,9 @@ export default async function GET(
   } catch (error: any) {
     await prisma.$disconnect()
     console.error(error)
-    return new Error(error?.message || error)
+    return new Response(JSON.stringify(error?.message || error), {
+      status: 400,
+    })
   } finally {
     await prisma.$disconnect()
   }

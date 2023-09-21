@@ -38,7 +38,7 @@ export async function GET(request: Request) {
     )
   } catch (error: any) {
     console.error(error)
-    return new Error(error?.message || error)
+    return new Response(JSON.stringify(error?.message || error), { status: 400 })
   }
 }
 
@@ -50,9 +50,9 @@ export async function POST(request: Request) {
       .json()
       .then(async (inputs: OrganizationCreateSchemaType) => {
         if (await OrganizationCreateSchema.parseAsync(inputs)) {
-          const { userId } = inputs
+          const { userDocCode } = inputs
           const user = await prisma.user.findFirst({
-            where: { id: userId },
+            where: { docCode: userDocCode },
           })
           if (!user)
             return new Response(
@@ -60,11 +60,13 @@ export async function POST(request: Request) {
               { status: 404 },
             )
 
+          delete inputs?.userDocCode
+
           const data: Prisma.OrganizationCreateInput = {
             ...inputs,
             user: {
               connect: {
-                id: userId,
+                docCode: user?.docCode!,
               },
             },
           }
@@ -76,6 +78,6 @@ export async function POST(request: Request) {
       })
   } catch (error: any) {
     console.error(error)
-    return new Error(error?.message || error)
+    return new Response(JSON.stringify(error?.message || error), { status: 400 })
   }
 }

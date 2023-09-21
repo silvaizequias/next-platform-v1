@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import { compareSync } from 'bcrypt'
 import { SignInSchema, SignInSchemaType } from '@/types/auth/schema'
 
-export default async function POST(request: Request) {
+export async function POST(request: Request) {
   const NEXT_PUBLIC_JWT_SECRET_KEY = process.env.NEXT_PUBLIC_JWT_SECRET_KEY!
   try {
     await prisma.$connect()
@@ -46,9 +46,11 @@ export default async function POST(request: Request) {
             { status: 404 },
           )
 
-        const passwordValidate = compareSync(password, user?.passHash!)
+        const userPassword = user?.passHash!
+
+        const passwordValidate = compareSync(password, userPassword)
         if (!passwordValidate)
-          new Response(JSON.stringify('senha inválida'), { status: 403 })
+          return new Response(JSON.stringify('senha inválida'), { status: 403 })
 
         const encryptedToken = jwt.sign(
           {
@@ -82,7 +84,7 @@ export default async function POST(request: Request) {
   } catch (error: any) {
     await prisma.$disconnect()
     console.error(error)
-    return new Error(error?.message || error)
+    return new Response(JSON.stringify(error?.message || error), { status: 400 })
   } finally {
     await prisma.$disconnect()
   }

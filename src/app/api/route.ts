@@ -3,7 +3,7 @@ export async function GET(request: Request) {
     return new Response(JSON.stringify(request.method))
   } catch (error: any) {
     console.error(error)
-    return new Error(error?.message || error)
+    return new Response(JSON.stringify(error?.message || error), { status: 400 })
   }
 }
 
@@ -16,6 +16,6 @@ export async function POST(request: Request) {
     })
   } catch (error: any) {
     console.error(error)
-    return new Error(error?.message || error)
+    return new Response(JSON.stringify(error?.message || error), { status: 400 })
   }
 }

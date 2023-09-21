@@ -23,6 +23,8 @@ export type UserType = {
   passHash: string
   zipCode: string
   complement: string
+  latitude: number
+  longitude: number
   accounts: AccountType[]
   contracts: ContractType[]
   organizations: OrganizationType[]

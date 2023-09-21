@@ -12,10 +12,10 @@ const ROLE = [
 ] as const
 
 export const UserOrganizationCreateSchema = z.object({
-  organizationId: z.string(),
-  userId: z.string(),
-  role: z.enum(ROLE).default('USER').optional(),
-  isAvaliable: z.boolean().default(true).optional(),
+  organizationCnpj: z.string().length(14).optional(),
+  userPhone: z.string().length(11).optional(),
+  role: z.enum(ROLE),
+  isAvaliable: z.boolean(),
 })
 
 export type UserOrganizationCreateSchemaType = z.infer<
@@ -23,8 +23,8 @@ export type UserOrganizationCreateSchemaType = z.infer<
 >
 
 export const UserOrganizationUpdateSchema = z.object({
-  organizationId: z.string().optional(),
-  userId: z.string().optional(),
+  organizationCnpj: z.string().length(14).optional(),
+  userPhone: z.string().length(11).optional(),
   role: z.enum(ROLE).default('USER').optional(),
   isAvaliable: z.boolean().default(true).optional(),
 })

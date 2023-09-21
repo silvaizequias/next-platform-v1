@@ -110,6 +110,8 @@ model User {
 
   zipCode    String? @map("zip_code")
   complement String?
+  latitude   Float?  @db.Double
+  longitude  Float?  @db.Double
 
   accounts      Account[]
   contracts     Contract[]
@@ -207,7 +209,7 @@ model Solution {
 
   name        String
   description String?
-  url         String?
+  url         String?  @unique
   price       Decimal? @default(0) @db.Decimal(10, 2)
 
   contracts     Contract[]

@@ -43,7 +43,7 @@ export async function GET(
   } catch (error: any) {
     await prisma.$disconnect()
     console.error(error)
-    return new Error(error?.message || error)
+    return new Response(JSON.stringify(error?.message || error), { status: 400 })
   } finally {
     await prisma.$disconnect()
   }
@@ -61,11 +61,11 @@ export async function PATCH(
       .json()
       .then(async (inputs: UserOrganizationUpdateSchemaType) => {
         if (await UserOrganizationUpdateSchema.parseAsync(inputs)) {
-          const { organizationId, userId } = inputs
+          const { organizationCnpj, userPhone } = inputs
 
           const organization = await prisma.organization.findFirst({
             where: {
-              id: organizationId,
+              cnpj: organizationCnpj,
             },
           })
           if (!organization)
@@ -77,7 +77,7 @@ export async function PATCH(
             )
 
           const user = await prisma.user.findFirst({
-            where: { id: userId },
+            where: { phone: userPhone },
           })
           if (!user)
             return new Response(
@@ -85,16 +85,19 @@ export async function PATCH(
               { status: 404 },
             )
 
+          delete inputs?.organizationCnpj
+          delete inputs?.userPhone
+
           const data: Prisma.OrganizationOfUserUpdateInput = {
             ...inputs,
             organization: {
               update: {
-                id: organizationId,
+                id: organization?.id!,
               },
             },
             user: {
               update: {
-                id: userId,
+                id: user?.id!,
               },
             },
           }
@@ -109,7 +112,7 @@ export async function PATCH(
   } catch (error: any) {
     await prisma.$disconnect()
     console.error(error)
-    return new Error(error?.message || error)
+    return new Response(JSON.stringify(error?.message || error), { status: 400 })
   } finally {
     await prisma.$disconnect()
   }

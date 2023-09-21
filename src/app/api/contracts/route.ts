@@ -23,7 +23,7 @@ export async function GET(request: Request) {
   } catch (error: any) {
     await prisma.$disconnect()
     console.error(error)
-    return new Error(error?.message || error)
+    return new Response(JSON.stringify(error?.message || error), { status: 400 })
   } finally {
     await prisma.$disconnect()
   }
@@ -37,9 +37,9 @@ export async function POST(request: Request) {
       .json()
       .then(async (inputs: ContractCreateSchemaType) => {
         if (await ContractCreateSchema.parseAsync(inputs)) {
-          const { userId, solutionId, discount, tax, amount } = inputs
+          const { userDocCode, solutionUrl, discount, tax, amount } = inputs
           const user = await prisma.user.findFirst({
-            where: { id: userId, softDeleted: false, isActive: true },
+            where: { docCode: userDocCode, softDeleted: false, isActive: true },
           })
           if (!user)
             return new Response(
@@ -48,7 +48,7 @@ export async function POST(request: Request) {
             )
 
           const solution = await prisma.solution.findFirst({
-            where: { id: solutionId },
+            where: { url: solutionUrl },
           })
           if (!solution)
             return new Response(
@@ -58,17 +58,20 @@ export async function POST(request: Request) {
 
           const totalAmount: number = Math.floor(amount! - discount! + tax!)
 
+          delete inputs?.userDocCode
+          delete inputs?.solutionUrl
+
           const data: Prisma.ContractCreateInput = {
             ...inputs,
             amount: totalAmount,
             user: {
               connect: {
-                id: userId,
+                id: user?.id!,
               },
             },
             solution: {
               connect: {
-                id: solutionId,
+                id: solution?.id!,
               },
             },
           }
@@ -80,7 +83,7 @@ export async function POST(request: Request) {
   } catch (error: any) {
     await prisma.$disconnect()
     console.error(error)
-    return new Error(error?.message || error)
+    return new Response(JSON.stringify(error?.message || error), { status: 400 })
   } finally {
     await prisma.$disconnect()
   }

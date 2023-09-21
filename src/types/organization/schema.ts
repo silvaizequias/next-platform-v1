@@ -1,7 +1,7 @@
 import * as z from 'zod'
 
 export const OrganizationCreateSchema = z.object({
-  userId: z.string(),
+  userDocCode: z.string().optional(),
   name: z.string(),
   cnpj: z.string().length(14),
   image: z.string().optional(),
@@ -16,7 +16,7 @@ export type OrganizationCreateSchemaType = z.infer<
 >
 
 export const OrganizationUpdateSchema = z.object({
-  userId: z.string().optional(),
+  userDocCode: z.string().optional(),
   name: z.string().optional(),
   cnpj: z.string().length(14).optional(),
   image: z.string().optional(),
