@@ -1,9 +1,9 @@
 import { prisma } from '@/libraries/prisma'
 
-export async function GET(request: Request) {
+export const GET = async (request: Request) => {
   try {
     await prisma.$connect()
-    
+
     return new Response(
       JSON.stringify(
         await prisma.account.findMany({
@@ -13,7 +13,6 @@ export async function GET(request: Request) {
     )
   } catch (error: any) {
     await prisma.$disconnect()
-    console.error(error)
     return new Response(error?.message || error)
   } finally {
     await prisma.$disconnect()

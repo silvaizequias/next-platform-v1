@@ -4,10 +4,10 @@ import {
   SolutionUpdateSchemaType,
 } from '@/types/solution/schema'
 
-export async function GET(
+export const GET = async (
   request: Request,
   { params }: { params: { id: string } },
-) {
+) => {
   const { id } = params
 
   try {
@@ -18,7 +18,7 @@ export async function GET(
         await prisma.solution.findFirst({
           where: { id: id, softDeleted: false },
           include: {
-            contracts: true,
+            subscriptions: true,
             organizations: true,
           },
         }),
@@ -26,17 +26,16 @@ export async function GET(
     )
   } catch (error: any) {
     await prisma.$disconnect()
-    console.error(error)
-    return new Response(JSON.stringify(error?.message || error), { status: 400 })
+    return new Response(error?.message! || error!, { status: 400 })
   } finally {
     await prisma.$disconnect()
   }
 }
 
-export async function PATCH(
+export const PATCH = async (
   request: Request,
   { params }: { params: { id: string } },
-) {
+): Promise<SolutionUpdateSchemaType | any> => {
   const { id } = params
   try {
     await prisma.$connect()
@@ -54,8 +53,7 @@ export async function PATCH(
       })
   } catch (error: any) {
     await prisma.$disconnect()
-    console.error(error)
-    return new Response(JSON.stringify(error?.message || error), { status: 400 })
+    return new Response(error?.message! || error!, { status: 400 })
   } finally {
     await prisma.$disconnect()
   }

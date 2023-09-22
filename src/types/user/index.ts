@@ -1,6 +1,6 @@
 import { UserDocType, UserProfile } from '@prisma/client'
 import { AccountType } from '../account'
-import { ContractType } from '../contract'
+import { SubscriptionType } from '../subscriptions'
 import { OrganizationType } from '../organization'
 import { OrganizationOfUserType } from '../organization-of-user'
 import { SessionType } from '../session'
@@ -26,7 +26,7 @@ export type UserType = {
   latitude: number
   longitude: number
   accounts: AccountType[]
-  contracts: ContractType[]
+  subscriptions: SubscriptionType[]
   organizations: OrganizationType[]
   orgs: OrganizationOfUserType[]
   sessions: SessionType[]

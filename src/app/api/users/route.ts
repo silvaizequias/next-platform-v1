@@ -3,7 +3,7 @@ import { UserCreateSchema, UserCreateSchemaType } from '@/types/user/schema'
 import { Prisma } from '@prisma/client'
 import { hash } from 'bcrypt'
 
-export async function GET(request: Request) {
+export const GET = async (request: Request) => {
   try {
     await prisma.$connect()
 
@@ -19,7 +19,7 @@ export async function GET(request: Request) {
                 provider: true,
               },
             },
-            contracts: true,
+            subscriptions: true,
             organizations: true,
             orgs: {
               select: {
@@ -46,14 +46,15 @@ export async function GET(request: Request) {
     )
   } catch (error: any) {
     await prisma.$disconnect()
-    console.error(error)
-    return new Response(JSON.stringify(error?.message || error), { status: 400 })
+    return new Response(error?.message! || error!, { status: 400 })
   } finally {
     await prisma.$disconnect()
   }
 }
 
-export async function POST(request: Request) {
+export const POST = async (
+  request: Request,
+): Promise<UserCreateSchemaType | any> => {
   const randomCode = Math.random().toString(32).substr(2, 12)
 
   try {
@@ -71,10 +72,9 @@ export async function POST(request: Request) {
           },
         })
         if (user)
-          return new Response(
-            JSON.stringify(`esta conta já existe em nosso sistema!`),
-            { status: 409 },
-          )
+          return new Response(`esta conta já existe em nosso sistema!`, {
+            status: 409,
+          })
 
         const data: Prisma.UserCreateInput = {
           ...inputs,
@@ -83,16 +83,13 @@ export async function POST(request: Request) {
         await prisma.user.create({ data })
 
         return new Response(
-          JSON.stringify(
-            `A conta foi criada e a senha enviada para o email ${email}!`,
-          ),
+          `A conta foi criada e a senha enviada para o email ${email}!`,
         )
       }
     })
   } catch (error: any) {
     await prisma.$disconnect()
-    console.error(error)
-    return new Response(JSON.stringify(error?.message || error), { status: 400 })
+    return new Response(error?.message! || error!, { status: 400 })
   } finally {
     await prisma.$disconnect()
   }

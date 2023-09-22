@@ -1,6 +1,6 @@
 import * as z from 'zod'
 
-export const ContractCreateSchema = z.object({
+export const SubscriptionCreateSchema = z.object({
   userDocCode: z.string().optional(),
   solutionUrl: z.string().url().optional(),
   stripeCustomerId: z.string(),
@@ -15,9 +15,9 @@ export const ContractCreateSchema = z.object({
   isActive: z.boolean().default(true).optional(),
 })
 
-export type ContractCreateSchemaType = z.infer<typeof ContractCreateSchema>
+export type SubscriptionCreateSchemaType = z.infer<typeof SubscriptionCreateSchema>
 
-export const ContractUpdateSchema = z.object({
+export const SubscriptionUpdateSchema = z.object({
   userDocCode: z.string().optional(),
   solutionUrl: z.string().url().optional(),
   stripeCustomerId: z.string().optional(),
@@ -32,4 +32,4 @@ export const ContractUpdateSchema = z.object({
   isActive: z.boolean().default(true).optional(),
 })
 
-export type ContractUpdateSchemaType = z.infer<typeof ContractUpdateSchema>
+export type SubscriptionUpdateSchemaType = z.infer<typeof SubscriptionUpdateSchema>

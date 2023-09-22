@@ -1,17 +1,17 @@
 import { prisma } from '@/libraries/prisma'
 import {
-  ContractCreateSchema,
-  ContractCreateSchemaType,
-} from '@/types/contract/schema'
+  SubscriptionCreateSchema,
+  SubscriptionCreateSchemaType,
+} from '@/types/subscriptions/schema'
 import { Prisma } from '@prisma/client'
 
-export async function GET(request: Request) {
+export const GET = async (request: Request) => {
   try {
     await prisma.$connect()
 
     return new Response(
       JSON.stringify(
-        await prisma.contract.findMany({
+        await prisma.subscription.findMany({
           where: { softDeleted: false },
           include: {
             user: true,
@@ -22,37 +22,37 @@ export async function GET(request: Request) {
     )
   } catch (error: any) {
     await prisma.$disconnect()
-    console.error(error)
-    return new Response(JSON.stringify(error?.message || error), { status: 400 })
+    return new Response(error?.message! || error!, { status: 400 })
   } finally {
     await prisma.$disconnect()
   }
 }
 
-export async function POST(request: Request) {
+export const POST = async (
+  request: Request,
+): Promise<SubscriptionCreateSchemaType | any> => {
   try {
     await prisma.$connect()
 
     return await request
       .json()
-      .then(async (inputs: ContractCreateSchemaType) => {
-        if (await ContractCreateSchema.parseAsync(inputs)) {
+      .then(async (inputs: SubscriptionCreateSchemaType) => {
+        if (await SubscriptionCreateSchema.parseAsync(inputs)) {
           const { userDocCode, solutionUrl, discount, tax, amount } = inputs
           const user = await prisma.user.findFirst({
             where: { docCode: userDocCode, softDeleted: false, isActive: true },
           })
           if (!user)
-            return new Response(
-              JSON.stringify('esta conta não pode contratar serviços'),
-              { status: 403 },
-            )
+            return new Response('esta conta não pode contratar serviços', {
+              status: 403,
+            })
 
           const solution = await prisma.solution.findFirst({
             where: { url: solutionUrl },
           })
           if (!solution)
             return new Response(
-              JSON.stringify('a solução não está disponível para contratação'),
+              'a solução não está disponível para contratação',
               { status: 404 },
             )
 
@@ -61,7 +61,7 @@ export async function POST(request: Request) {
           delete inputs?.userDocCode
           delete inputs?.solutionUrl
 
-          const data: Prisma.ContractCreateInput = {
+          const data: Prisma.SubscriptionCreateInput = {
             ...inputs,
             amount: totalAmount,
             user: {
@@ -76,14 +76,13 @@ export async function POST(request: Request) {
             },
           }
           return new Response(
-            JSON.stringify(await prisma.contract.create({ data })),
+            JSON.stringify(await prisma.subscription.create({ data })),
           )
         }
       })
   } catch (error: any) {
     await prisma.$disconnect()
-    console.error(error)
-    return new Response(JSON.stringify(error?.message || error), { status: 400 })
+    return new Response(error?.message! || error!, { status: 400 })
   } finally {
     await prisma.$disconnect()
   }

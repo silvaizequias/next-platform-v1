@@ -1,4 +1,4 @@
-import { ContractType } from '../contract'
+import { SubscriptionType } from '../subscriptions'
 import { SolutionOfOrganizationType } from '../solution-of-organization'
 
 export type SolutionType = {
@@ -11,6 +11,6 @@ export type SolutionType = {
   description: string
   url: string
   price: number
-  contracts: ContractType[]
+  subscriptions: SubscriptionType[]
   organizations: SolutionOfOrganizationType[]
 }

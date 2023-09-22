@@ -4,7 +4,7 @@ import {
   SolutionCreateSchemaType,
 } from '@/types/solution/schema'
 
-export async function GET(request: Request) {
+export const GET = async (request: Request) => {
   try {
     await prisma.$connect()
 
@@ -13,7 +13,7 @@ export async function GET(request: Request) {
         await prisma.solution.findMany({
           where: { softDeleted: false },
           include: {
-            contracts: true,
+            subscriptions: true,
             organizations: true,
           },
         }),
@@ -21,14 +21,15 @@ export async function GET(request: Request) {
     )
   } catch (error: any) {
     await prisma.$disconnect()
-    console.error(error)
-    return new Response(JSON.stringify(error?.message || error), { status: 400 })
+    return new Response(error?.message! || error!, { status: 400 })
   } finally {
     await prisma.$disconnect()
   }
 }
 
-export async function POST(request: Request) {
+export const POST = async (
+  request: Request,
+): Promise<SolutionCreateSchemaType | any> => {
   try {
     await prisma.$connect()
 
@@ -43,8 +44,7 @@ export async function POST(request: Request) {
       })
   } catch (error: any) {
     await prisma.$disconnect()
-    console.error(error)
-    return new Response(JSON.stringify(error?.message || error), { status: 400 })
+    return new Response(error?.message! || error!, { status: 400 })
   } finally {
     await prisma.$disconnect()
   }

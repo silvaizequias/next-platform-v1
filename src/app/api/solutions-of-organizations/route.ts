@@ -5,7 +5,7 @@ import {
 } from '@/types/solution-of-organization/schema'
 import { Prisma } from '@prisma/client'
 
-export async function GET(request: Request) {
+export const GET = async (request: Request) => {
   try {
     await prisma.$connect()
 
@@ -24,14 +24,15 @@ export async function GET(request: Request) {
     )
   } catch (error: any) {
     await prisma.$disconnect()
-    console.error(error)
-    return new Response(JSON.stringify(error?.message || error), { status: 400 })
+    return new Response(error?.message! || error!, { status: 400 })
   } finally {
     await prisma.$disconnect()
   }
 }
 
-export async function POST(request: Request) {
+export const POST = async (
+  request: Request,
+): Promise<OrganizationSolutionCreateSchemaType | any> => {
   try {
     await prisma.$connect()
 
@@ -45,10 +46,9 @@ export async function POST(request: Request) {
             where: { url: solutionUrl },
           })
           if (!solution)
-            return new Response(
-              JSON.stringify('a solução não existe no sistema'),
-              { status: 404 },
-            )
+            return new Response('a solução não existe no sistema', {
+              status: 404,
+            })
 
           const organization = await prisma.organization.findFirst({
             where: {
@@ -56,12 +56,9 @@ export async function POST(request: Request) {
             },
           })
           if (!organization)
-            return new Response(
-              JSON.stringify('a organização não existe no sistema'),
-              {
-                status: 404,
-              },
-            )
+            return new Response('a organização não existe no sistema', {
+              status: 404,
+            })
 
           delete inputs?.solutionUrl
           delete inputs?.organizationCnpj
@@ -88,8 +85,7 @@ export async function POST(request: Request) {
       })
   } catch (error: any) {
     await prisma.$disconnect()
-    console.error(error)
-    return new Response(JSON.stringify(error?.message || error), { status: 400 })
+    return new Response(error?.message! || error!, { status: 400 })
   } finally {
     await prisma.$disconnect()
   }

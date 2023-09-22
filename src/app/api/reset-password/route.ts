@@ -6,7 +6,7 @@ import {
 import { Prisma } from '@prisma/client'
 import { hash } from 'bcrypt'
 
-export async function POST(request: Request) {
+export const POST = async (request: Request): Promise<ResetPasswordSchemaType | any> => {
   const randomCode = Math.random().toString(32).substr(2, 12)
   try {
     await prisma.$connect()
@@ -25,9 +25,7 @@ export async function POST(request: Request) {
           })
           if (!user)
             return new Response(
-              JSON.stringify(
-                `a conta com o email ${email} e telefone ${phone} não existe no sistema!`,
-              ),
+              `a conta com o email ${email} e telefone ${phone} não existe no sistema!`,
               { status: 404 },
             )
 
@@ -37,16 +35,13 @@ export async function POST(request: Request) {
           await prisma.user.update({ where: { phone }, data })
 
           return new Response(
-            JSON.stringify(
-               `uma nova senha foi enviada para o e-mail ${email}!`,
-            ),
+            `uma nova senha foi enviada para o e-mail ${email}!`,
           )
         }
       })
   } catch (error: any) {
     await prisma.$disconnect()
-    console.error(error)
-    return new Response(JSON.stringify(error?.message || error), { status: 400 })
+    return new Response(error?.message! || error!, { status: 400 })
   } finally {
     await prisma.$disconnect()
   }

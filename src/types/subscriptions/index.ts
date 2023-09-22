@@ -1,7 +1,7 @@
 import { SolutionType } from '../solution'
 import { UserType } from '../user'
 
-export type ContractType = {
+export type SubscriptionType = {
   id: string
   createdAt: string
   updatedAt: string

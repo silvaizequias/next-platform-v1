@@ -1,10 +1,10 @@
 import { prisma } from '@/libraries/prisma'
 import { UserUpdateSchema, UserUpdateSchemaType } from '@/types/user/schema'
 
-export async function GET(
+export const GET = async (
   request: Request,
   { params }: { params: { id: string } },
-) {
+) => {
   const { id } = params
   try {
     await prisma.$connect()
@@ -21,7 +21,7 @@ export async function GET(
                 provider: true,
               },
             },
-            contracts: true,
+            subscriptions: true,
             organizations: true,
             orgs: {
               select: {
@@ -48,17 +48,16 @@ export async function GET(
     )
   } catch (error: any) {
     await prisma.$disconnect()
-    console.error(error)
-    return new Response(JSON.stringify(error?.message || error), { status: 400 })
+    return new Response(error?.message! || error!, { status: 400 })
   } finally {
     await prisma.$disconnect()
   }
 }
 
-export async function PATCH(
+export const PATCH = async (
   request: Request,
   { params }: { params: { id: string } },
-) {
+): Promise<UserUpdateSchemaType | any> => {
   const { id } = params
   try {
     await prisma.$connect()
@@ -74,8 +73,7 @@ export async function PATCH(
     })
   } catch (error: any) {
     await prisma.$disconnect()
-    console.error(error)
-    return new Response(JSON.stringify(error?.message || error), { status: 400 })
+    return new Response(error?.message! || error!, { status: 400 })
   } finally {
     await prisma.$disconnect()
   }

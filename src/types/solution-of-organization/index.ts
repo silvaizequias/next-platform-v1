@@ -9,6 +9,7 @@ export type SolutionOfOrganizationType = {
   softDeleted: string
   solutionId: string
   solution: SolutionType
-  organizationId: OrganizationType
+  organizationId: string
+  organization: OrganizationType
   isActive: boolean
 }

@@ -1,21 +1,21 @@
 import { prisma } from '@/libraries/prisma'
 import {
-  ContractUpdateSchema,
-  ContractUpdateSchemaType,
-} from '@/types/contract/schema'
+  SubscriptionUpdateSchema,
+  SubscriptionUpdateSchemaType,
+} from '@/types/subscriptions/schema'
 import { Prisma } from '@prisma/client'
 
-export async function GET(
+export const GET = async (
   request: Request,
   { params }: { params: { id: string } },
-) {
+) => {
   const { id } = params
   try {
     await prisma.$connect()
 
     return new Response(
       JSON.stringify(
-        await prisma.contract.findFirst({
+        await prisma.subscription.findFirst({
           where: { id: id, softDeleted: false },
           include: {
             user: true,
@@ -26,25 +26,26 @@ export async function GET(
     )
   } catch (error: any) {
     await prisma.$disconnect()
-    console.error(error)
-    return new Response(JSON.stringify(error?.message || error), { status: 400 })
+    return new Response(JSON.stringify(error?.message || error), {
+      status: 400,
+    })
   } finally {
     await prisma.$disconnect()
   }
 }
 
-export async function PATCH(
+export const PATCH = async (
   request: Request,
   { params }: { params: { id: string } },
-) {
+): Promise<SubscriptionUpdateSchemaType | any> => {
   const { id } = params
   try {
     await prisma.$connect()
 
     return await request
       .json()
-      .then(async (inputs: ContractUpdateSchemaType) => {
-        if (await ContractUpdateSchema.parseAsync(inputs)) {
+      .then(async (inputs: SubscriptionUpdateSchemaType) => {
+        if (await SubscriptionUpdateSchema.parseAsync(inputs)) {
           const { userDocCode, solutionUrl, discount, tax, amount } = inputs
           const user = await prisma.user.findFirst({
             where: { docCode: userDocCode, softDeleted: false, isActive: true },
@@ -67,7 +68,7 @@ export async function PATCH(
           delete inputs?.userDocCode
           delete inputs?.solutionUrl
 
-          const data: Prisma.ContractUpdateInput = {
+          const data: Prisma.SubscriptionUpdateInput = {
             ...inputs,
             user: {
               update: {
@@ -83,15 +84,16 @@ export async function PATCH(
 
           return new Response(
             JSON.stringify(
-              await prisma.contract.update({ where: { id }, data }),
+              await prisma.subscription.update({ where: { id }, data }),
             ),
           )
         }
       })
   } catch (error: any) {
     await prisma.$disconnect()
-    console.error(error)
-    return new Response(JSON.stringify(error?.message || error), { status: 400 })
+    return new Response(JSON.stringify(error?.message || error), {
+      status: 400,
+    })
   } finally {
     await prisma.$disconnect()
   }

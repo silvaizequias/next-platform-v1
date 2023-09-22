@@ -1,9 +1,9 @@
 import { prisma } from '@/libraries/prisma'
 
-export async function GET(
+export const GET = async (
   request: Request,
   { params }: { params: { phone: string } },
-) {
+) => {
   const { phone } = params
 
   try {
@@ -42,7 +42,6 @@ export async function GET(
     )
   } catch (error: any) {
     await prisma.$disconnect()
-    console.error(error)
     return new Response(JSON.stringify(error?.message || error), {
       status: 400,
     })

@@ -5,10 +5,10 @@ import {
 } from '@/types/organization/schema'
 import { Prisma } from '@prisma/client'
 
-export async function GET(
+export const GET = async (
   request: Request,
   { params }: { params: { id: string } },
-) {
+) => {
   const { id } = params
   try {
     await prisma.$connect()
@@ -48,7 +48,6 @@ export async function GET(
     )
   } catch (error: any) {
     await prisma.$disconnect()
-    console.error(error)
     return new Response(JSON.stringify(error?.message || error), {
       status: 400,
     })
@@ -57,10 +56,10 @@ export async function GET(
   }
 }
 
-export async function PATCH(
+export const PATCH = async (
   request: Request,
   { params }: { params: { id: string } },
-) {
+): Promise<OrganizationUpdateSchemaType | any> => {
   const { id } = params
   try {
     await prisma.$connect()
@@ -74,10 +73,9 @@ export async function PATCH(
             where: { docCode: userDocCode },
           })
           if (!user)
-            return new Response(
-              JSON.stringify('o usuário não existe no sistema'),
-              { status: 404 },
-            )
+            return new Response('o usuário não existe no sistema', {
+              status: 404,
+            })
 
           if (!inputs?.userDocCode)
             return new Response(
@@ -109,7 +107,6 @@ export async function PATCH(
       })
   } catch (error: any) {
     await prisma.$disconnect()
-    console.error(error)
     return new Response(JSON.stringify(error?.message || error), {
       status: 400,
     })

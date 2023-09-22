@@ -7,10 +7,10 @@ import { Prisma } from '@prisma/client'
 import { hash } from 'bcrypt'
 import { compareSync } from 'bcrypt'
 
-export async function PATCH(
+export const PATCH = async (
   request: Request,
   { params }: { params: { id: string } },
-) {
+): Promise<any> => {
   const { id } = params
   try {
     await prisma.$connect()
@@ -25,27 +25,24 @@ export async function PATCH(
             where: { id: id, softDeleted: false },
           })
           if (!user)
-            return new Response(
-              JSON.stringify(`esta conta não existe no sistema!`),
-              { status: 404 },
-            )
+            return new Response(`esta conta não existe no sistema!`, {
+              status: 404,
+            })
 
           const passwordValidate = compareSync(password, user?.passHash!)
-          if (!passwordValidate)
-            new Response(JSON.stringify('senha inválida'), { status: 403 })
+          if (!passwordValidate) new Response('senha inválida', { status: 403 })
 
           const data: Prisma.UserUpdateInput = {
             passHash: await hash(newPassword, 10),
           }
           await prisma.user.update({ where: { id }, data })
 
-          return new Response(JSON.stringify('a senha foi atualizada!'))
+          return new Response('a senha foi atualizada!')
         }
       })
   } catch (error: any) {
     await prisma.$disconnect()
-    console.error(error)
-    return new Response(JSON.stringify(error?.message || error), { status: 400 })
+    return new Response(error?.message! || error!, { status: 400 })
   } finally {
     await prisma.$disconnect()
   }

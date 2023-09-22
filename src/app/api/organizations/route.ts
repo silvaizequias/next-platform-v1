@@ -5,7 +5,7 @@ import {
 } from '@/types/organization/schema'
 import { Prisma } from '@prisma/client'
 
-export async function GET(request: Request) {
+export const GET = async (request: Request) => {
   try {
     await prisma.$connect()
 
@@ -37,12 +37,13 @@ export async function GET(request: Request) {
       ),
     )
   } catch (error: any) {
-    console.error(error)
-    return new Response(JSON.stringify(error?.message || error), { status: 400 })
+    return new Response(error?.message! || error!, { status: 400 })
   }
 }
 
-export async function POST(request: Request) {
+export const POST = async (
+  request: Request,
+): Promise<OrganizationCreateSchemaType | any> => {
   try {
     await prisma.$connect()
 
@@ -55,10 +56,9 @@ export async function POST(request: Request) {
             where: { docCode: userDocCode },
           })
           if (!user)
-            return new Response(
-              JSON.stringify('o usuário não existe no sistema'),
-              { status: 404 },
-            )
+            return new Response('o usuário não existe no sistema', {
+              status: 404,
+            })
 
           delete inputs?.userDocCode
 
@@ -77,7 +77,6 @@ export async function POST(request: Request) {
         }
       })
   } catch (error: any) {
-    console.error(error)
-    return new Response(JSON.stringify(error?.message || error), { status: 400 })
+    return new Response(error?.message! || error!, { status: 400 })
   }
 }
