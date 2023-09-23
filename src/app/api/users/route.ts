@@ -1,4 +1,8 @@
 import { prisma } from '@/libraries/prisma'
+import { sendWelcomeEmail } from '@/libraries/sendgrid/templates'
+import { SendGridTemplateProps } from '@/libraries/sendgrid/types'
+import { sendWelcomeSms } from '@/libraries/twilio/templates'
+import { TwilioTemplateProps } from '@/libraries/twilio/types'
 import { UserCreateSchema, UserCreateSchemaType } from '@/types/user/schema'
 import { Prisma } from '@prisma/client'
 import { hash } from 'bcrypt'
@@ -81,6 +85,21 @@ export const POST = async (
           passHash: await hash(password || randomCode!, 10),
         }
         await prisma.user.create({ data })
+
+        const sendEmail: SendGridTemplateProps = {
+          name: name!,
+          password: randomCode!,
+          phone: phone!,
+          email: email!,
+        }
+        await sendWelcomeEmail(sendEmail)
+
+        const sendSms: TwilioTemplateProps = {
+          name: name!,
+          password: randomCode!,
+          phone: phone!,
+        }
+        await sendWelcomeSms(sendSms)
 
         return new Response(
           `A conta foi criada e a senha enviada para o email ${email}!`,

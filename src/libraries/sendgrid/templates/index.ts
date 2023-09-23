@@ -2,7 +2,7 @@ import axios from 'axios'
 import { SendGridTemplateProps } from '../types'
 
 const NEXTAUTH_URL = process.env.NEXTAUTH_URL
-export const welcomeEmailTemlate = async (props: SendGridTemplateProps) => {
+export const sendWelcomeEmail = async (props: SendGridTemplateProps) => {
   const { name, password, phone, email } = props
 
   const data = {
@@ -19,7 +19,7 @@ export const welcomeEmailTemlate = async (props: SendGridTemplateProps) => {
     })
 }
 
-export const resetPasswordEmailTemplate = async (
+export const sendResetPasswordEmail = async (
   props: SendGridTemplateProps,
 ) => {
   const { name, password, phone, email } = props

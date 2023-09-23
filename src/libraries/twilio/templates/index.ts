@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { TwilioTemplateProps } from '../types'
 
-export const welcomeSmsTemplate = async (props: TwilioTemplateProps) => {
+export const sendWelcomeSms = async (props: TwilioTemplateProps) => {
   const { name, password, phone } = props
   const NEXTAUTH_URL = process.env.NEXTAUTH_URL
 
@@ -18,7 +18,7 @@ export const welcomeSmsTemplate = async (props: TwilioTemplateProps) => {
     })
 }
 
-export const resetPasswordSmsTemplate = async (props: TwilioTemplateProps) => {
+export const sendResetPasswordSms = async (props: TwilioTemplateProps) => {
   const { name, password, phone } = props
   const NEXTAUTH_URL = process.env.NEXTAUTH_URL
 
