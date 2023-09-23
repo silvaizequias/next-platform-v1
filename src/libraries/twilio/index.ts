@@ -1,7 +1,7 @@
 import twilio from 'twilio'
 import { TwilioProps } from './types'
 
-export const SendSMS = async (props: TwilioProps) => {
+export const SendSMS = async (props: TwilioProps): Promise<any> => {
   const { sendTo, fromPhone, messageBody } = props
   const TWILIO_ACCOUNT_SID = process.env
     .NEXT_PUBLIC_TWILIO_ACCOUNT_SID as string

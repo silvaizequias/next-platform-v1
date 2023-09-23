@@ -4,3 +4,11 @@ export interface SendGridProps {
   subjectMessage: string
   textMessage: string
 }
+
+export interface SendGridTemplateProps {
+  name: string
+  password?: string
+  phone?: string
+  email: string
+  subject?: string
+}
