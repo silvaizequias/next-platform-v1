@@ -4,6 +4,7 @@ import {
   ApiKeyCreateSchemeType,
 } from '@/types/api-key/schema'
 import { Prisma } from '@prisma/client'
+import * as crypto from 'crypto'
 
 export const GET = async (request: Request) => {
   try {
@@ -39,7 +40,7 @@ export const GET = async (request: Request) => {
 export const POST = async (
   request: Request,
 ): Promise<ApiKeyCreateSchemeType | any> => {
-  const randomKey = 'sd-' + crypto.randomUUID()
+  const randomKey = 'SD_' + crypto.randomBytes(16).toString('hex')
 
   try {
     await prisma.$connect()

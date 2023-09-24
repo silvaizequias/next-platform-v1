@@ -25,3 +25,8 @@ export const ApiKeyUpdateScheme = z.object({
   monthlyRequests: z.coerce.number().positive().optional(),
 })
 export type ApiKeyUpdateSchemeType = z.infer<typeof ApiKeyUpdateScheme>
+
+export const ApiKeyRequestSchema = z.object({
+  key: z.string(),
+})
+export type ApiKeyRequestSchemaType = z.infer<typeof ApiKeyRequestSchema>
