@@ -7,6 +7,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum ApiRequestMethod {
+  GET
+  POST
+  PUT
+  PATCH
+  DELETE
+}
+
 enum UserRole {
   ADMINISTRATOR
   MANAGER
@@ -110,12 +118,41 @@ model User {
   longitude  Float?  @db.DoublePrecision
 
   accounts      Account[]
+  apiKeys       ApiKey[]
   subscriptions Subscription[]
   organizations Organization[]
   orgs          OrganizationOfUser[]
   sessions      Session[]
 
   @@map("users")
+}
+
+model ApiKey {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at") @db.Date
+  softDeleted Boolean?  @default(false) @map("soft_deleted")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
+
+  solutionId String   @map("solution_id")
+  solution   Solution @relation(fields: [solutionId], references: [id])
+
+  expireIn DateTime? @map("expire_in") @db.Date
+  isActive Boolean?  @default(true) @map("is_active")
+
+  description String?
+  key         String  @unique
+  secret      String? @unique
+
+  dailyRequestLimit   Int? @default(0) @map("daily_request_limit") @db.Integer
+  dailyRequests       Int? @default(0) @map("daily_requests") @db.Integer
+  monthlyRequestLimit Int? @default(0) @map("monthly_request_limit") @db.Integer
+  monthlyRequests     Int? @default(0) @map("monthly_requests") @db.Integer
+
+  @@map("api_keys")
 }
 
 model Organization {
@@ -205,6 +242,7 @@ model Solution {
   url         String?  @unique
   price       Decimal? @default(0) @db.Decimal(10, 2)
 
+  apiKeys       ApiKey[]
   subscriptions Subscription[]
   organizations SolutionOfOrganization[]
 
