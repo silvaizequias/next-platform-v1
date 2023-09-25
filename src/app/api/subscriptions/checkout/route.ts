@@ -37,6 +37,8 @@ export const POST = async (
             )
 
           const totalAmount: number = Math.floor(amount! - discount! + tax!)
+          const userId: string = user?.id!
+          const solutionId: string = solution?.id!
 
           const stripeSession = await stripe.checkout.sessions.create({
             mode: 'subscription',
@@ -61,7 +63,7 @@ export const POST = async (
                 quantity: 1,
               },
             ],
-            metadata: {}, //TODOS: definir metadata
+            metadata: { userId, solutionId },
           })
           return new Response(JSON.stringify(stripeSession))
         }
