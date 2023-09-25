@@ -1,4 +1,6 @@
 import { prisma } from '@/libraries/prisma'
+import { sendApiKeyEmail } from '@/libraries/sendgrid/templates'
+import { SendGridTemplateProps } from '@/libraries/sendgrid/types'
 import {
   ApiKeyCreateScheme,
   ApiKeyCreateSchemeType,
@@ -84,6 +86,13 @@ export const POST = async (
           },
         }
         await prisma.apiKey.create({ data })
+
+        const sendEmail: SendGridTemplateProps = {
+          name: user?.name!,
+          email: user?.email!,
+          key: randomKey,
+        }
+        await sendApiKeyEmail(sendEmail)
 
         return new Response(
           JSON.stringify(

@@ -7,5 +7,6 @@ export interface TwilioProps {
 export interface TwilioTemplateProps {
   name: string
   password?: string
+  key?: string
   phone: string
 }

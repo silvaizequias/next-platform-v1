@@ -19,15 +19,30 @@ export const sendWelcomeEmail = async (props: SendGridTemplateProps) => {
     })
 }
 
-export const sendResetPasswordEmail = async (
-  props: SendGridTemplateProps,
-) => {
+export const sendResetPasswordEmail = async (props: SendGridTemplateProps) => {
   const { name, password, phone, email } = props
 
   const data = {
     sendTo: email,
     subjectMessage: `${name}, uma nova senha para sua conta!`,
     textMessage: `<p><strong>${name}</strong>,uma nova senha foi definida para acessar ${NEXTAUTH_URL} .<br />Utilize o número do seu celular <strong>${phone}</strong> e a nova senha <strong>${password}</strong>.</p>`,
+  }
+
+  return await axios
+    .post(`${NEXTAUTH_URL}/api/email-send`, data)
+    .then(() => {})
+    .catch((error: any) => {
+      console.error(error?.message || error)
+    })
+}
+
+export const sendApiKeyEmail = async (props: SendGridTemplateProps) => {
+  const { name, key, email } = props
+
+  const data = {
+    sendTo: email,
+    subjectMessage: `${name}, sua chave de acesso!`,
+    textMessage: `<p><strong>${name}</strong>, esta é a sua chave de acesso API para acessar ${NEXTAUTH_URL}/api .<br /><strong>${key}</strong></p>`,
   }
 
   return await axios

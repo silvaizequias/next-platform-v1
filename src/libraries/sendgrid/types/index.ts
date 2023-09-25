@@ -8,6 +8,7 @@ export interface SendGridProps {
 export interface SendGridTemplateProps {
   name: string
   password?: string
+  key?: string
   phone?: string
   email: string
   subject?: string
