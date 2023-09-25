@@ -17,7 +17,7 @@ export const POST = async (
       .json()
       .then(async (inputs: SubscriptionCreateSchemaType) => {
         if (await SubscriptionCreateSchema.parseAsync(inputs)) {
-          const { userDocCode, solutionUrl, discount, tax, amount } = inputs
+          const { userDocCode, solutionUrl } = inputs
 
           const user = await prisma.user.findFirst({
             where: { docCode: userDocCode, softDeleted: false, isActive: true },
@@ -36,9 +36,11 @@ export const POST = async (
               { status: 404 },
             )
 
-          const totalAmount: number = Math.floor(amount! - discount! + tax!)
           const userId: string = user?.id!
           const solutionId: string = solution?.id!
+          const discount: number = inputs?.discount!
+          const tax: number = inputs?.tax!
+          const amount: number = Math.floor(inputs?.amount! - discount! + tax!)
 
           const stripeSession = await stripe.checkout.sessions.create({
             mode: 'subscription',
@@ -55,7 +57,7 @@ export const POST = async (
                     name: solution?.name!,
                     description: solution?.description!,
                   },
-                  unit_amount: totalAmount * 100,
+                  unit_amount: amount * 100,
                   recurring: {
                     interval: 'month',
                   },
@@ -63,7 +65,7 @@ export const POST = async (
                 quantity: 1,
               },
             ],
-            metadata: { userId, solutionId },
+            metadata: { userId, solutionId, amount, discount, tax },
           })
           return new Response(JSON.stringify(stripeSession))
         }
