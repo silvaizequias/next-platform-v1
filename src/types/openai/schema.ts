@@ -25,6 +25,6 @@ const MODEL = [
 
 export const OpenAiSchema = z.object({
   content: z.string().min(10),
-  model: z.enum(MODEL),
+  model: z.enum(MODEL).optional(),
 })
 export type OpenAiSchemaType = z.infer<typeof OpenAiSchema>
