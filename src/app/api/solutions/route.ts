@@ -6,8 +6,6 @@ import {
 
 export const GET = async (request: Request) => {
   try {
-    await prisma.$connect()
-
     return new Response(
       JSON.stringify(
         await prisma.solution.findMany({
@@ -20,33 +18,22 @@ export const GET = async (request: Request) => {
       ),
     )
   } catch (error: any) {
-    await prisma.$disconnect()
     return new Response(error?.message! || error!, { status: 400 })
-  } finally {
-    await prisma.$disconnect()
   }
 }
 
 export const POST = async (
   request: Request,
 ): Promise<SolutionCreateSchemaType | any> => {
+  const inputs: SolutionCreateSchemaType = await request.json()
   try {
-    await prisma.$connect()
-
-    return await request
-      .json()
-      .then(async (inputs: SolutionCreateSchemaType) => {
-        if (await SolutionCreateSchema.parseAsync(inputs)) {
-          return new Response(
-            JSON.stringify(await prisma.solution.create({ data: inputs })),
-            { status: 201 },
-          )
-        }
-      })
+    if (await SolutionCreateSchema.parseAsync(inputs)) {
+      return new Response(
+        JSON.stringify(await prisma.solution.create({ data: inputs })),
+        { status: 201 },
+      )
+    }
   } catch (error: any) {
-    await prisma.$disconnect()
     return new Response(error?.message! || error!, { status: 400 })
-  } finally {
-    await prisma.$disconnect()
   }
 }

@@ -11,8 +11,6 @@ export const GET = async (
 ) => {
   const { id } = params
   try {
-    await prisma.$connect()
-
     return new Response(
       JSON.stringify(
         await prisma.organization.findFirst({
@@ -47,12 +45,9 @@ export const GET = async (
       ),
     )
   } catch (error: any) {
-    await prisma.$disconnect()
     return new Response(JSON.stringify(error?.message || error), {
       status: 400,
     })
-  } finally {
-    await prisma.$disconnect()
   }
 }
 
@@ -61,57 +56,49 @@ export const PATCH = async (
   { params }: { params: { id: string } },
 ): Promise<OrganizationUpdateSchemaType | any> => {
   const { id } = params
+  const inputs: OrganizationUpdateSchemaType = await request.json()
   try {
-    await prisma.$connect()
-
-    return await request
-      .json()
-      .then(async (inputs: OrganizationUpdateSchemaType) => {
-        if (await OrganizationUpdateSchema.parseAsync(inputs)) {
-          const { userDocCode } = inputs
-          const user = await prisma.user.findFirst({
-            where: { docCode: userDocCode },
-          })
-          if (!user)
-            return new Response('o usuário não existe no sistema', {
-              status: 404,
-            })
-
-          if (!inputs?.userDocCode)
-            return new Response(
-              JSON.stringify(
-                await prisma.organization.update({
-                  where: { id },
-                  data: inputs,
-                }),
-              ),
-            )
-
-          delete inputs?.userDocCode
-
-          const data: Prisma.OrganizationUpdateInput = {
-            ...inputs,
-            user: {
-              update: {
-                docCode: user?.docCode!,
-              },
-            },
-          }
-
-          return new Response(
-            JSON.stringify(
-              await prisma.organization.update({ where: { id }, data }),
-            ),
-            { status: 201 },
-          )
-        }
+    if (await OrganizationUpdateSchema.parseAsync(inputs)) {
+      const { userDocCode } = inputs
+      const user = await prisma.user.findFirst({
+        where: { docCode: userDocCode },
       })
+      if (!user)
+        return new Response('o usuário não existe no sistema', {
+          status: 404,
+        })
+
+      if (!inputs?.userDocCode)
+        return new Response(
+          JSON.stringify(
+            await prisma.organization.update({
+              where: { id },
+              data: inputs,
+            }),
+          ),
+        )
+
+      delete inputs?.userDocCode
+
+      const data: Prisma.OrganizationUpdateInput = {
+        ...inputs,
+        user: {
+          update: {
+            docCode: user?.docCode!,
+          },
+        },
+      }
+
+      return new Response(
+        JSON.stringify(
+          await prisma.organization.update({ where: { id }, data }),
+        ),
+        { status: 201 },
+      )
+    }
   } catch (error: any) {
-    await prisma.$disconnect()
     return new Response(JSON.stringify(error?.message || error), {
       status: 400,
     })
-  } finally {
-    await prisma.$disconnect()
   }
 }

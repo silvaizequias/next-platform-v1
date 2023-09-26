@@ -7,8 +7,6 @@ export const GET = async (
   const { phone } = params
 
   try {
-    await prisma.$connect()
-
     return new Response(
       JSON.stringify(
         await prisma.user.findFirst({
@@ -41,11 +39,8 @@ export const GET = async (
       ),
     )
   } catch (error: any) {
-    await prisma.$disconnect()
     return new Response(JSON.stringify(error?.message || error), {
       status: 400,
     })
-  } finally {
-    await prisma.$disconnect()
   }
 }

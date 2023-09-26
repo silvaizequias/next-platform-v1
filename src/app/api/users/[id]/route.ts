@@ -7,8 +7,6 @@ export const GET = async (
 ) => {
   const { id } = params
   try {
-    await prisma.$connect()
-
     return new Response(
       JSON.stringify(
         await prisma.user.findFirst({
@@ -47,10 +45,7 @@ export const GET = async (
       ),
     )
   } catch (error: any) {
-    await prisma.$disconnect()
     return new Response(error?.message! || error!, { status: 400 })
-  } finally {
-    await prisma.$disconnect()
   }
 }
 
@@ -59,22 +54,15 @@ export const PATCH = async (
   { params }: { params: { id: string } },
 ): Promise<UserUpdateSchemaType | any> => {
   const { id } = params
+  const inputs: UserUpdateSchemaType = await request.json()
   try {
-    await prisma.$connect()
-
-    return await request.json().then(async (inputs: UserUpdateSchemaType) => {
-      if (await UserUpdateSchema.parseAsync(inputs)) {
-        await prisma.user.update({ where: { id }, data: inputs })
-        return new Response(
-          JSON.stringify('as informações foram atualizadas!'),
-          { status: 201 },
-        )
-      }
-    })
+    if (await UserUpdateSchema.parseAsync(inputs)) {
+      await prisma.user.update({ where: { id }, data: inputs })
+      return new Response(JSON.stringify('as informações foram atualizadas!'), {
+        status: 201,
+      })
+    }
   } catch (error: any) {
-    await prisma.$disconnect()
     return new Response(error?.message! || error!, { status: 400 })
-  } finally {
-    await prisma.$disconnect()
   }
 }

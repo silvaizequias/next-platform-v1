@@ -7,8 +7,8 @@ export const GET = async (request: Request) => {
 }
 
 export const POST = async (request: Request): Promise<any> => {
+  const inputs = await request.json()
   try {
-    const inputs = await request.json()
     if (inputs) {
       return new Response(JSON.stringify(inputs))
     }

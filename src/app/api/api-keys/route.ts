@@ -10,8 +10,6 @@ import * as crypto from 'crypto'
 
 export const GET = async (request: Request) => {
   try {
-    await prisma.$connect()
-
     return new Response(
       JSON.stringify(
         await prisma.apiKey.findMany({
@@ -32,10 +30,7 @@ export const GET = async (request: Request) => {
       ),
     )
   } catch (error: any) {
-    await prisma.$disconnect()
     return new Response(error?.message || error, { status: 400 })
-  } finally {
-    await prisma.$disconnect()
   }
 }
 
@@ -45,67 +40,61 @@ export const POST = async (
   const randomKey = 'SD_' + crypto.randomBytes(16).toString('hex')
 
   try {
-    await prisma.$connect()
+    const inputs: ApiKeyCreateSchemeType = await request.json()
+    if (await ApiKeyCreateScheme.parseAsync(inputs)) {
+      const { userPhone, solutionUrl } = inputs
 
-    return await request.json().then(async (inputs: ApiKeyCreateSchemeType) => {
-      if (await ApiKeyCreateScheme.parseAsync(inputs)) {
-        const { userPhone, solutionUrl } = inputs
-
-        const user = await prisma.user.findFirst({
-          where: { phone: userPhone, softDeleted: false, isActive: true },
+      const user = await prisma.user.findFirst({
+        where: { phone: userPhone, softDeleted: false, isActive: true },
+      })
+      if (!user)
+        return new Response('esta conta não pode contratar serviços', {
+          status: 403,
         })
-        if (!user)
-          return new Response('esta conta não pode contratar serviços', {
-            status: 403,
-          })
 
-        const solution = await prisma.solution.findFirst({
-          where: { url: solutionUrl },
+      const solution = await prisma.solution.findFirst({
+        where: { url: solutionUrl },
+      })
+      if (!solution)
+        return new Response('a solução não está disponível para contratação', {
+          status: 404,
         })
-        if (!solution)
-          return new Response(
-            'a solução não está disponível para contratação',
-            { status: 404 },
-          )
 
-        delete inputs?.userPhone
-        delete inputs?.solutionUrl
+      delete inputs?.userPhone
+      delete inputs?.solutionUrl
 
-        const data: Prisma.ApiKeyCreateInput = {
-          ...inputs,
-          key: randomKey,
-          user: {
-            connect: {
-              id: user?.id!,
-            },
+      const data: Prisma.ApiKeyCreateInput = {
+        ...inputs,
+        key: randomKey,
+        user: {
+          connect: {
+            id: user?.id!,
           },
-          solution: {
-            connect: {
-              id: solution?.id!,
-            },
+        },
+        solution: {
+          connect: {
+            id: solution?.id!,
           },
-        }
-        await prisma.apiKey.create({ data })
-
-        const sendEmail: SendGridTemplateProps = {
-          name: user?.name!,
-          email: user?.email!,
-          key: randomKey,
-        }
-        await sendApiKeyEmail(sendEmail)
-
-        return new Response(
-          JSON.stringify(
-            `a chave API foi gerada e enviada para o e-mail ${user?.email!}`,
-          ),
-          { status: 201 },
-        )
+        },
       }
-    })
+      await prisma.apiKey.create({ data })
+
+      const sendEmail: SendGridTemplateProps = {
+        name: user?.name!,
+        email: user?.email!,
+        key: randomKey,
+      }
+      await sendApiKeyEmail(sendEmail)
+
+      return new Response(
+        JSON.stringify(
+          `a chave API foi gerada e enviada para o e-mail ${user?.email!}`,
+        ),
+        { status: 201 },
+      )
+    }
   } catch (error: any) {
-    await prisma.$disconnect()
     return new Response(error?.message || error, { status: 400 })
   } finally {
-    await prisma.$disconnect()
   }
 }

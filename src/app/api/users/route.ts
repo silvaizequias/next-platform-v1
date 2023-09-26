@@ -9,8 +9,6 @@ import { hash } from 'bcrypt'
 
 export const GET = async (request: Request) => {
   try {
-    await prisma.$connect()
-
     return new Response(
       JSON.stringify(
         await prisma.user.findMany({
@@ -49,10 +47,7 @@ export const GET = async (request: Request) => {
       ),
     )
   } catch (error: any) {
-    await prisma.$disconnect()
     return new Response(error?.message! || error!, { status: 400 })
-  } finally {
-    await prisma.$disconnect()
   }
 }
 
@@ -60,57 +55,51 @@ export const POST = async (
   request: Request,
 ): Promise<UserCreateSchemaType | any> => {
   const randomCode = Math.random().toString(32).substr(2, 12)
+  const inputs: UserCreateSchemaType = await request.json()
 
   try {
-    await prisma.$connect()
+    if (await UserCreateSchema.parseAsync(inputs)) {
+      const { name, phone, email, password } = inputs
+      delete inputs?.password
 
-    return await request.json().then(async (inputs: UserCreateSchemaType) => {
-      if (await UserCreateSchema.parseAsync(inputs)) {
-        const { name, phone, email, password } = inputs
-        delete inputs?.password
-
-        const user = await prisma.user.findFirst({
-          where: {
-            email: email,
-            phone: phone,
-          },
+      const user = await prisma.user.findFirst({
+        where: {
+          email: email,
+          phone: phone,
+        },
+      })
+      if (user)
+        return new Response(`esta conta já existe em nosso sistema!`, {
+          status: 409,
         })
-        if (user)
-          return new Response(`esta conta já existe em nosso sistema!`, {
-            status: 409,
-          })
 
-        const data: Prisma.UserCreateInput = {
-          ...inputs,
-          passHash: await hash(password || randomCode!, 10),
-        }
-        await prisma.user.create({ data })
-
-        const sendEmail: SendGridTemplateProps = {
-          name: name!,
-          password: randomCode!,
-          phone: phone!,
-          email: email!,
-        }
-        await sendWelcomeEmail(sendEmail)
-
-        const sendSms: TwilioTemplateProps = {
-          name: name!,
-          password: randomCode!,
-          phone: phone!,
-        }
-        await sendWelcomeSms(sendSms)
-
-        return new Response(
-          `A conta foi criada e a senha enviada para o email ${email}!`,
-          { status: 201 },
-        )
+      const data: Prisma.UserCreateInput = {
+        ...inputs,
+        passHash: await hash(password || randomCode!, 10),
       }
-    })
+      await prisma.user.create({ data })
+
+      const sendEmail: SendGridTemplateProps = {
+        name: name!,
+        password: randomCode!,
+        phone: phone!,
+        email: email!,
+      }
+      await sendWelcomeEmail(sendEmail)
+
+      const sendSms: TwilioTemplateProps = {
+        name: name!,
+        password: randomCode!,
+        phone: phone!,
+      }
+      await sendWelcomeSms(sendSms)
+
+      return new Response(
+        `A conta foi criada e a senha enviada para o email ${email}!`,
+        { status: 201 },
+      )
+    }
   } catch (error: any) {
-    await prisma.$disconnect()
     return new Response(error?.message! || error!, { status: 400 })
-  } finally {
-    await prisma.$disconnect()
   }
 }

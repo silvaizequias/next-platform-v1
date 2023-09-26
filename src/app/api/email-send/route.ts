@@ -8,22 +8,19 @@ import {
 export const POST = async (
   request: Request,
 ): Promise<SendGridEmailSchemaType | any> => {
+  const inputs: SendGridEmailSchemaType = await request.json()
   try {
-    return await request
-      .json()
-      .then(async (inputs: SendGridEmailSchemaType) => {
-        if (await SendGridEmailSchema.parseAsync(inputs)) {
-          const data: SendGridProps = {
-            sendTo: inputs.sendTo,
-            fromEmail: inputs.fromEmail!,
-            subjectMessage: inputs.subjectMessage,
-            textMessage: inputs.textMessage,
-          }
-          return new Response(JSON.stringify(await SendEmail(data)), {
-            status: 201,
-          })
-        }
+    if (await SendGridEmailSchema.parseAsync(inputs)) {
+      const data: SendGridProps = {
+        sendTo: inputs.sendTo,
+        fromEmail: inputs.fromEmail!,
+        subjectMessage: inputs.subjectMessage,
+        textMessage: inputs.textMessage,
+      }
+      return new Response(JSON.stringify(await SendEmail(data)), {
+        status: 201,
       })
+    }
   } catch (error: any) {
     return new Response(error?.message || error, { status: 400 })
   }

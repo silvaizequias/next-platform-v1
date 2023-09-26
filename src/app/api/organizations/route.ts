@@ -7,8 +7,6 @@ import { Prisma } from '@prisma/client'
 
 export const GET = async (request: Request) => {
   try {
-    await prisma.$connect()
-
     return new Response(
       JSON.stringify(
         await prisma.organization.findMany({
@@ -44,41 +42,36 @@ export const GET = async (request: Request) => {
 export const POST = async (
   request: Request,
 ): Promise<OrganizationCreateSchemaType | any> => {
+  const inputs: OrganizationCreateSchemaType = await request.json()
   try {
-    await prisma.$connect()
-
-    return await request
-      .json()
-      .then(async (inputs: OrganizationCreateSchemaType) => {
-        if (await OrganizationCreateSchema.parseAsync(inputs)) {
-          const { userDocCode } = inputs
-          const user = await prisma.user.findFirst({
-            where: { docCode: userDocCode },
-          })
-          if (!user)
-            return new Response('o usuário não existe no sistema', {
-              status: 404,
-            })
-
-          delete inputs?.userDocCode
-
-          const data: Prisma.OrganizationCreateInput = {
-            ...inputs,
-            user: {
-              connect: {
-                docCode: user?.docCode!,
-              },
-            },
-          }
-
-          return (
-            new Response(
-              JSON.stringify(await prisma.organization.create({ data })),
-            ),
-            { status: 201 }
-          )
-        }
+    if (await OrganizationCreateSchema.parseAsync(inputs)) {
+      const { userDocCode } = inputs
+      const user = await prisma.user.findFirst({
+        where: { docCode: userDocCode },
       })
+      if (!user)
+        return new Response('o usuário não existe no sistema', {
+          status: 404,
+        })
+
+      delete inputs?.userDocCode
+
+      const data: Prisma.OrganizationCreateInput = {
+        ...inputs,
+        user: {
+          connect: {
+            docCode: user?.docCode!,
+          },
+        },
+      }
+
+      return (
+        new Response(
+          JSON.stringify(await prisma.organization.create({ data })),
+        ),
+        { status: 201 }
+      )
+    }
   } catch (error: any) {
     return new Response(error?.message! || error!, { status: 400 })
   }
