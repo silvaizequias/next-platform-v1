@@ -10,7 +10,7 @@ export const POST = async (request: Request): Promise<any> => {
   const inputs = await request.json()
   try {
     if (inputs) {
-      return new Response(JSON.stringify(inputs))
+      return new Response(JSON.stringify(inputs), { status: 201 })
     }
   } catch (error: any) {
     return new Response(error?.message! || error!, { status: 400 })
