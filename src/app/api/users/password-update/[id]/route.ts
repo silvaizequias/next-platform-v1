@@ -37,7 +37,7 @@ export const PATCH = async (
           }
           await prisma.user.update({ where: { id }, data })
 
-          return new Response('a senha foi atualizada!')
+          return new Response('a senha foi atualizada!', { status: 201 })
         }
       })
   } catch (error: any) {

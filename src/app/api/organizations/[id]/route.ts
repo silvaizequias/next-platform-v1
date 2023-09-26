@@ -102,6 +102,7 @@ export const PATCH = async (
             JSON.stringify(
               await prisma.organization.update({ where: { id }, data }),
             ),
+            { status: 201 },
           )
         }
       })

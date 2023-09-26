@@ -80,6 +80,7 @@ export const POST = async (
             JSON.stringify(
               await prisma.solutionOfOrganization.create({ data }),
             ),
+            { status: 201 },
           )
         }
       })

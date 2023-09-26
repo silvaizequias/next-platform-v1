@@ -89,7 +89,9 @@ export const PATCH = async (
         }
         await prisma.apiKey.update({ where: { id }, data })
 
-        return new Response(JSON.stringify(`a chave foi atualizada!`))
+        return new Response(JSON.stringify(`a chave foi atualizada!`), {
+          status: 201,
+        })
       }
     })
   } catch (error: any) {

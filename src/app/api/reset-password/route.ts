@@ -57,6 +57,7 @@ export const POST = async (
 
           return new Response(
             `uma nova senha foi enviada para o e-mail ${email}!`,
+            { status: 201 },
           )
         }
       })

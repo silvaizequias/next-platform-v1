@@ -115,6 +115,7 @@ export const PATCH = async (
                 data,
               }),
             ),
+            { status: 201 },
           )
         }
       })

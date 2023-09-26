@@ -15,7 +15,9 @@ export const POST = async (
           sendTo: inputs.sendTo,
           fromPhone: inputs.fromPhone!,
         }
-        return new Response(JSON.stringify(await SendSMS(data)))
+        return new Response(JSON.stringify(await SendSMS(data)), {
+          status: 201,
+        })
       }
     })
   } catch (error: any) {

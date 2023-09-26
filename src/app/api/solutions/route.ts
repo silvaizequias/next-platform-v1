@@ -39,6 +39,7 @@ export const POST = async (
         if (await SolutionCreateSchema.parseAsync(inputs)) {
           return new Response(
             JSON.stringify(await prisma.solution.create({ data: inputs })),
+            { status: 201 },
           )
         }
       })

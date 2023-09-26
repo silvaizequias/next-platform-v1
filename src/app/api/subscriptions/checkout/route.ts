@@ -67,7 +67,7 @@ export const POST = async (
             ],
             metadata: { userId, solutionId, amount, discount, tax },
           })
-          return new Response(JSON.stringify(stripeSession))
+          return new Response(JSON.stringify(stripeSession), { status: 201 })
         }
       })
   } catch (error: any) {

@@ -103,6 +103,7 @@ export const POST = async (
 
         return new Response(
           `A conta foi criada e a senha enviada para o email ${email}!`,
+          { status: 201 },
         )
       }
     })

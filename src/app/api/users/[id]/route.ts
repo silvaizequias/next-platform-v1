@@ -65,7 +65,10 @@ export const PATCH = async (
     return await request.json().then(async (inputs: UserUpdateSchemaType) => {
       if (await UserUpdateSchema.parseAsync(inputs)) {
         await prisma.user.update({ where: { id }, data: inputs })
-        return new Response(JSON.stringify('as informações foram atualizadas!'))
+        return new Response(
+          JSON.stringify('as informações foram atualizadas!'),
+          { status: 201 },
+        )
       }
     })
   } catch (error: any) {

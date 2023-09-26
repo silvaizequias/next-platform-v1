@@ -91,8 +91,11 @@ export const POST = async (
             },
           }
 
-          return new Response(
-            JSON.stringify(await prisma.organizationOfUser.create({ data })),
+          return (
+            new Response(
+              JSON.stringify(await prisma.organizationOfUser.create({ data })),
+            ),
+            { status: 201 }
           )
         }
       })

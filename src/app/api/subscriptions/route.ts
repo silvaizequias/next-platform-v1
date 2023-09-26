@@ -77,6 +77,7 @@ export const POST = async (
           }
           return new Response(
             JSON.stringify(await prisma.subscription.create({ data })),
+            { status: 201 },
           )
         }
       })

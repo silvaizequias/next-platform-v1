@@ -48,8 +48,13 @@ export const POST = async (
           }
           await prisma.apiKey.update({ where: { key: key }, data })
 
-          return new Response(
-            JSON.stringify(`${dailyRequests}/${monthlyRequestLimit} requisições`),
+          return (
+            new Response(
+              JSON.stringify(
+                `${dailyRequests}/${monthlyRequestLimit} requisições`,
+              ),
+            ),
+            { status: 201 }
           )
         }
       })

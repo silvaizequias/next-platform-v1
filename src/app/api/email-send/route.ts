@@ -19,7 +19,9 @@ export const POST = async (
             subjectMessage: inputs.subjectMessage,
             textMessage: inputs.textMessage,
           }
-          return new Response(JSON.stringify(await SendEmail(data)))
+          return new Response(JSON.stringify(await SendEmail(data)), {
+            status: 201,
+          })
         }
       })
   } catch (error: any) {

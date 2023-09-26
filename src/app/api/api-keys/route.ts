@@ -98,6 +98,7 @@ export const POST = async (
           JSON.stringify(
             `a chave API foi gerada e enviada para o e-mail ${user?.email!}`,
           ),
+          { status: 201 },
         )
       }
     })
