@@ -2,6 +2,8 @@ import axios from 'axios'
 import { SendGridTemplateProps } from '../types'
 
 const NEXTAUTH_URL = process.env.NEXTAUTH_URL
+//TODO: implementar header authorization para os posts do axios
+
 export const sendWelcomeEmail = async (props: SendGridTemplateProps) => {
   const { name, password, phone, email } = props
 
