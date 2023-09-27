@@ -21,6 +21,13 @@ export const POST = async (request: Request): Promise<any> => {
           profile: true,
           passHash: true,
           isActive: true,
+          organizations: {
+            select: {
+              id: true,
+              name: true,
+              cnpj: true,
+            },
+          },
           orgs: {
             select: {
               role: true,
@@ -51,8 +58,8 @@ export const POST = async (request: Request): Promise<any> => {
       const encryptedToken = jwt.sign(
         {
           id: user?.id!,
-          phone,
           profile: user?.profile!,
+          organizations: user?.organizations!,
           orgs: user?.orgs!,
           iat: Math.floor(Date.now() / 1000) - 30,
           exp: Math.floor(Date.now() / 1000) + 14 * 24 * 60 * 60,
@@ -72,6 +79,7 @@ export const POST = async (request: Request): Promise<any> => {
             image: user.image!,
             profile: user?.profile!,
             isActive: user?.isActive!,
+            organizations: user?.organizations!,
             orgs: user?.orgs!,
           },
         }),
