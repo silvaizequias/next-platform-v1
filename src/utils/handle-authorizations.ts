@@ -8,15 +8,14 @@ export const handleAuthorizations = async (
 ) => {
   const { authorization, method } = props
   const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
-  const NEXT_PUBLIC_JWT_SECRET_KEY = process.env.NEXT_PUBLIC_JWT_SECRET_KEY!
 
   if (authorization?.includes('Bearer ')) {
     const token = authorization.split('Bearer ')[1]
     const decriptedToken: any = jwt.decode(token)
-    const userPhone: string = decriptedToken?.phone
+    const userId: string = decriptedToken?.id
 
     const user: UserType = await (
-      await fetch(`${NEXTAUTH_URL}/api/users/phone/${userPhone}`)
+      await fetch(`${NEXTAUTH_URL}/api/users/${userId}`)
     ).json()
 
     if (user) return true
