@@ -5,8 +5,6 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Providers from './providers'
 import { Suspense } from 'react'
-import Spinner from '@/components/Spinner'
-import TopBar from '@/components/TopBar'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/libraries/next-auth'
 
@@ -54,8 +52,7 @@ export default async function RootLayout(props: LayoutProps) {
     <html lang='pt-BR' suppressHydrationWarning>
       <Providers>
         <body className={inter.className}>
-          <TopBar session={session!} />
-          <Suspense fallback={<Spinner />}>{children}</Suspense>
+          <Suspense fallback={'...'}>{children}</Suspense>
           {!onDevelopment && <Analytics />}
         </body>
       </Providers>

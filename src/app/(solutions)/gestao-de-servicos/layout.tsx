@@ -1,4 +1,3 @@
-import Spinner from '@/components/Spinner'
 import { LayoutProps } from '@/types'
 import { Metadata } from 'next'
 import { Suspense } from 'react'
@@ -39,5 +38,5 @@ export const metadata: Metadata = {
 export default async function FieldServiceLayout(props: LayoutProps) {
   const { children } = props
 
-  return <Suspense fallback={<Spinner />}>{children}</Suspense>
+  return <Suspense fallback={'...'}>{children}</Suspense>
 }

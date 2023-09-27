@@ -1,4 +1,3 @@
-import Spinner from '@/components/Spinner'
 import { authOptions } from '@/libraries/next-auth'
 import { LayoutProps } from '@/types'
 import { Metadata } from 'next'
@@ -50,7 +49,7 @@ export default async function RootLayout(props: LayoutProps) {
   const session = await getServerSession(authOptions)
 
   return session && session?.user?.profile == 'MASTER' ? (
-    <Suspense fallback={<Spinner />}>{children}</Suspense>
+    <Suspense fallback={'...'}>{children}</Suspense>
   ) : (
     redirect('/')
   )
