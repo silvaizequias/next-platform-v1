@@ -1,3 +1,3 @@
 export default function AccountView() {
-  return ''
+  return <h1>Account Page</h1>
 }

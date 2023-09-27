@@ -1,3 +1,3 @@
 export default function LoadingView() {
-  return ''
+  return <h1>Loading Page</h1>
 }

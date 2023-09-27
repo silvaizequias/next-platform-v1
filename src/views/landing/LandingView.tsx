@@ -1,3 +1,3 @@
 export default function LandingView() {
-  return ''
+  return <h1>Landing Page</h1>
 }

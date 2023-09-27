@@ -1,3 +1,3 @@
 export default function ServiceManagementPrivateView() {
-  return ''
+  return <h1>Service Manager Private Page</h1>
 }
