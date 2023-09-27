@@ -4,6 +4,8 @@ import { OpenAiSchema, OpenAiSchemaType } from '@/types/openai/schema'
 import { OpenAIStream, StreamingTextResponse } from 'ai'
 import { NextResponse } from 'next/server'
 
+export const runtime = 'edge'
+
 export const POST = async (request: Request): Promise<any> => {
   const inputs: OpenAiSchemaType = await request.json()
   try {
