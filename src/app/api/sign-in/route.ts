@@ -2,6 +2,7 @@ import { prisma } from '@/libraries/prisma'
 import jwt from 'jsonwebtoken'
 import { compareSync } from 'bcrypt'
 import { SignInSchema, SignInSchemaType } from '@/types/auth/schema'
+import { NextResponse } from 'next/server'
 
 export const POST = async (request: Request): Promise<any> => {
   const NEXT_PUBLIC_JWT_SECRET_KEY = process.env.NEXT_PUBLIC_JWT_SECRET_KEY!
@@ -44,7 +45,7 @@ export const POST = async (request: Request): Promise<any> => {
         },
       })
       if (!user)
-        return new Response(
+        return new NextResponse(
           `O número celular ${phone} não existe em nosso sistema!`,
           { status: 404 },
         )
@@ -53,7 +54,7 @@ export const POST = async (request: Request): Promise<any> => {
 
       const passwordValidate = compareSync(password, userPassword)
       if (!passwordValidate)
-        return new Response('senha inválida', { status: 403 })
+        return new NextResponse('senha inválida', { status: 403 })
 
       const encryptedToken = jwt.sign(
         {
@@ -67,7 +68,7 @@ export const POST = async (request: Request): Promise<any> => {
         NEXT_PUBLIC_JWT_SECRET_KEY,
       )
 
-      return new Response(
+      return new NextResponse(
         JSON.stringify({
           expiresIn: Math.floor(Date.now() / 1000) + 14 * 24 * 60 * 60,
           Authorization: encryptedToken,
@@ -87,6 +88,6 @@ export const POST = async (request: Request): Promise<any> => {
       )
     }
   } catch (error: any) {
-    return new Response(error?.message! || error!, { status: 400 })
+    return new NextResponse(error?.message! || error!, { status: 400 })
   }
 }

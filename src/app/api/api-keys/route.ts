@@ -7,10 +7,11 @@ import {
 } from '@/types/api-key/schema'
 import { Prisma } from '@prisma/client'
 import * as crypto from 'crypto'
+import { NextResponse } from 'next/server'
 
 export const GET = async (request: Request) => {
   try {
-    return new Response(
+    return new NextResponse(
       JSON.stringify(
         await prisma.apiKey.findMany({
           where: { softDeleted: false },
@@ -30,7 +31,7 @@ export const GET = async (request: Request) => {
       ),
     )
   } catch (error: any) {
-    return new Response(error?.message || error, { status: 400 })
+    return new NextResponse(error?.message || error, { status: 400 })
   }
 }
 
@@ -48,7 +49,7 @@ export const POST = async (
         where: { phone: userPhone, softDeleted: false, isActive: true },
       })
       if (!user)
-        return new Response('esta conta não pode contratar serviços', {
+        return new NextResponse('esta conta não pode contratar serviços', {
           status: 403,
         })
 
@@ -56,7 +57,7 @@ export const POST = async (
         where: { url: solutionUrl },
       })
       if (!solution)
-        return new Response('a solução não está disponível para contratação', {
+        return new NextResponse('a solução não está disponível para contratação', {
           status: 404,
         })
 
@@ -86,7 +87,7 @@ export const POST = async (
       }
       await sendApiKeyEmail(sendEmail)
 
-      return new Response(
+      return new NextResponse(
         JSON.stringify(
           `a chave API foi gerada e enviada para o e-mail ${user?.email!}`,
         ),
@@ -94,7 +95,7 @@ export const POST = async (
       )
     }
   } catch (error: any) {
-    return new Response(error?.message || error, { status: 400 })
+    return new NextResponse(error?.message || error, { status: 400 })
   } finally {
   }
 }

@@ -4,6 +4,7 @@ import {
   ApiKeyUpdateSchemeType,
 } from '@/types/api-key/schema'
 import { Prisma } from '@prisma/client'
+import { NextResponse } from 'next/server'
 
 export const GET = async (
   request: Request,
@@ -12,7 +13,7 @@ export const GET = async (
   const { id } = params
 
   try {
-    return new Response(
+    return new NextResponse(
       JSON.stringify(
         await prisma.apiKey.findFirst({
           where: { id: id, softDeleted: false },
@@ -32,7 +33,7 @@ export const GET = async (
       ),
     )
   } catch (error: any) {
-    return new Response(error?.message || error, { status: 400 })
+    return new NextResponse(error?.message || error, { status: 400 })
   } 
 }
 
@@ -50,7 +51,7 @@ export const PATCH = async (
         where: { phone: userPhone, softDeleted: false, isActive: true },
       })
       if (!user)
-        return new Response('esta conta não pode contratar serviços', {
+        return new NextResponse('esta conta não pode contratar serviços', {
           status: 403,
         })
 
@@ -58,7 +59,7 @@ export const PATCH = async (
         where: { url: solutionUrl },
       })
       if (!solution)
-        return new Response('a solução não está disponível para contratação', {
+        return new NextResponse('a solução não está disponível para contratação', {
           status: 404,
         })
 
@@ -80,11 +81,11 @@ export const PATCH = async (
       }
       await prisma.apiKey.update({ where: { id }, data })
 
-      return new Response(JSON.stringify(`a chave foi atualizada!`), {
+      return new NextResponse(JSON.stringify(`a chave foi atualizada!`), {
         status: 201,
       })
     }
   } catch (error: any) {
-    return new Response(error?.message || error, { status: 400 })
+    return new NextResponse(error?.message || error, { status: 400 })
   }
 }

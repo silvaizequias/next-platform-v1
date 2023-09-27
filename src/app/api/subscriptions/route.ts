@@ -4,10 +4,11 @@ import {
   SubscriptionCreateSchemaType,
 } from '@/types/subscriptions/schema'
 import { Prisma } from '@prisma/client'
+import { NextResponse } from 'next/server'
 
 export const GET = async (request: Request) => {
   try {
-    return new Response(
+    return new NextResponse(
       JSON.stringify(
         await prisma.subscription.findMany({
           where: { softDeleted: false },
@@ -19,7 +20,7 @@ export const GET = async (request: Request) => {
       ),
     )
   } catch (error: any) {
-    return new Response(error?.message! || error!, { status: 400 })
+    return new NextResponse(error?.message! || error!, { status: 400 })
   }
 }
 
@@ -34,7 +35,7 @@ export const POST = async (
         where: { docCode: userDocCode, softDeleted: false, isActive: true },
       })
       if (!user)
-        return new Response('esta conta não pode contratar serviços', {
+        return new NextResponse('esta conta não pode contratar serviços', {
           status: 403,
         })
 
@@ -42,7 +43,7 @@ export const POST = async (
         where: { url: solutionUrl },
       })
       if (!solution)
-        return new Response('a solução não está disponível para contratação', {
+        return new NextResponse('a solução não está disponível para contratação', {
           status: 404,
         })
 
@@ -65,12 +66,12 @@ export const POST = async (
           },
         },
       }
-      return new Response(
+      return new NextResponse(
         JSON.stringify(await prisma.subscription.create({ data })),
         { status: 201 },
       )
     }
   } catch (error: any) {
-    return new Response(error?.message! || error!, { status: 400 })
+    return new NextResponse(error?.message! || error!, { status: 400 })
   }
 }

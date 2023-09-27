@@ -1,8 +1,9 @@
 import { prisma } from '@/libraries/prisma'
+import { NextResponse } from 'next/server'
 
 export const GET = async (request: Request) => {
   try {
-    return new Response(
+    return new NextResponse(
       JSON.stringify(
         await prisma.account.findMany({
           where: { softDeleted: false },
@@ -10,6 +11,6 @@ export const GET = async (request: Request) => {
       ),
     )
   } catch (error: any) {
-    return new Response(error?.message || error)
+    return new NextResponse(error?.message || error)
   }
 }

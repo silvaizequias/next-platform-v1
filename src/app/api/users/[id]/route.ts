@@ -1,5 +1,6 @@
 import { prisma } from '@/libraries/prisma'
 import { UserUpdateSchema, UserUpdateSchemaType } from '@/types/user/schema'
+import { NextResponse } from 'next/server'
 
 export const GET = async (
   request: Request,
@@ -7,7 +8,7 @@ export const GET = async (
 ) => {
   const { id } = params
   try {
-    return new Response(
+    return new NextResponse(
       JSON.stringify(
         await prisma.user.findFirst({
           where: { id: id, softDeleted: false },
@@ -45,7 +46,7 @@ export const GET = async (
       ),
     )
   } catch (error: any) {
-    return new Response(error?.message! || error!, { status: 400 })
+    return new NextResponse(error?.message! || error!, { status: 400 })
   }
 }
 
@@ -58,11 +59,11 @@ export const PATCH = async (
   try {
     if (await UserUpdateSchema.parseAsync(inputs)) {
       await prisma.user.update({ where: { id }, data: inputs })
-      return new Response(JSON.stringify('as informações foram atualizadas!'), {
+      return new NextResponse(JSON.stringify('as informações foram atualizadas!'), {
         status: 201,
       })
     }
   } catch (error: any) {
-    return new Response(error?.message! || error!, { status: 400 })
+    return new NextResponse(error?.message! || error!, { status: 400 })
   }
 }

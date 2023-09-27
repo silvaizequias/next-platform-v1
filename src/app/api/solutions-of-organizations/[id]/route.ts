@@ -4,6 +4,7 @@ import {
   OrganizationSolutionUpdateSchemaType,
 } from '@/types/solution-of-organization/schema'
 import { Prisma } from '@prisma/client'
+import { NextResponse } from 'next/server'
 
 export const GET = async (
   request: Request,
@@ -11,7 +12,7 @@ export const GET = async (
 ) => {
   const { id } = params
   try {
-    return new Response(
+    return new NextResponse(
       JSON.stringify(
         await prisma.solutionOfOrganization.findFirst({
           where: {
@@ -51,7 +52,7 @@ export const GET = async (
       ),
     )
   } catch (error: any) {
-    return new Response(error?.message! || error!, { status: 400 })
+    return new NextResponse(error?.message! || error!, { status: 400 })
   }
 }
 
@@ -69,7 +70,7 @@ export const PATCH = async (
         where: { url: solutionUrl },
       })
       if (!solution)
-        return new Response('a solução não existe no sistema', {
+        return new NextResponse('a solução não existe no sistema', {
           status: 404,
         })
 
@@ -79,7 +80,7 @@ export const PATCH = async (
         },
       })
       if (!organization)
-        return new Response('a organização não existe no sistema', {
+        return new NextResponse('a organização não existe no sistema', {
           status: 404,
         })
 
@@ -99,7 +100,7 @@ export const PATCH = async (
           },
         },
       }
-      return new Response(
+      return new NextResponse(
         JSON.stringify(
           await prisma.solutionOfOrganization.update({
             where: { id },
@@ -110,6 +111,6 @@ export const PATCH = async (
       )
     }
   } catch (error: any) {
-    return new Response(error?.message! || error!, { status: 400 })
+    return new NextResponse(error?.message! || error!, { status: 400 })
   }
 }

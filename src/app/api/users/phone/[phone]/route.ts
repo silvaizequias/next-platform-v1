@@ -1,4 +1,5 @@
 import { prisma } from '@/libraries/prisma'
+import { NextResponse } from 'next/server'
 
 export const GET = async (
   request: Request,
@@ -7,7 +8,7 @@ export const GET = async (
   const { phone } = params
 
   try {
-    return new Response(
+    return new NextResponse(
       JSON.stringify(
         await prisma.user.findFirst({
           where: { phone: phone, softDeleted: false },
@@ -39,7 +40,7 @@ export const GET = async (
       ),
     )
   } catch (error: any) {
-    return new Response(JSON.stringify(error?.message || error), {
+    return new NextResponse(JSON.stringify(error?.message || error), {
       status: 400,
     })
   }

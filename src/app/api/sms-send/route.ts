@@ -4,6 +4,7 @@ import {
   TwilioSmsSchema,
   TwilioSmsSchemaType,
 } from '@/libraries/twilio/types/schema'
+import { NextResponse } from 'next/server'
 export const POST = async (
   request: Request,
 ): Promise<TwilioSmsSchemaType | any> => {
@@ -15,11 +16,11 @@ export const POST = async (
         sendTo: inputs.sendTo,
         fromPhone: inputs.fromPhone!,
       }
-      return new Response(JSON.stringify(await SendSMS(data)), {
+      return new NextResponse(JSON.stringify(await SendSMS(data)), {
         status: 201,
       })
     }
   } catch (error: any) {
-    return new Response(error?.message || error, { status: 400 })
+    return new NextResponse(error?.message || error, { status: 400 })
   }
 }

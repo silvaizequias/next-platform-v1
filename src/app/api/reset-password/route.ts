@@ -9,6 +9,7 @@ import {
 } from '@/types/auth/schema'
 import { Prisma } from '@prisma/client'
 import { hash } from 'bcrypt'
+import { NextResponse } from 'next/server'
 
 export const POST = async (
   request: Request,
@@ -26,7 +27,7 @@ export const POST = async (
         },
       })
       if (!user)
-        return new Response(
+        return new NextResponse(
           `a conta com o email ${email} e telefone ${phone} não existe no sistema!`,
           { status: 404 },
         )
@@ -51,12 +52,12 @@ export const POST = async (
       }
       await sendResetPasswordSms(sendSms)
 
-      return new Response(
+      return new NextResponse(
         `uma nova senha foi enviada para o e-mail ${email}!`,
         { status: 201 },
       )
     }
   } catch (error: any) {
-    return new Response(error?.message! || error!, { status: 400 })
+    return new NextResponse(error?.message! || error!, { status: 400 })
   }
 }

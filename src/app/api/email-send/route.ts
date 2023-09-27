@@ -4,6 +4,7 @@ import {
   SendGridEmailSchema,
   SendGridEmailSchemaType,
 } from '@/libraries/sendgrid/types/schema'
+import { NextResponse } from 'next/server'
 
 export const POST = async (
   request: Request,
@@ -17,11 +18,11 @@ export const POST = async (
         subjectMessage: inputs.subjectMessage,
         textMessage: inputs.textMessage,
       }
-      return new Response(JSON.stringify(await SendEmail(data)), {
+      return new NextResponse(JSON.stringify(await SendEmail(data)), {
         status: 201,
       })
     }
   } catch (error: any) {
-    return new Response(error?.message || error, { status: 400 })
+    return new NextResponse(error?.message || error, { status: 400 })
   }
 }

@@ -3,6 +3,7 @@ import {
   SolutionUpdateSchema,
   SolutionUpdateSchemaType,
 } from '@/types/solution/schema'
+import { NextResponse } from 'next/server'
 
 export const GET = async (
   request: Request,
@@ -11,7 +12,7 @@ export const GET = async (
   const { id } = params
 
   try {
-    return new Response(
+    return new NextResponse(
       JSON.stringify(
         await prisma.solution.findFirst({
           where: { id: id, softDeleted: false },
@@ -23,7 +24,7 @@ export const GET = async (
       ),
     )
   } catch (error: any) {
-    return new Response(error?.message! || error!, { status: 400 })
+    return new NextResponse(error?.message! || error!, { status: 400 })
   }
 }
 
@@ -35,7 +36,7 @@ export const PATCH = async (
   const { id } = params
   try {
     if (await SolutionUpdateSchema.parseAsync(inputs)) {
-      return new Response(
+      return new NextResponse(
         JSON.stringify(
           await prisma.solution.update({ where: { id }, data: inputs }),
         ),
@@ -43,6 +44,6 @@ export const PATCH = async (
       )
     }
   } catch (error: any) {
-    return new Response(error?.message! || error!, { status: 400 })
+    return new NextResponse(error?.message! || error!, { status: 400 })
   }
 }

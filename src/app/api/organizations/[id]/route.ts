@@ -4,6 +4,7 @@ import {
   OrganizationUpdateSchemaType,
 } from '@/types/organization/schema'
 import { Prisma } from '@prisma/client'
+import { NextResponse } from 'next/server'
 
 export const GET = async (
   request: Request,
@@ -11,7 +12,7 @@ export const GET = async (
 ) => {
   const { id } = params
   try {
-    return new Response(
+    return new NextResponse(
       JSON.stringify(
         await prisma.organization.findFirst({
           where: { id: id, softDeleted: false },
@@ -45,7 +46,7 @@ export const GET = async (
       ),
     )
   } catch (error: any) {
-    return new Response(JSON.stringify(error?.message || error), {
+    return new NextResponse(JSON.stringify(error?.message || error), {
       status: 400,
     })
   }
@@ -64,12 +65,12 @@ export const PATCH = async (
         where: { docCode: userDocCode },
       })
       if (!user)
-        return new Response('o usuário não existe no sistema', {
+        return new NextResponse('o usuário não existe no sistema', {
           status: 404,
         })
 
       if (!inputs?.userDocCode)
-        return new Response(
+        return new NextResponse(
           JSON.stringify(
             await prisma.organization.update({
               where: { id },
@@ -89,7 +90,7 @@ export const PATCH = async (
         },
       }
 
-      return new Response(
+      return new NextResponse(
         JSON.stringify(
           await prisma.organization.update({ where: { id }, data }),
         ),
@@ -97,7 +98,7 @@ export const PATCH = async (
       )
     }
   } catch (error: any) {
-    return new Response(JSON.stringify(error?.message || error), {
+    return new NextResponse(JSON.stringify(error?.message || error), {
       status: 400,
     })
   }

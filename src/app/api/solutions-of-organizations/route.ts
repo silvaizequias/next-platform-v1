@@ -4,10 +4,11 @@ import {
   OrganizationSolutionCreateSchemaType,
 } from '@/types/solution-of-organization/schema'
 import { Prisma } from '@prisma/client'
+import { NextResponse } from 'next/server'
 
 export const GET = async (request: Request) => {
   try {
-    return new Response(
+    return new NextResponse(
       JSON.stringify(
         await prisma.solutionOfOrganization.findMany({
           where: {
@@ -21,7 +22,7 @@ export const GET = async (request: Request) => {
       ),
     )
   } catch (error: any) {
-    return new Response(error?.message! || error!, { status: 400 })
+    return new NextResponse(error?.message! || error!, { status: 400 })
   }
 }
 
@@ -37,7 +38,7 @@ export const POST = async (
         where: { url: solutionUrl },
       })
       if (!solution)
-        return new Response('a solução não existe no sistema', {
+        return new NextResponse('a solução não existe no sistema', {
           status: 404,
         })
 
@@ -47,7 +48,7 @@ export const POST = async (
         },
       })
       if (!organization)
-        return new Response('a organização não existe no sistema', {
+        return new NextResponse('a organização não existe no sistema', {
           status: 404,
         })
 
@@ -67,12 +68,12 @@ export const POST = async (
           },
         },
       }
-      return new Response(
+      return new NextResponse(
         JSON.stringify(await prisma.solutionOfOrganization.create({ data })),
         { status: 201 },
       )
     }
   } catch (error: any) {
-    return new Response(error?.message! || error!, { status: 400 })
+    return new NextResponse(error?.message! || error!, { status: 400 })
   }
 }

@@ -6,6 +6,7 @@ import {
 import { Prisma } from '@prisma/client'
 import { hash } from 'bcrypt'
 import { compareSync } from 'bcrypt'
+import { NextResponse } from 'next/server'
 
 export const PATCH = async (
   request: Request,
@@ -21,7 +22,7 @@ export const PATCH = async (
         where: { id: id, softDeleted: false },
       })
       if (!user)
-        return new Response(`esta conta não existe no sistema!`, {
+        return new NextResponse(`esta conta não existe no sistema!`, {
           status: 404,
         })
 
@@ -33,9 +34,9 @@ export const PATCH = async (
       }
       await prisma.user.update({ where: { id }, data })
 
-      return new Response('a senha foi atualizada!', { status: 201 })
+      return new NextResponse('a senha foi atualizada!', { status: 201 })
     }
   } catch (error: any) {
-    return new Response(error?.message! || error!, { status: 400 })
+    return new NextResponse(error?.message! || error!, { status: 400 })
   }
 }

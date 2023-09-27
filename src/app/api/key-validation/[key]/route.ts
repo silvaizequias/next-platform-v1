@@ -1,4 +1,5 @@
 import { prisma } from '@/libraries/prisma'
+import { NextResponse } from 'next/server'
 
 export const GET = async (
   request: Request,
@@ -6,7 +7,7 @@ export const GET = async (
 ) => {
   const { key } = params
   try {
-    return new Response(
+    return new NextResponse(
       JSON.stringify(
         await prisma.apiKey.findFirst({
           where: {
@@ -29,6 +30,6 @@ export const GET = async (
       ),
     )
   } catch (error: any) {
-    return new Response(error?.message || error, { status: 400 })
+    return new NextResponse(error?.message || error, { status: 400 })
   }
 }

@@ -6,10 +6,11 @@ import { TwilioTemplateProps } from '@/libraries/twilio/types'
 import { UserCreateSchema, UserCreateSchemaType } from '@/types/user/schema'
 import { Prisma } from '@prisma/client'
 import { hash } from 'bcrypt'
+import { NextResponse } from 'next/server'
 
 export const GET = async (request: Request) => {
   try {
-    return new Response(
+    return new NextResponse(
       JSON.stringify(
         await prisma.user.findMany({
           where: { softDeleted: false },
@@ -47,7 +48,7 @@ export const GET = async (request: Request) => {
       ),
     )
   } catch (error: any) {
-    return new Response(error?.message! || error!, { status: 400 })
+    return new NextResponse(error?.message! || error!, { status: 400 })
   }
 }
 
@@ -69,7 +70,7 @@ export const POST = async (
         },
       })
       if (user)
-        return new Response(`esta conta já existe em nosso sistema!`, {
+        return new NextResponse(`esta conta já existe em nosso sistema!`, {
           status: 409,
         })
 
@@ -94,12 +95,12 @@ export const POST = async (
       }
       await sendWelcomeSms(sendSms)
 
-      return new Response(
+      return new NextResponse(
         `A conta foi criada e a senha enviada para o email ${email}!`,
         { status: 201 },
       )
     }
   } catch (error: any) {
-    return new Response(error?.message! || error!, { status: 400 })
+    return new NextResponse(error?.message! || error!, { status: 400 })
   }
 }

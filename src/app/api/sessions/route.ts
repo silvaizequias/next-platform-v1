@@ -1,12 +1,13 @@
 import { prisma } from '@/libraries/prisma'
+import { NextResponse } from 'next/server'
 export const GET = async (request: Request) => {
   try {
-    return new Response(
+    return new NextResponse(
       JSON.stringify(
         await prisma.session.findMany({ where: { softDeleted: false } }),
       ),
     )
   } catch (error: any) {
-    return new Response(error?.message! || error!, { status: 400 })
+    return new NextResponse(error?.message! || error!, { status: 400 })
   }
 }

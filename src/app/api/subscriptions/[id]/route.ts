@@ -4,6 +4,7 @@ import {
   SubscriptionUpdateSchemaType,
 } from '@/types/subscriptions/schema'
 import { Prisma } from '@prisma/client'
+import { NextResponse } from 'next/server'
 
 export const GET = async (
   request: Request,
@@ -11,7 +12,7 @@ export const GET = async (
 ) => {
   const { id } = params
   try {
-    return new Response(
+    return new NextResponse(
       JSON.stringify(
         await prisma.subscription.findFirst({
           where: { id: id, softDeleted: false },
@@ -23,7 +24,7 @@ export const GET = async (
       ),
     )
   } catch (error: any) {
-    return new Response(JSON.stringify(error?.message || error), {
+    return new NextResponse(JSON.stringify(error?.message || error), {
       status: 400,
     })
   }
@@ -42,7 +43,7 @@ export const PATCH = async (
         where: { docCode: userDocCode, softDeleted: false, isActive: true },
       })
       if (!user)
-        return new Response(
+        return new NextResponse(
           JSON.stringify('esta conta não pode contratar serviços'),
           { status: 403 },
         )
@@ -51,7 +52,7 @@ export const PATCH = async (
         where: { url: solutionUrl },
       })
       if (!solution)
-        return new Response(
+        return new NextResponse(
           JSON.stringify('a solução não está disponível para contratação'),
           { status: 404 },
         )
@@ -73,7 +74,7 @@ export const PATCH = async (
         },
       }
 
-      return new Response(
+      return new NextResponse(
         JSON.stringify(
           await prisma.subscription.update({ where: { id }, data }),
         ),
@@ -81,7 +82,7 @@ export const PATCH = async (
       )
     }
   } catch (error: any) {
-    return new Response(JSON.stringify(error?.message || error), {
+    return new NextResponse(JSON.stringify(error?.message || error), {
       status: 400,
     })
   }

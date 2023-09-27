@@ -2,12 +2,13 @@ import { stripe } from '@/libraries/stripe'
 import { prisma } from '@/libraries/prisma'
 import { headers } from 'next/headers'
 import Stripe from 'stripe'
+import { NextResponse } from 'next/server'
 
 export const GET = async (request: Request) => {
   try {
-    return new Response(JSON.stringify(request.method))
+    return new NextResponse(JSON.stringify(request.method))
   } catch (error: any) {
-    return new Response(error?.message || error, { status: 400 })
+    return new NextResponse(error?.message || error, { status: 400 })
   }
 }
 
@@ -25,14 +26,14 @@ export const POST = async (request: Request) => {
       STRIPE_WEBHOOK_SECRET,
     )
   } catch (error: any) {
-    return new Response(error?.message || error, { status: 400 })
+    return new NextResponse(error?.message || error, { status: 400 })
   }
 
   const session = event.data.object as Stripe.Checkout.Session
 
   if (event.type === 'checkout.session.completed') {
     if (!session?.metadata?.userId && !session?.metadata?.solutionId) {
-      return new Response('o usuario e a solução não foram definidos', {
+      return new NextResponse('o usuario e a solução não foram definidos', {
         status: 400,
       })
     }
@@ -75,5 +76,5 @@ export const POST = async (request: Request) => {
     })
   }
 
-  return new Response(null, { status: 201 })
+  return new NextResponse(null, { status: 201 })
 }

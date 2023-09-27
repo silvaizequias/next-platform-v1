@@ -4,10 +4,11 @@ import {
   OrganizationCreateSchemaType,
 } from '@/types/organization/schema'
 import { Prisma } from '@prisma/client'
+import { NextResponse } from 'next/server'
 
 export const GET = async (request: Request) => {
   try {
-    return new Response(
+    return new NextResponse(
       JSON.stringify(
         await prisma.organization.findMany({
           where: { softDeleted: false },
@@ -35,7 +36,7 @@ export const GET = async (request: Request) => {
       ),
     )
   } catch (error: any) {
-    return new Response(error?.message! || error!, { status: 400 })
+    return new NextResponse(error?.message! || error!, { status: 400 })
   }
 }
 
@@ -50,7 +51,7 @@ export const POST = async (
         where: { docCode: userDocCode },
       })
       if (!user)
-        return new Response('o usuário não existe no sistema', {
+        return new NextResponse('o usuário não existe no sistema', {
           status: 404,
         })
 
@@ -73,6 +74,6 @@ export const POST = async (
       )
     }
   } catch (error: any) {
-    return new Response(error?.message! || error!, { status: 400 })
+    return new NextResponse(error?.message! || error!, { status: 400 })
   }
 }

@@ -1,3 +1,4 @@
+import { NextResponse } from 'next/server'
 import { handleAuthorizations } from './utils/handle-authorizations'
 
 export default async function middleware(request: Request) {
@@ -7,23 +8,20 @@ export default async function middleware(request: Request) {
 
   try {
     if (!authorization)
-      return new Response('acesso não autorizado!', { status: 403 })
+      return new NextResponse('acesso não autorizado!', { status: 403 })
 
     switch (method) {
       case 'GET':
-        if (validation)
-        break
+        if (validation) break
       case 'POST':
-        if (validation)
-        break
+        if (validation) break
       case 'PATCH':
-        if (validation)
-        break
+        if (validation) break
       default:
-        return new Response('acesso não autorizado!', { status: 403 })
+        return new NextResponse('acesso não autorizado!', { status: 403 })
     }
   } catch (error: any) {
-    return new Response(error?.message, error)
+    return new NextResponse(error?.message, error)
   }
 }
 

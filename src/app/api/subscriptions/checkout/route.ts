@@ -4,6 +4,7 @@ import {
   SubscriptionCreateSchema,
   SubscriptionCreateSchemaType,
 } from '@/types/subscriptions/schema'
+import { NextResponse } from 'next/server'
 
 export const POST = async (
   request: Request,
@@ -18,7 +19,7 @@ export const POST = async (
         where: { docCode: userDocCode, softDeleted: false, isActive: true },
       })
       if (!user)
-        return new Response('esta conta não pode contratar serviços', {
+        return new NextResponse('esta conta não pode contratar serviços', {
           status: 403,
         })
 
@@ -26,7 +27,7 @@ export const POST = async (
         where: { url: solutionUrl },
       })
       if (!solution)
-        return new Response('a solução não está disponível para contratação', {
+        return new NextResponse('a solução não está disponível para contratação', {
           status: 404,
         })
 
@@ -61,9 +62,9 @@ export const POST = async (
         ],
         metadata: { userId, solutionId, amount, discount, tax },
       })
-      return new Response(JSON.stringify(stripeSession), { status: 201 })
+      return new NextResponse(JSON.stringify(stripeSession), { status: 201 })
     }
   } catch (error: any) {
-    return new Response(error?.message || error, { status: 400 })
+    return new NextResponse(error?.message || error, { status: 400 })
   }
 }

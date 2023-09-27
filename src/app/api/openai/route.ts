@@ -2,6 +2,7 @@ import { openaiApi } from '@/libraries/openai'
 import { aiDefaultTemplate } from '@/libraries/openai/templates'
 import { OpenAiSchema, OpenAiSchemaType } from '@/types/openai/schema'
 import { OpenAIStream, StreamingTextResponse } from 'ai'
+import { NextResponse } from 'next/server'
 
 export const POST = async (request: Request): Promise<any> => {
   const inputs: OpenAiSchemaType = await request.json()
@@ -31,6 +32,6 @@ export const POST = async (request: Request): Promise<any> => {
       return new StreamingTextResponse(stream)
     }
   } catch (error: any) {
-    return new Response(error?.message || error, { status: 400 })
+    return new NextResponse(error?.message || error, { status: 400 })
   }
 }

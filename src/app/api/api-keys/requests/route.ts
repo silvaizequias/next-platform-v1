@@ -4,6 +4,7 @@ import {
   ApiKeyRequestSchemaType,
 } from '@/types/api-key/schema'
 import { Prisma } from '@prisma/client'
+import { NextResponse } from 'next/server'
 
 export const POST = async (
   request: Request,
@@ -16,7 +17,7 @@ export const POST = async (
       const apiKey = await prisma.apiKey.findFirst({
         where: { key: key, softDeleted: false },
       })
-      if (!apiKey) return new Response('chave não encontrada!', { status: 404 })
+      if (!apiKey) return new NextResponse('chave não encontrada!', { status: 404 })
 
       const monthlyRequestLimit = apiKey?.monthlyRequestLimit!
       const monthlyRequests = apiKey?.monthlyRequests!
@@ -24,13 +25,13 @@ export const POST = async (
       const dailyRequests = apiKey?.dailyRequests!
 
       if (monthlyRequestLimit >= monthlyRequests) {
-        return new Response('limite de requisições do mês atingido!', {
+        return new NextResponse('limite de requisições do mês atingido!', {
           status: 403,
         })
       }
 
       if (dailyRequestLimit >= dailyRequests) {
-        return new Response('limite de requisições do dia atingido!', {
+        return new NextResponse('limite de requisições do dia atingido!', {
           status: 403,
         })
       }
@@ -51,6 +52,6 @@ export const POST = async (
       )
     }
   } catch (error: any) {
-    return new Response(error?.message || error, { status: 400 })
+    return new NextResponse(error?.message || error, { status: 400 })
   }
 }
