@@ -50,6 +50,7 @@ export const POST = async (request: Request): Promise<any> => {
 
       const encryptedToken = jwt.sign(
         {
+          id: user?.id!,
           phone,
           profile: user?.profile!,
           orgs: user?.orgs!,
