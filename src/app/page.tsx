@@ -1,9 +1,14 @@
-'use client'
+import { authOptions } from '@/libraries/next-auth'
+import AccountView from '@/views/account/AccountView'
+import LandingView from '@/views/landing/LandingView'
+import { Metadata } from 'next'
+import { getServerSession } from 'next-auth'
 
-import { useFetch } from '@/hooks/useFetch'
+export const metadata: Metadata = {
+  title: 'Sistema Personalizado de Alta Performance',
+}
+export default async function LandingPage() {
+  const session = await getServerSession(authOptions)
 
-export default function Home() {
-  const { data } = useFetch(`/api`)
-
-  return data ? JSON.stringify(data) : null
+  return <main>{session ? <AccountView /> : <LandingView />}</main>
 }

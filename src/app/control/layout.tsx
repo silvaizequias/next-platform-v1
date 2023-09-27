@@ -1,16 +1,10 @@
-import { LayoutProps } from '@/types'
-import './globals.css'
-import { Analytics } from '@vercel/analytics/react'
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import Providers from './providers'
-import { Suspense } from 'react'
 import Spinner from '@/components/Spinner'
-import TopBar from '@/components/TopBar'
-import { getServerSession } from 'next-auth'
 import { authOptions } from '@/libraries/next-auth'
-
-const inter = Inter({ subsets: ['latin'] })
+import { LayoutProps } from '@/types'
+import { Metadata } from 'next'
+import { getServerSession } from 'next-auth'
+import { redirect } from 'next/navigation'
+import { Suspense } from 'react'
 
 const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
 
@@ -19,7 +13,10 @@ export const metadata: Metadata = {
   applicationName: 'Dedicado Digital',
   generator: 'Dedicado Digital',
   category: 'technology',
-  title: { default: 'Dedicado Digital', template: `%s | Dedicado Digital` },
+  title: {
+    default: 'Controle do Sistema Dedicado Digital',
+    template: `%s | Dedicado Digital`,
+  },
   description:
     'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
   keywords: [
@@ -31,13 +28,16 @@ export const metadata: Metadata = {
   ],
   icons: { icon: '/favicon.ico' },
   alternates: {
-    canonical: NEXTAUTH_URL,
+    canonical: `${NEXTAUTH_URL}/control`,
   },
   openGraph: {
     url: new URL(NEXTAUTH_URL),
     siteName: 'Dedicado Digital',
     type: 'website',
-    title: { default: 'Dedicado Digital', template: `%s | Dedicado Digital` },
+    title: {
+      default: 'Controle do Sistema Dedicado Digital',
+      template: `%s | Dedicado Digital`,
+    },
     description:
       'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
     images: '/500x500-logotipo5.png',
@@ -48,17 +48,10 @@ export const metadata: Metadata = {
 export default async function RootLayout(props: LayoutProps) {
   const { children } = props
   const session = await getServerSession(authOptions)
-  const onDevelopment = process.env.NODE_ENV === 'development'
 
-  return (
-    <html lang='pt-BR' suppressHydrationWarning>
-      <Providers>
-        <body className={inter.className}>
-          <TopBar session={session!} />
-          <Suspense fallback={<Spinner />}>{children}</Suspense>
-          {!onDevelopment && <Analytics />}
-        </body>
-      </Providers>
-    </html>
+  return session && session?.user?.profile == 'MASTER' ? (
+    <Suspense fallback={<Spinner />}>{children}</Suspense>
+  ) : (
+    redirect('/')
   )
 }
