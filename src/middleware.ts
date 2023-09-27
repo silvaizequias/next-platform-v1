@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { handleAuthorizations } from './utils/handle-authorizations'
+import { handleAuthorizations } from './helpers/handle-authorizations'
 
 export default async function middleware(request: Request) {
   const { headers, method } = request
