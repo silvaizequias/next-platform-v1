@@ -46,12 +46,12 @@ export default async function RootLayout(props: LayoutProps) {
 
   return (
     <html lang='pt-BR' suppressHydrationWarning>
-      <Providers>
-        <body>
+      <body>
+        <Providers>
           <Suspense fallback={'...'}>{children}</Suspense>
           {!onDevelopment && <Analytics />}
-        </body>
-      </Providers>
+        </Providers>
+      </body>
     </html>
   )
 }
