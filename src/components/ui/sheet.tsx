@@ -14,10 +14,10 @@ const SheetTrigger = SheetPrimitive.Trigger
 const SheetClose = SheetPrimitive.Close
 
 const SheetPortal = ({
-  className,
+  //className, //TODO: Acompanhar impactor disso em https://github.com/shadcn-ui/ui/issues/1595
   ...props
 }: SheetPrimitive.DialogPortalProps) => (
-  <SheetPrimitive.Portal className={cn(className)} {...props} />
+  <SheetPrimitive.Portal /*className={cn(className)}*/ {...props} />
 )
 SheetPortal.displayName = SheetPrimitive.Portal.displayName
 

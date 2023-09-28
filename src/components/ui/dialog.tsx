@@ -11,10 +11,10 @@ const Dialog = DialogPrimitive.Root
 const DialogTrigger = DialogPrimitive.Trigger
 
 const DialogPortal = ({
-  className,
+  //className, //TODO: Acompanhar impactor disso em https://github.com/shadcn-ui/ui/issues/1595
   ...props
 }: DialogPrimitive.DialogPortalProps) => (
-  <DialogPrimitive.Portal className={cn(className)} {...props} />
+  <DialogPrimitive.Portal /*className={cn(className)}*/ {...props} />
 )
 DialogPortal.displayName = DialogPrimitive.Portal.displayName
 
