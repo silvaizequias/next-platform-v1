@@ -1,3 +1,12 @@
+'use client'
+
+import SignInForm from "../auth/forms/SignInForm";
+
 export default function LandingView() {
-  return <h1>Landing Page</h1>
+  return (
+    <div>
+      <p>Landing Page</p>
+      <div><SignInForm /></div>
+    </div>
+  )
 }

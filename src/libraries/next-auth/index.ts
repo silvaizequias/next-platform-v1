@@ -20,22 +20,22 @@ export const authOptions: NextAuthOptions = {
         password: { type: 'password' },
       },
       async authorize(credentials) {
-        await axios
-          .post(`${NEXTAUTH_URL}/api/sign-in`, credentials)
-          .then(async (res: any) => {
-            const user = await res.data
-            if (res.data && user) {
-              return {
-                ...user.data,
-                authorization: user.Authorization!,
-              }
-            }
-          })
-          .catch((error: any) => {
-            console.error(error)
-          })
+        const res = await axios.post(`${NEXTAUTH_URL}/api/sign-in`, {
+          phone: credentials?.phone!,
+          password: credentials?.password!,
+        })
 
-        return null
+        const user = await res.data
+        if (res.data && user) {
+          return {
+            ...user.data,
+            authorization: user.Authorization!,
+          }
+        } else {
+          return null
+        }
+
+        
       },
     }),
     GoogleProvider({
@@ -51,7 +51,11 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  session: { strategy: 'jwt', maxAge: 15 * 24 * 60 * 60, updateAge: 24 * 60 * 60 },
+  session: {
+    strategy: 'jwt',
+    maxAge: 15 * 24 * 60 * 60,
+    updateAge: 24 * 60 * 60,
+  },
   callbacks: {
     jwt: async ({ token, user }) => {
       if (!user) {

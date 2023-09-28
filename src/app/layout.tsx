@@ -1,25 +1,10 @@
 import { LayoutProps } from '@/types'
-import './globals.css'
 import { Analytics } from '@vercel/analytics/react'
 import type { Metadata } from 'next'
-import { Inter, Roboto } from 'next/font/google'
 import Providers from './providers'
 import { Suspense } from 'react'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/libraries/next-auth'
-import { ThemeProvider } from '@/components/theme-provider'
-import { Toaster } from '@/components/ui/toaster'
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  weight: '200',
-})
-const roboto = Roboto({
-  subsets: ['latin'],
-  variable: '--font-roboto',
-  weight: '100',
-})
 
 const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
 
@@ -60,23 +45,11 @@ export default async function RootLayout(props: LayoutProps) {
   const onDevelopment = process.env.NODE_ENV === 'development'
 
   return (
-    <html
-      lang='pt-BR'
-      suppressHydrationWarning
-      className={`${inter.variable} ${roboto.variable} mx-auto`}
-    >
+    <html lang='pt-BR' suppressHydrationWarning>
       <Providers>
         <body>
-          <ThemeProvider
-            attribute='class'
-            defaultTheme='system'
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Suspense fallback={'...'}>{children}</Suspense>
-            <Toaster />
-            {!onDevelopment && <Analytics />}
-          </ThemeProvider>
+          <Suspense fallback={'...'}>{children}</Suspense>
+          {!onDevelopment && <Analytics />}
         </body>
       </Providers>
     </html>
