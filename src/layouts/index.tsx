@@ -2,8 +2,8 @@
 
 import { Suspense, useState } from 'react'
 import { DefaultLayoutProps } from './types'
-import TopBar from './components/topbar'
 import { usePathname } from 'next/navigation'
+import TopBar from './components/topbar'
 
 export default function DefaultLayout(props: DefaultLayoutProps) {
   const { children, session } = props
