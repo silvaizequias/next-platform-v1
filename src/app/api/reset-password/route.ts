@@ -4,8 +4,8 @@ import { SendGridTemplateProps } from '@/libraries/sendgrid/types'
 import { sendResetPasswordSms } from '@/libraries/twilio/templates'
 import { TwilioTemplateProps } from '@/libraries/twilio/types'
 import {
-  ResetPasswordSchema,
-  ResetPasswordSchemaType,
+  AuthResetPasswordSchema,
+  AuthResetPasswordSchemaType,
 } from '@/types/auth/schema'
 import { Prisma } from '@prisma/client'
 import { hash } from 'bcrypt'
@@ -13,11 +13,11 @@ import { NextResponse } from 'next/server'
 
 export const POST = async (
   request: Request,
-): Promise<ResetPasswordSchemaType | any> => {
+): Promise<AuthResetPasswordSchemaType | any> => {
   const randomCode = Math.random().toString(32).substr(2, 12)
-  const inputs: ResetPasswordSchemaType = await request.json()
+  const inputs: AuthResetPasswordSchemaType = await request.json()
   try {
-    if (await ResetPasswordSchema.parseAsync(inputs)) {
+    if (await AuthResetPasswordSchema.parseAsync(inputs)) {
       const { phone, email } = inputs
 
       const user = await prisma.user.findFirst({

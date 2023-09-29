@@ -1,12 +1,23 @@
 'use client'
 
-import SignInForm from "../auth/forms/SignInForm";
+import { useState } from 'react'
+import { signIn } from 'next-auth/react'
+import AuthTabsView from '../auth/AuthTabsView'
 
 export default function LandingView() {
+  const [showDialog, setShowDialog] = useState<boolean>(false)
+
+  const handleGoogleSignIn = async () => {
+    await signIn('google')
+  }
+
+  const handleDialog = () => {
+    setShowDialog(!showDialog)
+  }
+
   return (
     <div>
-      <p>Landing Page</p>
-      <div><SignInForm /></div>
+      <AuthTabsView />
     </div>
   )
 }

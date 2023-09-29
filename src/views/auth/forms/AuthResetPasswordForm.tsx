@@ -1,43 +1,49 @@
-import { SignInSchema, SignInSchemaType } from '@/types/auth/schema'
+import {
+  AuthResetPasswordSchema,
+  AuthResetPasswordSchemaType,
+} from '@/types/auth/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { signIn } from 'next-auth/react'
+import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 
-export default function SignInForm() {
+export default function AuthResetPasswordForm() {
   const router = useRouter()
-
   const {
     control,
-    formState: { errors },
     handleSubmit,
+    formState: { errors },
     register,
-  } = useForm<SignInSchemaType>({
+  } = useForm<AuthResetPasswordSchemaType>({
     mode: 'onChange',
-    resolver: zodResolver(SignInSchema),
+    resolver: zodResolver(AuthResetPasswordSchema),
   })
 
-  const onSubmit: SubmitHandler<SignInSchemaType> = async (inputs, e) => {
+  const onSubmit: SubmitHandler<AuthResetPasswordSchemaType> = async (
+    inputs,
+    e,
+  ) => {
     e?.preventDefault()
 
-    const { phone, password } = inputs
     try {
-      await signIn('credentials', {
-        phone: phone,
-        password: password,
-      })
-        .then(async (res: any) => {
-          if (res.url && !res.error) {
+      await axios
+        .post(`api/reset-password`, inputs)
+        .then((res: any) => {
+          if (res.data) {
+            toast.success(res.data)
             router.refresh()
           } else {
-            console.error(res.error)
+            toast.error('Ocorreu um erro inesperado!')
           }
         })
         .catch((error: any) => {
           console.error(error)
+          toast.error(error?.message)
         })
     } catch (error: any) {
       console.error(error)
+      toast.error(error?.message)
     }
   }
 
@@ -50,10 +56,11 @@ export default function SignInForm() {
           rules={{ required: true }}
           render={({ field: { value, onChange, onBlur } }) => (
             <input
+              autoFocus
               value={value}
               onBlur={onBlur}
               onChange={onChange}
-              placeholder='11 9876 54321'
+              placeholder='11 98765 4321'
             />
           )}
         />
@@ -61,24 +68,23 @@ export default function SignInForm() {
       </div>
       <div>
         <Controller
-          {...register('password')}
+          {...register('email')}
           control={control}
           rules={{ required: true }}
           render={({ field: { value, onChange, onBlur } }) => (
             <input
-              type='password'
+              autoFocus
+              type='email'
               value={value}
               onBlur={onBlur}
               onChange={onChange}
-              placeholder='********'
+              placeholder='seu@email.com'
             />
           )}
         />
-        {errors.password && <span>{errors.password.message}</span>}
+        {errors.email && <span>{errors.email.message}</span>}
       </div>
-      <div>
-        <button type='submit'>Acessar</button>
-      </div>
+      <button type='submit'>Redefinir a Senha</button>
     </form>
   )
 }

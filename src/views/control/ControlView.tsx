@@ -1,3 +1,3 @@
 export default function ControlView() {
-  return <h1>Control Page</h1>
+  return <h1>control</h1>
 }

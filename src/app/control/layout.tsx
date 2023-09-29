@@ -1,5 +1,5 @@
 import { authOptions } from '@/libraries/next-auth'
-import { LayoutProps } from '@/types'
+import { LayoutProps } from '@/layouts/types'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'

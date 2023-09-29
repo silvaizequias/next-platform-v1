@@ -1,3 +1,4 @@
+
 export default function AccountView() {
-  return <h1>Account Page</h1>
+  return <h1>account</h1>
 }

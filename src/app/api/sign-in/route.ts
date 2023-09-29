@@ -1,14 +1,14 @@
 import { prisma } from '@/libraries/prisma'
 import jwt from 'jsonwebtoken'
 import { compareSync } from 'bcrypt'
-import { SignInSchema, SignInSchemaType } from '@/types/auth/schema'
+import { AuthSignInSchema, AuthSignInSchemaType } from '@/types/auth/schema'
 import { NextResponse } from 'next/server'
 
 export const POST = async (request: Request): Promise<any> => {
   const NEXT_PUBLIC_JWT_SECRET_KEY = process.env.NEXT_PUBLIC_JWT_SECRET_KEY!
-  const inputs: SignInSchemaType = await request.json()
+  const inputs: AuthSignInSchemaType = await request.json()
   try {
-    if (await SignInSchema.parseAsync(inputs)) {
+    if (await AuthSignInSchema.parseAsync(inputs)) {
       const { phone, password } = inputs
 
       const user = await prisma.user.findFirst({

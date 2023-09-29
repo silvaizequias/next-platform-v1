@@ -1,23 +1,23 @@
 import * as z from 'zod'
 
-export const SignInSchema = z.object({
+export const AuthSignInSchema = z.object({
   phone: z.string().length(11),
   password: z.string().min(8).max(24),
 })
 
-export type SignInSchemaType = z.infer<typeof SignInSchema>
+export type AuthSignInSchemaType = z.infer<typeof AuthSignInSchema>
 
-export const SignUpSchema = z.object({
+export const AuthSignUpSchema = z.object({
   name: z.string(),
   phone: z.string().length(11),
   email: z.string().email(),
 })
 
-export type SignUpSchemaType = z.infer<typeof SignUpSchema>
+export type AuthSignUpSchemaType = z.infer<typeof AuthSignUpSchema>
 
-export const ResetPasswordSchema = z.object({
+export const AuthResetPasswordSchema = z.object({
   phone: z.string().length(11),
   email: z.string().email(),
 })
 
-export type ResetPasswordSchemaType = z.infer<typeof ResetPasswordSchema>
+export type AuthResetPasswordSchemaType = z.infer<typeof AuthResetPasswordSchema>

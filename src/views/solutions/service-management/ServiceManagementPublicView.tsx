@@ -1,3 +1,3 @@
 export default function ServiceManagementPublicView() {
-  return <h1>Service Manager Public Page</h1>
+  return <h1>service public</h1>
 }
