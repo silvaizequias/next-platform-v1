@@ -1,4 +1,5 @@
 import { DrawerSideBarProps } from '@/layouts/types'
+import { Drawer } from '@mui/material'
 import { signOut } from 'next-auth/react'
 
 export default function DrawerSideBar(props: DrawerSideBarProps) {
@@ -24,5 +25,14 @@ export default function DrawerSideBar(props: DrawerSideBarProps) {
     { text: 'Support', icon: '' },
   ]
 
-  return <h1>drawer sidebar</h1>
+  return (
+    <Drawer
+      open={open}
+      anchor='left'
+      variant='persistent'
+      onClose={handleClose}
+      ModalProps={{ keepMounted: true }}
+      sx={{ '& .MuiDrawer-paper': { width: 300 } }}
+    >...</Drawer>
+  )
 }

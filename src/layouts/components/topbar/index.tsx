@@ -1,97 +1,89 @@
 'use client'
 
-import {
-  AppBar,
-  Avatar,
-  Box,
-  Container,
-  IconButton,
-  ListItemIcon,
-  ListItemText,
-  Menu,
-  MenuItem,
-  Toolbar,
-  Tooltip,
-  Typography,
-} from '@mui/material'
-import { signOut } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-import { MdOutlineLogout, MdApps } from 'react-icons/md'
-import { blue } from '@mui/material/colors'
+import { AppBar, Container, IconButton, Toolbar, Tooltip } from '@mui/material'
+import { Fragment, useState } from 'react'
 import { TopBarProps } from '@/layouts/types'
+import UserToolbar from '../user-toolbar'
+import { grey } from '@mui/material/colors'
+import { MdDensityMedium, MdLogin } from 'react-icons/md'
+import DrawerSideBar from '../drawer-sidebar'
+import ShowInDialog from '@/components/show-in-dialog'
+import AuthTabsView from '@/views/auth/AuthTabsView'
+import { usePathname } from 'next/navigation'
 
 export default function TopBar(props: TopBarProps) {
-  const { user }: any = props.session
+  const { session, onClose } = props
 
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
-  const router = useRouter()
+  const pathname = usePathname()
 
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget)
+  const [showDrawerSideBar, setShowDrawerSideBar] = useState<boolean>(false)
+  const [showDialog, setShowDialog] = useState<boolean>(false)
+
+  const handleDrawerSideBar = () => {
+    setShowDrawerSideBar(!showDrawerSideBar)
+    onClose()
   }
 
-  const handleTopBarMenu = (url?: string) => {
-    if (url) {
-      router.push(url)
-    }
-    setAnchorElUser(null)
+  const handleDialog = () => {
+    setShowDialog(!showDialog)
   }
 
-  const handleLogout = () => {
-    signOut()
-    handleTopBarMenu()
-  }
-
+  //TODO: componentizar toolbar
   return (
     <AppBar
       position='sticky'
       elevation={0}
       sx={{ bgcolor: 'transparent', position: 'absolute', top: 0 }}
     >
-      <Container maxWidth='xl'>
-        <Toolbar
-          disableGutters
-          sx={{ display: 'flex', justifyContent: 'right' }}
-        >
-          <Box>
-            <Tooltip title='Serviços'>
-              <IconButton sx={{ p: 1, ml: 1, color: blue[400] }} size='large'>
-                <MdApps />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title={user?.name}>
-              <IconButton
-                sx={{ p: 0, ml: 1 }}
-                size='large'
-                onClick={handleOpenUserMenu}
-              >
-                <Avatar alt={user?.name!} src={user?.image! || '/avatar.png'} />
-              </IconButton>
-            </Tooltip>
-
-            <Menu
-              id='menu-appbar'
-              anchorEl={anchorElUser}
-              keepMounted
-              open={Boolean(anchorElUser)}
-              onClose={() => handleTopBarMenu()}
-              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-              sx={{ mt: '15px', textTransform: 'uppercase' }}
+      <Container
+        maxWidth='xl'
+        sx={{
+          display: 'flex',
+          justifyContent: session ? 'space-between' : 'right',
+        }}
+      >
+        {session ? (
+          <Fragment>
+            <Toolbar
+              disableGutters
+              sx={{ display: 'flex', justifyContent: 'left' }}
             >
-              <MenuItem onClick={handleLogout}>
-                <ListItemIcon>
-                  <MdOutlineLogout sx={{ pr: 2 }} />
-                </ListItemIcon>
-                <ListItemText>
-                  <Typography fontSize={12}>Sair</Typography>
-                </ListItemText>
-              </MenuItem>
-            </Menu>
-          </Box>
-        </Toolbar>
+              <Tooltip title='Menu'>
+                <IconButton
+                  sx={{
+                    p: 1,
+                    ml: !showDrawerSideBar ? 0 : 36,
+                    color: grey[50],
+                  }}
+                  size='medium'
+                  onClick={handleDrawerSideBar}
+                >
+                  <MdDensityMedium />
+                </IconButton>
+              </Tooltip>
+            </Toolbar>
+            <UserToolbar session={session!} />
+          </Fragment>
+        ) : (
+          pathname !== '/' && (
+            <Toolbar disableGutters>
+              <Tooltip title='Acessar'>
+                <IconButton
+                  sx={{ p: 0, mr: 1, color: grey[50] }}
+                  size='medium'
+                  onClick={handleDialog}
+                >
+                  <MdLogin />
+                </IconButton>
+              </Tooltip>
+            </Toolbar>
+          )
+        )}
       </Container>
+      <DrawerSideBar open={showDrawerSideBar} onClose={handleDrawerSideBar} />
+      <ShowInDialog open={showDialog} onClose={handleDialog}>
+        <AuthTabsView />
+      </ShowInDialog>
     </AppBar>
   )
 }

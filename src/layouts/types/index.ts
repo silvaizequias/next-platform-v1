@@ -15,6 +15,10 @@ export interface TopBarProps {
   session: Session
 }
 
+export interface UserToolbarProps {
+  session: Session
+}
+
 export interface DrawerSideBarProps {
   onClose: () => void
   open: boolean
