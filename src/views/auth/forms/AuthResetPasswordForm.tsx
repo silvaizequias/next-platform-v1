@@ -3,6 +3,7 @@ import {
   AuthResetPasswordSchemaType,
 } from '@/types/auth/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Button, FormControl, FormHelperText, TextField } from '@mui/material'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
@@ -49,42 +50,58 @@ export default function AuthResetPasswordForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
+      <FormControl fullWidth sx={{ my: 2 }}>
         <Controller
           {...register('phone')}
           control={control}
           rules={{ required: true }}
           render={({ field: { value, onChange, onBlur } }) => (
-            <input
+            <TextField
               autoFocus
+              label={'Celular'}
               value={value}
               onBlur={onBlur}
               onChange={onChange}
+              error={Boolean(errors.phone)}
               placeholder='11 98765 4321'
             />
           )}
         />
-        {errors.phone && <span>{errors.phone.message}</span>}
-      </div>
-      <div>
+        {errors.phone && (
+          <FormHelperText>{errors.phone.message}</FormHelperText>
+        )}
+      </FormControl>
+      <FormControl fullWidth sx={{ mb: 2 }}>
         <Controller
           {...register('email')}
           control={control}
           rules={{ required: true }}
           render={({ field: { value, onChange, onBlur } }) => (
-            <input
+            <TextField
               autoFocus
-              type='email'
+              label={'Seu E-mail'}
               value={value}
               onBlur={onBlur}
               onChange={onChange}
+              error={Boolean(errors.email)}
               placeholder='seu@email.com'
             />
           )}
         />
-        {errors.email && <span>{errors.email.message}</span>}
-      </div>
-      <button type='submit'>Redefinir a Senha</button>
+        {errors.email && (
+          <FormHelperText>{errors.email.message}</FormHelperText>
+        )}
+      </FormControl>
+      <Button
+        fullWidth
+        size='small'
+        type='submit'
+        variant='contained'
+        color='warning'
+        sx={{ my: 2 }}
+      >
+        Redefinir a Senha
+      </Button>
     </form>
   )
 }

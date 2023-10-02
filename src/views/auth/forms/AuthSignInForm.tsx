@@ -1,5 +1,6 @@
 import { AuthSignInSchema, AuthSignInSchemaType } from '@/types/auth/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Button, FormControl, FormHelperText, TextField } from '@mui/material'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
@@ -47,42 +48,59 @@ export default function AuthSignInForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
+      <FormControl fullWidth sx={{ my: 2 }}>
         <Controller
           {...register('phone')}
           control={control}
           rules={{ required: true }}
           render={({ field: { value, onChange, onBlur } }) => (
-            <input
+            <TextField
               autoFocus
+              label={'Celular'}
               value={value}
               onBlur={onBlur}
               onChange={onChange}
+              error={Boolean(errors.phone)}
               placeholder='11 98765 4321'
             />
           )}
         />
-        {errors.phone && <span>{errors.phone.message}</span>}
-      </div>
-      <div>
+        {errors.phone && (
+          <FormHelperText>{errors.phone.message}</FormHelperText>
+        )}
+      </FormControl>
+      <FormControl fullWidth sx={{ mb: 2 }}>
         <Controller
           {...register('password')}
           control={control}
           rules={{ required: true }}
           render={({ field: { value, onChange, onBlur } }) => (
-            <input
+            <TextField
               autoFocus
+              label={'Senha'}
               type={'password'}
               value={value}
               onBlur={onBlur}
               onChange={onChange}
+              error={Boolean(errors.password)}
               placeholder='********'
             />
           )}
         />
-        {errors.password && <span>{errors.password.message}</span>}
-      </div>
-      <button type='submit'>Acessar</button>
+        {errors.password && (
+          <FormHelperText>{errors.password.message}</FormHelperText>
+        )}
+      </FormControl>
+      <Button
+        fullWidth
+        size='small'
+        type='submit'
+        variant='contained'
+        color='primary'
+        sx={{ my: 2 }}
+      >
+        Acessar
+      </Button>
     </form>
   )
 }
