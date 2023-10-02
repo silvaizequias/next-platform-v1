@@ -14,9 +14,7 @@ import {
 import { blue } from '@mui/material/colors'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
-import {
-  MdOutlineLogout,
-} from 'react-icons/md'
+import { MdOutlineLogout } from 'react-icons/md'
 
 export default function DrawerSideBar(props: DrawerSideBarProps) {
   const { open, onClose } = props
@@ -63,9 +61,9 @@ export default function DrawerSideBar(props: DrawerSideBarProps) {
         </Typography>
       </Box>
       <List>
-        {SidebarLinks.map(({ text, href, icon: Icon }) => (
-          <ListItem key={href} disablePadding>
-            <ListItemButton component={Link} href={href}>
+        {SidebarLinks.map(({ title, path, icon: Icon }) => (
+          <ListItem key={path} disablePadding>
+            <ListItemButton component={Link} href={path}>
               <ListItemIcon sx={{ color: blue[600] }}>
                 <Icon />
               </ListItemIcon>
@@ -77,7 +75,7 @@ export default function DrawerSideBar(props: DrawerSideBarProps) {
                     color: blue[600],
                   }}
                 >
-                  {text}
+                  {title}
                 </Typography>
               </ListItemText>
             </ListItemButton>

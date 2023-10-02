@@ -1,16 +1,10 @@
 import { MdHome, MdPhonelink } from 'react-icons/md'
 
-interface NavigationProps {
-  text: string
-  href: string
-  icon: any
-}
-
 export const SidebarLinks = [
-  { text: 'Home', href: '/', icon: MdHome },
+  { title: 'Home', path: '/', icon: MdHome },
   {
-    text: 'Gestão de Serviços',
-    href: '/gestao-de-servicos',
+    title: 'Gestão de Serviços',
+    path: '/gestao-de-servicos',
     icon: MdPhonelink,
   },
 ]
