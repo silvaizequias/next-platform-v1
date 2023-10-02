@@ -29,7 +29,7 @@ export default function DefaultLayout(props: DefaultLayoutProps) {
         }}
       >
         <TopBar session={session!} onClose={handleDrawer} />
-        <Box sx={{ ml: openDrawer ? '300px' : '0px' }}>
+        <Box sx={{ ml: openDrawer ? '240px' : '0px' }}>
           <Container maxWidth='xl' sx={{ pt: 6 }}>
             {children}
           </Container>

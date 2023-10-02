@@ -1,6 +1,22 @@
 import { DrawerSideBarProps } from '@/layouts/types'
-import { Drawer } from '@mui/material'
+import { SidebarLinks } from '@/navigation'
+import {
+  Box,
+  Divider,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+} from '@mui/material'
+import { blue } from '@mui/material/colors'
 import { signOut } from 'next-auth/react'
+import Link from 'next/link'
+import {
+  MdOutlineLogout,
+} from 'react-icons/md'
 
 export default function DrawerSideBar(props: DrawerSideBarProps) {
   const { open, onClose } = props
@@ -14,25 +30,79 @@ export default function DrawerSideBar(props: DrawerSideBarProps) {
     signOut()
   }
 
-  const LINKS = [
-    { text: 'Home', href: '/', icon: '' },
-    { text: 'Starred', href: '/starred', icon: '' },
-    { text: 'Tasks', href: '/tasks', icon: '' },
-  ]
-
-  const PLACEHOLDER_LINKS = [
-    { text: 'Settings', icon: '' },
-    { text: 'Support', icon: '' },
-  ]
-
   return (
     <Drawer
       open={open}
+      onClose={handleClose}
       anchor='left'
       variant='persistent'
-      onClose={handleClose}
       ModalProps={{ keepMounted: true }}
-      sx={{ '& .MuiDrawer-paper': { width: 300 } }}
-    >...</Drawer>
+      sx={{
+        '& .MuiDrawer-paper': {
+          width: 240,
+          whiteSpace: 'nowrap',
+          flexShrink: 0,
+          height: 'auto',
+          bottom: 0,
+        },
+      }}
+    >
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          minHeight: 65,
+        }}
+      >
+        <Typography
+          variant='h6'
+          sx={{ color: blue[600], textTransform: 'uppercase', mx: 2 }}
+        >
+          Dedicado Digital
+        </Typography>
+      </Box>
+      <List>
+        {SidebarLinks.map(({ text, href, icon: Icon }) => (
+          <ListItem key={href} disablePadding>
+            <ListItemButton component={Link} href={href}>
+              <ListItemIcon sx={{ color: blue[600] }}>
+                <Icon />
+              </ListItemIcon>
+              <ListItemText>
+                <Typography
+                  sx={{
+                    textTransform: 'uppercase',
+                    fontSize: 12,
+                    color: blue[600],
+                  }}
+                >
+                  {text}
+                </Typography>
+              </ListItemText>
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider sx={{ mt: 'auto' }} />
+      <List>
+        <ListItemButton onClick={handleSignOut}>
+          <ListItemIcon sx={{ color: blue[600] }}>
+            <MdOutlineLogout />
+          </ListItemIcon>
+          <ListItemText>
+            <Typography
+              sx={{
+                textTransform: 'uppercase',
+                fontSize: 12,
+                color: blue[600],
+              }}
+            >
+              Sair
+            </Typography>
+          </ListItemText>
+        </ListItemButton>
+      </List>
+    </Drawer>
   )
 }

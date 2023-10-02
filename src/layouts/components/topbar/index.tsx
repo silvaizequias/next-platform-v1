@@ -1,6 +1,13 @@
 'use client'
 
-import { AppBar, Container, IconButton, Toolbar, Tooltip } from '@mui/material'
+import {
+  AppBar,
+  Container,
+  IconButton,
+  Toolbar,
+  Tooltip,
+  Typography,
+} from '@mui/material'
 import { Fragment, useState } from 'react'
 import { TopBarProps } from '@/layouts/types'
 import UserToolbar from '../user-toolbar'
@@ -52,15 +59,22 @@ export default function TopBar(props: TopBarProps) {
                 <IconButton
                   sx={{
                     p: 1,
-                    ml: !showDrawerSideBar ? 0 : 36,
+                    ml: !showDrawerSideBar ? 0 : 30,
                     color: grey[50],
                   }}
-                  size='medium'
                   onClick={handleDrawerSideBar}
                 >
                   <MdDensityMedium />
                 </IconButton>
               </Tooltip>
+              {!showDrawerSideBar && (
+                <Typography
+                  variant='h6'
+                  sx={{ color: grey[50], textTransform: 'uppercase', ml: 1 }}
+                >
+                  Dedicado Digital
+                </Typography>
+              )}
             </Toolbar>
             <UserToolbar session={session!} />
           </Fragment>
@@ -70,7 +84,6 @@ export default function TopBar(props: TopBarProps) {
               <Tooltip title='Acessar'>
                 <IconButton
                   sx={{ p: 0, mr: 1, color: grey[50] }}
-                  size='medium'
                   onClick={handleDialog}
                 >
                   <MdLogin />
