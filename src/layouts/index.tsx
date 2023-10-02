@@ -7,6 +7,7 @@ import TopBar from './components/topbar'
 import { Box } from '@mui/material'
 import { Container } from '@mui/system'
 import { blue, grey } from '@mui/material/colors'
+import Spinner from '@/components/spinner'
 
 export default function DefaultLayout(props: DefaultLayoutProps) {
   const { children, session } = props
@@ -19,7 +20,7 @@ export default function DefaultLayout(props: DefaultLayoutProps) {
 
   //TODO: tratar a cor do background e o display
   return (
-    <Suspense fallback={'...'}>
+    <Suspense fallback={<Spinner />}>
       <Box
         sx={{
           height: '100vh',

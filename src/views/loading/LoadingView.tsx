@@ -1,3 +1,5 @@
+import Spinner from '@/components/spinner'
+
 export default function LoadingView() {
-  return <h1>loading</h1>
+  return <Spinner />
 }
