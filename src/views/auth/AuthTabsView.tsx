@@ -1,11 +1,13 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab'
-import { Box, Tab } from '@mui/material'
+import { Box, Button, Divider, Tab } from '@mui/material'
 import { SyntheticEvent, useState } from 'react'
 import AuthSignInForm from './forms/AuthSignInForm'
 import AuthSignUpForm from './forms/AuthSignUpForm'
 import AuthResetPasswordForm from './forms/AuthResetPasswordForm'
 import { MdBadge, MdOutlineLogin, MdOutlinePassword } from 'react-icons/md'
 import { signIn } from 'next-auth/react'
+import { blue, grey } from '@mui/material/colors'
+import { FcGoogle } from 'react-icons/fc'
 
 export default function AuthTabsView() {
   const [value, setValue] = useState<string>('sign-in')
@@ -19,7 +21,14 @@ export default function AuthTabsView() {
   }
 
   return (
-    <Box sx={{ width: '100%', typography: 'body1' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        typography: 'body1',
+      }}
+    >
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <TabList onChange={handleChange} centered>
@@ -53,6 +62,26 @@ export default function AuthTabsView() {
           <AuthResetPasswordForm />
         </TabPanel>
       </TabContext>
+      <Divider
+        sx={{
+          textAlign: 'center',
+          color: blue[600],
+          textTransform: 'uppercase',
+          fontSize: 9,
+        }}
+      >
+        ou
+      </Divider>
+      <Button
+        size='small'
+        variant='contained'
+        color='info'
+        sx={{ m: 2 }}
+        onClick={handleGoogleSignIn}
+        startIcon={<FcGoogle />}
+      >
+        Acesse com o Google
+      </Button>
     </Box>
   )
 }
