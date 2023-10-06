@@ -64,7 +64,7 @@ export default function UserToolbar(props: UserToolbarProps) {
         >
           <MenuItem onClick={handleLogout}>
             <ListItemIcon>
-              <MdOutlineLogout sx={{ pr: 2 }} />
+              <MdOutlineLogout />
             </ListItemIcon>
             <ListItemText>
               <Typography fontSize={12}>Sair</Typography>
