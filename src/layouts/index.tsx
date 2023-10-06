@@ -2,7 +2,6 @@
 
 import { Suspense, useState } from 'react'
 import { DefaultLayoutProps } from './types'
-import { usePathname } from 'next/navigation'
 import TopBar from './components/topbar'
 import { Box } from '@mui/material'
 import { Container } from '@mui/system'
@@ -23,7 +22,6 @@ export default function DefaultLayout(props: DefaultLayoutProps) {
       <Box
         sx={{
           minHeight: '100vh',
-          margin: 'auto',
           bgcolor: blue[600],
           color: grey[50],
         }}

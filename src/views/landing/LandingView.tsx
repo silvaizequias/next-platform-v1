@@ -9,7 +9,6 @@ export default function LandingView() {
   return (
     <Box
       sx={{
-        margin: 'auto',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -29,7 +28,6 @@ export default function LandingView() {
         </Divider>
         <Typography
           variant='h4'
-          color='white'
           textTransform='uppercase'
           text-align='center'
         >

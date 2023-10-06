@@ -35,10 +35,9 @@ export default function TopBar(props: TopBarProps) {
     setShowDialog(!showDialog)
   }
 
-  //TODO: componentizar toolbar
   return (
     <AppBar
-      position='sticky'
+      position='fixed'
       elevation={0}
       sx={{ bgcolor: 'transparent', position: 'absolute', top: 0 }}
     >
@@ -46,57 +45,72 @@ export default function TopBar(props: TopBarProps) {
         maxWidth='xl'
         sx={{
           display: 'flex',
-          justifyContent: session ? 'space-between' : 'right',
+          justifyContent: 'space-between',
         }}
       >
-        {session ? (
-          <Fragment>
-            <Toolbar
-              disableGutters
-              sx={{ display: 'flex', justifyContent: 'left' }}
+        <Toolbar
+          disableGutters
+          sx={{ display: 'flex', justifyContent: 'left' }}
+        >
+          {session && (
+            <Tooltip title='Menu'>
+              <IconButton
+                sx={{
+                  p: 1,
+                  ml: !showDrawerSideBar ? 0 : 30,
+                  color: grey[50],
+                }}
+                onClick={handleDrawerSideBar}
+              >
+                <MdDensityMedium />
+              </IconButton>
+            </Tooltip>
+          )}
+          {!showDrawerSideBar && (
+            <Typography
+              variant='h6'
+              sx={{ color: grey[50], textTransform: 'uppercase', ml: 1 }}
             >
-              <Tooltip title='Menu'>
+              Dedicado Digital
+            </Typography>
+          )}
+        </Toolbar>
+        <Toolbar
+          disableGutters
+          sx={{ display: 'flex', justifyContent: 'right' }}
+        >
+          {!session ? (
+            pathname !== '/' && (
+              <Tooltip title='Acessar'>
                 <IconButton
                   sx={{
                     p: 1,
                     ml: !showDrawerSideBar ? 0 : 30,
                     color: grey[50],
                   }}
-                  onClick={handleDrawerSideBar}
-                >
-                  <MdDensityMedium />
-                </IconButton>
-              </Tooltip>
-              {!showDrawerSideBar && (
-                <Typography
-                  variant='h6'
-                  sx={{ color: grey[50], textTransform: 'uppercase', ml: 1 }}
-                >
-                  Dedicado Digital
-                </Typography>
-              )}
-            </Toolbar>
-            <UserToolbar session={session!} />
-          </Fragment>
-        ) : (
-          pathname !== '/' && (
-            <Toolbar disableGutters>
-              <Tooltip title='Acessar'>
-                <IconButton
-                  sx={{ p: 0, mr: 1, color: grey[50] }}
                   onClick={handleDialog}
                 >
                   <MdLogin />
                 </IconButton>
               </Tooltip>
-            </Toolbar>
-          )
-        )}
+            )
+          ) : (
+            <Tooltip title='Acessar'>
+              <IconButton
+                sx={{
+                  p: 1,
+                  ml: !showDrawerSideBar ? 0 : 30,
+                  color: grey[50],
+                }}
+                onClick={handleDialog}
+              >
+                <MdLogin />
+              </IconButton>
+            </Tooltip>
+          )}
+        </Toolbar>
       </Container>
       <DrawerSideBar open={showDrawerSideBar} onClose={handleDrawerSideBar} />
-      <ShowInDialog open={showDialog} onClose={handleDialog}>
-        <AuthTabsView />
-      </ShowInDialog>
     </AppBar>
   )
 }

@@ -84,7 +84,7 @@ export const POST = async (
       }
 
       return (
-        new Response(
+        new NextResponse(
           JSON.stringify(await prisma.organizationOfUser.create({ data })),
         ),
         { status: 201 }

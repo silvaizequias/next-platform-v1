@@ -53,7 +53,6 @@ export default function UserToolbar(props: UserToolbarProps) {
         </Tooltip>
 
         <Menu
-          id='menu-appbar'
           anchorEl={anchorElUser}
           keepMounted
           open={Boolean(anchorElUser)}

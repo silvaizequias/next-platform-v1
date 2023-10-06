@@ -4,7 +4,6 @@ import { TwilioTemplateProps } from '../types'
 export const sendWelcomeSms = async (props: TwilioTemplateProps) => {
   const { name, password, phone } = props
   const NEXTAUTH_URL = process.env.NEXTAUTH_URL
-  //TODO: implementar header authorization para os posts do axios
 
   const data = {
     sendTo: phone,
