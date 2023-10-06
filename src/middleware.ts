@@ -24,7 +24,7 @@ export default async function middleware(request: Request) {
     return new NextResponse(error?.message, error)
   }
 }
-
+//TODO: melhorar configurações e regras de autorização de acesso
 export const config = {
   matcher: [
     //'/api/accounts/:patch*',
