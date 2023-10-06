@@ -14,12 +14,7 @@ const themeOptions = createTheme({
   typography: {
     fontFamily: roboto.style.fontFamily,
   },
-  components: {
-    MuiAlert: {
-      styleOverrides: {
-      },
-    },
-  },
+  components: {},
 })
 
 export default themeOptions
