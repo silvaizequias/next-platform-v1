@@ -11,11 +11,10 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material'
-import { blue } from '@mui/material/colors'
 import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { MdApps, MdOutlineLogout } from 'react-icons/md'
+import { MdOutlineLogout } from 'react-icons/md'
 
 export default function UserToolbar(props: UserToolbarProps) {
   const { user } = props.session

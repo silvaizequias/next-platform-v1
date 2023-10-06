@@ -1,5 +1,8 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
+import { TopBarProps } from '../types'
+import { useState } from 'react'
 import {
   AppBar,
   Container,
@@ -8,18 +11,13 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material'
-import { Fragment, useState } from 'react'
-import { TopBarProps } from '@/layouts/types'
-import UserToolbar from '../user-toolbar'
-import { grey } from '@mui/material/colors'
-import { MdDensityMedium, MdLogin } from 'react-icons/md'
 import DrawerSideBar from '../drawer-sidebar'
-import ShowInDialog from '@/components/show-in-dialog'
-import AuthTabsView from '@/views/auth/AuthTabsView'
-import { usePathname } from 'next/navigation'
+import { MdDensityMedium, MdLogin } from 'react-icons/md'
+import { grey } from '@mui/material/colors'
+import UserToolbar from '../user-toolbar'
 
 export default function TopBar(props: TopBarProps) {
-  const { session, onClose } = props
+  const { onClose, session } = props
 
   const pathname = usePathname()
 
@@ -37,9 +35,13 @@ export default function TopBar(props: TopBarProps) {
 
   return (
     <AppBar
-      position='fixed'
+      position='sticky'
       elevation={0}
-      sx={{ bgcolor: 'transparent', position: 'absolute', top: 0 }}
+      sx={{
+        bgcolor: 'transparent',
+        position: 'absolute',
+        top: 0,
+      }}
     >
       <Container
         maxWidth='xl'
@@ -67,10 +69,7 @@ export default function TopBar(props: TopBarProps) {
             </Tooltip>
           )}
           {!showDrawerSideBar && (
-            <Typography
-              variant='h6'
-              sx={{ color: grey[50], textTransform: 'uppercase', ml: 1 }}
-            >
+            <Typography variant='h6' sx={{ textTransform: 'uppercase', ml: 1 }}>
               Dedicado Digital
             </Typography>
           )}
@@ -95,18 +94,7 @@ export default function TopBar(props: TopBarProps) {
               </Tooltip>
             )
           ) : (
-            <Tooltip title='Acessar'>
-              <IconButton
-                sx={{
-                  p: 1,
-                  ml: !showDrawerSideBar ? 0 : 30,
-                  color: grey[50],
-                }}
-                onClick={handleDialog}
-              >
-                <MdLogin />
-              </IconButton>
-            </Tooltip>
+            <UserToolbar session={session!} />
           )}
         </Toolbar>
       </Container>
