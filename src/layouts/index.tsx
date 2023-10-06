@@ -18,12 +18,11 @@ export default function DefaultLayout(props: DefaultLayoutProps) {
     setOpenDrawer(!openDrawer)
   }
 
-  //TODO: tratar a cor do background e o display
   return (
     <Suspense fallback={<Spinner />}>
       <Box
         sx={{
-          height: '100vh',
+          minHeight: '100vh',
           margin: 'auto',
           bgcolor: blue[600],
           color: grey[50],
