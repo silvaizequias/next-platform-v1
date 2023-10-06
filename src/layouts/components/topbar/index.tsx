@@ -1,7 +1,6 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { TopBarProps } from '../types'
 import { useState } from 'react'
 import {
   AppBar,
@@ -15,6 +14,7 @@ import DrawerSideBar from '../drawer-sidebar'
 import { MdDensityMedium, MdLogin } from 'react-icons/md'
 import { grey } from '@mui/material/colors'
 import UserToolbar from '../user-toolbar'
+import { TopBarProps } from '@/layouts/types'
 
 export default function TopBar(props: TopBarProps) {
   const { onClose, session } = props
