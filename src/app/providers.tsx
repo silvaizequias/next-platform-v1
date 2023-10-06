@@ -1,9 +1,9 @@
 'use client'
 
+import NextAppDirEmotionCacheProvider from '@/components/emotion-cache'
 import ToastProvider from '@/components/toast-provider'
 import { LayoutProps } from '@/layouts/types'
 import themeOptions from '@/theme'
-import NextAppDirEmotionCacheProvider from '@/theme/EmotionCache'
 import { CssBaseline } from '@mui/material'
 import { ThemeProvider } from '@mui/system'
 import { LocalizationProvider } from '@mui/x-date-pickers'
