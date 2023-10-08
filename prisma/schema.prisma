@@ -43,56 +43,6 @@ enum UserDocType {
   PASSPORT
 }
 
-model Account {
-  id          String    @id @default(cuid())
-  createdAt   DateTime  @default(now()) @map("created_at")
-  updatedAt   DateTime  @updatedAt @map("updated_at")
-  deletedAt   DateTime? @map("deleted_at") @db.Date
-  softDeleted Boolean?  @default(false) @map("soft_deleted")
-
-  userId String @map("user_id")
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  type              String
-  provider          String
-  providerAccountId String  @map("provider_account_id")
-  refresh_token     String? @map("refresh_token") @db.Text
-  access_token      String? @map("access_token") @db.Text
-  expires_at        Int?    @map("expires_at")
-  token_type        String? @map("token_type")
-  scope             String?
-  id_token          String? @map("id_token") @db.Text
-  session_state     String? @map("session_state")
-
-  @@unique([provider, providerAccountId])
-  @@map("accounts")
-}
-
-model Session {
-  id          String    @id @default(cuid())
-  createdAt   DateTime  @default(now()) @map("created_at")
-  updatedAt   DateTime  @updatedAt @map("updated_at")
-  deletedAt   DateTime? @map("deleted_at") @db.Date
-  softDeleted Boolean?  @default(false) @map("soft_deleted")
-
-  userId String @map("user_id")
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  sessionToken String   @map("session_token")
-  expires      DateTime
-
-  @@unique([sessionToken])
-  @@map("sessions")
-}
-
-model VerificationToken {
-  identifier String   @unique
-  token      String   @unique
-  expires    DateTime
-
-  @@map("verification_tokens")
-}
-
 model User {
   id          String    @id @default(cuid())
   createdAt   DateTime  @default(now()) @map("created_at")
@@ -105,7 +55,6 @@ model User {
 
   name          String?
   email         String?      @unique
-  emailVerified DateTime?    @map("email_verified")
   image         String?
   phone         String?      @unique
   docType       UserDocType? @default(CPF) @map("doc_type")
@@ -117,12 +66,10 @@ model User {
   latitude   Float?  @db.DoublePrecision
   longitude  Float?  @db.DoublePrecision
 
-  accounts      Account[]
   apiKeys       ApiKey[]
   subscriptions Subscription[]
   organizations Organization[]
   orgs          OrganizationOfUser[]
-  sessions      Session[]
 
   @@map("users")
 }

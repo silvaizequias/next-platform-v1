@@ -1,9 +1,7 @@
 import { UserDocType, UserProfile } from '@prisma/client'
-import { AccountType } from '../account'
 import { SubscriptionType } from '../subscriptions'
 import { OrganizationType } from '../organization'
 import { OrganizationOfUserType } from '../organization-of-user'
-import { SessionType } from '../session'
 import { ApiKeyType } from '../api-key'
 
 export type UserType = {
@@ -26,10 +24,8 @@ export type UserType = {
   complement: string
   latitude: number
   longitude: number
-  accounts: AccountType[]
   apiKeys: ApiKeyType[]
   subscriptions: SubscriptionType[]
   organizations: OrganizationType[]
   orgs: OrganizationOfUserType[]
-  sessions: SessionType[]
 }

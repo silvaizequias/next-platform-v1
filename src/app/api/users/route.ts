@@ -15,13 +15,6 @@ export const GET = async (request: Request) => {
         await prisma.user.findMany({
           where: { softDeleted: false },
           include: {
-            accounts: {
-              select: {
-                id: true,
-                type: true,
-                provider: true,
-              },
-            },
             subscriptions: true,
             organizations: true,
             orgs: {
@@ -35,12 +28,6 @@ export const GET = async (request: Request) => {
                     cnpj: true,
                   },
                 },
-              },
-            },
-            sessions: {
-              select: {
-                sessionToken: true,
-                expires: true,
               },
             },
           },

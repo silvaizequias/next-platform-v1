@@ -13,13 +13,6 @@ export const GET = async (
         await prisma.user.findFirst({
           where: { id: id, softDeleted: false },
           include: {
-            accounts: {
-              select: {
-                id: true,
-                type: true,
-                provider: true,
-              },
-            },
             subscriptions: true,
             organizations: true,
             orgs: {
@@ -33,12 +26,6 @@ export const GET = async (
                     cnpj: true,
                   },
                 },
-              },
-            },
-            sessions: {
-              select: {
-                sessionToken: true,
-                expires: true,
               },
             },
           },
