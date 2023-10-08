@@ -6,8 +6,8 @@ declare module 'next-auth/jwt' {
   interface JWT {
     id: string
     profile: UserProfile
-    organizations?: []
-    orgs?: []
+    organizations: [] | any 
+    orgs: [] | any  
   }
 }
 
@@ -16,15 +16,15 @@ declare module 'next-auth' {
     user: User & {
       id: string
       profile: UserProfile
-      organizations?: []
-      orgs?: []
+      organizations: [] | any 
+      orgs: [] | any 
     } & DefaultSession['user']
   }
 
   interface User {
     id: string
     profile: UserProfile
-    organizations?: []
-    orgs?: []
+    organizations: [] | any 
+    orgs: [] | any 
   }
 }

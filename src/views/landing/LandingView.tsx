@@ -1,8 +1,7 @@
 'use client'
 
 import { Box } from '@mui/system'
-import { Divider, Typography } from '@mui/material'
-import { grey } from '@mui/material/colors'
+import { Typography } from '@mui/material'
 import AuthView from '../auth/AuthView'
 
 export default function LandingView() {
@@ -16,22 +15,14 @@ export default function LandingView() {
         alignItems: 'center',
       }}
     >
-      <Box sx={{ marginTop: 28, maxWidth: 480 }}>
-        <Divider
-          sx={{
-            textAlign: 'center',
-            color: grey[200],
-            textTransform: 'uppercase',
-          }}
-        >
-          Portal do Sistema
-        </Divider>
+      <Box sx={{ maxWidth: 480 }}>
         <Typography
-          variant='h4'
-          textTransform='uppercase'
-          text-align='center'
+          variant='h3'
+          marginBottom={2}
+          textTransform={'uppercase'}
+          textAlign='center'
         >
-          Dedicado Digital
+          Sistema Dedicado
         </Typography>
         <AuthView />
       </Box>

@@ -15,7 +15,7 @@ export default async function ServiceManagementPage() {
       {!session || session.user.profile == 'GUEST' ? (
         <ServiceManagementPublicView />
       ) : (
-        <ServiceManagementPrivateView />
+        <ServiceManagementPrivateView session={session!} />
       )}
     </main>
   )

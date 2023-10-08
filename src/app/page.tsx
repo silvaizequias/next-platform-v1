@@ -10,5 +10,9 @@ export const metadata: Metadata = {
 export default async function LandingPage() {
   const session = await getServerSession(authOptions)
 
-  return <main>{session ? <AccountView /> : <LandingView />}</main>
+  return (
+    <main>
+      {session ? <AccountView session={session!} /> : <LandingView />}
+    </main>
+  )
 }

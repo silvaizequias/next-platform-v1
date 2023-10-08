@@ -5,6 +5,10 @@ export interface LayoutProps {
   children: ReactNode
 }
 
+export interface PageViewProps {
+  session: Session
+}
+
 export interface DefaultLayoutProps {
   children: ReactNode
   session: Session

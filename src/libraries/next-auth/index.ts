@@ -1,6 +1,5 @@
 import { prisma } from '@/libraries/prisma'
 import { NextAuthOptions } from 'next-auth'
-import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
 import axios from 'axios'
@@ -12,7 +11,6 @@ const GOOGLE_CLIENT_SECRET = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!
 
 export const authOptions: NextAuthOptions = {
   secret: NEXTAUTH_SECRET,
-  adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
       credentials: {
@@ -34,8 +32,6 @@ export const authOptions: NextAuthOptions = {
         } else {
           return null
         }
-
-        
       },
     }),
     GoogleProvider({
@@ -57,47 +53,61 @@ export const authOptions: NextAuthOptions = {
     updateAge: 24 * 60 * 60,
   },
   callbacks: {
-    jwt: async ({ token, user }) => {
-      if (!user) {
-        const user = await prisma.user.findFirst({
-          where: { email: token?.email! },
-          include: {
-            organizations: {
-              select: {
-                id: true,
-                name: true,
-                cnpj: true,
-              },
+    jwt: async ({ token, profile }): Promise<any> => {
+      const userEmail = token.email! || profile?.email!
+      const userData = await prisma.user.findFirst({
+        where: { email: userEmail! },
+        include: {
+          organizations: {
+            select: {
+              id: true,
+              name: true,
+              cnpj: true,
             },
-            orgs: {
-              select: {
-                role: true,
-                isAvaliable: true,
-                organization: {
-                  select: {
-                    id: true,
-                    name: true,
-                    cnpj: true,
-                  },
+          },
+          orgs: {
+            select: {
+              role: true,
+              isAvaliable: true,
+              organization: {
+                select: {
+                  id: true,
+                  name: true,
+                  cnpj: true,
                 },
               },
             },
           },
+        },
+      })
+      if (!userData) {
+        const newUser = await prisma.user.create({
+          data: {
+            profile: 'GUEST',
+            name: token.name!,
+            email: token.email,
+            image: token.picture!,
+          },
         })
-        if (user) {
-          token.id = user.id
+        return {
+          id: newUser?.id,
+          profile: newUser?.profile,
+          name: newUser?.name,
+          email: newUser?.email,
+          picture: newUser?.image,
+          organizations: [],
+          orgs: [],
         }
-        return token
-      }
+      } else {
+        token.id = userData.id
+        token.profile = userData.profile!
+        token.name = userData.name
+        token.email = userData.email
+        token.picture = userData.image
+        token.organizations = userData.organizations
+        token.orgs = userData.orgs
 
-      return {
-        id: user.id,
-        profile: user.profile,
-        name: user.name,
-        email: user.email,
-        picture: user.image,
-        organizations: user.organizations,
-        orgs: user.orgs,
+        return token
       }
     },
     session: async ({ session, token }) => {

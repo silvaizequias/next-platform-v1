@@ -1,6 +1,9 @@
+import { PageViewProps } from '@/layouts/types'
 import { Container, Grid, Typography } from '@mui/material'
 
-export default function ServiceManagementPrivateView() {
+export default function ServiceManagementPrivateView(props: PageViewProps) {
+  const {} = props
+
   return (
     <Container maxWidth='lg'>
       <Grid container spacing={2} marginTop={2}>
