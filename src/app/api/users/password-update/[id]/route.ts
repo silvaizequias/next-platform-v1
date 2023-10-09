@@ -4,8 +4,7 @@ import {
   UserPasswordUpdateSchemaType,
 } from '@/types/user/schema'
 import { Prisma } from '@prisma/client'
-import { hash } from 'bcrypt'
-import { compareSync } from 'bcrypt'
+import * as bcrypt from 'bcrypt'
 import { NextResponse } from 'next/server'
 
 export const PATCH = async (
@@ -26,11 +25,13 @@ export const PATCH = async (
           status: 404,
         })
 
-      const passwordValidate = compareSync(password, user?.passHash!)
-      if (!passwordValidate) new Response('senha inválida', { status: 403 })
+      if (!bcrypt.compareSync(password, user?.passHash!))
+        new Response('senha inválida', { status: 403 })
+
+      const passHash = bcrypt.hashSync(newPassword, 10)
 
       const data: Prisma.UserUpdateInput = {
-        passHash: await hash(newPassword, 10),
+        passHash: passHash,
       }
       await prisma.user.update({ where: { id }, data })
 
