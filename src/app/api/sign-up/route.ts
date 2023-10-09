@@ -5,7 +5,7 @@ import { sendWelcomeSms } from '@/libraries/twilio/templates'
 import { TwilioTemplateProps } from '@/libraries/twilio/types'
 import { AuthSignUpSchema, AuthSignUpSchemaType } from '@/types/auth/schema'
 import { Prisma } from '@prisma/client'
-import { hash } from 'bcrypt'
+import * as bcrypt from 'bcrypt'
 import { NextResponse } from 'next/server'
 
 export const POST = async (
@@ -32,7 +32,7 @@ export const POST = async (
 
       const data: Prisma.UserCreateInput = {
         ...inputs,
-        passHash: await hash(password || randomCode!, 10),
+        passHash: bcrypt.hashSync(password || randomCode!, 10),
       }
       await prisma.user.create({ data })
 

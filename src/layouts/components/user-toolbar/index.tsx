@@ -1,42 +1,10 @@
 import { UserToolbarProps } from '@/layouts/types'
-import {
-  Avatar,
-  Box,
-  IconButton,
-  ListItemIcon,
-  ListItemText,
-  Menu,
-  MenuItem,
-  Toolbar,
-  Tooltip,
-  Typography,
-} from '@mui/material'
-import { signOut } from 'next-auth/react'
+import { Avatar, Box, IconButton, Toolbar, Tooltip } from '@mui/material'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-import { MdOutlineLogout } from 'react-icons/md'
 
 export default function UserToolbar(props: UserToolbarProps) {
   const { user } = props.session
   const router = useRouter()
-
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
-
-  const handleMenuDropdown = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget)
-  }
-
-  const hendleMenuItem = (url?: string) => {
-    if (url) {
-      router.push(url)
-    }
-    setAnchorElUser(null)
-  }
-
-  const handleLogout = () => {
-    signOut()
-    hendleMenuItem()
-  }
 
   return (
     <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'right' }}>
@@ -45,30 +13,11 @@ export default function UserToolbar(props: UserToolbarProps) {
           <IconButton
             sx={{ p: 0, ml: 1 }}
             size='medium'
-            onClick={handleMenuDropdown}
+            onClick={() => router.push('/profile')}
           >
             <Avatar alt={user?.name!} src={user?.image! || '/avatar.png'} />
           </IconButton>
         </Tooltip>
-
-        <Menu
-          anchorEl={anchorElUser}
-          keepMounted
-          open={Boolean(anchorElUser)}
-          onClose={() => hendleMenuItem()}
-          transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-          sx={{ mt: '15px', textTransform: 'uppercase' }}
-        >
-          <MenuItem onClick={handleLogout}>
-            <ListItemIcon>
-              <MdOutlineLogout />
-            </ListItemIcon>
-            <ListItemText>
-              <Typography fontSize={12}>Sair</Typography>
-            </ListItemText>
-          </MenuItem>
-        </Menu>
       </Box>
     </Toolbar>
   )

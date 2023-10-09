@@ -16,7 +16,7 @@ const roboto = Roboto({
 const inter = Inter({
   subsets: ['latin'],
   weight: ['100', '300', '400', '500'],
-  variable: '--font-inter'
+  variable: '--font-inter',
 })
 
 const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
@@ -63,6 +63,12 @@ export default async function RootLayout(props: LayoutProps) {
       className={`${roboto.variable} ${inter.variable} font-sans`}
       suppressHydrationWarning
     >
+      <head>
+        <link
+          href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css'
+          rel='stylesheet'
+        />
+      </head>
       <body>
         <Providers>
           <DefaultLayout session={session!}>{children}</DefaultLayout>

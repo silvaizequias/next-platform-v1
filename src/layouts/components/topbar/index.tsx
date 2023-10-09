@@ -15,6 +15,8 @@ import { MdDensityMedium, MdLogin } from 'react-icons/md'
 import { grey } from '@mui/material/colors'
 import UserToolbar from '../user-toolbar'
 import { TopBarProps } from '@/layouts/types'
+import ShowInDialog from '@/components/show-in-dialog'
+import AuthTabsView from '@/views/auth/AuthTabsView'
 
 export default function TopBar(props: TopBarProps) {
   const { onClose, session } = props
@@ -99,6 +101,9 @@ export default function TopBar(props: TopBarProps) {
         </Toolbar>
       </Container>
       <DrawerSideBar open={showDrawerSideBar} onClose={handleDrawerSideBar} />
+      <ShowInDialog open={showDialog} onClose={handleDialog}>
+        <AuthTabsView />
+      </ShowInDialog>
     </AppBar>
   )
 }

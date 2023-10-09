@@ -18,8 +18,7 @@ export default function DefaultLayout(props: DefaultLayoutProps) {
   return (
     <Box
       sx={{
-        display: 'flex',
-        minHeight: '100vh',
+        h: 'auto',
         bgcolor: blue[600],
         color: grey[50],
       }}
@@ -28,13 +27,9 @@ export default function DefaultLayout(props: DefaultLayoutProps) {
       <Box
         sx={
           session
-            ? { mt: 4, ml: openDrawer ? '240px' : '4px' }
+            ? { ml: openDrawer ? '240px' : '4px', minHeight: '100vh' }
             : {
-                margin: 'auto',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignContent: 'center',
+                minHeight: '100vh',
               }
         }
       >

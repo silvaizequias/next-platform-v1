@@ -1,6 +1,6 @@
 import { prisma } from '@/libraries/prisma'
 import jwt from 'jsonwebtoken'
-import { compareSync } from 'bcrypt'
+import * as bcrypt from 'bcrypt'
 import { AuthSignInSchema, AuthSignInSchemaType } from '@/types/auth/schema'
 import { NextResponse } from 'next/server'
 
@@ -50,11 +50,8 @@ export const POST = async (request: Request): Promise<any> => {
           { status: 404 },
         )
 
-      const userPassword = user?.passHash!
-
-      const passwordValidate = compareSync(password, userPassword)
-      if (!passwordValidate)
-        return new NextResponse('senha inválida', { status: 403 })
+      if (!bcrypt.compareSync(password, user?.passHash!))
+        new Response('senha inválida', { status: 403 })
 
       const encryptedToken = jwt.sign(
         {

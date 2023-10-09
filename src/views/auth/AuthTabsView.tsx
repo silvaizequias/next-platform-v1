@@ -1,20 +1,22 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab'
 import { Box, Button, Divider, Tab } from '@mui/material'
-import { SyntheticEvent, useState } from 'react'
+import { Fragment, SyntheticEvent, useState } from 'react'
 import AuthSignInForm from './forms/AuthSignInForm'
 import AuthSignUpForm from './forms/AuthSignUpForm'
 import AuthResetPasswordForm from './forms/AuthResetPasswordForm'
 import { MdBadge, MdOutlineLogin, MdOutlinePassword } from 'react-icons/md'
 import { signIn } from 'next-auth/react'
-import { blue, grey } from '@mui/material/colors'
+import { blue } from '@mui/material/colors'
 import { FcGoogle } from 'react-icons/fc'
+import { usePathname } from 'next/navigation'
 
 export default function AuthTabsView() {
   const [value, setValue] = useState<string>('sign-in')
-
   const handleChange = (event: SyntheticEvent, newValue: string) => {
     setValue(newValue)
   }
+
+  const pathname = usePathname()
 
   const handleGoogleSignIn = async () => {
     await signIn('google')
@@ -62,26 +64,30 @@ export default function AuthTabsView() {
           <AuthResetPasswordForm />
         </TabPanel>
       </TabContext>
-      <Divider
-        sx={{
-          textAlign: 'center',
-          color: blue[600],
-          textTransform: 'uppercase',
-          fontSize: 9,
-        }}
-      >
-        ou
-      </Divider>
-      <Button
-        size='small'
-        variant='contained'
-        color='info'
-        sx={{ m: 2 }}
-        onClick={handleGoogleSignIn}
-        startIcon={<FcGoogle />}
-      >
-        Acesse com o Google
-      </Button>
+      {pathname !== '/' && (
+        <Fragment>
+          <Divider
+            sx={{
+              textAlign: 'center',
+              color: blue[600],
+              textTransform: 'uppercase',
+              fontSize: 9,
+            }}
+          >
+            ou
+          </Divider>
+          <Button
+            size='small'
+            variant='contained'
+            color='info'
+            sx={{ m: 2 }}
+            onClick={handleGoogleSignIn}
+            startIcon={<FcGoogle />}
+          >
+            Acesse com o Google
+          </Button>
+        </Fragment>
+      )}
     </Box>
   )
 }

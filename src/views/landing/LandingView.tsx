@@ -10,19 +10,18 @@ export default function LandingView() {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
-        alignContent: 'center',
         alignItems: 'center',
+        justifyItems: 'center',
       }}
     >
-      <Box sx={{ maxWidth: 480 }}>
+      <Box sx={{ maxWidth: 480, py: '25%' }}>
         <Typography
           variant='h3'
           marginBottom={2}
           textTransform={'uppercase'}
           textAlign='center'
         >
-          Sistema Dedicado
+          Sistemas Dedicado
         </Typography>
         <AuthView />
       </Box>
