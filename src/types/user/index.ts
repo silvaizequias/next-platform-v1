@@ -21,7 +21,11 @@ export type UserType = {
   docCode: string
   passHash: string
   zipCode: string
+  street: string
   complement: string
+  district: string
+  city: string
+  state: string
   latitude: number
   longitude: number
   apiKeys: ApiKeyType[]

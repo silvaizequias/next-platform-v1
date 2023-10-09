@@ -8,7 +8,11 @@ export const OrganizationCreateSchema = z.object({
   email: z.string().email(),
   phone: z.string().optional(),
   zipCode: z.string().length(8).optional(),
+  street: z.string().optional(),
   complement: z.string().optional(),
+  district: z.string().optional(),
+  city: z.string().optional(),
+  state: z.string().optional(),
 })
 
 export type OrganizationCreateSchemaType = z.infer<
@@ -23,7 +27,11 @@ export const OrganizationUpdateSchema = z.object({
   email: z.string().email().optional(),
   phone: z.string().optional(),
   zipCode: z.string().length(8).optional(),
+  street: z.string().optional(),
   complement: z.string().optional(),
+  district: z.string().optional(),
+  city: z.string().optional(),
+  state: z.string().optional(),
 })
 
 export type OrganizationUpdateSchemaType = z.infer<

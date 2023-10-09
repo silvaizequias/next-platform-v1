@@ -53,16 +53,20 @@ model User {
   profile  UserProfile? @default(GUEST)
   isActive Boolean?     @default(true) @map("is_active")
 
-  name          String?
-  email         String?      @unique
-  image         String?
-  phone         String?      @unique
-  docType       UserDocType? @default(CPF) @map("doc_type")
-  docCode       String?      @unique @map("doc_code")
-  passHash      String?      @map("pass_hash")
+  name     String?
+  email    String?      @unique
+  image    String?
+  phone    String?      @unique
+  docType  UserDocType? @default(CPF) @map("doc_type")
+  docCode  String?      @unique @map("doc_code")
+  passHash String?      @map("pass_hash")
 
   zipCode    String? @map("zip_code")
+  street     String?
   complement String?
+  district   String?
+  city       String?
+  state      String?
   latitude   Float?  @db.DoublePrecision
   longitude  Float?  @db.DoublePrecision
 
@@ -119,7 +123,13 @@ model Organization {
   phone String? @unique
 
   zipCode    String? @map("zip_code")
+  street     String?
   complement String?
+  district   String?
+  city       String?
+  state      String?
+  latitude   Float?  @db.DoublePrecision
+  longitude  Float?  @db.DoublePrecision
 
   users    OrganizationOfUser[]
   solution SolutionOfOrganization?

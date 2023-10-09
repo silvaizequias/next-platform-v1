@@ -16,7 +16,13 @@ export type OrganizationType = {
   email: string
   phone: string
   zipCode: string
+  street: string
   complement: string
+  district: string
+  city: string
+  state: string
+  latitude: number
+  longitude: number
   users: OrganizationOfUserType[]
   solutions: SolutionOfOrganizationType[]
 }
