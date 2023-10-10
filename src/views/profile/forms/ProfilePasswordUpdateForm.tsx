@@ -31,15 +31,6 @@ export default function ProfilePasswordUpdateForm(props: ProfileProps) {
     resolver: zodResolver(UserPasswordUpdateSchema),
   })
 
-  const handleSignOut = () => {
-    reset({
-      password: '',
-      newPassword: '',
-      confirmNewPassword: '',
-    })
-    signOut()
-  }
-
   const onSubmit: SubmitHandler<UserPasswordUpdateSchemaType> = async (
     inputs,
   ) => {
