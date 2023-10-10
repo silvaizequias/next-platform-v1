@@ -1,0 +1,226 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ApiRequestMethod {
+  GET
+  POST
+  PUT
+  PATCH
+  DELETE
+}
+
+enum UserRole {
+  ADMINISTRATOR
+  MANAGER
+  SUPERVISOR
+  ANALYST
+  INSTRUCTOR
+  TECHNICIAN
+  DRIVER
+  USER
+}
+
+enum UserProfile {
+  MASTER
+  OWNER
+  MEMBER
+  CUSTOMER
+  GUEST
+}
+
+enum UserDocType {
+  CPF
+  CNPJ
+  RG
+  CNH
+  CTPS
+  PASSPORT
+}
+
+model User {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at") @db.Date
+  softDeleted Boolean?  @default(false) @map("soft_deleted")
+
+  profile  UserProfile? @default(GUEST)
+  isActive Boolean?     @default(true) @map("is_active")
+
+  name     String?
+  email    String?      @unique
+  image    String?
+  phone    String?      @unique
+  docType  UserDocType? @default(CPF) @map("doc_type")
+  docCode  String?      @unique @map("doc_code")
+  passHash String?      @map("pass_hash")
+
+  zipCode    String? @map("zip_code")
+  street     String?
+  complement String?
+  district   String?
+  city       String?
+  state      String?
+  latitude   Float?  @db.DoublePrecision
+  longitude  Float?  @db.DoublePrecision
+
+  apiKeys       ApiKey[]
+  subscriptions Subscription[]
+  organizations Organization[]
+  orgs          OrganizationOfUser[]
+
+  @@map("users")
+}
+
+model ApiKey {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at") @db.Date
+  softDeleted Boolean?  @default(false) @map("soft_deleted")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
+
+  solutionId String   @map("solution_id")
+  solution   Solution @relation(fields: [solutionId], references: [id])
+
+  expireIn DateTime? @map("expire_in") @db.Date
+  isActive Boolean?  @default(true) @map("is_active")
+
+  description String?
+  key         String  @unique
+  secret      String? @unique
+
+  dailyRequestLimit   Int? @default(0) @map("daily_request_limit") @db.Integer
+  dailyRequests       Int? @default(0) @map("daily_requests") @db.Integer
+  monthlyRequestLimit Int? @default(0) @map("monthly_request_limit") @db.Integer
+  monthlyRequests     Int? @default(0) @map("monthly_requests") @db.Integer
+
+  @@map("api_keys")
+}
+
+model Organization {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at") @db.Date
+  softDeleted Boolean?  @default(false) @map("soft_deleted")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
+
+  name  String
+  cnpj  String  @unique
+  image String?
+  email String? @unique
+  phone String? @unique
+
+  zipCode    String? @map("zip_code")
+  street     String?
+  complement String?
+  district   String?
+  city       String?
+  state      String?
+  latitude   Float?  @db.DoublePrecision
+  longitude  Float?  @db.DoublePrecision
+
+  users    OrganizationOfUser[]
+  solution SolutionOfOrganization?
+
+  @@map("organizations")
+}
+
+model OrganizationOfUser {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at") @db.Date
+  softDeleted Boolean?  @default(false) @map("soft_deleted")
+
+  organizationId String       @unique @map("organization_id")
+  organization   Organization @relation(fields: [organizationId], references: [id])
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
+
+  role        UserRole? @default(USER)
+  isAvaliable Boolean?  @default(true) @map("is_avaliable")
+
+  @@index([organizationId, userId])
+  @@map("organizations_of_users")
+}
+
+model Subscription {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at") @db.Date
+  softDeleted Boolean?  @default(false) @map("soft_deleted")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
+
+  solutionId String   @map("solution_id")
+  solution   Solution @relation(fields: [solutionId], references: [id])
+
+  stripeCustomerId     String? @unique @map(name: "stripe_customer_id")
+  stripeSubscriptionId String? @unique @map(name: "stripe_subscription_id")
+  stripePriceId        String? @map(name: "stripe_price_id")
+
+  currentPeriodStart DateTime? @map("current_period_start")
+  currentPeriodEnd   DateTime? @map("current_period_end")
+  note               String?
+
+  discount Decimal? @default(0) @db.Decimal(10, 2)
+  tax      Decimal? @default(0) @db.Decimal(10, 2)
+  amount   Decimal? @default(0) @db.Decimal(10, 2)
+
+  isActive Boolean? @default(true) @map("is_active")
+
+  @@map("subscriptions")
+}
+
+model Solution {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at") @db.Date
+  softDeleted Boolean?  @default(false) @map("soft_deleted")
+
+  name        String
+  description String?
+  url         String?  @unique
+  price       Decimal? @default(0) @db.Decimal(10, 2)
+
+  apiKeys       ApiKey[]
+  subscriptions Subscription[]
+  organizations SolutionOfOrganization[]
+
+  @@map("solutions")
+}
+
+model SolutionOfOrganization {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at") @db.Date
+  softDeleted Boolean?  @default(false) @map("soft_deleted")
+
+  solutionId String   @map("solution_id")
+  solution   Solution @relation(fields: [solutionId], references: [id])
+
+  organizationId String       @unique @map("organization_id")
+  organization   Organization @relation(fields: [organizationId], references: [id])
+
+  isActive Boolean? @default(true) @map("is_active")
+
+  @@index([solutionId, organizationId])
+  @@map("solutions_of_organizations")
+}
