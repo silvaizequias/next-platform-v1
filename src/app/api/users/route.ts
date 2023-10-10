@@ -69,7 +69,7 @@ export const POST = async (
 
       const sendEmail: SendGridTemplateProps = {
         name: name!,
-        password: randomCode!,
+        password: password || randomCode!,
         phone: phone!,
         email: email!,
       }
@@ -77,7 +77,7 @@ export const POST = async (
 
       const sendSms: TwilioTemplateProps = {
         name: name!,
-        password: randomCode!,
+        password: password || randomCode!,
         phone: phone!,
       }
       await sendWelcomeSms(sendSms)
