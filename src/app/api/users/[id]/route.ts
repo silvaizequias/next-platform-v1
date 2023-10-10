@@ -1,50 +1,56 @@
 import { prisma } from '@/libraries/prisma'
-import { UserUpdateSchema, UserUpdateSchemaType } from '@/schemas/user'
-import { Prisma } from '@prisma/client'
+import { UserUpdateSchema, UserUpdateSchemaType } from '@/types/user/schema'
+import { NextResponse } from 'next/server'
 
 export const GET = async (
   request: Request,
   { params }: { params: { id: string } },
 ) => {
-  const id = params?.id
-
+  const { id } = params
   try {
-    await prisma.$connect()
-    return new Response(
-      JSON.stringify(await prisma.user.findUnique({ where: { id } })),
+    return new NextResponse(
+      JSON.stringify(
+        await prisma.user.findFirst({
+          where: { id: id, softDeleted: false },
+          include: {
+            subscriptions: true,
+            organizations: true,
+            orgs: {
+              select: {
+                role: true,
+                isAvaliable: true,
+                organization: {
+                  select: {
+                    id: true,
+                    name: true,
+                    cnpj: true,
+                  },
+                },
+              },
+            },
+          },
+        }),
+      ),
     )
   } catch (error: any) {
-    return new Response(error?.message || error, { status: 400 })
-  } finally {
-    await prisma.$disconnect()
+    return new NextResponse(error?.message! || error!, { status: 400 })
   }
 }
 
 export const PATCH = async (
   request: Request,
   { params }: { params: { id: string } },
-) => {
-  const id = params?.id
-
+): Promise<UserUpdateSchemaType | any> => {
+  const { id } = params
+  const inputs: UserUpdateSchemaType = await request.json()
   try {
-    await prisma.$connect()
-
-    return await request.json().then(async (inputs: UserUpdateSchemaType) => {
-      if (UserUpdateSchema.validateSync(inputs)) {
-        const data: Prisma.UserUpdateInput = {
-          ...inputs,
-        }
-
-        return new Response(
-          JSON.stringify(await prisma.user.update({ where: { id }, data })),
-        )
-      }
-    })
+    if (await UserUpdateSchema.parseAsync(inputs)) {
+      await prisma.user.update({ where: { id }, data: inputs })
+      return new NextResponse(JSON.stringify('as informações foram atualizadas!'), {
+        status: 201,
+      })
+    }
   } catch (error: any) {
-    return new Response(JSON.stringify(error?.message || error), {
-      status: 400,
-    })
-  } finally {
-    await prisma.$disconnect()
+    return new NextResponse(error?.message! || error!, { status: 400 })
   }
 }

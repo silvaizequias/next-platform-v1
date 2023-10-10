@@ -1,85 +1,60 @@
-'use client'
-
-import * as React from 'react'
-import Tab from '@mui/material/Tab'
-import TabContext from '@mui/lab/TabContext'
-import TabList from '@mui/lab/TabList'
-import TabPanel from '@mui/lab/TabPanel'
-import { Box, CardContent, Typography } from '@mui/material'
-import { styled } from '@mui/material/styles'
-import MuiCard, { CardProps } from '@mui/material/Card'
-import SignInForm from './forms/SignInForm'
-import SignUpForm from './forms/SignUpForm'
-import ResetPasswordForm from './forms/ResetPasswordForm'
-import { MdAppRegistration, MdLockReset, MdLogin } from 'react-icons/md'
-import { blue } from '@mui/material/colors'
-
-const Card = styled(MuiCard)<CardProps>(({ theme }) => ({
-  [theme.breakpoints.up('sm')]: { width: 450 },
-}))
+import { Box, Button, Divider } from '@mui/material'
+import { grey } from '@mui/material/colors'
+import { MdPhonelinkLock } from 'react-icons/md'
+import { FcGoogle } from 'react-icons/fc'
+import { Fragment, useState } from 'react'
+import { signIn } from 'next-auth/react'
+import ShowInDialog from '@/components/show-in-dialog'
+import AuthTabsView from './AuthTabsView'
 
 export default function AuthView() {
-  const [value, setValue] = React.useState<string>('signin')
+  const [showDialog, setShowDialog] = useState<boolean>(false)
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue)
+  const handleGoogleSignIn = async () => {
+    await signIn('google')
+  }
+
+  const handleDialog = () => {
+    setShowDialog(!showDialog)
   }
 
   return (
-    <Box
-      sx={{
-        height: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        bgcolor: blue[800],
-      }}
-    >
-      <Box className='content-center'>
-        <Box
+    <Fragment>
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Button
+          size='small'
+          variant='contained'
+          color='info'
+          sx={{ m: 2 }}
+          onClick={handleGoogleSignIn}
+          startIcon={<FcGoogle />}
+        >
+          Acesse com o Google
+        </Button>
+        <Divider
           sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            py: 4,
+            textAlign: 'center',
+            color: grey[200],
+            textTransform: 'uppercase',
+            fontSize: 9,
           }}
         >
-          <Typography variant='h4' color='white' textTransform='uppercase'>
-            Sistema Dedicado Digital
-          </Typography>
-        </Box>
-        <Card sx={{ zIndex: 1 }}>
-          <CardContent
-            sx={{ p: (theme) => `${theme.spacing(2, 2)} !important` }}
-          >
-            <Box sx={{ width: '100%', typography: 'subtitle' }}>
-              <TabContext value={value}>
-                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                  <TabList
-                    onChange={handleChange}
-                    aria-label='auth tab'
-                    centered
-                  >
-                    <Tab icon={<MdLogin />} value='signin' />
-                    <Tab icon={<MdAppRegistration />} value='signup' />
-                    <Tab icon={<MdLockReset />} value='reset-password' />
-                  </TabList>
-                </Box>
-                <TabPanel value='signin'>
-                  <SignInForm />
-                </TabPanel>
-                <TabPanel value='signup'>
-                  <SignUpForm />
-                </TabPanel>
-                <TabPanel value='reset-password'>
-                  <ResetPasswordForm />
-                </TabPanel>
-              </TabContext>
-            </Box>
-          </CardContent>
-        </Card>
+          ou
+        </Divider>
+        <Button
+          size='small'
+          variant='contained'
+          color='primary'
+          sx={{ m: 2 }}
+          onClick={handleDialog}
+          startIcon={<MdPhonelinkLock />}
+        >
+          Acesse com o Celular
+        </Button>
       </Box>
-    </Box>
+      <ShowInDialog open={showDialog} onClose={handleDialog}>
+        <AuthTabsView />
+      </ShowInDialog>
+    </Fragment>
   )
 }

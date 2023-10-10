@@ -1,6 +1,4 @@
-'use client'
-
-import Spinner from '@/components/Spinner'
+import Spinner from '@/components/spinner'
 
 export default function LoadingView() {
   return <Spinner />

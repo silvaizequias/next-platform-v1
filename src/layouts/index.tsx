@@ -1,22 +1,40 @@
 'use client'
 
-import { useSession } from 'next-auth/react'
-import { Fragment } from 'react'
-import AppBarLayout from './components/AppBarLayout'
-import { LayoutProps } from '@/types'
-import ContentLayout from './components/ContentLayout'
-import Spinner from '@/components/Spinner'
+import { Suspense, useState } from 'react'
+import { DefaultLayoutProps } from './types'
+import { Box } from '@mui/material'
+import Spinner from '@/components/spinner'
+import { blue, grey } from '@mui/material/colors'
+import TopBar from './components/topbar'
 
-export default function AppLayout(props: LayoutProps) {
-  const { children } = props
-  const { status } = useSession()
+export default function DefaultLayout(props: DefaultLayoutProps) {
+  const { children, session } = props
+  const [openDrawer, setOpenDrawer] = useState<boolean>(false)
 
-  return status === 'loading' ? (
-    <Spinner />
-  ) : (
-    <Fragment>
-      {status === 'authenticated' && <AppBarLayout />}
-      <ContentLayout>{children}</ContentLayout>
-    </Fragment>
+  const handleDrawer = () => {
+    setOpenDrawer(!openDrawer)
+  }
+
+  return (
+    <Box
+      sx={{
+        h: 'auto',
+        bgcolor: blue[600],
+        color: grey[50],
+      }}
+    >
+      <TopBar session={session!} onClose={handleDrawer} />
+      <Box
+        sx={
+          session
+            ? { ml: openDrawer ? '240px' : '4px', minHeight: '100vh' }
+            : {
+                minHeight: '100vh',
+              }
+        }
+      >
+        <Suspense fallback={<Spinner />}>{children}</Suspense>
+      </Box>
+    </Box>
   )
 }

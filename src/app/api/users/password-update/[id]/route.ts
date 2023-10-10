@@ -2,36 +2,42 @@ import { prisma } from '@/libraries/prisma'
 import {
   UserPasswordUpdateSchema,
   UserPasswordUpdateSchemaType,
-} from '@/schemas/user'
+} from '@/types/user/schema'
 import { Prisma } from '@prisma/client'
-import { compareSync, hash } from 'bcrypt'
+import * as bcrypt from 'bcrypt'
+import { NextResponse } from 'next/server'
 
 export const PATCH = async (
   request: Request,
   { params }: { params: { id: string } },
-) => {
-  const id = params?.id
+): Promise<any> => {
+  const { id } = params
+  const inputs: UserPasswordUpdateSchemaType = await request.json()
   try {
-    await prisma.$connect()
-    return await request
-      .json()
-      .then(async (inputs: UserPasswordUpdateSchemaType) => {
-        if (UserPasswordUpdateSchema.validateSync(inputs)) {
-          const { password } = inputs
+    if (await UserPasswordUpdateSchema.parseAsync(inputs)) {
+      const { password, newPassword } = inputs
 
-          const data: Prisma.UserUpdateInput = {
-            passHash: await hash(password, 10),
-          }
-          await prisma.user.update({ where: { id }, data })
-
-          return new Response(JSON.stringify('the password has been updated'))
-        }
+      const user = await prisma.user.findFirst({
+        where: { id: id, softDeleted: false },
       })
+      if (!user)
+        return new NextResponse(`esta conta não existe no sistema!`, {
+          status: 404,
+        })
+
+      if (!bcrypt.compareSync(password, user?.passHash!))
+        new Response('senha inválida', { status: 403 })
+
+      const passHash = bcrypt.hashSync(newPassword, 10)
+
+      const data: Prisma.UserUpdateInput = {
+        passHash: passHash,
+      }
+      await prisma.user.update({ where: { id }, data })
+
+      return new NextResponse('a senha foi atualizada!', { status: 201 })
+    }
   } catch (error: any) {
-    return new Response(JSON.stringify(error?.message || error), {
-      status: 400,
-    })
-  } finally {
-    await prisma.$disconnect()
+    return new NextResponse(error?.message! || error!, { status: 400 })
   }
 }

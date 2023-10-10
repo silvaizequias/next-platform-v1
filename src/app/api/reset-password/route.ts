@@ -1,41 +1,63 @@
 import { prisma } from '@/libraries/prisma'
-import { AuthResetPassword, AuthResetPasswordType } from '@/schemas/auth'
+import { sendResetPasswordEmail } from '@/libraries/sendgrid/templates'
+import { SendGridTemplateProps } from '@/libraries/sendgrid/types'
+import { sendResetPasswordSms } from '@/libraries/twilio/templates'
+import { TwilioTemplateProps } from '@/libraries/twilio/types'
+import {
+  AuthResetPasswordSchema,
+  AuthResetPasswordSchemaType,
+} from '@/types/auth/schema'
 import { Prisma } from '@prisma/client'
 import { hash } from 'bcrypt'
+import { NextResponse } from 'next/server'
 
-export const POST = async (request: Request) => {
-  const randomToken = Math.random().toString(32).substr(2, 6).toUpperCase()
-  const randomPassword = Math.random().toString(32).substr(2, 12)
-
+export const POST = async (
+  request: Request,
+): Promise<AuthResetPasswordSchemaType | any> => {
+  const randomCode = Math.random().toString(32).substr(2, 12)
+  const inputs: AuthResetPasswordSchemaType = await request.json()
   try {
-    return await request.json().then(async (inputs: AuthResetPasswordType) => {
-      if (AuthResetPassword.validateSync(inputs)) {
-        const { phone, email } = inputs
-        const user = await prisma.user.findFirst({
-          where: { phone: phone, email: email },
-        })
-        if (!user)
-          return new Response(
-            JSON.stringify(JSON.stringify('phone our email dont valid')),
-            { status: 401 },
-          )
+    if (await AuthResetPasswordSchema.parseAsync(inputs)) {
+      const { phone, email } = inputs
 
-        const data: Prisma.UserUpdateInput = {
-          passToken: randomToken,
-          passHash: await hash(randomPassword, 10),
-        }
-        console.log(randomPassword)
-
-        return new Response(
-          JSON.stringify(await prisma.user.update({ where: { phone }, data })),
+      const user = await prisma.user.findFirst({
+        where: {
+          phone: phone,
+          email: email,
+        },
+      })
+      if (!user)
+        return new NextResponse(
+          `a conta com o email ${email} e telefone ${phone} não existe no sistema!`,
+          { status: 404 },
         )
+
+      const data: Prisma.UserUpdateInput = {
+        passHash: await hash(randomCode!, 10),
       }
-    })
+      await prisma.user.update({ where: { phone }, data })
+
+      const sendEmail: SendGridTemplateProps = {
+        name: user?.name!,
+        password: randomCode!,
+        phone: user?.phone!,
+        email: user?.email!,
+      }
+      await sendResetPasswordEmail(sendEmail)
+
+      const sendSms: TwilioTemplateProps = {
+        name: user?.name!,
+        password: randomCode!,
+        phone: user?.phone!,
+      }
+      await sendResetPasswordSms(sendSms)
+
+      return new NextResponse(
+        `uma nova senha foi enviada para o e-mail ${email}!`,
+        { status: 201 },
+      )
+    }
   } catch (error: any) {
-    return new Response(JSON.stringify(error?.message || error), {
-      status: 400,
-    })
-  } finally {
-    await prisma.$disconnect()
+    return new NextResponse(error?.message! || error!, { status: 400 })
   }
 }
