@@ -62,6 +62,7 @@ export default function AuthSignInForm() {
               onChange={onChange}
               error={Boolean(errors.phone)}
               placeholder='11 98765 4321'
+              size='small'
             />
           )}
         />
@@ -84,6 +85,7 @@ export default function AuthSignInForm() {
               onChange={onChange}
               error={Boolean(errors.password)}
               placeholder='********'
+              size='small'
             />
           )}
         />

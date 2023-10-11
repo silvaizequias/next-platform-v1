@@ -1,6 +1,6 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab'
 import { Box, Button, Divider, Tab } from '@mui/material'
-import { Fragment, SyntheticEvent, useState } from 'react'
+import { SyntheticEvent, useState } from 'react'
 import AuthSignInForm from './forms/AuthSignInForm'
 import AuthSignUpForm from './forms/AuthSignUpForm'
 import AuthResetPasswordForm from './forms/AuthResetPasswordForm'
@@ -23,71 +23,64 @@ export default function AuthTabsView() {
   }
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        width: '100%',
-        typography: 'body1',
-      }}
-    >
-      <TabContext value={value}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <TabList onChange={handleChange} centered>
-            <Tab
-              icon={<MdOutlineLogin />}
-              iconPosition='start'
-              label='Acessar'
-              value='sign-in'
-            />
-            <Tab
-              icon={<MdBadge />}
-              iconPosition='start'
-              label='Registrar'
-              value='sign-up'
-            />
-            <Tab
-              icon={<MdOutlinePassword />}
-              iconPosition='start'
-              label='Redefinir'
-              value='reset-password'
-            />
-          </TabList>
-        </Box>
-        <TabPanel value='sign-in'>
-          <AuthSignInForm />
-        </TabPanel>
-        <TabPanel value='sign-up'>
-          <AuthSignUpForm />
-        </TabPanel>
-        <TabPanel value='reset-password'>
-          <AuthResetPasswordForm />
-        </TabPanel>
-      </TabContext>
+    <TabContext value={value}>
       {pathname !== '/' && (
-        <Fragment>
+        <Box sx={{ mx: 4 }}>
+          <Button
+            fullWidth
+            size='small'
+            variant='contained'
+            color='info'
+            sx={{ mx: 'auto' }}
+            onClick={handleGoogleSignIn}
+            startIcon={<FcGoogle />}
+          >
+            Acesse com o Google
+          </Button>
           <Divider
             sx={{
               textAlign: 'center',
               color: blue[600],
               textTransform: 'uppercase',
               fontSize: 9,
+              p: 2,
             }}
           >
             ou
           </Divider>
-          <Button
-            size='small'
-            variant='contained'
-            color='info'
-            sx={{ m: 2 }}
-            onClick={handleGoogleSignIn}
-            startIcon={<FcGoogle />}
-          >
-            Acesse com o Google
-          </Button>
-        </Fragment>
+        </Box>
       )}
-    </Box>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <TabList onChange={handleChange} centered>
+          <Tab
+            icon={<MdOutlineLogin />}
+            iconPosition='start'
+            label='Acessar'
+            value='sign-in'
+          />
+          <Tab
+            icon={<MdBadge />}
+            iconPosition='start'
+            label='Registrar'
+            value='sign-up'
+          />
+          <Tab
+            icon={<MdOutlinePassword />}
+            iconPosition='start'
+            label='Redefinir'
+            value='reset-password'
+          />
+        </TabList>
+      </Box>
+      <TabPanel value='sign-in'>
+        <AuthSignInForm />
+      </TabPanel>
+      <TabPanel value='sign-up'>
+        <AuthSignUpForm />
+      </TabPanel>
+      <TabPanel value='reset-password'>
+        <AuthResetPasswordForm />
+      </TabPanel>
+    </TabContext>
   )
 }

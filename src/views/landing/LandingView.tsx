@@ -14,17 +14,10 @@ export default function LandingView() {
         justifyItems: 'center',
       }}
     >
-      <Box sx={{ maxWidth: 480 }}>
-        <Typography
-          variant='h3'
-          marginBottom={2}
-          textTransform={'uppercase'}
-          textAlign='center'
-        >
-          Sistemas Dedicado
-        </Typography>
-        <AuthView />
-      </Box>
+      <Typography variant='h3' marginBottom={2} textTransform={'uppercase'}>
+        Gestão de Sistemas
+      </Typography>
+      <AuthView />
     </Box>
   )
 }

@@ -59,6 +59,7 @@ export default function AuthSignUpForm() {
               onChange={onChange}
               error={Boolean(errors.name)}
               placeholder='Seu Nome Completo'
+              size='small'
             />
           )}
         />
@@ -78,6 +79,7 @@ export default function AuthSignUpForm() {
               onChange={onChange}
               error={Boolean(errors.phone)}
               placeholder='11 98765 4321'
+              size='small'
             />
           )}
         />
@@ -99,6 +101,7 @@ export default function AuthSignUpForm() {
               onChange={onChange}
               error={Boolean(errors.email)}
               placeholder='seu@email.com'
+              size='small'
             />
           )}
         />
