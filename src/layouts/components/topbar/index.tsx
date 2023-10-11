@@ -6,13 +6,14 @@ import {
   AppBar,
   Container,
   IconButton,
+  Link,
   Toolbar,
   Tooltip,
   Typography,
 } from '@mui/material'
 import DrawerSideBar from '../drawer-sidebar'
 import { MdDensityMedium, MdLogin } from 'react-icons/md'
-import { grey } from '@mui/material/colors'
+import { blue, grey } from '@mui/material/colors'
 import UserToolbar from '../user-toolbar'
 import { TopBarProps } from '@/layouts/types'
 import ShowInDialog from '@/components/show-in-dialog'
@@ -71,9 +72,19 @@ export default function TopBar(props: TopBarProps) {
             </Tooltip>
           )}
           {!showDrawerSideBar && (
-            <Typography variant='h6' sx={{ textTransform: 'uppercase', ml: 1 }}>
+            <Link
+              variant='h6'
+              href={'/'}
+              underline='none'
+              sx={{
+                textTransform: 'uppercase',
+                ml: 1,
+                color: grey[50],
+                '&:hover': { color: blue[400] },
+              }}
+            >
               Dedicado Digital
-            </Typography>
+            </Link>
           )}
         </Toolbar>
         <Toolbar

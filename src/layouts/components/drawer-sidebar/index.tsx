@@ -4,6 +4,7 @@ import {
   Box,
   Divider,
   Drawer,
+  Link,
   List,
   ListItem,
   ListItemButton,
@@ -13,7 +14,6 @@ import {
 } from '@mui/material'
 import { blue } from '@mui/material/colors'
 import { signOut } from 'next-auth/react'
-import Link from 'next/link'
 import { MdOutlineLogout } from 'react-icons/md'
 
 export default function DrawerSideBar(props: DrawerSideBarProps) {
@@ -53,12 +53,19 @@ export default function DrawerSideBar(props: DrawerSideBarProps) {
           minHeight: 65,
         }}
       >
-        <Typography
+        <Link
           variant='h6'
-          sx={{ color: blue[600], textTransform: 'uppercase', mx: 2 }}
+          href={'/'}
+          underline='none'
+          sx={{
+            textTransform: 'uppercase',
+            mx: 2,
+            color: blue[600],
+            '&:hover': { color: blue[200] },
+          }}
         >
           Dedicado Digital
-        </Typography>
+        </Link>
       </Box>
       <List>
         {SidebarLinks.map(({ title, path, icon: Icon }) => (
