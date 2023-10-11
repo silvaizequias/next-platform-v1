@@ -14,7 +14,7 @@ export default function LandingView() {
         justifyItems: 'center',
       }}
     >
-      <Box sx={{ maxWidth: 480, py: '25%' }}>
+      <Box sx={{ maxWidth: 480 }}>
         <Typography
           variant='h3'
           marginBottom={2}

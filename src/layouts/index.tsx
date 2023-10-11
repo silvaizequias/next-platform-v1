@@ -29,6 +29,10 @@ export default function DefaultLayout(props: DefaultLayoutProps) {
           session
             ? { ml: openDrawer ? '240px' : '4px', minHeight: '100vh' }
             : {
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                alignContent: 'center',
                 minHeight: '100vh',
               }
         }
