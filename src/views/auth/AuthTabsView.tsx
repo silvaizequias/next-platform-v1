@@ -6,7 +6,7 @@ import AuthSignUpForm from './forms/AuthSignUpForm'
 import AuthResetPasswordForm from './forms/AuthResetPasswordForm'
 import { MdBadge, MdOutlineLogin, MdOutlinePassword } from 'react-icons/md'
 import { signIn } from 'next-auth/react'
-import { blue } from '@mui/material/colors'
+import { blue, grey } from '@mui/material/colors'
 import { FcGoogle } from 'react-icons/fc'
 import { usePathname } from 'next/navigation'
 
@@ -50,7 +50,13 @@ export default function AuthTabsView() {
           </Divider>
         </Box>
       )}
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+      <Box
+        sx={{
+          borderBottom: 4,
+          borderColor: blue[600],
+          bgcolor: grey[50],
+        }}
+      >
         <TabList onChange={handleChange} centered>
           <Tab
             icon={<MdOutlineLogin />}
