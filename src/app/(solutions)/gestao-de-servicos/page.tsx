@@ -1,6 +1,6 @@
 import { authOptions } from '@/libraries/next-auth'
-import ServiceManagementPrivateView from '@/views/solutions/service-management'
-import ServiceManagementPublicView from '@/views/solutions/service-management/ServiceManagementPublicView'
+import ServiceManagementPrivateView from '@/views/solutions/service-management/private-view'
+import ServiceManagementPublicView from '@/views/solutions/service-management/public-view'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 

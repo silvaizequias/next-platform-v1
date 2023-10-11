@@ -1,6 +1,6 @@
 import { authOptions } from '@/libraries/next-auth'
-import AccountView from '@/views/account/AccountView'
-import LandingView from '@/views/landing/LandingView'
+import AccountView from '@/views/account'
+import LandingView from '@/views/landing'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 
