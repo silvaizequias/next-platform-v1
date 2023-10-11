@@ -14,7 +14,7 @@ export default function HeaderPublicView() {
     >
       <Typography variant='h1'>Gestão de Serviços</Typography>
       <Divider sx={{ m: 4, px: 10, color: grey[50] }}>
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 4 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 4, mx: 2 }}>
           <Tooltip title='Painel de Controle'>
             <IconButton
               sx={{
