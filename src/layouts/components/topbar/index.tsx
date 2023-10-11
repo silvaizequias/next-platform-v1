@@ -9,7 +9,6 @@ import {
   Link,
   Toolbar,
   Tooltip,
-  Typography,
 } from '@mui/material'
 import DrawerSideBar from '../drawer-sidebar'
 import { MdDensityMedium, MdLogin } from 'react-icons/md'
