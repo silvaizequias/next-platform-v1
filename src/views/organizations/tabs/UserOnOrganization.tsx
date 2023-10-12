@@ -11,9 +11,15 @@ import { OrganizationType } from '@/types/organization'
 import { blue } from '@mui/material/colors'
 import { Suspense } from 'react'
 import Spinner from '@/components/spinner'
+import { useRouter } from 'next/navigation'
 
 export default function UserOnOrganization(props: UserOnOrganizationProps) {
   const { organizations } = props
+  const router = useRouter()
+
+  const handleDetail = (cnpj: string) => {
+    router.push(`/organizations/${cnpj}`)
+  }
 
   return (
     <Grid container spacing={2}>
@@ -22,7 +28,7 @@ export default function UserOnOrganization(props: UserOnOrganizationProps) {
           {organizations?.map((organization: OrganizationType) => (
             <Grid key={organization?.id} item xs={12} sm={6} md={4}>
               <Card elevation={4}>
-                <CardActionArea>
+                <CardActionArea onClick={() => handleDetail(organization?.cnpj)}>
                   <CardContent
                     sx={{ display: 'flex', flexDirection: 'column' }}
                   >

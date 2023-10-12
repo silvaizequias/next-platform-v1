@@ -14,7 +14,6 @@ export type UserType = {
   isActive: boolean
   name: string
   email: string
-  emailVerified: Date
   image: string
   phone: string
   docType: UserDocType

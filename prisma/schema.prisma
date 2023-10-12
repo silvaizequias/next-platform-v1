@@ -99,14 +99,14 @@ model ApiKey {
   key         String  @unique
   secret      String? @unique
 
-  dailyRequestLimit   Int? @db.Int @default(0) @map("daily_request_limit")
-  dailyRequests       Int? @db.Int @default(0) @map("daily_requests")
-  monthlyRequestLimit Int? @db.Int @default(0) @map("monthly_request_limit")
-  monthlyRequests     Int? @db.Int @default(0) @map("monthly_requests") 
+  dailyRequestLimit   Int? @default(0) @map("daily_request_limit") @db.Int
+  dailyRequests       Int? @default(0) @map("daily_requests") @db.Int
+  monthlyRequestLimit Int? @default(0) @map("monthly_request_limit") @db.Int
+  monthlyRequests     Int? @default(0) @map("monthly_requests") @db.Int
 
-  @@map("api_keys")
   @@index([userId])
   @@index([solutionId])
+  @@map("api_keys")
 }
 
 model Organization {
@@ -148,7 +148,7 @@ model OrganizationOfUser {
   deletedAt   DateTime? @map("deleted_at") @db.Date
   softDeleted Boolean?  @default(false) @map("soft_deleted")
 
-  organizationId String       @unique @map("organization_id")
+  organizationId String       @map("organization_id")
   organization   Organization @relation(fields: [organizationId], references: [id])
 
   userId String @map("user_id")
@@ -223,7 +223,7 @@ model SolutionOfOrganization {
   solutionId String   @map("solution_id")
   solution   Solution @relation(fields: [solutionId], references: [id])
 
-  organizationId String       @unique @map("organization_id")
+  organizationId String  @map("organization_id") @unique
   organization   Organization @relation(fields: [organizationId], references: [id])
 
   isActive Boolean? @default(true) @map("is_active")
