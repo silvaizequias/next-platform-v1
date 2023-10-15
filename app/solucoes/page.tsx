@@ -1,10 +1,10 @@
-import ServiceView from '@/views/service'
+import SolutionsView from '@/views/solutions'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Gestão de Serviços',
+  title: 'Soluções Personalizadas',
 }
 
 export default function ServicePage() {
-  return <ServiceView />
+  return <SolutionsView />
 }
