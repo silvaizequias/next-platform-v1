@@ -11,7 +11,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${BASE_URL}/servicos`,
+      url: `${BASE_URL}/solucoes`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 1,
+    },
+    {
+      url: `${BASE_URL}/solucoes/gestao-de-servicos`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 1,
