@@ -25,10 +25,10 @@ export default function ShowInDrawer(props: ShowInDrawerProps) {
           alignItems: 'center',
           justifyContent: 'space-between',
           p: 1.5,
-          bgcolor: blue[800],
+          bgcolor: blue[600],
         }}
       >
-        <Typography variant='h6' color={'white'}>
+        <Typography variant='button' color={'white'} textTransform={'uppercase'}>
           {title}
         </Typography>
         <Tooltip title='Fechar'>
