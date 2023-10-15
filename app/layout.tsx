@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     title: { default: 'Dedicado Digital', template: `%s | Dedicado Digital` },
     description:
       'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
-    images: '/500x500-logotipo5.png',
+    images: '/img/logotipo5.png',
     locale: 'pt_BR',
   },
 }
@@ -49,7 +49,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
       lang='en'
       className={`${roboto.variable} ${roboto.variable} font-sans`}
     >
-      <body>
+      <body className='relative min-h-screen'>
         <Providers>{children}</Providers>
       </body>
     </html>

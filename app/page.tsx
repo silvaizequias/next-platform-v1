@@ -6,16 +6,14 @@ export const metadata: Metadata = {
 
 export default function LandingPage() {
   return (
-    <div className='h-screen bg-sky-200 dark:bg-sky-800'>
-      <div className='flex min-h-full justify-center items-center'>
-        <div className='flex flex-col gap-2'>
-          <h1 className='text-6xl text-center uppercase text-zinc-800 dark:text-zinc-50'>
-            Dedicado Digital
-          </h1>
-          <span className='text-md text-center text-zinc-600 dark:text-zinc-300'>
-            Sistemas Personalizados de Alta Performance
-          </span>
-        </div>
+    <div className='flex flex-col justify-center min-h-screen overflow-hidden bg-blue-400'>
+      <div className='flex flex-col items-center gap-2'>
+        <h1 className='text-6xl text-center uppercase text-zinc-50'>
+          Dedicado Digital
+        </h1>
+        <span className='text-md text-center text-zinc-200 uppercase'>
+          Sistemas Personalizados de Alta Performance
+        </span>
       </div>
     </div>
   )

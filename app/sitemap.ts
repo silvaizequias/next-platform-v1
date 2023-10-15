@@ -10,5 +10,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily',
       priority: 1,
     },
+    {
+      url: `${BASE_URL}/servicos`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 1,
+    },
+    {
+      url: `${BASE_URL}/suporte`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 1,
+    },
   ]
 }
