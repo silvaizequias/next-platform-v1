@@ -21,7 +21,7 @@ export default function Modal(props: ModalProps) {
           <div className='fixed inset-0 bg-black bg-opacity-25' />
         </Transition.Child>
 
-        <div className='fixed inset-0 overflow-y-auto'>
+        <div className='fixed inset-0 w-screen overflow-y-auto'>
           <div className='flex min-h-full items-center justify-center p-4 text-center'>
             <Transition.Child
               as={Fragment}
@@ -38,7 +38,7 @@ export default function Modal(props: ModalProps) {
                     className='text-rose-600 hover:text-rose-400 cursor-pointer'
                     onClick={onClose}
                   >
-                    <HiXCircle size={28} />
+                    <HiXCircle size={24} />
                   </div>
                 </div>
                 <Dialog.Title
