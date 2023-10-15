@@ -1,7 +1,6 @@
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+  provider = "postgres"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -68,8 +67,8 @@ model User {
   district   String?
   city       String?
   state      String?
-  latitude   Float?  @db.Double
-  longitude  Float?  @db.Double
+  latitude   Float?  @db.DoublePrecision
+  longitude  Float?  @db.DoublePrecision
 
   apiKeys       ApiKey[]
   subscriptions Subscription[]
@@ -99,13 +98,12 @@ model ApiKey {
   key         String  @unique
   secret      String? @unique
 
-  dailyRequestLimit   Int? @default(0) @map("daily_request_limit") @db.Int
-  dailyRequests       Int? @default(0) @map("daily_requests") @db.Int
-  monthlyRequestLimit Int? @default(0) @map("monthly_request_limit") @db.Int
-  monthlyRequests     Int? @default(0) @map("monthly_requests") @db.Int
+  dailyRequestLimit   Int? @default(0) @map("daily_request_limit") @db.Integer
+  dailyRequests       Int? @default(0) @map("daily_requests") @db.Integer
+  monthlyRequestLimit Int? @default(0) @map("monthly_request_limit") @db.Integer
+  monthlyRequests     Int? @default(0) @map("monthly_requests") @db.Integer
 
-  @@index([userId])
-  @@index([solutionId])
+  @@index([userId, solutionId])
   @@map("api_keys")
 }
 
@@ -131,8 +129,8 @@ model Organization {
   district   String?
   city       String?
   state      String?
-  latitude   Float?  @db.Double
-  longitude  Float?  @db.Double
+  latitude   Float?  @db.DoublePrecision
+  longitude  Float?  @db.DoublePrecision
 
   users    OrganizationOfUser[]
   solution SolutionOfOrganization?
@@ -157,8 +155,7 @@ model OrganizationOfUser {
   role        UserRole? @default(USER)
   isAvaliable Boolean?  @default(true) @map("is_avaliable")
 
-  @@index([organizationId])
-  @@index([userId])
+  @@index([organizationId, userId])
   @@map("organizations_of_users")
 }
 
@@ -189,8 +186,7 @@ model Subscription {
 
   isActive Boolean? @default(true) @map("is_active")
 
-  @@index([userId])
-  @@index([solutionId])
+  @@index([userId, solutionId])
   @@map("subscriptions")
 }
 
@@ -223,12 +219,11 @@ model SolutionOfOrganization {
   solutionId String   @map("solution_id")
   solution   Solution @relation(fields: [solutionId], references: [id])
 
-  organizationId String  @map("organization_id") @unique
+  organizationId String       @unique @map("organization_id")
   organization   Organization @relation(fields: [organizationId], references: [id])
 
   isActive Boolean? @default(true) @map("is_active")
 
-  @@index([solutionId])
-  @@index([organizationId])
+  @@index([solutionId, organizationId])
   @@map("solutions_of_organizations")
 }
