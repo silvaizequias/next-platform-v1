@@ -10,10 +10,37 @@ const roboto = Roboto({
   variable: '--font-roboto',
 })
 
+const BASE_URL = 'https://dedicado.digital'
+
 export const metadata: Metadata = {
-  title: 'Dedicado Digital',
+  metadataBase: new URL(BASE_URL),
+  applicationName: 'Dedicado Digital',
+  generator: 'Dedicado Digital',
+  category: 'technology',
+  title: { default: 'Dedicado Digital', template: `%s | Dedicado Digital` },
   description:
     'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
+  keywords: [
+    'Software de Serviço em Nuvem',
+    'Software SaaS',
+    'Tecnologia digital',
+    'ferramenta de gestão empresarial',
+    'soluções de tecnologia',
+  ],
+  icons: { icon: '/favicon.ico' },
+  alternates: {
+    canonical: BASE_URL,
+  },
+  openGraph: {
+    url: new URL(BASE_URL),
+    siteName: 'Dedicado Digital',
+    type: 'website',
+    title: { default: 'Dedicado Digital', template: `%s | Dedicado Digital` },
+    description:
+      'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
+    images: '/500x500-logotipo5.png',
+    locale: 'pt_BR',
+  },
 }
 
 export default function AppLayout({ children }: { children: ReactNode }) {
