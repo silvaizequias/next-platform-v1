@@ -26,7 +26,7 @@ export default function TopMenu() {
       }}
     >
       <MenuHandler>
-        <IconButton variant='text' color='white'>
+        <IconButton variant='text' color='blue'>
           <HiMenu size={24} />
         </IconButton>
       </MenuHandler>

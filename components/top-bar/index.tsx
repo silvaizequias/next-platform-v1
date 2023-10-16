@@ -6,13 +6,15 @@ import TopMenu from '../top-menu'
 
 export default function TopBar() {
   return (
-    <Navbar className='sticky top-0 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4 dark:bg-blue-gray-900 border-none'>
+    <Navbar className='sticky top-0 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4 bg-blue-gray-50 dark:bg-blue-gray-900 border-none'>
       <div className='flex items-center justify-between'>
         <div className='flex items-center gap-2'>
           <TopMenu />
           <Typography
             as='a'
             href='/'
+            color='blue'
+            textGradient
             className='mr-4 cursor-pointer py-1.5 font-medium uppercase'
           >
             Dedicado Digital

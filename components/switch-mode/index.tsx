@@ -4,15 +4,15 @@ import { HiOutlineMoon, HiOutlineSun } from 'react-icons/hi'
 export default function SwitchMode() {
   const [onDark, setOnDark] = useState('dark')
 
-//TODO: implementar lógica de mudança de tema
+  //TODO: implementar lógica de mudança de tema
 
   const handleMode = () => {
     onDark == '' ? setOnDark('dark') : setOnDark('')
   }
 
   return onDark == 'dark' ? (
-    <HiOutlineMoon color='white' size={18} onClick={handleMode} />
+    <HiOutlineMoon className='text-gray-600' size={18} onClick={handleMode} />
   ) : (
-    <HiOutlineSun color='yellow' size={18} onClick={handleMode} />
+    <HiOutlineSun className='text-yellow-600' size={18} onClick={handleMode} />
   )
 }

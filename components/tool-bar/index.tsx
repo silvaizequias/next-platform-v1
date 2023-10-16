@@ -8,7 +8,7 @@ export default function ToolBar() {
       <IconButton variant='text'>
         <SwitchMode />
       </IconButton>
-      <IconButton variant='text' color='white'>
+      <IconButton variant='text' color='blue'>
         <HiLogin size={24} />
       </IconButton>
     </div>
