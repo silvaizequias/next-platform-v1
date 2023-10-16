@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 import { ReactNode } from 'react'
 import Providers from './providers'
+import TopBar from '@/components/top-bar'
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -47,10 +48,15 @@ export default function AppLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang='en'
-      className={`${roboto.variable} ${roboto.variable} font-sans`}
+      className={`dark ${roboto.variable} ${roboto.variable} font-sans`}
     >
-      <body className='relative min-h-screen'>
-        <Providers>{children}</Providers>
+      <body>
+        <Providers>
+          <main className='relative min-h-screen dark:bg-blue-gray-900 bg-blue-gray-50 text-blue-gray-900 dark:text-blue-gray-50'>
+            <TopBar />
+            {children}
+          </main>
+        </Providers>
       </body>
     </html>
   )

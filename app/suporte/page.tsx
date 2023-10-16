@@ -2,7 +2,7 @@ import SupportView from '@/views/support'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Suporte Dedicado',
+  title: 'Suporte Especializado',
 }
 
 export default function SupportPage() {

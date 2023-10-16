@@ -1,5 +1,6 @@
-'use client' // Error components must be Client Components
+'use client'
 
+import { Button, Typography } from '@material-tailwind/react'
 import { useEffect } from 'react'
 
 export default function Error({
@@ -14,13 +15,11 @@ export default function Error({
   }, [error])
 
   return (
-    <div className='h-screen bg-sky-200 dark:bg-sky-800'>
+    <div className='h-screen'>
       <div className='flex min-h-full justify-center items-center'>
-        <div className='flex flex-col gap-2'>
-          <h2 className='text-6xl text-center uppercase text-zinc-800 dark:text-zinc-50'>
-            Algo deu errado!
-          </h2>
-          <button onClick={() => reset()}>Try again</button>
+        <div className='flex flex-col gap-2 text-center'>
+          <Typography variant='h2'>Algo deu errado!</Typography>
+          <Button onClick={() => reset()}>Tente Novamente</Button>
         </div>
       </div>
     </div>
