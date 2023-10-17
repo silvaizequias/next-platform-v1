@@ -1,5 +1,6 @@
 import OrganizationView from '@/views/organizations/OrganizationView'
 import { Metadata } from 'next'
+import { Fragment } from 'react'
 
 export const metadata: Metadata = {
   title: 'Organização',
@@ -12,5 +13,9 @@ export default function OrganizationPage({
 }) {
   const { cnpj } = params
 
-  return <OrganizationView />
+  return (
+    <Fragment>
+      <OrganizationView />
+    </Fragment>
+  )
 }
