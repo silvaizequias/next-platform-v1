@@ -10,10 +10,18 @@ const inter = Inter({
   variable: '--font-inter',
 })
 
+const BASE_URL = process.env.BASE_URL!
+
 export const metadata: Metadata = {
+  metadataBase: new URL(BASE_URL),
   title: { default: 'Dedicado Digital', template: `%s | Dedicado Digital` },
-  description:
-    'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
+  icons: { icon: '/favicon.ico' },
+  openGraph: {
+    siteName: 'Dedicado Digital',
+    type: 'website',
+    title: { default: 'Dedicado Digital', template: `%s | Dedicado Digital` },
+    locale: 'pt_BR',
+  },
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
