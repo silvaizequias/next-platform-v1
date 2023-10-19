@@ -10,7 +10,17 @@ export async function GET(request: Request) {
       JSON.stringify(
         await prisma.organization.findMany({
           where: { softDeleted: false },
-          include: {
+          select: {
+            id: true,
+            image: true,
+            name: true,
+            phone: true,
+            email: true,
+            documentCode: true,
+            zipCode: true,
+            complement: true,
+            latitude: true,
+            longitude: true,
             users: {
               select: {
                 id: true,
@@ -22,6 +32,7 @@ export async function GET(request: Request) {
                     profile: true,
                     isActive: true,
                     name: true,
+                    image: true,
                     email: true,
                     phone: true,
                     zipCode: true,

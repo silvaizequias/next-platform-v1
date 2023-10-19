@@ -26,6 +26,7 @@ export async function GET(
                     profile: true,
                     isActive: true,
                     name: true,
+                    image: true,
                     email: true,
                     phone: true,
                     zipCode: true,
