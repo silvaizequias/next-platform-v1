@@ -40,7 +40,7 @@ model User {
   accessCode String? @unique @map("access_Code")
 
   zipCode    String?
-  street     String
+  street     String?
   complement String?
   district   String?
   city       String?
