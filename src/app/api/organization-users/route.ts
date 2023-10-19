@@ -94,7 +94,15 @@ export async function POST(request: Request) {
       }
       return new Response(
         JSON.stringify(await prisma.organizationUsers.create({ data })),
-        { status: 200 },
+        {
+          status: 200,
+          headers: {
+            'Access-Control-Allow-Credentials': 'true',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST',
+            'Content-Type': 'application/json',
+          },
+        },
       )
     }
   } catch (error: any) {

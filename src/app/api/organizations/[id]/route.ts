@@ -65,7 +65,15 @@ export async function PATCH(
             data: inputs,
           }),
         ),
-        { status: 201 },
+        {
+          status: 201,
+          headers: {
+            'Access-Control-Allow-Credentials': 'true',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'PATCH',
+            'Content-Type': 'application/json',
+          },
+        },
       )
   } catch (error: any) {
     await prisma.$disconnect()

@@ -57,7 +57,15 @@ export async function POST(request: Request) {
           Authorization: encryptedToken,
           data: user,
         }),
-        { status: 201 },
+        {
+          status: 201,
+          headers: {
+            'Access-Control-Allow-Credentials': 'true',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST',
+            'Content-Type': 'application/json',
+          },
+        },
       )
     }
   } catch (error: any) {

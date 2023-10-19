@@ -105,7 +105,15 @@ export async function PATCH(
         JSON.stringify(
           await prisma.organizationUsers.update({ where: { id: id }, data }),
         ),
-        { status: 200 },
+        {
+          status: 200,
+          headers: {
+            'Access-Control-Allow-Credentials': 'true',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'PATCH',
+            'Content-Type': 'application/json',
+          },
+        },
       )
     }
   } catch (error: any) {

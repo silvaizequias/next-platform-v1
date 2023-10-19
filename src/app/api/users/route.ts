@@ -58,7 +58,15 @@ export async function POST(request: Request) {
     if (await CreateUser.parseAsync(inputs))
       return new Response(
         JSON.stringify(await prisma.user.create({ data: inputs })),
-        { status: 201 },
+        {
+          status: 201,
+          headers: {
+            'Access-Control-Allow-Credentials': 'true',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST',
+            'Content-Type': 'application/json',
+          },
+        },
       )
   } catch (error: any) {
     await prisma.$disconnect()
