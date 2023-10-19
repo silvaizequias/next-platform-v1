@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import LandingView from './views'
 
 const BASE_URL = process.env.BASE_URL!
 
@@ -9,9 +8,9 @@ export const metadata: Metadata = {
   description:
     'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
   keywords: [
-    'Software de Serviço em Nuvem',
-    'Software SaaS',
-    'Tecnologia digital',
+    'software de serviço em nuvem',
+    'software saas',
+    'tecnologia digital',
     'ferramenta de gestão empresarial',
     'soluções de tecnologia',
   ],
@@ -30,9 +29,20 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
     nocache: true,
-  }
+  },
 }
 
 export default async function LandingPage() {
-  return <LandingView />
+  return (
+    <div className="h-screen flex justify-center items-center">
+      <div className="m-8">
+        <div className="flex flex-col text-center">
+          <h1 className="uppercase text-4xl font-light">Dedicado Digital</h1>
+          <p className="uppercase text-xs text-horizon-800">
+            Sistemas personalizados de alta performance
+          </p>
+        </div>
+      </div>
+    </div>
+  )
 }
