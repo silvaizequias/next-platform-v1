@@ -46,7 +46,6 @@ export async function GET(
     return new Response(error?.message || error, { status: 400 })
   } finally {
     await prisma.$disconnect()
-    process.exit(1)
   }
 }
 
@@ -72,6 +71,5 @@ export async function PATCH(
     return new Response(error?.message || error, { status: 400 })
   } finally {
     await prisma.$disconnect()
-    process.exit(1)
   }
 }

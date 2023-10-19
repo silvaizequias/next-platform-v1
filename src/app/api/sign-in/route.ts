@@ -41,9 +41,9 @@ export async function POST(request: Request) {
 
       const encryptedToken = jwt.sign(
         {
-          email: user?.email!,
+          id: user?.id!,
           profile: user?.profile!,
-          organizations: [user?.organizations!],
+          organizations: user?.organizations,
           iat: Math.floor(Date.now() / 1000) - 30,
           exp: Math.floor(Date.now() / 1000) + 14 * 24 * 60 * 60,
         },
@@ -64,6 +64,5 @@ export async function POST(request: Request) {
     return new Response(error?.message || error, { status: 400 })
   } finally {
     await prisma.$disconnect()
-    process.exit(1)
   }
 }
