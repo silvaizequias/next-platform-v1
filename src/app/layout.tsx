@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { ReactNode } from 'react'
+import Providers from './providers'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -25,9 +26,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable}`}>
-      <body className="min-h-screen bg-lunar-50 text-lunar-800 dark:bg-lunar-900 dark:text-lunar-100">
-        {children}
+    <html lang="en" className={`s ${inter.variable}`}>
+      <body className="min-h-screen bg-horizon-50 text-horizon-800 dark:bg-lunar-900 dark:text-lunar-100">
+        <Providers>{children}</Providers>
       </body>
     </html>
   )
