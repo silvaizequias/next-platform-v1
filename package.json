@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@prisma/client": "^5.4.2",
+    "bcrypt": "^5.1.1",
     "crisp-sdk-web": "^1.0.21",
+    "jsonwebtoken": "^9.0.2",
     "next": "13.5.5",
     "react": "^18",
     "react-dom": "^18",
@@ -19,6 +21,8 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.1",
+    "@types/jsonwebtoken": "^9.0.4",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
