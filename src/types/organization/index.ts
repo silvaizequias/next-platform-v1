@@ -1,4 +1,4 @@
-import { UserType } from '../user'
+import { OrganizationUserType } from '../organization-user'
 
 export type OrganizationType = {
   id: string
@@ -21,5 +21,5 @@ export type OrganizationType = {
   country: string
   latitude: number
   longitude: number
-  users: UserType[]
+  users: OrganizationUserType[]
 }
