@@ -10,10 +10,12 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@nextui-org/react": "^2.1.13",
     "@prisma/client": "^5.4.2",
     "@supabase/supabase-js": "^2.38.2",
     "bcrypt": "^5.1.1",
     "crisp-sdk-web": "^1.0.21",
+    "framer-motion": "^10.16.4",
     "jsonwebtoken": "^9.0.2",
     "next": "13.5.5",
     "react": "^18",
