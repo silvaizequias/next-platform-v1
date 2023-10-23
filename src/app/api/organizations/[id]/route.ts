@@ -1,37 +1,34 @@
 import { prisma } from '@/libraries/prisma'
 import {
-  OrganizationUpdateSchema,
-  OrganizationUpdateSchemaType,
+  UpdateOrganization,
+  UpdateOrganizationType,
 } from '@/types/organization/schema'
-import { Prisma } from '@prisma/client'
-import { NextResponse } from 'next/server'
 
-export const GET = async (
+export async function GET(
   request: Request,
   { params }: { params: { id: string } },
-) => {
+) {
   const { id } = params
   try {
-    return new NextResponse(
+    return new Response(
       JSON.stringify(
         await prisma.organization.findFirst({
           where: { id: id, softDeleted: false },
           include: {
-            user: true,
             users: {
               select: {
-                userId: true,
+                id: true,
                 role: true,
-                isAvaliable: true,
+                isActive: true,
                 user: {
                   select: {
-                    name: true,
-                    phone: true,
-                    email: true,
-                    image: true,
+                    id: true,
                     profile: true,
-                    docType: true,
-                    docCode: true,
+                    isActive: true,
+                    name: true,
+                    image: true,
+                    email: true,
+                    phone: true,
                     zipCode: true,
                     complement: true,
                     latitude: true,
@@ -40,66 +37,48 @@ export const GET = async (
                 },
               },
             },
-            solution: true,
           },
         }),
       ),
+      { status: 200 },
     )
   } catch (error: any) {
-    return new NextResponse(JSON.stringify(error?.message || error), {
-      status: 400,
-    })
+    await prisma.$disconnect()
+    return new Response(error?.message || error, { status: 400 })
+  } finally {
+    await prisma.$disconnect()
   }
 }
 
-export const PATCH = async (
+export async function PATCH(
   request: Request,
   { params }: { params: { id: string } },
-): Promise<OrganizationUpdateSchemaType | any> => {
+) {
   const { id } = params
-  const inputs: OrganizationUpdateSchemaType = await request.json()
   try {
-    if (await OrganizationUpdateSchema.parseAsync(inputs)) {
-      const { userDocCode } = inputs
-      const user = await prisma.user.findFirst({
-        where: { docCode: userDocCode },
-      })
-      if (!user)
-        return new NextResponse('o usuário não existe no sistema', {
-          status: 404,
-        })
-
-      if (!inputs?.userDocCode)
-        return new NextResponse(
-          JSON.stringify(
-            await prisma.organization.update({
-              where: { id },
-              data: inputs,
-            }),
-          ),
-        )
-
-      delete inputs?.userDocCode
-
-      const data: Prisma.OrganizationUpdateInput = {
-        ...inputs,
-        user: {
-          update: {
-            docCode: user?.docCode!,
+    const inputs: UpdateOrganizationType = await request.json()
+    if (await UpdateOrganization.parseAsync(inputs))
+      return new Response(
+        JSON.stringify(
+          await prisma.organization.update({
+            where: { id: id },
+            data: inputs,
+          }),
+        ),
+        {
+          status: 201,
+          headers: {
+            'Access-Control-Allow-Credentials': 'true',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'PATCH',
+            'Content-Type': 'application/json',
           },
         },
-      }
-
-      return new NextResponse(
-        JSON.stringify(
-          await prisma.organization.update({ where: { id }, data }),
-        ),
-        { status: 201 },
       )
-    }
   } catch (error: any) {
-    return new NextResponse(JSON.stringify(error?.message || error), {
-      status: 400,
-    })
+    await prisma.$disconnect()
+    return new Response(error?.message || error, { status: 400 })
+  } finally {
+    await prisma.$disconnect()
   }
 }

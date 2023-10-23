@@ -1,43 +1,34 @@
 import { prisma } from '@/libraries/prisma'
+import { AuthSignIn, AuthSignInType } from '@/types/auth/schema'
 import jwt from 'jsonwebtoken'
-import * as bcrypt from 'bcrypt'
-import { AuthSignInSchema, AuthSignInSchemaType } from '@/types/auth/schema'
-import { NextResponse } from 'next/server'
 
-export const POST = async (request: Request): Promise<any> => {
-  const NEXT_PUBLIC_JWT_SECRET_KEY = process.env.NEXT_PUBLIC_JWT_SECRET_KEY!
-  const inputs: AuthSignInSchemaType = await request.json()
+export async function POST(request: Request) {
+  const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY!
   try {
-    if (await AuthSignInSchema.parseAsync(inputs)) {
-      const { phone, password } = inputs
-
+    const inputs: AuthSignInType = await request.json()
+    if (await AuthSignIn.parseAsync(inputs)) {
+      const { email, phone } = inputs
       const user = await prisma.user.findFirst({
-        where: { phone: phone },
+        where: {
+          email: email,
+          phone: phone,
+        },
         select: {
           id: true,
+          profile: true,
+          image: true,
           name: true,
           email: true,
           phone: true,
-          image: true,
-          profile: true,
-          passHash: true,
-          isActive: true,
           organizations: {
             select: {
-              id: true,
-              name: true,
-              cnpj: true,
-            },
-          },
-          orgs: {
-            select: {
               role: true,
-              isAvaliable: true,
               organization: {
                 select: {
                   id: true,
                   name: true,
-                  cnpj: true,
+                  image: true,
+                  documentCode: true,
                 },
               },
             },
@@ -45,46 +36,42 @@ export const POST = async (request: Request): Promise<any> => {
         },
       })
       if (!user)
-        return new NextResponse(
-          `O número celular ${phone} não existe em nosso sistema!`,
-          { status: 404 },
-        )
-
-      if (!bcrypt.compareSync(password, user?.passHash!))
-        new Response('senha inválida', { status: 403 })
+        return new Response('as informações estão incorretas ou não existem', {
+          status: 404,
+        })
 
       const encryptedToken = jwt.sign(
         {
           id: user?.id!,
           profile: user?.profile!,
-          organizations: user?.organizations!,
-          orgs: user?.orgs!,
+          organizations: user?.organizations,
           iat: Math.floor(Date.now() / 1000) - 30,
           exp: Math.floor(Date.now() / 1000) + 14 * 24 * 60 * 60,
         },
-        NEXT_PUBLIC_JWT_SECRET_KEY,
+        JWT_SECRET_KEY,
       )
 
-      return new NextResponse(
+      return new Response(
         JSON.stringify({
           expiresIn: Math.floor(Date.now() / 1000) + 14 * 24 * 60 * 60,
           Authorization: encryptedToken,
-          data: {
-            id: user?.id!,
-            name: user?.name!,
-            email: user?.email!,
-            phone: user.phone!,
-            image: user.image!,
-            profile: user?.profile!,
-            isActive: user?.isActive!,
-            organizations: user?.organizations!,
-            orgs: user?.orgs!,
-          },
+          data: user,
         }),
-        { status: 201 },
+        {
+          status: 201,
+          headers: {
+            'Access-Control-Allow-Credentials': 'true',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST',
+            'Content-Type': 'application/json',
+          },
+        },
       )
     }
   } catch (error: any) {
-    return new NextResponse(error?.message! || error!, { status: 400 })
+    await prisma.$disconnect()
+    return new Response(error?.message || error, { status: 400 })
+  } finally {
+    await prisma.$disconnect()
   }
 }

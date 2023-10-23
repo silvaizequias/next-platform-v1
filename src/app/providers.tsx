@@ -1,29 +1,14 @@
 'use client'
 
-import NextAppDirEmotionCacheProvider from '@/components/emotion-cache'
-import ToastProvider from '@/components/toast-provider'
-import { LayoutProps } from '@/layouts/types'
-import themeOptions from '@/theme'
-import { CssBaseline } from '@mui/material'
-import { ThemeProvider } from '@mui/system'
-import { LocalizationProvider } from '@mui/x-date-pickers'
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
-import { SessionProvider } from 'next-auth/react'
+import CrispChat from '@/components/crisp-chat'
+import { NextUIProvider } from '@nextui-org/react'
+import { ReactNode } from 'react'
 
-export default function Providers(props: LayoutProps) {
-  const { children } = props
-
+export default function Providers({ children }: { children: ReactNode }) {
   return (
-    <SessionProvider>
-      <NextAppDirEmotionCacheProvider options={{ key: 'mui' }}>
-        <ThemeProvider theme={themeOptions}>
-          <CssBaseline />
-          <LocalizationProvider dateAdapter={AdapterMoment}>
-            {children}
-            <ToastProvider />
-          </LocalizationProvider>
-        </ThemeProvider>
-      </NextAppDirEmotionCacheProvider>
-    </SessionProvider>
+    <NextUIProvider>
+      {children}
+      <CrispChat />
+    </NextUIProvider>
   )
 }

@@ -1,18 +1,48 @@
-import { authOptions } from '@/libraries/next-auth'
-import AccountView from '@/views/account/AccountView'
-import LandingView from '@/views/landing/LandingView'
 import { Metadata } from 'next'
-import { getServerSession } from 'next-auth'
+
+const BASE_URL = process.env.BASE_URL!
 
 export const metadata: Metadata = {
+  metadataBase: new URL(BASE_URL),
   title: 'Sistema Personalizado de Alta Performance',
+  description:
+    'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
+  keywords: [
+    'software de serviço em nuvem',
+    'software saas',
+    'tecnologia digital',
+    'ferramenta de gestão empresarial',
+    'soluções de tecnologia',
+  ],
+  alternates: {
+    canonical: BASE_URL,
+  },
+  openGraph: {
+    url: new URL(BASE_URL),
+    title: 'Sistema Personalizado de Alta Performance',
+    description:
+      'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
+    images: '/logotipo5.png',
+    locale: 'pt_BR',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: true,
+  },
 }
-export default async function LandingPage() {
-  const session = await getServerSession(authOptions)
 
+export default async function LandingPage() {
   return (
-    <main>
-      {session ? <AccountView session={session!} /> : <LandingView />}
-    </main>
+    <div className="h-screen flex justify-center items-center">
+      <div className="m-8">
+        <div className="flex flex-col text-center">
+          <h1 className="uppercase text-4xl font-light">Dedicado Digital</h1>
+          <p className="uppercase text-xs text-horizon-800">
+            Sistemas personalizados de alta performance
+          </p>
+        </div>
+      </div>
+    </div>
   )
 }

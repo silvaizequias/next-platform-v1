@@ -1,79 +1,81 @@
 import { prisma } from '@/libraries/prisma'
 import {
-  OrganizationCreateSchema,
-  OrganizationCreateSchemaType,
+  CreateOrganization,
+  CreateOrganizationType,
 } from '@/types/organization/schema'
-import { Prisma } from '@prisma/client'
-import { NextResponse } from 'next/server'
 
-export const GET = async (request: Request) => {
+export async function GET(request: Request) {
   try {
-    return new NextResponse(
+    return new Response(
       JSON.stringify(
         await prisma.organization.findMany({
           where: { softDeleted: false },
-          include: {
-            user: true,
+          select: {
+            id: true,
+            image: true,
+            name: true,
+            phone: true,
+            email: true,
+            documentCode: true,
+            zipCode: true,
+            complement: true,
+            latitude: true,
+            longitude: true,
             users: {
               select: {
-                userId: true,
+                id: true,
                 role: true,
-                isAvaliable: true,
+                isActive: true,
                 user: {
                   select: {
-                    name: true,
-                    phone: true,
-                    email: true,
-                    image: true,
+                    id: true,
                     profile: true,
+                    isActive: true,
+                    name: true,
+                    image: true,
+                    email: true,
+                    phone: true,
+                    zipCode: true,
+                    complement: true,
+                    latitude: true,
+                    longitude: true,
                   },
                 },
               },
             },
-            solution: true,
           },
         }),
       ),
+      { status: 200 },
     )
   } catch (error: any) {
-    return new NextResponse(error?.message! || error!, { status: 400 })
+    await prisma.$disconnect()
+    return new Response(error?.message || error, { status: 400 })
+  } finally {
+    await prisma.$disconnect()
   }
 }
 
-export const POST = async (
-  request: Request,
-): Promise<OrganizationCreateSchemaType | any> => {
-  const inputs: OrganizationCreateSchemaType = await request.json()
+export async function POST(request: Request) {
   try {
-    if (await OrganizationCreateSchema.parseAsync(inputs)) {
-      const { userDocCode } = inputs
-      const user = await prisma.user.findFirst({
-        where: { docCode: userDocCode },
-      })
-      if (!user)
-        return new NextResponse('o usuário não existe no sistema', {
-          status: 404,
-        })
-
-      delete inputs?.userDocCode
-
-      const data: Prisma.OrganizationCreateInput = {
-        ...inputs,
-        user: {
-          connect: {
-            docCode: user?.docCode!,
+    const inputs: CreateOrganizationType = await request.json()
+    if (await CreateOrganization.parseAsync(inputs))
+      return new Response(
+        JSON.stringify(await prisma.organization.create({ data: inputs })),
+        {
+          status: 201,
+          headers: {
+            'Access-Control-Allow-Credentials': 'true',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST',
+            'Content-Type': 'application/json',
           },
         },
-      }
-
-      return (
-        new NextResponse(
-          JSON.stringify(await prisma.organization.create({ data })),
-        ),
-        { status: 201 }
       )
-    }
   } catch (error: any) {
-    return new NextResponse(error?.message! || error!, { status: 400 })
+    await prisma.$disconnect()
+    return new Response(error?.message || error, { status: 400 })
+  } finally {
+    await prisma.$disconnect()
   }
 }

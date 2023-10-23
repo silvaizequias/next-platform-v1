@@ -1,35 +1,28 @@
-import { UserDocType, UserProfile } from '@prisma/client'
-import { SubscriptionType } from '../subscriptions'
-import { OrganizationType } from '../organization'
-import { OrganizationOfUserType } from '../organization-of-user'
-import { ApiKeyType } from '../api-key'
+import { UserProfile } from '@prisma/client'
+import { OrganizationUserType } from '../organization-user'
 
 export type UserType = {
   id: string
-  createdAt: string
-  updatedAt: string
-  deletedAt: string
-  softDeleted: string
-  profile: UserProfile
+  createdAt: Date
+  updatedAt: Date
+  deletedAt: Date
+  softDeleted: boolean
   isActive: boolean
+  profile: UserProfile
   name: string
-  email: string
-  emailVerified: Date
   image: string
+  email: string
   phone: string
-  docType: UserDocType
-  docCode: string
-  passHash: string
+  documentCode: string
+  accessCode: string
   zipCode: string
   street: string
   complement: string
   district: string
   city: string
   state: string
+  country: string
   latitude: number
   longitude: number
-  apiKeys: ApiKeyType[]
-  subscriptions: SubscriptionType[]
-  organizations: OrganizationType[]
-  orgs: OrganizationOfUserType[]
+  organizations: OrganizationUserType[]
 }

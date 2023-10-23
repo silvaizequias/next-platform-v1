@@ -1,39 +1,37 @@
 import * as z from 'zod'
 
-export const OrganizationCreateSchema = z.object({
-  userDocCode: z.string().optional(),
-  name: z.string(),
-  cnpj: z.string().length(14),
-  image: z.string().optional(),
-  email: z.string().email(),
-  phone: z.string().optional(),
-  zipCode: z.string().length(8).optional(),
-  street: z.string().optional(),
-  complement: z.string().optional(),
-  district: z.string().optional(),
-  city: z.string().optional(),
-  state: z.string().optional(),
-})
-
-export type OrganizationCreateSchemaType = z.infer<
-  typeof OrganizationCreateSchema
->
-
-export const OrganizationUpdateSchema = z.object({
-  userDocCode: z.string().optional(),
-  name: z.string().optional(),
-  cnpj: z.string().length(14).optional(),
+export const CreateOrganization = z.object({
+  name: z.string().min(5).max(255),
   image: z.string().optional(),
   email: z.string().email().optional(),
   phone: z.string().optional(),
+  documentCode: z.string().length(14),
   zipCode: z.string().length(8).optional(),
   street: z.string().optional(),
   complement: z.string().optional(),
   district: z.string().optional(),
   city: z.string().optional(),
   state: z.string().optional(),
+  country: z.string().optional(),
+  latitude: z.coerce.number().optional(),
+  longitude: z.coerce.number().optional(),
 })
+export type CreateOrganizationType = z.infer<typeof CreateOrganization>
 
-export type OrganizationUpdateSchemaType = z.infer<
-  typeof OrganizationUpdateSchema
->
+export const UpdateOrganization = z.object({
+  name: z.string().min(5).max(255).optional(),
+  image: z.string().optional(),
+  email: z.string().email().optional(),
+  phone: z.string().optional(),
+  documentCode: z.string().length(14).optional(),
+  zipCode: z.string().length(8).optional(),
+  street: z.string().optional(),
+  complement: z.string().optional(),
+  district: z.string().optional(),
+  city: z.string().optional(),
+  state: z.string().optional(),
+  country: z.string().optional(),
+  latitude: z.coerce.number().optional(),
+  longitude: z.coerce.number().optional(),
+})
+export type UpdateOrganizationType = z.infer<typeof UpdateOrganization>

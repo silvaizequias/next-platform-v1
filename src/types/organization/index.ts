@@ -1,28 +1,25 @@
-import { OrganizationOfUserType } from '../organization-of-user'
-import { SolutionOfOrganizationType } from '../solution-of-organization'
-import { UserType } from '../user'
+import { OrganizationUserType } from '../organization-user'
 
 export type OrganizationType = {
   id: string
-  createdAt: string
-  updatedAt: string
-  deletedAt: string
-  softDeleted: string
-  userId: string
-  user: UserType
+  createdAt: Date
+  updatedAt: Date
+  deletedAt: Date
+  softDeleted: boolean
+  isActive: boolean
   name: string
-  cnpj: string
   image: string
   email: string
   phone: string
+  documentCode: string
   zipCode: string
   street: string
   complement: string
   district: string
   city: string
   state: string
+  country: string
   latitude: number
   longitude: number
-  users: OrganizationOfUserType[]
-  solutions: SolutionOfOrganizationType[]
+  users: OrganizationUserType[]
 }
