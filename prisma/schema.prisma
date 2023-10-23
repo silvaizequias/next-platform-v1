@@ -38,6 +38,7 @@ model User {
   documentCode String? @unique @map("document_code")
 
   accessCode String? @unique @map("access_Code")
+  passHash   String? @map("pass_hash")
 
   zipCode    String?
   street     String?
