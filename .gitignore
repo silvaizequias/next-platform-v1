@@ -11,6 +11,9 @@
 # temp
 /temp/
 
+# vscode
+/.vscode/
+
 # next.js
 /.next/
 /out/
