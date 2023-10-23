@@ -1,13 +1,14 @@
 'use client'
 
 import CrispChat from '@/components/crisp-chat'
-import { Fragment, ReactNode } from 'react'
+import { NextUIProvider } from '@nextui-org/react'
+import { ReactNode } from 'react'
 
 export default function Providers({ children }: { children: ReactNode }) {
   return (
-    <Fragment>
+    <NextUIProvider>
       {children}
       <CrispChat />
-    </Fragment>
+    </NextUIProvider>
   )
 }
