@@ -1,7 +1,8 @@
-import type { Config } from 'tailwindcss'
 import { nextui } from '@nextui-org/react'
 
-const config: Config = {
+/** @type {import('tailwindcss').Config} */
+
+const config = {
   darkMode: 'class',
   content: [
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
