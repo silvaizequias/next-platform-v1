@@ -10,10 +10,10 @@ const inter = Inter({
   variable: '--font-inter',
 })
 
-const BASE_URL = process.env.BASE_URL!
+const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
 
 export const metadata: Metadata = {
-  metadataBase: new URL(BASE_URL),
+  metadataBase: new URL(NEXTAUTH_URL),
   title: { default: 'Dedicado Digital', template: `%s | Dedicado Digital` },
   icons: { icon: '/favicon.ico' },
   openGraph: {

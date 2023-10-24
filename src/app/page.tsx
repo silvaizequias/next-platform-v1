@@ -1,9 +1,9 @@
 import { Metadata } from 'next'
 
-const BASE_URL = process.env.BASE_URL!
+const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
 
 export const metadata: Metadata = {
-  metadataBase: new URL(BASE_URL),
+  metadataBase: new URL(NEXTAUTH_URL),
   title: 'Sistema Personalizado de Alta Performance',
   description:
     'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
@@ -15,10 +15,10 @@ export const metadata: Metadata = {
     'soluções de tecnologia',
   ],
   alternates: {
-    canonical: BASE_URL,
+    canonical: NEXTAUTH_URL,
   },
   openGraph: {
-    url: new URL(BASE_URL),
+    url: new URL(NEXTAUTH_URL),
     title: 'Sistema Personalizado de Alta Performance',
     description:
       'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
