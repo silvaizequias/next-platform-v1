@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function LandingPage() {
+export default async function MainPage() {
   return (
     <div className="h-screen flex justify-center items-center">
       <div className="m-8">
