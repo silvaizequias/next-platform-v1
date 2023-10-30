@@ -33,16 +33,5 @@ export const metadata: Metadata = {
 }
 
 export default async function MainPage() {
-  return (
-    <div>
-      <div>
-        <div>
-          <h1>Dedicado Digital</h1>
-          <p>
-            Sistemas personalizados de alta performance
-          </p>
-        </div>
-      </div>
-    </div>
-  )
+  return 'Main Page'
 }
