@@ -14,17 +14,7 @@ const defaultTheme = createTheme({
   typography: {
     fontFamily: roboto.style.fontFamily,
   },
-  components: {
-    MuiAlert: {
-      styleOverrides: {
-        root: ({ ownerState }) => ({
-          ...(ownerState.severity === 'info' && {
-            backgroundColor: '#60a5fa',
-          }),
-        }),
-      },
-    },
-  },
+  components: {},
 })
 
 export default defaultTheme
