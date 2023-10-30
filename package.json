@@ -10,6 +10,13 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.15",
+    "@mui/material": "^5.14.15",
+    "@mui/x-charts": "^6.0.0-alpha.17",
+    "@mui/x-data-grid": "^6.17.0",
+    "@mui/x-date-pickers": "^6.17.0",
     "@prisma/client": "^5.4.2",
     "@supabase/supabase-js": "^2.38.2",
     "@vercel/analytics": "^1.1.1",
@@ -17,6 +24,7 @@
     "crisp-sdk-web": "^1.0.21",
     "jsonwebtoken": "^9.0.2",
     "mapbox-gl": "^2.15.0",
+    "moment": "^2.29.4",
     "next": "13.5.5",
     "next-auth": "^4.24.3",
     "react": "^18",
