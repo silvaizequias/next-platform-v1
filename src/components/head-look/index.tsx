@@ -12,7 +12,6 @@ export default function HeadLook(props: HeadLookProps) {
     <Box sx={{ display: 'flex', justifyContent: 'center', bgcolor: blue[600] }}>
       <Box
         sx={{
-          maxWidth: '100%',
           paddingY: 25,
           textTransform: 'uppercase',
           textAlign: 'center',
