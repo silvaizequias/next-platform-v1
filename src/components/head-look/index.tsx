@@ -9,37 +9,28 @@ export default function HeadLook(props: HeadLookProps) {
   const { title, subtitle } = props
 
   return (
-    <Box sx={{ bgcolor: blue[800] }}>
-      <Container
-        maxWidth="xl"
+    <Box sx={{ display: 'flex', justifyContent: 'center', bgcolor: blue[600] }}>
+      <Box
         sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
+          maxWidth: '100%',
+          paddingY: 25,
+          textTransform: 'uppercase',
+          textAlign: 'center',
         }}
       >
-        <Box
-          sx={{
-            marginY: '25%',
-            display: 'flex',
-            flexDirection: 'column',
-            textAlign: 'center',
-          }}
+        <Typography
+          variant="h1"
+          sx={{ color: 'white', fontSize: { xs: 76, sm: 96 } }}
         >
-          <Typography
-            variant="h1"
-            sx={{ color: 'whitesmoke', textTransform: 'uppercase' }}
-          >
-            {title}
-          </Typography>
-          <Typography
-            variant="h6"
-            sx={{ color: blue[200], textTransform: 'uppercase' }}
-          >
-            {subtitle}
-          </Typography>
-        </Box>
-      </Container>
+          {title}
+        </Typography>
+        <Typography
+          variant="h6"
+          sx={{ color: blue[200], fontSize: { xs: 14, sm: 18 } }}
+        >
+          {subtitle}
+        </Typography>
+      </Box>
     </Box>
   )
 }
