@@ -5,21 +5,19 @@ import NextAppDirEmotionCacheProvider from '@/components/emotion-cache'
 import ToastProvider from '@/components/hot-toast'
 import defaultTheme from '@/theme/default'
 import { CssBaseline, ThemeProvider } from '@mui/material'
-import { LocalizationProvider } from '@mui/x-date-pickers'
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import { ReactNode } from 'react'
 
 export default function Providers({ children }: { children: ReactNode }) {
+  const isDevelopment = process.env.NODE_ENV === 'development'
+
   return (
     <main>
       <NextAppDirEmotionCacheProvider options={{ key: 'mui' }}>
         <ThemeProvider theme={defaultTheme}>
-          <LocalizationProvider dateAdapter={AdapterMoment}>
-            <CssBaseline />
-            {children}
-            <ToastProvider />
-            <CrispChat />
-          </LocalizationProvider>
+          <CssBaseline />
+          {children}
+          <ToastProvider />
+          {!isDevelopment && <CrispChat />}
         </ThemeProvider>
       </NextAppDirEmotionCacheProvider>
     </main>

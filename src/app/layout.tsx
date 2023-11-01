@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { ReactNode } from 'react'
 import Providers from './providers'
 import { Analytics } from '@vercel/analytics/react'
+import AppLayout from '@/layouts'
 const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
 
 export const metadata: Metadata = {
@@ -23,7 +24,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body>
         <Providers>
-          {children}
+          <AppLayout>{children}</AppLayout>
           {!isDevelopment && <Analytics />}
         </Providers>
       </body>
