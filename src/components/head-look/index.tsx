@@ -9,7 +9,13 @@ export default function HeadLook(props: HeadLookProps) {
   const { title, subtitle } = props
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center', bgcolor: blue[600] }}>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        bgcolor: blue[600],
+      }}
+    >
       <Box
         sx={{
           paddingY: 25,

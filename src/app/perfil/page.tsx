@@ -1,9 +1,9 @@
 import { authOptions } from '@/libraries/next-auth'
-import ServiceManagementView from '@/views/service-management'
+import ProfileView from '@/views/profile'
 import { getServerSession } from 'next-auth'
 
-export default async function ServiceManagementPage() {
+export default async function ProfilePage() {
   const session = await getServerSession(authOptions)
 
-  return <ServiceManagementView />
+  return <ProfileView />
 }

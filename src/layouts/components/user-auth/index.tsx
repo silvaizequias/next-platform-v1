@@ -12,7 +12,7 @@ export default function UserAuth({ session }: { session: Session }) {
   const router = useRouter()
 
   const handleClick = () => {
-    session ? router.push('/profile') : setOpenModal(!openModal)
+    session ? router.push('/perfil') : setOpenModal(!openModal)
   }
 
   return (

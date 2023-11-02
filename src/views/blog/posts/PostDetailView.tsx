@@ -1,6 +1,7 @@
 'use client'
 
 import useFetch from '@/hooks/useFetch'
+import { Grid } from '@mui/material'
 import { useParams } from 'next/navigation'
 
 export default function PostDetailView() {
@@ -11,5 +12,9 @@ export default function PostDetailView() {
 
   const { data: post } = useFetch(`${BLOG_API_URL}/posts/slug/${slug}`)
 
-  return JSON.stringify(post)
+  return (
+    <Grid container spacing={2} marginY={10}>
+      <Grid item xs={12}></Grid>
+    </Grid>
+  )
 }

@@ -6,14 +6,15 @@ import {
   Container,
   Drawer,
   IconButton,
+  Link,
   Toolbar,
   Tooltip,
-  Typography,
 } from '@mui/material'
 import { Menu } from '@mui/icons-material'
 import UserAuth from '../user-auth'
 import { Session } from 'next-auth'
 import { useState } from 'react'
+import { blue } from '@mui/material/colors'
 
 export default function Topbar({ session }: { session: Session }) {
   const [openDrawer, setOpenDrawer] = useState<boolean>(false)
@@ -39,16 +40,18 @@ export default function Topbar({ session }: { session: Session }) {
             </Tooltip>
           )}
 
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
+          <Link
             sx={{
-              display: { textTransform: 'uppercase' },
+              fontSize: 18,
+              textTransform: 'uppercase',
+              textDecoration: 'none',
+              color: 'white',
+              '&:hover': { color: blue[200] },
             }}
+            href={'/'}
           >
             Dedicado
-          </Typography>
+          </Link>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}></Box>
           <UserAuth session={session} />
