@@ -1,4 +1,5 @@
 import { Box, Container, Grid, Link, Typography } from '@mui/material'
+import { blue } from '@mui/material/colors'
 
 export default function NotFound() {
   return (
@@ -17,8 +18,10 @@ export default function NotFound() {
               textAlign: 'center',
             }}
           >
-            <Typography variant="h2">Ops!</Typography>
-            <Typography variant="body2">
+            <Typography variant="h2" sx={{ color: blue[600] }}>
+              Ops!
+            </Typography>
+            <Typography variant="body2" sx={{ color: blue[200] }}>
               Esse conteudo nao existe ou foi movido daqui...
             </Typography>
             <Link sx={{ fontSize: 12, textDecoration: 'none' }} href="/">
