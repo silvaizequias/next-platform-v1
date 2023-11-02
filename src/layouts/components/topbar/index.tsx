@@ -54,7 +54,7 @@ export default function Topbar({ session }: { session: Session }) {
             Dedicado
           </Link>
           <Box sx={{ flexGrow: 1 }} />
-          {!session && <ActionsToolbar session={session} />}
+          {session && <ActionsToolbar session={session} />}
           <UserAuth session={session} />
         </Toolbar>
       </Container>
