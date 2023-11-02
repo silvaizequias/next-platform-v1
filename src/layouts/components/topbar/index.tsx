@@ -15,6 +15,7 @@ import UserAuth from '../user-auth'
 import { Session } from 'next-auth'
 import { useState } from 'react'
 import { blue } from '@mui/material/colors'
+import ActionsToolbar from '../actions-toolbar'
 
 export default function Topbar({ session }: { session: Session }) {
   const [openDrawer, setOpenDrawer] = useState<boolean>(false)
@@ -53,7 +54,7 @@ export default function Topbar({ session }: { session: Session }) {
             Dedicado
           </Link>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}></Box>
+          {!session && <ActionsToolbar session={session} />}
           <UserAuth session={session} />
         </Toolbar>
       </Container>

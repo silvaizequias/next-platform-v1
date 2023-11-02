@@ -8,11 +8,11 @@ import { useRouter } from 'next/navigation'
 import AuthTabs from './tabs'
 
 export default function UserAuth({ session }: { session: Session }) {
-  const [openModal, setOpenModal] = useState<boolean>(false)
+  const [openDialog, setOpenDialog] = useState<boolean>(false)
   const router = useRouter()
 
   const handleClick = () => {
-    session ? router.push('/perfil') : setOpenModal(!openModal)
+    session ? router.push('/perfil') : setOpenDialog(!openDialog)
   }
 
   return (
@@ -32,7 +32,7 @@ export default function UserAuth({ session }: { session: Session }) {
           )}
         </IconButton>
       </Tooltip>
-      <Dialog keepMounted open={openModal} onClose={handleClick}>
+      <Dialog keepMounted open={openDialog} onClose={handleClick}>
         <Box sx={{ maxWidth: 400 }}>
           <AuthTabs />
         </Box>
