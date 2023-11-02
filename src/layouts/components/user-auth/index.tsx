@@ -1,21 +1,10 @@
 'use client'
 
-import {
-  Avatar,
-  Box,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  IconButton,
-  Tooltip,
-} from '@mui/material'
+import { Avatar, Box, Dialog, IconButton, Tooltip } from '@mui/material'
 import { Login } from '@mui/icons-material'
 import { Session } from 'next-auth'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { blue } from '@mui/material/colors'
 import AuthTabs from './tabs'
 
 export default function UserAuth({ session }: { session: Session }) {
@@ -43,17 +32,10 @@ export default function UserAuth({ session }: { session: Session }) {
           )}
         </IconButton>
       </Tooltip>
-      <Dialog
-        maxWidth={'md'}
-        keepMounted
-        open={openModal}
-        onClose={handleClick}
-      >
-        <DialogContent sx={{ width: 480 }}>
-          <DialogContentText>
-            <AuthTabs />
-          </DialogContentText>
-        </DialogContent>
+      <Dialog keepMounted open={openModal} onClose={handleClick}>
+        <Box sx={{ maxWidth: 400 }}>
+          <AuthTabs />
+        </Box>
       </Dialog>
     </Box>
   )
