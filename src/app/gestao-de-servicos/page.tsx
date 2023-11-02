@@ -4,6 +4,6 @@ import { getServerSession } from 'next-auth'
 
 export default async function ServiceManagementPage() {
   const session = await getServerSession(authOptions)
-
+  
   return <ServiceManagementView />
 }
