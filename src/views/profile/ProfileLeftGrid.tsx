@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Avatar,
   Card,
@@ -6,8 +8,11 @@ import {
   Typography,
 } from '@mui/material'
 import { blue } from '@mui/material/colors'
+import { useRouter } from 'next/navigation'
 
 export default function ProfileLeftGrid() {
+  const router = useRouter()
+
   return (
     <Card
       elevation={0}
@@ -40,6 +45,7 @@ export default function ProfileLeftGrid() {
           borderColor: 'whitesmoke',
           paddingY: 2,
         }}
+        onClick={() => router.push(`organizacoes/${1}`)}
       >
         <Typography variant="h6" textTransform={'uppercase'}>
           {'organização'}
