@@ -9,7 +9,7 @@ interface DataTableProps {
 export default function DataTable(props: DataTableProps) {
   const { data, columns } = props
   const [rows, setRows] = useState([])
-
+ 
   useEffect(() => {
     const userData = async () => {
       setRows(data!)

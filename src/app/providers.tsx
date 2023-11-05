@@ -11,15 +11,13 @@ export default function Providers({ children }: { children: ReactNode }) {
   const isDevelopment = process.env.NODE_ENV === 'development'
 
   return (
-    <main>
-      <NextAppDirEmotionCacheProvider options={{ key: 'mui' }}>
-        <ThemeProvider theme={defaultTheme}>
-          <CssBaseline />
-          {children}
-          <ToastProvider />
-          {!isDevelopment && <CrispChat />}
-        </ThemeProvider>
-      </NextAppDirEmotionCacheProvider>
-    </main>
+    <NextAppDirEmotionCacheProvider options={{ key: 'mui' }}>
+      <ThemeProvider theme={defaultTheme}>
+        <CssBaseline />
+        {children}
+        <ToastProvider />
+        {!isDevelopment && <CrispChat />}
+      </ThemeProvider>
+    </NextAppDirEmotionCacheProvider>
   )
 }
