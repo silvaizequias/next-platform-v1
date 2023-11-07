@@ -21,6 +21,12 @@ enum UserRole {
   OWNER
 }
 
+enum ServiceRecurrence {
+  MONTHLY
+  QUARTERLY
+  YEARLY
+}
+
 model User {
   id          String    @id @default(cuid())
   createdAt   DateTime  @default(now()) @map("created_at")
@@ -52,6 +58,7 @@ model User {
   longitude Float?
 
   organizations OrganizationUsers[]
+  subscriptions Subscription[]
 
   @@map("users")
 }
@@ -104,4 +111,46 @@ model OrganizationUsers {
   @@index([organizationId])
   @@index([userId])
   @@map("organization_users")
+}
+
+model Subscription {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at") @db.Date
+  softDeleted Boolean?  @default(false) @map("soft_deleted")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onUpdate: Cascade)
+
+  serviceId String  @map("service_id")
+  service   Service @relation(fields: [serviceId], references: [id], onUpdate: Cascade)
+
+  stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
+  stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
+  stripePriceId          String?   @map(name: "stripe_price_id")
+  stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
+
+  @@index([userId])
+  @@index([serviceId])
+  @@map("subscriptions")
+}
+
+model Service {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at") @db.Date
+  softDeleted Boolean?  @default(false) @map("soft_deleted")
+
+  name        String
+  slug        String             @unique
+  description String
+  features    String?
+  price       Decimal            @db.Decimal(5, 2)
+  recurrence  ServiceRecurrence? @default(MONTHLY)
+
+  subscriptions Subscription[]
+
+  @@map("services")
 }
