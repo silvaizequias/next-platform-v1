@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 import './globals.css'
 import ToastProvider from '@/components/toast-provider'
+import TopBar from '@/components/topbar'
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -30,10 +31,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${roboto.variable} font-sans dark`}>
       <body className=" bg-slate-200 text-slate-800 dark:bg-slate-800 dark:text-slate-200 text-base font-light">
-        <main className="flex min-h-screen">
-          {children}
-          <ToastProvider />
-        </main>
+        <TopBar />
+        <main className="flex min-h-screen">{children}</main>
+        <ToastProvider />
       </body>
     </html>
   )
