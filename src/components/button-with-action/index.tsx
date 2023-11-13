@@ -6,14 +6,13 @@ import toast from 'react-hot-toast'
 
 interface Props {
   id?: string
-  color?: string
   message?: string
   name: string
   path?: string
 }
 
 export default function ButtonWithAction(props: Props) {
-  const { id, color, message, name, path } = props
+  const { id, message, name, path } = props
 
   const router = useRouter()
 
@@ -27,7 +26,7 @@ export default function ButtonWithAction(props: Props) {
 
   return (
     <button
-      className={`flex relative p-2 mx-auto uppercase text-base transition-all rounded-md bg-${color}-400 hover:bg-${color}-200`}
+      className={`flex relative p-2 mx-auto uppercase text-base transition-all rounded-md bg-blue-400 hover:bg-opacity-50`}
       id={id}
       type="button"
       onClick={() => handleClick(path, message)}

@@ -6,7 +6,7 @@ export default function AppBar() {
   return (
     <div className="fixed w-full">
       <div className="mx-auto py-4">
-        <div className="flex justify-between sm:mx-8 mx-2">
+        <div className="flex justify-between sm:mx-8 mx-2 dark:text-slate-200">
           <div className="flex items-center gap-4">
             <span className="cursor-pointer rounded-full p-2 hover:opacity-50 hover:bg-opacity-25">
               <HiMenu />
