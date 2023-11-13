@@ -1,18 +1,22 @@
 'use client'
 
+import { Button } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import toast from 'react-hot-toast'
 
 interface Props {
+  color?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger'
   id?: string
   message?: string
   name: string
   path?: string
+  size?: 'sm' | 'md' | 'lg'
+  variant?: 'faded' | 'bordered' | 'light' | 'flat' | 'ghost' | 'shadow'
 }
 
 export default function ButtonWithAction(props: Props) {
-  const { id, message, name, path } = props
+  const { color, id, message, name, path, size, variant } = props
 
   const router = useRouter()
 
@@ -25,13 +29,15 @@ export default function ButtonWithAction(props: Props) {
   )
 
   return (
-    <button
-      className={`flex relative p-2 mx-auto uppercase text-base transition-all rounded-md bg-blue-400 hover:bg-opacity-50`}
+    <Button
+      color={color || 'default'}
+      className="uppercase"
       id={id}
-      type="button"
       onClick={() => handleClick(path, message)}
+      variant={variant || 'solid'}
+      size={size || 'sm'}
     >
       {name}
-    </button>
+    </Button>
   )
 }
