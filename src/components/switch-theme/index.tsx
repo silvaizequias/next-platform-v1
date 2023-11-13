@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { HiOutlineMoon, HiOutlineSun } from 'react-icons/hi2'
 
 export default function SwitchTheme() {
@@ -10,12 +10,8 @@ export default function SwitchTheme() {
   const handleMode = useCallback(() => {
     const element = window.document.documentElement
 
-    setDarkTheme(!darkTheme)
-
-    darkTheme
-      ? (element.classList.add('dark'), setDarkTheme(true))
-      : (element.classList.remove('dark'), setDarkTheme(false))
-  }, [darkTheme])
+ 
+  }, [])
 
   return (
     <div className="relative">
