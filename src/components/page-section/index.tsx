@@ -14,14 +14,14 @@ export default function PageSection(props: Props) {
   return (
     <section id={id} className="flex items-center justify-center h-screen">
       <div className="flex flex-col items-center gap-2">
-        <div className="text-center mx-2">
+        <div className="sm:mx-8 mx-2 text-center">
           <h1 className="sm:text-6xl text-4xl font-semibold uppercase">
             {title}
           </h1>
-          <h4 className="sm:text-2xl text-xl font-normal uppercase">
+          <h4 className="sm:text-2xl text-lg font-normal uppercase">
             {subtitle}
           </h4>
-          <p className=" sm:text-sm text-lg capitalize">{description}</p>
+          <p className=" sm:text-sm text-xs capitalize">{description}</p>
         </div>
         <div className="flex flex-1">{children}</div>
       </div>
