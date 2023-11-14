@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import LandingView from './views'
 
 export const metadata: Metadata = {
-  title: 'Sistema Personalizado de Alta Performance',
+  title: 'Sistemas Personalizados de Alta Performance',
   description:
     'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
 }
