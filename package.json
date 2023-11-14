@@ -12,6 +12,7 @@
     "@headlessui/react": "^1.7.17",
     "@nextui-org/react": "^2.2.9",
     "@vercel/analytics": "^1.1.1",
+    "crisp-sdk-web": "^1.0.21",
     "framer-motion": "^10.16.4",
     "next": "14.0.2",
     "react": "^18",
