@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import LandingView from './views'
+import DashView from './views/DashView'
 
 export const metadata: Metadata = {
   title: 'Sistemas Personalizados de Alta Performance',
@@ -8,5 +9,7 @@ export const metadata: Metadata = {
 }
 
 export default async function LandingPage() {
-  return <LandingView />
+  const session: boolean = false
+
+  return !session ? <LandingView /> : <DashView />
 }
