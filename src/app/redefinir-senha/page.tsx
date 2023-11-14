@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import ForgotPasswordView from './views'
+import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: 'Redefinir Senha',
@@ -7,5 +8,7 @@ export const metadata: Metadata = {
 }
 
 export default async function ForgotPasswordPage() {
-  return <ForgotPasswordView />
+  const session: boolean = false
+
+  return !session ? <ForgotPasswordView /> : redirect('/')
 }

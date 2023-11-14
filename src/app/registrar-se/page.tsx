@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import SignInView from './views'
+import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: 'Registrar-se no Portal Dedicado',
@@ -7,5 +8,7 @@ export const metadata: Metadata = {
 }
 
 export default async function SignInPage() {
-  return <SignInView />
+  const session: boolean = false
+
+  return !session ? <SignInView /> : redirect('/')
 }
