@@ -1,5 +1,5 @@
 import { Card, CardBody } from '@nextui-org/react'
-import ForgotPasswordForm from '../forms/forgot-password'
+import ForgotPasswordForm from '@/components/forms/auth/forgot-password'
 
 export default function ForgotPasswordView() {
   return (

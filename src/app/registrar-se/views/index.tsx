@@ -1,5 +1,5 @@
 import { Card, CardBody } from '@nextui-org/react'
-import SignUpForm from '../forms/sign-up'
+import SignUpForm from '@/components/forms/auth/sign-up'
 
 export default function SignInView() {
   return (

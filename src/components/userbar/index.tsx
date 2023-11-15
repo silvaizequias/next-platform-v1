@@ -17,7 +17,7 @@ import { HiOutlineLogin } from 'react-icons/hi'
 import { HiMiniKey, HiOutlineIdentification } from 'react-icons/hi2'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
-import SignInForm from './forms/sign-in'
+import SignInForm from '@/components/forms/auth/sign-in'
 
 export default function UserBar() {
   const router = useRouter()
