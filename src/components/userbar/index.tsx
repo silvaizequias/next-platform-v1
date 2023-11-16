@@ -89,8 +89,8 @@ export default function UserBar() {
               <HiOutlineLogin />
             </span>
           </PopoverTrigger>
-          <PopoverContent>
-            <div className="max-w-[400px] p-2">
+          <PopoverContent className=" bg-slate-100 dark:bg-slate-900">
+            <div className="p-2 min-w-[340px] sm:w-[360px]">
               <SignInForm />
               <div className="flex flex-col justify-center items-center">
                 <Divider className="m-4" />
