@@ -1,7 +1,9 @@
+import Container from "@/components/container";
+
 export default function TermsOfServiceView() {
   return (
-    <div className="flex flex-wrap mx-auto">
-      <div className="sm:mx-8 mx-2"></div>
-    </div>
+    <Container>
+      <h4 className="p-6 text-center">Termos de Serviço</h4>
+    </Container>
   )
 }

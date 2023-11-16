@@ -1,7 +1,9 @@
+import Container from "@/components/container";
+
 export default function DashView() {
   return (
-    <div className="flex flex-wrap mx-auto">
-      <div className="sm:mx-8 mx-2"></div>
-    </div>
+    <Container>
+      <span className="text-lg uppercase">Olá user</span>
+    </Container>
   )
 }

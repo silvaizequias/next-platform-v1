@@ -4,6 +4,7 @@ import './globals.css'
 import ToastProvider from '@/components/toast-provider'
 import AppBar from '@/components/appbar'
 import Providers from './providers'
+import Footer from '@/components/footer'
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -37,6 +38,7 @@ export default function RootLayout({
           <main className="mx-auto h-full w-full">
             {children}
           </main>
+          <Footer />
         </Providers>
       </body>
     </html>
