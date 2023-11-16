@@ -3,7 +3,7 @@ import ForgotPasswordForm from '@/components/forms/auth/forgot-password'
 
 export default function ForgotPasswordView() {
   return (
-    <div className="h-screen flex justify-center items-center">
+    <div className="min-h-screen flex justify-center items-center">
       <div className="sm:mx-8 mx-2">
         <div className="flex flex-col text-center">
           <Card
