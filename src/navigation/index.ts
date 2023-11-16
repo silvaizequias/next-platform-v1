@@ -12,6 +12,10 @@ export const topnav: NavigationType[] = [
     name: 'Início',
     path: '/',
   },
+  {
+    name: 'Suporte',
+    path: '/suporte',
+  },
 ]
 
 export const sidenav: NavigationType[] = [
