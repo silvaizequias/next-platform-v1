@@ -31,10 +31,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${roboto.variable} font-sans`}>
-      <body className='h-screen'>
+      <body className="min-h-screen bg-slate-200 text-zinc-600 dark:bg-slate-800 dark:text-zinc-200 text-base font-light">
         <Providers>
           <AppBar />
-          <main className="bg-slate-200 text-slate-800 dark:bg-slate-800 dark:text-slate-200 text-base font-light">{children}</main>
+          <main className="mx-auto h-full w-full">
+            {children}
+          </main>
         </Providers>
       </body>
     </html>

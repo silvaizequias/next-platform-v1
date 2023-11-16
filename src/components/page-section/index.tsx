@@ -13,24 +13,29 @@ export default function PageSection(props: Props) {
   const { children, description, id, subtitle, title } = props
 
   return (
-    <section id={id} className="flex items-center justify-center h-screen">
-      <div className="flex flex-col items-center gap-4">
-        <div className="sm:mx-8 mx-2 text-center">
-          <h1 className="my-2 sm:text-6xl text-4xl font-semibold uppercase">
+    <section
+      id={id}
+      className="h-screen sm:min-h-screen flex flex-col justify-center"
+    >
+      <div className="mx-2 sm:mx-8 text-center">
+        <div className="my-2 sm:my-4 mx-auto md:mx-40">
+          <h1 className="text-4xl sm:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-blue-800 font-semibold uppercase">
             {title}
           </h1>
-          <h4 className="sm:text-2xl text-lg font-normal uppercase">
+        </div>
+        <div className="my-2 sm:my-4 mx-auto md:mx-40">
+          <h4 className="text-lg sm:text-2xl font-normal uppercase">
             {subtitle}
           </h4>
-          <div className="mx-14 my-8">
-            <Divider />
-          </div>
-          <div className="my-10">
-            <p className="sm:text-md text-sm">{description}</p>
-          </div>
         </div>
-        <div className="flex flex-1">{children}</div>
+        <div className="my-6 mx-24 sm:mx-40 md:mx-60">
+          <Divider />
+        </div>
+        <div className="my-2 sm:my-4 mx-auto md:mx-60">
+          <p className="italic">{description}</p>
+        </div>
       </div>
+      <div className="my-2 sm:my-8 mx-auto">{children}</div>
     </section>
   )
 }
