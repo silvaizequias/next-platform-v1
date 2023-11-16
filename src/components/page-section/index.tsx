@@ -15,7 +15,7 @@ export default function PageSection(props: Props) {
   return (
     <section
       id={id}
-      className="h-screen sm:min-h-screen flex flex-col justify-center"
+      className="min-h-screen flex flex-col justify-center"
     >
       <div className="py-12">
         <div className="mx-2 sm:mx-8 text-center">
