@@ -16,6 +16,7 @@ const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
 
 export const metadata: Metadata = {
   metadataBase: new URL(NEXTAUTH_URL),
+  icons: { icon: '/favicon.ico' },
   alternates: {
     canonical: '/',
   },
