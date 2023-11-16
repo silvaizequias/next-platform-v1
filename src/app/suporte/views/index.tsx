@@ -27,19 +27,21 @@ export default function SupportView() {
         subtitle="Direcione sua demanda para quem entende do assunto"
         description="Nós nos adaptamos às suas necessidades específicas, para garantir que você receba o suporte que precisa para manter sua empresa funcionando sem problemas!"
       >
-        <div className="flex justify-center mx-2 sm:mx-8">
-          <div className="dark:bg-slate-200 bg-slate-800 text-slate-200 dark:text-slate-800 rounded-md p-4 md:mx-40">
-            <p className="text-justify">
-              O suporte técnico é essencial para o sucesso de qualquer empresa.
-              Afinal, quando sua tecnologia não está funcionando, sua
-              produtividade e lucratividade ficam comprometidas.
-            </p>
-            <p className="text-justify">
-              A DEDICADO oferece suporte técnico avançado e personalizado para
-              empresas de todos os tamanhos. Nossos especialistas estão
-              preparados para atender a todas as suas necessidades, desde
-              problemas simples até incidentes complexos.
-            </p>
+        <div className="flex justify-center">
+          <div className="py-8 bg-gradient-to-r from-blue-400 to-indigo-600 text-zinc-200 min-w-full">
+            <div className="mx-2 sm:mx-40 md:mx-60 space-y-4">
+              <p className="mx-auto text-justify">
+                O suporte técnico é essencial para o sucesso de qualquer
+                empresa. Afinal, quando sua tecnologia não está funcionando, sua
+                produtividade e lucratividade ficam comprometidas.
+              </p>
+              <p className="mx-auto text-justify">
+                A DEDICADO oferece suporte técnico avançado e personalizado para
+                empresas de todos os tamanhos. Nossos especialistas estão
+                preparados para atender a todas as suas necessidades, desde
+                problemas simples até incidentes complexos.
+              </p>
+            </div>
           </div>
         </div>
       </PageSection>

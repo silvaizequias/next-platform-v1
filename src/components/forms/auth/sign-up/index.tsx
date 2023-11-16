@@ -28,7 +28,7 @@ export default function SignUpForm() {
       />
       <Button
         size="sm"
-        variant="light"
+        variant="flat"
         color="success"
         className="w-full uppercase"
       >
