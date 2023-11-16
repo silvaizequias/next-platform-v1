@@ -9,11 +9,11 @@ export default function SupportView() {
         description="Se você precisa de suporte, o melhor apoio técnico para sua operação está aqui!"
       >
         <div className="flex flex-col justify-center mx-2 sm:mx-8">
-          <p className="pb-2 text-center text-xl uppercase font-medium bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-blue-400">
+          <p className="pb-2 text-center text-xl uppercase font-semibold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-blue-400">
             Não acreditamos em soluções genéricas!
           </p>
           <p className="text-center">
-            Oferecemos suporte técnico avançado personalizado, moldado para
+            Oferecemos suporte técnico avançado de forma personalizada, moldado para
             atender às suas necessidades específicas.
           </p>
           <p className="text-center">
@@ -37,8 +37,7 @@ export default function SupportView() {
               </p>
               <p className="mx-auto text-justify">
                 A DEDICADO oferece suporte técnico avançado e personalizado para
-                empresas de todos os tamanhos. Nossos especialistas estão
-                preparados para atender a todas as suas necessidades, desde
+                empresas de todos os tamanhos. Estamos prontos para atender a todas as  necessidades do seu negócio, desde
                 problemas simples até incidentes complexos.
               </p>
             </div>
@@ -53,11 +52,11 @@ export default function SupportView() {
         <div className="flex justify-center mx-2 sm:mx-8">
           <div className="md:mx-40">
             <h4 className="text-center text-xl uppercase font-semibold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-blue-400">
-              Personalize seu suporte agora!
+              Tenha uma experiência incrível e se surpreenda
             </h4>
             <p className="text-center">
-              Entre em contato para uma avaliação gratuita e descubra como a
-              DEDICADO pode revolucionar o suporte técnico do seu negócio.
+              Entre em contato e descubra <span className='font-semibold text-blue-400 uppercase'>como a
+              DEDICADO pode oferecer apoio técnico</span> para o seu negócio.
             </p>
           </div>
         </div>
