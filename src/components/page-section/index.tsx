@@ -19,7 +19,7 @@ export default function PageSection(props: Props) {
     >
       <div className="mx-2 sm:mx-8 text-center">
         <div className="my-2 sm:my-4 mx-auto md:mx-40">
-          <h1 className="text-4xl sm:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-blue-800 font-semibold uppercase">
+          <h1 className="text-4xl sm:text-6xl tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-blue-800 font-semibold uppercase">
             {title}
           </h1>
         </div>
