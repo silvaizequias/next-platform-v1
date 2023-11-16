@@ -21,7 +21,7 @@ export default function CorrectionSupportView() {
             </p>
             <p className="mx-auto text-justify">
               A atuação da DEDICADO possibilita identificar a causa raiz do
-              problema, e traz um diagnóstico preciso do que realmente é necessário
+              problema, trazendo um diagnóstico preciso do que realmente é necessário
               fazer para resolver esse problema de forma estratégica e
               pontual.
             </p>
