@@ -6,7 +6,7 @@ export default function SupportView() {
       <PageSection
         title="Suporte especializado"
         subtitle="Experimente um atendimento totalmente personalizado"
-        description="Se você precisa de suporte, o melhor apoio técnico para sua operação está aqui!"
+        description="Se você precisa de suporte, o melhor apoio técnico para sua demanda está aqui!"
       >
         <div className="flex flex-col justify-center mx-2 sm:mx-8">
           <p className="pb-2 text-center text-xl uppercase font-semibold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-blue-400">
@@ -32,7 +32,7 @@ export default function SupportView() {
             <div className="mx-2 sm:mx-40 md:mx-60 space-y-4">
               <p className="mx-auto text-justify">
                 O suporte técnico é essencial para o sucesso de qualquer
-                empresa. Afinal, quando sua tecnologia não está funcionando, sua
+                empresa. Afinal, se sua tecnologia não está funcionando sua
                 produtividade e lucratividade ficam comprometidas.
               </p>
               <p className="mx-auto text-justify">
