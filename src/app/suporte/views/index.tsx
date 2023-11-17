@@ -4,12 +4,10 @@ import PageSection from '@/components/page-section'
 export default function SupportView() {
   const services = [
     {
-      icon: '',
       name: 'Correção de Falhas',
       path: '/suporte/correcao',
     },
     {
-      icon: '',
       name: 'Migração',
       path: '/suporte/migracao',
     },
