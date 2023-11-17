@@ -29,15 +29,17 @@ export default function ButtonWithAction(props: Props) {
   )
 
   return (
-    <Button
-      color={color || 'default'}
-      className="uppercase"
-      id={id}
-      onClick={() => handleClick(path, message)}
-      variant={variant || 'solid'}
-      size={size || 'sm'}
-    >
-      {name}
-    </Button>
+    <div className="relative">
+      <Button
+        color={color || 'default'}
+        className="uppercase"
+        id={id}
+        onClick={() => handleClick(path, message)}
+        variant={variant || 'solid'}
+        size={size || 'sm'}
+      >
+        {name}
+      </Button>
+    </div>
   )
 }

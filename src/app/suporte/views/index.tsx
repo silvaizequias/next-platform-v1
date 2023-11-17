@@ -22,8 +22,8 @@ export default function SupportView() {
         subtitle="Experimente um atendimento totalmente personalizado"
         description="Se você precisa de suporte, o melhor apoio técnico para sua demanda está aqui!"
       >
-        <div className="flex flex-col justify-center mx-2 sm:mx-8">
-          <div className="flex flex-1 gap-4 justify-center mb-4 sm:mb-6">
+        <div className="mx-2 sm:mx-8 flex flex-col justify-center">
+          <div className="pb-2 sm:pb-6 flex flex-1 gap-4 justify-center">
             {services.map((service, index) => (
               <ButtonWithAction
                 key={index}
@@ -34,7 +34,7 @@ export default function SupportView() {
               />
             ))}
           </div>
-          <p className="pb-2 text-center text-xl uppercase font-semibold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-blue-400">
+          <p className="py-2 text-center text-xl uppercase font-semibold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-blue-400">
             Não acreditamos em soluções genéricas!
           </p>
           <p className="text-center">
