@@ -35,7 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
     {
-      url: `${NEXTAUTH_URL}/termos-de-servico`,
+      url: `${NEXTAUTH_URL}/termos`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.5,

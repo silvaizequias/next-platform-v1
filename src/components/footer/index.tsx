@@ -15,7 +15,7 @@ export default function Footer() {
           </div>
           <div className="flex flex-1 items-center justify-end">
             <Link
-              href={'/termos-de-servico'}
+              href={'/termos'}
               className="font-thin uppercase hover:opacity-50"
             >
               Termos de Serviço
