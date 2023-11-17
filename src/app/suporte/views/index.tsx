@@ -13,8 +13,8 @@ export default function SupportView() {
             Não acreditamos em soluções genéricas!
           </p>
           <p className="text-center">
-            Oferecemos suporte técnico avançado de forma personalizada, moldado para
-            atender às suas necessidades específicas.
+            Oferecemos suporte técnico avançado de forma personalizada, moldado
+            para atender às suas necessidades específicas.
           </p>
           <p className="text-center">
             Torne-se parte da nossa jornada de personalização e experimente um
@@ -27,8 +27,8 @@ export default function SupportView() {
         subtitle="Direcione sua demanda para quem entende do assunto"
         description="Nós nos adaptamos às suas necessidades específicas, para garantir que você receba o suporte que precisa para manter sua empresa funcionando sem problemas!"
       >
-        <div className="flex justify-center">
-          <div className="py-8 min-w-full text-zinc-200 bg-gradient-to-r from-indigo-400 to-blue-400">
+        <div className="flex justify-center shadow-md">
+          <div className="py-8 min-w-full bg-slate-100 text-zinc-600 dark:bg-slate-900 dark:text-zinc-200">
             <div className="mx-2 sm:mx-40 md:mx-60 space-y-4">
               <p className="mx-auto text-justify">
                 O suporte técnico é essencial para o sucesso de qualquer
@@ -37,8 +37,9 @@ export default function SupportView() {
               </p>
               <p className="mx-auto text-justify">
                 A DEDICADO oferece suporte técnico avançado e personalizado para
-                empresas de todos os tamanhos. Estamos prontos para atender a todas as  necessidades do seu negócio, desde
-                problemas simples até incidentes complexos.
+                empresas de todos os tamanhos. Estamos prontos para atender a
+                todas as necessidades do seu negócio, desde problemas simples
+                até incidentes complexos.
               </p>
             </div>
           </div>
@@ -55,8 +56,11 @@ export default function SupportView() {
               Tenha uma experiência incrível e se surpreenda
             </h4>
             <p className="text-center">
-              Entre em contato e descubra <span className='font-semibold text-blue-400 uppercase'>como a
-              DEDICADO pode oferecer apoio técnico</span> para o seu negócio.
+              Entre em contato e descubra{' '}
+              <span className="font-semibold text-blue-400 uppercase">
+                como a DEDICADO pode oferecer apoio técnico
+              </span>{' '}
+              para o seu negócio.
             </p>
           </div>
         </div>
