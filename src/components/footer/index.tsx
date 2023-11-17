@@ -7,14 +7,15 @@ export default function Footer() {
         <div className="flex justify-between mx-2 sm:mx-8 text-xs">
           <div className="flex items-center gap-4">
             <Link href={'/'} className="uppercase hover:opacity-50">
-              dedicado digital
+              52.378.516 INOVA SIMPLES (I.S)
             </Link>
-            <span className="tabular-numstext-inherit font-thin">
-              52.378.516/0001-78
-            </span>
+            <span className="tabular-numstext-inherit"></span>
           </div>
           <div className="flex flex-1 items-center justify-end">
-            <Link href={'/termos-de-servico'} className="font-thin uppercase hover:opacity-50">
+            <Link
+              href={'/termos-de-servico'}
+              className="font-thin uppercase hover:opacity-50"
+            >
               Termos de Serviço
             </Link>
           </div>
