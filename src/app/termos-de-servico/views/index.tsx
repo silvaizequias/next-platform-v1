@@ -1,10 +1,11 @@
 import Container from '@/components/container'
 import { Divider } from '@nextui-org/react'
+import TermosOfServiceTabs from './TermosOfServiceTabs'
 
 export default function TermsOfServiceView() {
   return (
     <Container>
-      <p className="mx-auto text-center py-4 px-12">
+      <p className="mx-auto text-justify py-4">
         Para utilizar as soluções da plataforma da{' '}
         <span className="uppercase font-medium">Dedicado Digital - </span>{' '}
         <span className="italic uppercase font-thin">
@@ -15,6 +16,9 @@ export default function TermsOfServiceView() {
       </p>
       <div className="mx-12 sm:mx-24">
         <Divider />
+      </div>
+      <div className="mx-auto py-4">
+        <TermosOfServiceTabs />
       </div>
     </Container>
   )
