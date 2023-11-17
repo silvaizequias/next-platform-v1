@@ -7,9 +7,11 @@ export default function Footer() {
         <div className="flex justify-between mx-2 sm:mx-8 text-xs">
           <div className="flex items-center gap-4">
             <Link href={'/'} className="uppercase hover:opacity-50">
-              52.378.516 INOVA SIMPLES (I.S)
+              Dedicado Digital
             </Link>
-            <span className="tabular-numstext-inherit"></span>
+            <span className="tabular-numstext-inherit font-thin">
+              52.378.516/0001-78
+            </span>
           </div>
           <div className="flex flex-1 items-center justify-end">
             <Link
