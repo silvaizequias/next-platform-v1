@@ -22,7 +22,7 @@ export default function TopMenu() {
   )
 
   return (
-    <Dropdown className=" bg-slate-100 dark:bg-slate-900">
+    <Dropdown className=" bg-slate-100 dark:bg-slate-900 shadow-sm">
       <DropdownTrigger>
         <span className="cursor-pointer rounded-full p-2 hover:opacity-50 hover:bg-opacity-25">
           <HiMenu />

@@ -45,15 +45,13 @@ export default function SwitchTheme() {
   )
 
   return (
-    <div className="relative">
-      <span
-        className="flex cursor-pointer rounded-full p-2 hover:opacity-50 hover:bg-opacity-25"
-        onClick={() =>
-          theme == 'dark' ? handleMode('light') : handleMode('dark')
-        }
-      >
-        {theme == 'dark' ? <HiOutlineMoon /> : <HiOutlineSun />}
-      </span>
+    <div
+      className="flex cursor-pointer rounded-full p-2 hover:opacity-50 hover:bg-opacity-25"
+      onClick={() =>
+        theme == 'dark' ? handleMode('light') : handleMode('dark')
+      }
+    >
+      {theme == 'dark' ? <HiOutlineMoon /> : <HiOutlineSun />}
     </div>
   )
 }
