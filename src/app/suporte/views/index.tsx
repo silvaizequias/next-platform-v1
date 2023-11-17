@@ -52,9 +52,9 @@ export default function SupportView() {
         subtitle="Direcione sua demanda para quem entende do assunto"
         description="Nós nos adaptamos às suas necessidades específicas, para garantir que você receba o suporte que precisa para manter sua empresa funcionando sem problemas!"
       >
-        <div className="flex justify-center shadow-md">
-          <div className="py-8 min-w-full bg-slate-100 text-zinc-600 dark:bg-slate-900 dark:text-zinc-200">
-            <div className="mx-2 sm:mx-40 md:mx-60 space-y-4">
+        <div className="flex justify-center">
+          <div className="my-4 min-w-full bg-slate-100 text-zinc-600 dark:bg-slate-900 dark:text-zinc-200 shadow-md">
+            <div className="mx-2 sm:mx-40 md:mx-60 space-y-4 py-8">
               <p className="mx-auto text-justify">
                 O suporte técnico é essencial para o sucesso de qualquer
                 empresa. Afinal, se sua tecnologia não está funcionando sua
