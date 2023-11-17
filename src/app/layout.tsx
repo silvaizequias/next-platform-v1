@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 import './globals.css'
-import ToastProvider from '@/components/toast-provider'
 import AppBar from '@/components/appbar'
 import Providers from './providers'
 import Footer from '@/components/footer'
@@ -16,7 +15,7 @@ const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
 
 export const metadata: Metadata = {
   metadataBase: new URL(NEXTAUTH_URL),
-  icons: { icon: '/favicon.ico' },
+  icons: { icon: '/logotipo5.png' },
   alternates: {
     canonical: '/',
   },
