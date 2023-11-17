@@ -1,6 +1,20 @@
+import ButtonWithAction from '@/components/button-with-action'
 import PageSection from '@/components/page-section'
 
 export default function SupportView() {
+  const services = [
+    {
+      icon: '',
+      name: 'Correção de Falhas',
+      path: '/suporte/correcao',
+    },
+    {
+      icon: '',
+      name: 'Migração',
+      path: '/suporte/migracao',
+    },
+  ]
+
   return (
     <div className="sm:min-w-full">
       <PageSection
@@ -9,6 +23,17 @@ export default function SupportView() {
         description="Se você precisa de suporte, o melhor apoio técnico para sua demanda está aqui!"
       >
         <div className="flex flex-col justify-center mx-2 sm:mx-8">
+          <div className="flex flex-1 gap-4 justify-center mb-4 sm:mb-6">
+            {services.map((service, index) => (
+              <ButtonWithAction
+                key={index}
+                name={service.name}
+                variant="shadow"
+                color="primary"
+                path={service.path}
+              />
+            ))}
+          </div>
           <p className="pb-2 text-center text-xl uppercase font-semibold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-blue-400">
             Não acreditamos em soluções genéricas!
           </p>
