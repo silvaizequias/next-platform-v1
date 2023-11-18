@@ -11,6 +11,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
     {
+      url: `${NEXTAUTH_URL}/blog`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.5,
+    },
+    {
       url: `${NEXTAUTH_URL}/registrar-se`,
       lastModified: new Date(),
       changeFrequency: 'weekly',

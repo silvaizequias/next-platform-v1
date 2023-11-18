@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/redefinir-senha',
     },
-    sitemap: ` ${NEXTAUTH_URL}/sitemap.xml`,
+    sitemap: `${NEXTAUTH_URL}/sitemap.xml`,
   }
 }
