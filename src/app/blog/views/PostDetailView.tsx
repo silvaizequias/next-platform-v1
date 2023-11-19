@@ -1,11 +1,11 @@
 'use client'
 
 import Container from '@/components/container'
-import { usePathname } from 'next/navigation'
+import { useParams } from 'next/navigation'
 
 export default function PostDetailView() {
-  const pathname = usePathname()
-  const slug = pathname.split('/blog/')
+  const params: any = useParams()
+  const { slug } = params
 
   return (
     <Container>
