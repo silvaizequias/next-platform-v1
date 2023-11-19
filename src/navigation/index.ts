@@ -16,6 +16,10 @@ export const topnav: NavigationType[] = [
     name: 'Suporte',
     path: '/suporte',
   },
+  {
+    name: 'Blog',
+    path: '/blog'
+  }
 ]
 
 export const sidenav: NavigationType[] = [
