@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   title: {
-    default: 'Suporte Técnico Especializado',
+    default: 'Sistemas Personalizados de Alta Performance',
     template: `%s | Dedicado`,
   },
 }
