@@ -20,7 +20,5 @@ export const slugify = (phrase: string) => {
     .replace(/^-+/, '')
     .replace(/-+$/, '')
 
-  console.log(slug)
-
   return slug
 }
