@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { Tab } from '@headlessui/react'
-import { TermItemType, TermType, termsOfService, termsOfUsage } from './terms'
+import { TermItemType, TermType, termsOfService, termsOfUsage } from '../terms'
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')

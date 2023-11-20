@@ -1,6 +1,8 @@
 import { Metadata } from 'next'
-import LandingView from './views'
-import DashView from './views/DashView'
+import LandingView from '@/views/landing'
+import AccountView from '@/views/account'
+import { Fragment } from 'react'
+import SupportView from '@/views/support'
 
 const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
 
@@ -39,5 +41,12 @@ export const metadata: Metadata = {
 export default async function LandingPage() {
   const session: boolean = false
 
-  return !session ? <LandingView /> : <DashView />
+  return !session ? (
+    <Fragment>
+      <LandingView />
+      <SupportView />
+    </Fragment>
+  ) : (
+    <AccountView />
+  )
 }

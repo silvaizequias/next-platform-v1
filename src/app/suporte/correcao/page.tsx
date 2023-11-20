@@ -1,5 +1,5 @@
+import CorrectionSupportView from '@/views/support/correction-support-view'
 import { Metadata } from 'next'
-import CorrectionSupportView from './views'
 
 const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
 

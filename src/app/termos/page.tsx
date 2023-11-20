@@ -1,5 +1,5 @@
+import TermsOfServiceView from '@/views/terms'
 import { Metadata } from 'next'
-import TermsOfServiceView from './views'
 
 const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
 

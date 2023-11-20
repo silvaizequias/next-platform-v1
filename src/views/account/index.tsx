@@ -1,6 +1,6 @@
-import Container from "@/components/container";
+import Container from '@/components/container'
 
-export default function DashView() {
+export default function AccountView() {
   return (
     <Container>
       <span className="text-lg uppercase">Olá user</span>

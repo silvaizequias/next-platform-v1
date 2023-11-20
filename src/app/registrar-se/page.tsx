@@ -1,5 +1,5 @@
+import SignInView from '@/views/auth/sign-in-view'
 import { Metadata } from 'next'
-import SignInView from './views'
 import { redirect } from 'next/navigation'
 
 const NEXTAUTH_URL = process.env.NEXTAUTH_URL!

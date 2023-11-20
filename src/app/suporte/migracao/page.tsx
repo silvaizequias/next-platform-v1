@@ -1,5 +1,5 @@
+import MigrationSupportView from '@/views/support/migration-support-view'
 import { Metadata } from 'next'
-import MigrationSupportView from './views'
 
 const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
 

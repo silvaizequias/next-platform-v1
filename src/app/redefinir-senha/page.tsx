@@ -1,5 +1,5 @@
+import ForgotPasswordView from '@/views/auth/forgot-password-view'
 import { Metadata } from 'next'
-import ForgotPasswordView from './views'
 import { redirect } from 'next/navigation'
 
 const NEXTAUTH_URL = process.env.NEXTAUTH_URL!

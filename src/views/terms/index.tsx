@@ -1,6 +1,6 @@
 import Container from '@/components/container'
 import { Divider } from '@nextui-org/react'
-import TermosOfServiceTabs from './TermosOfServiceTabs'
+import TermosOfServiceTabs from './tabs'
 
 export default function TermsOfServiceView() {
   return (

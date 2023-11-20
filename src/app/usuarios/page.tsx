@@ -1,5 +1,5 @@
+import UserView from '@/views/users'
 import { Metadata } from 'next'
-import UserView from './views'
 import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {

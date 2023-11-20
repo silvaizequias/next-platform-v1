@@ -1,5 +1,5 @@
+import SupportView from '@/views/support'
 import { Metadata } from 'next'
-import SupportView from './views'
 
 const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
 
