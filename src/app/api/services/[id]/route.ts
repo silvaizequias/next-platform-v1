@@ -1,4 +1,8 @@
 import { prisma } from '@/libraries/prisma'
+import {
+  ServiceUpdateSchema,
+  ServiceUpdateSchemaType,
+} from '@/types/service/schema'
 
 export async function GET(
   request: Request,
@@ -6,7 +10,16 @@ export async function GET(
 ) {
   try {
     const { id } = params
-    return new Response(JSON.stringify(request.method))
+    return new Response(
+      JSON.stringify(
+        await prisma.service.findFirst({
+          where: { id: id, softDeleted: false },
+          include: {
+            subscriptions: true,
+          },
+        }),
+      ),
+    )
   } catch (error: any) {
     await prisma.$disconnect()
     return new Response(error?.message || error, { status: 400 })
@@ -21,9 +34,13 @@ export async function PATCH(
 ) {
   const { id } = params
   try {
-    const inputs = await request.json()
-    if (inputs) {
-      return new Response(JSON.stringify(request.method))
+    const inputs: ServiceUpdateSchemaType = await request.json()
+    if (await ServiceUpdateSchema.parseAsync(inputs)) {
+      return new Response(
+        JSON.stringify(
+          await prisma.service.update({ where: { id: id }, data: inputs }),
+        ),
+      )
     }
   } catch (error: any) {
     await prisma.$disconnect()

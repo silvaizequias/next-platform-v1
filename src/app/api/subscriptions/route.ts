@@ -1,8 +1,33 @@
 import { prisma } from '@/libraries/prisma'
+import {
+  SubscriptionCreateSchema,
+  SubscriptionCreateSchemaType,
+} from '@/types/subscription/schema'
+import { Prisma } from '@prisma/client'
 
 export async function GET(request: Request) {
   try {
-    return new Response(JSON.stringify(request.method))
+    return new Response(
+      JSON.stringify(
+        await prisma.subscription.findMany({
+          where: { softDeleted: false },
+          include: {
+            service: true,
+            user: {
+              select: {
+                id: true,
+                isActive: true,
+                profile: true,
+                name: true,
+                email: true,
+                phone: true,
+                organizations: true,
+              },
+            },
+          },
+        }),
+      ),
+    )
   } catch (error: any) {
     await prisma.$disconnect()
     return new Response(error?.message || error, { status: 400 })
@@ -13,9 +38,37 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
-    const inputs = await request.json()
-    if (inputs) {
-      return new Response(JSON.stringify(request.method))
+    const inputs: SubscriptionCreateSchemaType = await request.json()
+    if (await SubscriptionCreateSchema.parseAsync(inputs)) {
+      const { userEmail, serviceSolution } = inputs
+      delete inputs.userEmail, delete inputs.serviceSolution
+
+      const user = await prisma.user.findFirst({
+        where: { email: userEmail },
+      })
+      if (!user) return new Response('o usuário não existe', { status: 404 })
+
+      const service = await prisma.service.findFirst({
+        where: { solution: serviceSolution },
+      })
+      if (!service) return new Response('o serviço não existe', { status: 404 })
+
+      const data: Prisma.SubscriptionCreateInput = {
+        ...inputs,
+        user: {
+          connect: {
+            email: userEmail,
+          },
+        },
+        service: {
+          connect: {
+            solution: serviceSolution,
+          },
+        },
+      }
+      return new Response(
+        JSON.stringify(await prisma.subscription.create({ data })),
+      )
     }
   } catch (error: any) {
     await prisma.$disconnect()
