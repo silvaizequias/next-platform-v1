@@ -2,7 +2,7 @@ import * as z from 'zod'
 
 const ROLE = ['GUEST', 'CUSTOMER', 'MEMBER', 'ADMINISTRATOR', 'OWNER'] as const
 
-export const OrganziationCreateSchema = z.object({
+export const OrganizationCreateSchema = z.object({
   name: z.string().min(5).max(255),
   image: z.string().optional(),
   email: z.string().email().optional(),
@@ -19,7 +19,7 @@ export const OrganziationCreateSchema = z.object({
   longitude: z.coerce.number().optional(),
 })
 export type OrganizationCreateSchemaType = z.infer<
-  typeof OrganziationCreateSchema
+  typeof OrganizationCreateSchema
 >
 
 export const OrganizationUpdateSchema = z.object({
