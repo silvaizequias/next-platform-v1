@@ -3,6 +3,8 @@ import LandingView from '@/views/landing'
 import AccountView from '@/views/account'
 import { Fragment } from 'react'
 import SupportView from '@/views/support'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/libraries/next-auth'
 
 const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
 
@@ -39,7 +41,7 @@ export const metadata: Metadata = {
 }
 
 export default async function LandingPage() {
-  const session: boolean = false
+  const session = await getServerSession(authOptions)
 
   return !session ? (
     <Fragment>

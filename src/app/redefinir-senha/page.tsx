@@ -1,5 +1,7 @@
+import { authOptions } from '@/libraries/next-auth'
 import ForgotPasswordView from '@/views/auth/forgot-password-view'
 import { Metadata } from 'next'
+import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 
 const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
@@ -33,7 +35,7 @@ export const metadata: Metadata = {
 }
 
 export default async function ForgotPasswordPage() {
-  const session: boolean = false
+  const session = await getServerSession(authOptions)
 
   return !session ? <ForgotPasswordView /> : redirect('/')
 }
