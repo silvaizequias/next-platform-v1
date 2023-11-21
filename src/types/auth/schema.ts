@@ -12,3 +12,11 @@ export const AuthSignUpSchema = z.object({
   phone: z.string().length(11),
 })
 export type AuthSignUpSchemaType = z.infer<typeof AuthSignUpSchema>
+
+export const AuthForgotPasswordSchema = z.object({
+  email: z.string().email(),
+  phone: z.string().length(11),
+})
+export type AuthForgotPasswordSchemaType = z.infer<
+  typeof AuthForgotPasswordSchema
+>
