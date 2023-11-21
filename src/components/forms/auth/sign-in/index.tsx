@@ -1,8 +1,13 @@
 import { AuthSignInSchema, AuthSignInSchemaType } from '@/types/auth/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Input } from '@nextui-org/react'
-import { Controller, useForm } from 'react-hook-form'
+import { signIn } from 'next-auth/react'
+import { redirect, useRouter } from 'next/navigation'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 export default function SignInForm() {
+  const router = useRouter()
+
   const {
     control,
     handleSubmit,
@@ -14,8 +19,33 @@ export default function SignInForm() {
     resolver: zodResolver(AuthSignInSchema),
   })
 
+  const onSubmit: SubmitHandler<AuthSignInSchemaType> = async (inputs) => {
+    const { email, password } = inputs
+    try {
+      await signIn('credentials', {
+        redirect: false,
+        email: email,
+        password: password,
+      }).then(async (res: any) => {
+        if (!res.error && res.url) {
+          reset({})
+          toast.success(`Olá!`)
+          router.refresh()
+        } else {
+          toast.error(res.error)
+        }
+      })
+    } catch (error: any) {
+      toast.error(error?.message)
+      console.error(error)
+    }
+  }
+
   return (
-    <form className="flex flex-col flex-1 gap-4">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col flex-1 gap-4"
+    >
       <Controller
         {...register('email')}
         control={control}
@@ -54,6 +84,7 @@ export default function SignInForm() {
         variant="shadow"
         color="primary"
         className="w-full uppercase"
+        type='submit'
       >
         Autenticar-se
       </Button>
