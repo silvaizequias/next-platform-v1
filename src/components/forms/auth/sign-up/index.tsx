@@ -1,3 +1,5 @@
+'use client'
+
 import { AuthSignUpSchema, AuthSignUpSchemaType } from '@/types/auth/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Input } from '@nextui-org/react'
@@ -58,7 +60,7 @@ export default function SignUpForm() {
             variant="underlined"
             size="sm"
             name="phone"
-            type="text"
+            type="number"
             label="Celular"
             errorMessage={errors.phone?.message}
             value={value}

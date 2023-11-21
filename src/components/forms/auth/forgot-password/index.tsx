@@ -1,10 +1,11 @@
+'use client'
+
 import {
   AuthForgotPasswordSchema,
   AuthForgotPasswordSchemaType,
 } from '@/types/auth/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Input } from '@nextui-org/react'
-import { error } from 'console'
 import { Controller, useForm } from 'react-hook-form'
 export default function ForgotPasswordForm() {
   const {
@@ -44,7 +45,7 @@ export default function ForgotPasswordForm() {
             variant="underlined"
             size="sm"
             name="phone"
-            type="text"
+            type="number"
             label="Celular"
             errorMessage={errors.phone?.message}
             value={value}
