@@ -37,13 +37,18 @@ export async function POST(request: Request) {
         },
       })
       if (!user)
-        return new Response('as informações estão incorretas ou não existem', {
-          status: 404,
-        })
+        return new Response(
+          JSON.stringify('as informações estão incorretas ou não existem'),
+          {
+            status: 404,
+          },
+        )
 
       const comparePass = compareSync(password, user.passHash!)
       if (!comparePass)
-        return new Response('a senha está incorreta', { status: 403 })
+        return new Response(JSON.stringify('a senha está incorreta'), {
+          status: 403,
+        })
 
       const encryptedToken = jwt.sign(
         {
