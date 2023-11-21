@@ -7,7 +7,6 @@ import GoogleProvider from 'next-auth/providers/google'
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!
-const URL = process.env.NEXTAUTH_URL!
 const SECRET = process.env.NEXTAUTH_SECRET!
 
 export const authOptions: NextAuthOptions = {
@@ -25,7 +24,7 @@ export const authOptions: NextAuthOptions = {
         password: { type: 'password' },
       },
       async authorize(credentials, req) {
-        const res = await fetch(`${URL}/api/sign-in`, {
+        const res = await fetch('/api/sign-in', {
           method: 'POST',
           body: JSON.stringify(credentials),
           headers: { 'Content-Type': 'application/json' },
