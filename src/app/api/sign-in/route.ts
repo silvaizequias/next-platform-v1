@@ -13,27 +13,8 @@ export async function POST(request: Request) {
         where: {
           email: email,
         },
-        select: {
-          id: true,
-          profile: true,
-          image: true,
-          name: true,
-          email: true,
-          phone: true,
-          passHash: true,
-          organizations: {
-            select: {
-              role: true,
-              organization: {
-                select: {
-                  id: true,
-                  name: true,
-                  image: true,
-                  documentCode: true,
-                },
-              },
-            },
-          },
+        include: {
+          organizations: true,
         },
       })
       if (!user)
@@ -65,7 +46,15 @@ export async function POST(request: Request) {
         JSON.stringify({
           expiresIn: Math.floor(Date.now() / 1000) + 14 * 24 * 60 * 60,
           Authorization: encryptedToken,
-          data: user,
+          data: {
+            id: user.id,
+            profile: user.profile,
+            image: user.image,
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+            organizations: user.organizations,
+          },
         }),
         {
           status: 201,
