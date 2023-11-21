@@ -37,7 +37,7 @@ export default function SignUpForm() {
         headers: { 'Content-Type': 'application/json' },
       }).then(async (res: any) => {
         if (res.status == 201) {
-          reset({ name: '', email: '', phone: '' })
+          reset(inputs)
 
           await signIn('credentials', {
             redirect: false,

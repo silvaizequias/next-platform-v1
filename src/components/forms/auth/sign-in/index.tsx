@@ -28,7 +28,7 @@ export default function SignInForm() {
         password: password,
       }).then(async (res: any) => {
         if (!res.error && res.url) {
-          reset({})
+          reset(inputs)
           toast.success(`Olá!`)
           router.refresh()
         } else {
@@ -84,7 +84,7 @@ export default function SignInForm() {
         variant="shadow"
         color="primary"
         className="w-full uppercase"
-        type='submit'
+        type="submit"
       >
         Autenticar-se
       </Button>
