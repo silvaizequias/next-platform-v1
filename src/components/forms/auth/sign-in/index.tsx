@@ -27,7 +27,6 @@ export default function SignInForm() {
         email: email,
         password: password,
       }).then(async (res: any) => {
-        console.log(res)
         if (!res.error) {
           reset(inputs)
           toast.success('muito bem vindo(a)')
