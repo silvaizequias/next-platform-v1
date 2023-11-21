@@ -27,9 +27,10 @@ export default function SignInForm() {
         email: email,
         password: password,
       }).then(async (res: any) => {
-        if (!res.error && res.url) {
+        console.log(res)
+        if (!res.error) {
           reset(inputs)
-          toast.success(`Olá!`)
+          toast.success('muito bem vindo(a)')
           router.refresh()
         } else {
           toast.error(res.error)
