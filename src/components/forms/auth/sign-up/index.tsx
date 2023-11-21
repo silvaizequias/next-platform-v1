@@ -3,8 +3,14 @@
 import { AuthSignUpSchema, AuthSignUpSchemaType } from '@/types/auth/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Input } from '@nextui-org/react'
-import { Controller, useForm } from 'react-hook-form'
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 export default function SignUpForm() {
+  const router = useRouter()
+  const randomCode = Math.random().toString(32).substr(2, 14).toUpperCase()
+
   const {
     control,
     handleSubmit,
@@ -16,8 +22,51 @@ export default function SignUpForm() {
     resolver: zodResolver(AuthSignUpSchema),
   })
 
+  const onSubmit: SubmitHandler<AuthSignUpSchemaType> = async (inputs) => {
+    const data: AuthSignUpSchemaType = {
+      name: inputs.name,
+      email: inputs.email,
+      phone: inputs.phone,
+      password: randomCode,
+    }
+
+    try {
+      await fetch('/api/sign-up', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' },
+      }).then(async (res: any) => {
+        if (res.status == 201) {
+          reset({ name: '', email: '', phone: '' })
+
+          await signIn('credentials', {
+            redirect: false,
+            email: inputs.email,
+            password: randomCode,
+          }).then(async (res: any) => {
+            if (!res.error && res.url) {
+              toast.success(`Olá ${inputs.name}`)
+              router.refresh()
+            } else {
+              toast.error(res.error)
+            }
+          })
+        } else {
+          const data = res.json()
+          toast.error(data)
+        }
+      })
+    } catch (error: any) {
+      toast.error(error?.message)
+      console.error(error)
+    }
+  }
+
   return (
-    <form className="flex flex-col flex-1 gap-4 m-2">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col flex-1 gap-4 m-2"
+    >
       <Controller
         {...register('name')}
         control={control}
@@ -74,6 +123,7 @@ export default function SignUpForm() {
         variant="flat"
         color="success"
         className="w-full uppercase"
+        type="submit"
       >
         Registrar-se
       </Button>

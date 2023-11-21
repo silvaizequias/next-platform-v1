@@ -10,15 +10,18 @@ export async function POST(request: Request) {
     const inputs: AuthSignUpSchemaType = await request.json()
     if (await AuthSignUpSchema.parseAsync(inputs)) {
       const { email, phone, password } = inputs
-      delete inputs.password
+      delete inputs?.password
 
       const user = await prisma.user.findFirst({
         where: { email: email, phone: phone },
       })
       if (user)
-        return new Response('você já está registrado no sistema', {
-          status: 409,
-        })
+        return new Response(
+          JSON.stringify('você já está registrado no sistema'),
+          {
+            status: 409,
+          },
+        )
 
       const data: Prisma.UserCreateInput = {
         ...inputs,
