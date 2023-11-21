@@ -52,7 +52,7 @@ export default function SignUpForm() {
             }
           })
         } else {
-          const data = res.json()
+          const data = await res.json()
           toast.error(data)
         }
       })
