@@ -18,10 +18,16 @@ import { HiMiniKey, HiOutlineIdentification } from 'react-icons/hi2'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import SignInForm from '@/components/forms/auth/sign-in'
+import { Session } from 'next-auth'
+import { signOut } from 'next-auth/react'
 
-export default function UserBar() {
+interface Props {
+  session: Session
+}
+
+export default function UserBar(props: Props) {
+  const { session } = props
   const router = useRouter()
-  const session: boolean = false
 
   const handleClick = useCallback(
     (path: string) => {
@@ -40,7 +46,7 @@ export default function UserBar() {
           className="cursor-pointer hover:opacity-50"
         />
       </PopoverTrigger>
-      <PopoverContent className='bg-slate-100 dark:bg-slate-900 shadow-sm'>
+      <PopoverContent className="bg-slate-100 dark:bg-slate-900 shadow-sm">
         <Card
           shadow="none"
           className="max-w-[300px] border-none bg-transparent"
@@ -51,14 +57,17 @@ export default function UserBar() {
                 isBordered
                 radius="full"
                 size="sm"
-                src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
+                src={
+                  session.user?.image ||
+                  'https://i.pravatar.cc/150?u=a042581f4e29026024d'
+                }
               />
               <div className="flex flex-col items-start justify-center">
                 <h4 className="text-md font-semibold leading-none text-default-600">
-                  USER NAME
+                  {session?.user?.name}
                 </h4>
-                <h5 className="text-sx tracking-tight text-default-500">
-                  PROFILE
+                <h5 className="text-xs tracking-tight text-default-500">
+                  {session?.user?.profile}
                 </h5>
               </div>
             </div>
@@ -72,6 +81,7 @@ export default function UserBar() {
                 variant="flat"
                 color="primary"
                 size="sm"
+                onClick={() => signOut()}
               >
                 Sair
               </Button>

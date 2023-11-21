@@ -1,9 +1,15 @@
 import Link from 'next/link'
-import { HiMenu } from 'react-icons/hi'
 import ToolBar from '../toolbar'
 import TopMenu from '../topmenu'
+import { Session } from 'next-auth'
 
-export default function AppBar() {
+interface Props {
+  session: Session
+}
+
+export default function AppBar(props: Props) {
+  const { session } = props
+
   return (
     <div className="fixed w-full backdrop-blur-sm bg-slate/30 dark:bg-slate-800/30 shadow-md">
       <div className="mx-auto py-2">
@@ -15,7 +21,7 @@ export default function AppBar() {
             </Link>
           </div>
           <div className="flex flex-1 items-center justify-end">
-            <ToolBar />
+            <ToolBar session={session} />
           </div>
         </div>
       </div>

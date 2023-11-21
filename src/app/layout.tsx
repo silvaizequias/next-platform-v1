@@ -4,6 +4,8 @@ import './globals.css'
 import AppBar from '@/components/appbar'
 import Providers from './providers'
 import Footer from '@/components/footer'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/libraries/next-auth'
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -25,19 +27,19 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const session = await getServerSession(authOptions)
+
   return (
     <html lang="en" className={`${roboto.variable} font-sans`}>
       <body className="min-h-screen bg-slate-200 text-zinc-600 dark:bg-slate-800 dark:text-zinc-200 text-base font-light">
         <Providers>
-          <AppBar />
-          <main className="mx-auto h-full w-full">
-            {children}
-          </main>
+          <AppBar session={session!} />
+          <main className="mx-auto h-full w-full">{children}</main>
           <Footer />
         </Providers>
       </body>
