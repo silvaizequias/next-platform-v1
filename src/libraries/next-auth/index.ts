@@ -1,41 +1,70 @@
 import { prisma } from '@/libraries/prisma'
-import { PrismaAdapter } from '@auth/prisma-adapter'
+import { compareSync } from 'bcrypt'
 import { NextAuthOptions } from 'next-auth'
-import { Adapter } from 'next-auth/adapters'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import GoogleProvider from 'next-auth/providers/google'
-
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!
-const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!
 const SECRET = process.env.NEXTAUTH_SECRET!
 
 export const authOptions: NextAuthOptions = {
   secret: SECRET,
-  adapter: PrismaAdapter(prisma) as Adapter,
   providers: [
-    GoogleProvider({
-      clientId: GOOGLE_CLIENT_ID,
-      clientSecret: GOOGLE_CLIENT_SECRET,
-    }),
     CredentialsProvider({
-      name: 'Credentials',
       credentials: {
         email: { type: 'email' },
         password: { type: 'password' },
       },
-      async authorize(credentials, req) {
-        const res = await fetch('/api/sign-in', {
-          method: 'POST',
-          body: JSON.stringify(credentials),
-          headers: { 'Content-Type': 'application/json' },
+      async authorize(credentials): Promise<any> {
+        const user = await prisma.user.findFirst({
+          where: { email: credentials?.email },
         })
-        const user = await res.json()
+        if (!user)
+          throw new Error(
+            `o e-mail ${credentials?.email} não existe no sistema`,
+          )
 
-        if (res.ok && user) {
-          return user
-        }
-        return null
+        const comparePass = compareSync(credentials?.password!, user.passHash!)
+        if (!comparePass) throw new Error('a senha está incorreta')
+
+        return user
       },
     }),
   ],
+  session: {
+    strategy: 'jwt',
+    maxAge: 15 * 24 * 60 * 60,
+    updateAge: 24 * 60 * 60,
+  },
+  callbacks: {
+    jwt: async ({ token, user }) => {
+      if (!user) {
+        const user = await prisma.user.findFirst({
+          where: { email: token.email! },
+        })
+        if (user) {
+          token.email = user.email
+        }
+        return token
+      }
+
+      return {
+        id: user.id,
+        profile: user.profile,
+        picture: user.image,
+        name: user.name,
+        email: user.email,
+        organizations: user.organizations,
+      }
+    },
+    session: async ({ session, token }) => {
+      if (token) {
+        session.user.id = token.id
+        session.user.profile = token.profile
+        session.user.image = token.picture
+        session.user.name = token.name
+        session.user.email = token.email
+        session.user.organizations = token.organizations
+      }
+      return session
+    },
+  },
+  pages: { signIn: '/', signOut: '/', error: '/' },
 }
