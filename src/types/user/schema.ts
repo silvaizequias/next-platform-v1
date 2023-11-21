@@ -8,6 +8,7 @@ export const UserCreateSchema = z.object({
   image: z.string().optional(),
   email: z.string().email(),
   phone: z.string().length(11),
+  password: z.string().min(8).max(25).optional(),
   documentCode: z.string().min(5).max(25).optional(),
   zipCode: z.string().length(8).optional(),
   street: z.string().optional(),
