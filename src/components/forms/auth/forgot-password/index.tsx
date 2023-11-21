@@ -6,7 +6,8 @@ import {
 } from '@/types/auth/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Input } from '@nextui-org/react'
-import { Controller, useForm } from 'react-hook-form'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 export default function ForgotPasswordForm() {
   const {
     control,
@@ -19,8 +20,34 @@ export default function ForgotPasswordForm() {
     resolver: zodResolver(AuthForgotPasswordSchema),
   })
 
+  const onSubmit: SubmitHandler<AuthForgotPasswordSchemaType> = async (
+    inputs,
+  ) => {
+    try {
+      await fetch('/api/forgot-password', {
+        method: 'POST',
+        body: JSON.stringify(inputs),
+        headers: { 'Content-Type': 'application/json' },
+      }).then(async (res: any) => {
+        const data = await res.json()
+        if (res.status == 201) {
+          reset(inputs)
+          toast.success(data)
+        } else {
+          toast.error(data)
+        }
+      })
+    } catch (error: any) {
+      toast.error(error?.message)
+      console.error(error)
+    }
+  }
+
   return (
-    <form className="flex flex-col flex-1 gap-4 m-2">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col flex-1 gap-4 m-2"
+    >
       <Controller
         {...register('email')}
         control={control}
@@ -59,6 +86,7 @@ export default function ForgotPasswordForm() {
         variant="flat"
         color="warning"
         className="w-full uppercase"
+        type="submit"
       >
         Redefinir a Senha
       </Button>
