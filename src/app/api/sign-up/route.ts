@@ -12,12 +12,19 @@ export async function POST(request: Request) {
       const { email, phone, password } = inputs
       delete inputs?.password
 
-      const user = await prisma.user.findFirst({
-        where: { email: email, phone: phone },
+      const userEmail = await prisma.user.findFirst({
+        where: { email: email },
       })
-      if (user)
+
+      const userPhone = await prisma.user.findFirst({
+        where: { phone: phone },
+      })
+
+      if (userEmail || userPhone)
         return new Response(
-          JSON.stringify('você já está registrado no sistema'),
+          JSON.stringify(
+            `o e-mail ${email} ou o telefone ${phone} já estão em uso`,
+          ),
           {
             status: 409,
           },

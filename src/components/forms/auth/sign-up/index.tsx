@@ -44,16 +44,15 @@ export default function SignUpForm() {
             email: inputs.email,
             password: randomCode,
           }).then(async (res: any) => {
-            if (!res.error && res.url) {
-              toast.success(`Olá ${inputs.name}`)
+            if (!res.error) {
+              toast.success(`olá ${inputs.name}`)
               router.refresh()
             } else {
               toast.error(res.error)
             }
           })
         } else {
-          const data = await res.json()
-          toast.error(data)
+          toast.error(res.json())
         }
       })
     } catch (error: any) {
