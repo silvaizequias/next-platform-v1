@@ -6,13 +6,13 @@ interface Props {
   session: Session
 }
 
-export default function OrganizationUser(props: Props) {
+export default function UserSubscription(props: Props) {
   const { session } = props
 
   return (
     <Box>
       <h4 className="font-medium text-xl sm:text-2xl uppercase">
-        Minhas Organizações
+        Minhas Contratações
       </h4>
       <Divider />
     </Box>
