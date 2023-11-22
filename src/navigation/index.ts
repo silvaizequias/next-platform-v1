@@ -17,3 +17,20 @@ export const defaultNavigation: NavigationType[] = [
   },
 ]
 
+export const masterNavigation: NavigationType[] = [
+  {
+    name: 'Organizações',
+    path: '/organizacoes',
+  },
+  {
+    name: 'Usuarios',
+    path: '/usuarios',
+  },
+]
+
+export const userNavigation: NavigationType[] = [
+  {
+    name: 'Perfil',
+    path: '/perfil',
+  },
+]
