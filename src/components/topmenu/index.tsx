@@ -1,6 +1,6 @@
 'use client'
 
-import { NavigationType, topnav } from '@/navigation'
+import { NavigationType, defaultNavigation } from '@/navigation'
 import {
   Dropdown,
   DropdownItem,
@@ -29,7 +29,7 @@ export default function TopMenu() {
         </span>
       </DropdownTrigger>
       <DropdownMenu color="primary" variant="flat">
-        {topnav.map((item: NavigationType) => (
+        {defaultNavigation.map((item: NavigationType) => (
           <DropdownItem
             className="uppercase text-xs"
             key={item.name}

@@ -6,7 +6,7 @@ export type NavigationType = {
   path?: string
 }
 
-export const topnav: NavigationType[] = [
+export const defaultNavigation: NavigationType[] = [
   {
     name: 'Início',
     path: '/',
