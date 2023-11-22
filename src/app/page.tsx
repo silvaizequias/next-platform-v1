@@ -49,6 +49,6 @@ export default async function LandingPage() {
       <SupportView />
     </Fragment>
   ) : (
-    <AccountView />
+    <AccountView session={session} />
   )
 }
