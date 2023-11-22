@@ -10,7 +10,8 @@ export default function ProfileRight(props: Props) {
 
   return (
     <Box>
-      <div className='flex flex-1'>
+      <div className='flex flex-col'>
+        <span>Profile Right</span>
         <span>Profile Right</span>
       </div>
     </Box>

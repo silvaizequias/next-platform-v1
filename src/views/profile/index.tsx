@@ -16,9 +16,13 @@ export default function ProfileView(props: Props) {
 
   return (
     <Container>
-      <div className="flex flex-col sm:flex-row">
-        <ProfileLeft user={user} />
-        <ProfileRight user={user} />
+      <div className="flex flex-col sm:flex-row gap-4 py-4">
+        <div className='sm:max-w-sm'>
+          <ProfileLeft user={user} />
+        </div>
+        <div className="flex flex-1 rounded-md bg-slate-100 dark:text-zinc-600">
+          <ProfileRight user={user} />
+        </div>
       </div>
     </Container>
   )
