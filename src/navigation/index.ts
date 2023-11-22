@@ -1,7 +1,7 @@
-import { IconBaseProps } from 'react-icons'
+import { IconBaseProps, IconType } from 'react-icons'
 
 export type NavigationType = {
-  icon?: IconBaseProps
+  icon?: IconType
   name: string
   path?: string
 }
