@@ -17,7 +17,12 @@ export const defaultNavigation: NavigationType[] = [
   },
 ]
 
-export const sessionNavigation: NavigationType[] = []
+export const sessionNavigation: NavigationType[] = [
+  {
+    name: 'Inĩcio',
+    path: '/',
+  },
+]
 
 export const masterNavigation: NavigationType[] = [
   {

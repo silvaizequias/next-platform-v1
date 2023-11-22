@@ -41,7 +41,7 @@ export default function TopMenu(props: Props) {
         </span>
       </DropdownTrigger>
       <DropdownMenu color="primary" variant="flat">
-        <DropdownSection>
+        <DropdownSection hidden={session ? true : false}>
           {defaultNavigation.map((item: NavigationType) => (
             <DropdownItem
               className="uppercase text-xs"
