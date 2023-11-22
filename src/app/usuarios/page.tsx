@@ -15,7 +15,7 @@ export default async function UserPage() {
 
   return session ? (
     <Fragment>
-      {session.user?.profile === 'MASTER' ? (
+      {session.user?.profile == 'MASTER' ? (
         <UserView session={session} />
       ) : (
         <UnauthorizedAccess />
