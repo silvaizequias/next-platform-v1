@@ -4,6 +4,7 @@ import { Button } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import toast from 'react-hot-toast'
+import { IconType } from 'react-icons'
 
 interface Props {
   color?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger'
