@@ -19,7 +19,7 @@ export const defaultNavigation: NavigationType[] = [
 
 export const sessionNavigation: NavigationType[] = [
   {
-    name: 'Inĩcio',
+    name: 'Início',
     path: '/',
   },
 ]
