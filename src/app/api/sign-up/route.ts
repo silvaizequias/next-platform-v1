@@ -1,5 +1,6 @@
 import { prisma } from '@/libraries/prisma'
 import { AuthSignUpSchema, AuthSignUpSchemaType } from '@/types/auth/schema'
+import { sendWelcomeMessage } from '@/utils/send-message'
 import { Prisma } from '@prisma/client'
 import { hashSync } from 'bcrypt'
 
@@ -9,7 +10,7 @@ export async function POST(request: Request) {
   try {
     const inputs: AuthSignUpSchemaType = await request.json()
     if (await AuthSignUpSchema.parseAsync(inputs)) {
-      const { email, phone, password } = inputs
+      const { email, name, phone, password } = inputs
       delete inputs?.password
 
       const userEmail = await prisma.user.findFirst({
@@ -34,6 +35,11 @@ export async function POST(request: Request) {
         ...inputs,
         passHash: hashSync(password || randomCode, 10),
       }
+      await sendWelcomeMessage({
+        emailTo: email,
+        name: name,
+        password: password || randomCode,
+      })
 
       return new Response(JSON.stringify(await prisma.user.create({ data })), {
         status: 201,
