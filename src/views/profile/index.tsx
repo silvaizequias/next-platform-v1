@@ -5,7 +5,7 @@ interface Props {
   session: Session
 }
 
-export default function AccountView(props: Props) {
+export default function ProfileView(props: Props) {
   const { session } = props
 
   return <Container>{JSON.stringify(session)}</Container>
