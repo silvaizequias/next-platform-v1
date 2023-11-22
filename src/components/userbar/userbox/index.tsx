@@ -1,5 +1,6 @@
 'use client'
 
+import { NavigationType, userNavigation } from '@/navigation'
 import {
   Popover,
   PopoverTrigger,
@@ -16,6 +17,8 @@ import {
 } from '@nextui-org/react'
 import { Session } from 'next-auth'
 import { signOut } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { useCallback } from 'react'
 
 interface Props {
   session: Session
@@ -24,13 +27,22 @@ interface Props {
 export default function UserBox(props: Props) {
   const { session } = props
 
+  const router = useRouter()
+
+  const handleMenu = useCallback(
+    (path: string) => {
+      router.push(path)
+    },
+    [router],
+  )
+
   return (
     <Popover backdrop="opaque" placement="bottom-end">
       <PopoverTrigger>
         <Avatar
           isBordered
           size="sm"
-          src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
+          src={session.user?.image || '/avatar.png'}
           className="cursor-pointer hover:opacity-50"
         />
       </PopoverTrigger>
@@ -45,10 +57,7 @@ export default function UserBox(props: Props) {
                 isBordered
                 radius="full"
                 size="sm"
-                src={
-                  session.user?.image ||
-                  'https://i.pravatar.cc/150?u=a042581f4e29026024d'
-                }
+                src={session.user?.image || '/avatar.png'}
               />
               <div className="flex flex-col items-start justify-center">
                 <h4 className="text-md font-semibold leading-none text-default-600">
@@ -64,12 +73,24 @@ export default function UserBox(props: Props) {
           <CardFooter className="gap-2">
             <div className="flex flex-1 flex-col justify-center items-center">
               <Divider className="m-2" />
-              <Listbox>
+              <Listbox color="primary" variant="flat">
                 <ListboxSection>
-                  <ListboxItem key={'key'}>aqui</ListboxItem>
+                  {userNavigation.map((item: NavigationType) => (
+                    <ListboxItem
+                      className="uppercase text-xs"
+                      key={item.name}
+                      onClick={() => handleMenu(`${item.path}`)}
+                    >
+                      {item.name}
+                    </ListboxItem>
+                  ))}
                 </ListboxSection>
                 <ListboxSection>
-                  <ListboxItem key={'logout'} onClick={() => signOut()}>
+                  <ListboxItem
+                    className="uppercase text-xs"
+                    key={'logout'}
+                    onClick={() => signOut()}
+                  >
                     Sair
                   </ListboxItem>
                 </ListboxSection>

@@ -15,7 +15,7 @@ export default function AppBar(props: Props) {
       <div className="mx-auto py-2">
         <div className="flex justify-between items-center sm:mx-8 mx-2">
           <div className="flex items-center gap-4">
-            <TopMenu />
+            <TopMenu session={session} />
             <Link href={'/'} className="uppercase hover:opacity-50">
               dedicado
             </Link>

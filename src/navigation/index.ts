@@ -17,6 +17,8 @@ export const defaultNavigation: NavigationType[] = [
   },
 ]
 
+export const sessionNavigation: NavigationType[] = []
+
 export const masterNavigation: NavigationType[] = [
   {
     name: 'Organizações',

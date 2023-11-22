@@ -1,17 +1,29 @@
 'use client'
 
-import { NavigationType, defaultNavigation } from '@/navigation'
+import {
+  NavigationType,
+  defaultNavigation,
+  masterNavigation,
+  sessionNavigation,
+} from '@/navigation'
 import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
+  DropdownSection,
   DropdownTrigger,
 } from '@nextui-org/react'
+import { Session } from 'next-auth'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import { HiMenu } from 'react-icons/hi'
 
-export default function TopMenu() {
+interface Props {
+  session: Session
+}
+
+export default function TopMenu(props: Props) {
+  const { session } = props
   const router = useRouter()
 
   const handleMenu = useCallback(
@@ -29,15 +41,41 @@ export default function TopMenu() {
         </span>
       </DropdownTrigger>
       <DropdownMenu color="primary" variant="flat">
-        {defaultNavigation.map((item: NavigationType) => (
-          <DropdownItem
-            className="uppercase text-xs"
-            key={item.name}
-            onClick={() => handleMenu(`${item.path}`)}
-          >
-            {item.name}
-          </DropdownItem>
-        ))}
+        <DropdownSection>
+          {defaultNavigation.map((item: NavigationType) => (
+            <DropdownItem
+              className="uppercase text-xs"
+              key={item.name}
+              onClick={() => handleMenu(`${item.path}`)}
+            >
+              {item.name}
+            </DropdownItem>
+          ))}
+        </DropdownSection>
+        <DropdownSection hidden={session ? false : true}>
+          {sessionNavigation.map((item: NavigationType) => (
+            <DropdownItem
+              className="uppercase text-xs"
+              key={item.name}
+              onClick={() => handleMenu(`${item.path}`)}
+            >
+              {item.name}
+            </DropdownItem>
+          ))}
+        </DropdownSection>
+        <DropdownSection
+          hidden={session?.user?.profile == 'MASTER' ? false : true}
+        >
+          {masterNavigation.map((item: NavigationType) => (
+            <DropdownItem
+              className="uppercase text-xs"
+              key={item.name}
+              onClick={() => handleMenu(`${item.path}`)}
+            >
+              {item.name}
+            </DropdownItem>
+          ))}
+        </DropdownSection>
       </DropdownMenu>
     </Dropdown>
   )
