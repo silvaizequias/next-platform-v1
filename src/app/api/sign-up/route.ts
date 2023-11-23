@@ -35,6 +35,7 @@ export async function POST(request: Request) {
         ...inputs,
         passHash: hashSync(password || randomCode, 10),
       }
+      await prisma.user.create({ data })
       await sendWelcomeMessage({
         emailTo: email,
         name: name,
@@ -42,7 +43,7 @@ export async function POST(request: Request) {
         phoneTo: phone,
       })
 
-      return new Response(JSON.stringify(await prisma.user.create({ data })), {
+      return new Response(JSON.stringify('boas vindas a DEDICADO DIGITAL'), {
         status: 201,
       })
     }
