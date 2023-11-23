@@ -1,21 +1,13 @@
-/** @type {import('tailwindcss').Config} */
+import withMT from '@material-tailwind/react/utils/withMT'
 
-import { nextui } from '@nextui-org/react'
-
-module.exports = {
+module.exports = withMT({
   content: [
     './src/views/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-    './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {
-      fontFamily: {
-        sans: ['var(--font-roboto)'],
-      },
-    },
+    extend: {},
   },
-  darkMode: 'class',
-  plugins: [nextui()],
-}
+  plugins: [],
+})
