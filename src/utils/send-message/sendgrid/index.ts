@@ -19,10 +19,8 @@ export const sendEmail = (data: SendEmailType) => {
   sendgrid.setApiKey(SENDGRID_API_KEY)
   sendgrid
     .send(data)
-    .then(async (response: any) => {
-      console.log(response?.body)
-    })
+    .then(async () => {})
     .catch((error: any) => {
-      console.error(error?.response?.body)
+      console.error('SENDGRID ERROR: ', error)
     })
 }

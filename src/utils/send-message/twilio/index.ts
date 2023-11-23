@@ -15,9 +15,9 @@ export const sendSms = (data: SendSmsType) => {
   client.messages
     .create(data)
     .then(async (message: any) => {
-      console.log(message?.sid)
+      console.log('TWILIO: ', message?.sid)
     })
     .catch((error: any) => {
-      console.error(error)
+      console.error('TWILIO ERROR: ', error?.status)
     })
 }
