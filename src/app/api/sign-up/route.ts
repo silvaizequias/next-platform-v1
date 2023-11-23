@@ -40,10 +40,10 @@ export async function POST(request: Request) {
         emailTo: email,
         name: name,
         password: password || randomCode,
-        phoneTo: phone,
+        phoneTo: `+55${phone}`,
       })
 
-      return new Response(JSON.stringify('boas vindas a DEDICADO DIGITAL'), {
+      return new Response(JSON.stringify('boas vindas a DEDICADO DIGITAL!'), {
         status: 201,
       })
     }

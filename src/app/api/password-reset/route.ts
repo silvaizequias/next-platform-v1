@@ -35,7 +35,7 @@ export async function POST(request: Request) {
         emailTo: email,
         name: user?.name,
         password: randomCode,
-        phoneTo: phone,
+        phoneTo: `+55${phone}`,
       })
 
       return new Response(
