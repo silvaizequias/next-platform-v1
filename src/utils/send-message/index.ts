@@ -1,5 +1,5 @@
 import { EmailFromType, sendEmail } from './sendgrid'
-import { welcomeMessageTemplate } from './templates'
+import { passwordResetTemplate, welcomeMessageTemplate } from './templates'
 
 export type SendMessageType = {
   emailTo: string
@@ -27,7 +27,24 @@ export const sendWelcomeMessage = async (data: SendMessageType) => {
   return sendEmail({
     to: data?.emailTo,
     from: emailFrom,
-    subject: `BEM VINDO A ${data.organization || 'DEDICADO DIGITAL'}`,
+    subject: `BOAS VINDAS A ${data.organization || 'DEDICADO DIGITAL'}`,
+    text: message,
+    html: message,
+  })
+}
+
+export const sendPasswordResetMessage = async (data: SendMessageType) => {
+  const message = await passwordResetTemplate({
+    name: data?.name,
+    organization: data?.organization,
+    password: data?.password,
+    solution: data?.solution,
+  })
+
+  return sendEmail({
+    to: data?.emailTo,
+    from: emailFrom,
+    subject: `SEU ACESSO ${data.organization || 'DEDICADO DIGITAL'}`,
     text: message,
     html: message,
   })
