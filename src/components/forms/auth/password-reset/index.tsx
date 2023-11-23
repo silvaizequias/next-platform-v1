@@ -1,30 +1,30 @@
 'use client'
 
 import {
-  AuthForgotPasswordSchema,
-  AuthForgotPasswordSchemaType,
+  AuthPasswordResetSchema,
+  AuthPasswordResetSchemaType,
 } from '@/types/auth/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Input } from '@nextui-org/react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-export default function ForgotPasswordForm() {
+export default function PasswordResetForm() {
   const {
     control,
     handleSubmit,
     formState: { errors },
     register,
     reset,
-  } = useForm<AuthForgotPasswordSchemaType>({
+  } = useForm<AuthPasswordResetSchemaType>({
     mode: 'all',
-    resolver: zodResolver(AuthForgotPasswordSchema),
+    resolver: zodResolver(AuthPasswordResetSchema),
   })
 
-  const onSubmit: SubmitHandler<AuthForgotPasswordSchemaType> = async (
+  const onSubmit: SubmitHandler<AuthPasswordResetSchemaType> = async (
     inputs,
   ) => {
     try {
-      await fetch('/api/forgot-password', {
+      await fetch('/api/password-reset', {
         method: 'POST',
         body: JSON.stringify(inputs),
         headers: { 'Content-Type': 'application/json' },

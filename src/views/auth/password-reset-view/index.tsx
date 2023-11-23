@@ -1,9 +1,9 @@
 import { Card, CardBody } from '@nextui-org/react'
-import ForgotPasswordForm from '@/components/forms/auth/forgot-password'
 import PageSection from '@/components/page-section'
 import Box from '@/components/box'
+import PasswordResetForm from '@/components/forms/auth/password-reset'
 
-export default function ForgotPasswordView() {
+export default function PasswordResetView() {
   return (
     <PageSection
       title="Dedicado"
@@ -18,7 +18,7 @@ export default function ForgotPasswordView() {
             shadow="md"
           >
             <CardBody>
-              <ForgotPasswordForm />
+              <PasswordResetForm />
             </CardBody>
           </Card>
         </div>

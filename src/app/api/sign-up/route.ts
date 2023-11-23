@@ -39,6 +39,7 @@ export async function POST(request: Request) {
         emailTo: email,
         name: name,
         password: password || randomCode,
+        phoneTo: phone,
       })
 
       return new Response(JSON.stringify(await prisma.user.create({ data })), {

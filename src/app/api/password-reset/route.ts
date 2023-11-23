@@ -1,8 +1,9 @@
 import { prisma } from '@/libraries/prisma'
 import {
-  AuthForgotPasswordSchema,
-  AuthForgotPasswordSchemaType,
+  AuthPasswordResetSchema,
+  AuthPasswordResetSchemaType,
 } from '@/types/auth/schema'
+import { sendPasswordResetMessage } from '@/utils/send-message'
 import { Prisma } from '@prisma/client'
 import { hashSync } from 'bcrypt'
 
@@ -10,8 +11,8 @@ export async function POST(request: Request) {
   const randomCode = Math.random().toString(32).substr(2, 14).toUpperCase()
 
   try {
-    const inputs: AuthForgotPasswordSchemaType = await request.json()
-    if (await AuthForgotPasswordSchema.parseAsync(inputs)) {
+    const inputs: AuthPasswordResetSchemaType = await request.json()
+    if (await AuthPasswordResetSchema.parseAsync(inputs)) {
       const { email, phone } = inputs
 
       const user = await prisma.user.findFirst({
@@ -30,6 +31,12 @@ export async function POST(request: Request) {
         passHash: hashSync(randomCode, 10),
       }
       await prisma.user.update({ where: { phone }, data })
+      await sendPasswordResetMessage({
+        emailTo: email,
+        name: user?.name,
+        password: randomCode,
+        phoneTo: phone,
+      })
 
       return new Response(
         JSON.stringify('a senha foi redefinida e enviada para o seu e-mail'),
