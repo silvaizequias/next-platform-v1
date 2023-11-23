@@ -24,7 +24,7 @@ export const sendWelcomeMessage = async (data: SendMessageType) => {
     solution: data?.solution,
   })
 
-  return sendEmail({
+  sendEmail({
     to: data?.emailTo,
     from: emailFrom,
     subject: `BOAS VINDAS A ${data.organization || 'DEDICADO DIGITAL'}`,
@@ -41,10 +41,10 @@ export const sendPasswordResetMessage = async (data: SendMessageType) => {
     solution: data?.solution,
   })
 
-  return sendEmail({
+  sendEmail({
     to: data?.emailTo,
     from: emailFrom,
-    subject: `SEU ACESSO ${data.organization || 'DEDICADO DIGITAL'}`,
+    subject: `SEU ACESSO A ${data.organization || 'DEDICADO DIGITAL'}`,
     text: message,
     html: message,
   })
