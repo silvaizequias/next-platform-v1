@@ -5,7 +5,13 @@ const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN!
 
 const client = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
-export const sendSms = (data: any) => {
+export type SendSmsType = {
+  to: string
+  from: string
+  body: string
+}
+
+export const sendSms = (data: SendSmsType) => {
   client.messages
     .create(data)
     .then(async (message: any) => {
