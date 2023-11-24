@@ -41,3 +41,9 @@ export const UserUpdateDTO = z.object({
   longitude: z.coerce.number().optional(),
 })
 export type UserUpdateDTOType = z.infer<typeof UserUpdateDTO>
+
+export const UserPasswordUpdateDTO = z.object({
+  password: z.string().min(8).max(25),
+  newPassword: z.string().min(8).max(25),
+})
+export type UserPasswordUpdateDTOType = z.infer<typeof UserPasswordUpdateDTO>
