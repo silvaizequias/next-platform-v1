@@ -1,0 +1,23 @@
+import twilio from 'twilio'
+
+const TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID!
+const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN!
+
+const client = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+
+export type SendSmsType = {
+  to: string
+  from: string
+  body: string
+}
+
+export const sendSms = (data: SendSmsType) => {
+  client.messages
+    .create(data)
+    .then(async (message: any) => {
+      console.log('TWILIO: ', message?.sid)
+    })
+    .catch((error: any) => {
+      console.error('TWILIO ERROR: ', error?.status)
+    })
+}
