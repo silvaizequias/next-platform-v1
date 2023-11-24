@@ -1,6 +1,9 @@
-import { ReactNode } from 'react'
 import './globals.css'
+import { ReactNode } from 'react'
 import type { Metadata } from 'next'
+import Providers from './providers'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/libraries/next-auth'
 
 export const metadata: Metadata = {
   title: {
@@ -9,14 +12,20 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: ReactNode
 }) {
+  const session = await getServerSession(authOptions)
+
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Providers>
+          <main>{children}</main>
+        </Providers>
+      </body>
     </html>
   )
 }
