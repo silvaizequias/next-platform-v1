@@ -61,13 +61,15 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const inputs: OrganizationCreateDTOType = await request.json()
-    if (await OrganizationCreateDTO.parseAsync(inputs))
+    if (await OrganizationCreateDTO.parseAsync(inputs)) {
+      await prisma.organization.create({ data: inputs })
       return new Response(
-        JSON.stringify(await prisma.organization.create({ data: inputs })),
+        JSON.stringify(`a organização ${inputs?.name} foi criada`),
         {
           status: 201,
         },
       )
+    }
   } catch (error: any) {
     await prisma.$disconnect()
     return new Response(error?.message || error, { status: 400 })

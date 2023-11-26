@@ -33,6 +33,7 @@ export async function GET(
                 },
               },
             },
+            subscriptions: true,
           },
         }),
       ),
@@ -55,15 +56,12 @@ export async function PATCH(
   const { id } = params
   try {
     const inputs: UserUpdateDTOType = await request.json()
-    if (await UserUpdateDTO.parseAsync(inputs))
-      return new Response(
-        JSON.stringify(
-          await prisma.user.update({ where: { id: id }, data: inputs }),
-        ),
-        {
-          status: 201,
-        },
-      )
+    if (await UserUpdateDTO.parseAsync(inputs)) {
+      await prisma.user.update({ where: { id: id }, data: inputs })
+      return new Response(JSON.stringify(`usuário atualizado`), {
+        status: 201,
+      })
+    }
   } catch (error: any) {
     await prisma.$disconnect()
     return new Response(error?.message || error, { status: 400 })

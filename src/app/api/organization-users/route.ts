@@ -99,10 +99,14 @@ export async function POST(request: Request) {
           },
         },
       }
+      await prisma.organizationUsers.create({ data })
+
       return new Response(
-        JSON.stringify(await prisma.organizationUsers.create({ data })),
+        JSON.stringify(
+          `o usuário ${user?.name} foi inserido na organização ${organization?.name}`,
+        ),
         {
-          status: 200,
+          status: 201,
         },
       )
     }

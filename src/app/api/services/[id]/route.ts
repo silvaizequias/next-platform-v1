@@ -33,11 +33,10 @@ export async function PATCH(
   try {
     const inputs: ServiceUpdateDTOType = await request.json()
     if (await ServiceUpdateDTO.parseAsync(inputs)) {
-      return new Response(
-        JSON.stringify(
-          await prisma.service.update({ where: { id: id }, data: inputs }),
-        ),
-      )
+      await prisma.service.update({ where: { id: id }, data: inputs })
+      return new Response(JSON.stringify(`o serviço foi atualizado`), {
+        status: 201,
+      })
     }
   } catch (error: any) {
     await prisma.$disconnect()

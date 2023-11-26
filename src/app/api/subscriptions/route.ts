@@ -72,8 +72,11 @@ export async function POST(request: Request) {
           },
         },
       }
+      await prisma.subscription.create({ data })
+
       return new Response(
-        JSON.stringify(await prisma.subscription.create({ data })),
+        JSON.stringify(`${user?.name} contratou o serviço ${service?.name}`),
+        { status: 201 },
       )
     }
   } catch (error: any) {

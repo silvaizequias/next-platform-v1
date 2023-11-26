@@ -108,14 +108,11 @@ export async function PATCH(
           },
         },
       }
-      return new Response(
-        JSON.stringify(
-          await prisma.organizationUsers.update({ where: { id: id }, data }),
-        ),
-        {
-          status: 200,
-        },
-      )
+      await prisma.organizationUsers.update({ where: { id: id }, data })
+
+      return new Response(JSON.stringify(`as informações foram atualizadas`), {
+        status: 201,
+      })
     }
   } catch (error: any) {
     await prisma.$disconnect()

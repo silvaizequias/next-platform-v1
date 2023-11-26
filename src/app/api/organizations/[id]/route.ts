@@ -59,18 +59,15 @@ export async function PATCH(
   const { id } = params
   try {
     const inputs: OrganizationUpdateDTOType = await request.json()
-    if (await OrganizationUpdateDTO.parseAsync(inputs))
-      return new Response(
-        JSON.stringify(
-          await prisma.organization.update({
-            where: { id: id },
-            data: inputs,
-          }),
-        ),
-        {
-          status: 201,
-        },
-      )
+    if (await OrganizationUpdateDTO.parseAsync(inputs)) {
+      await prisma.organization.update({
+        where: { id: id },
+        data: inputs,
+      })
+      return new Response(JSON.stringify(`a organização foi atualizada`), {
+        status: 201,
+      })
+    }
   } catch (error: any) {
     await prisma.$disconnect()
     return new Response(error?.message || error, { status: 400 })

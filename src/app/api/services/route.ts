@@ -25,8 +25,11 @@ export async function POST(request: Request) {
   try {
     const inputs: ServiceCreateDTOType = await request.json()
     if (await ServiceCreateDTO.parseAsync(inputs)) {
+      await prisma.service.create({ data: inputs })
+
       return new Response(
-        JSON.stringify(await prisma.service.create({ data: inputs })),
+        JSON.stringify(`o serviço ${inputs?.name} foi criado`),
+        { status: 201 },
       )
     }
   } catch (error: any) {

@@ -102,10 +102,13 @@ export async function PATCH(
           },
         },
       }
+      await prisma.subscription.update({ where: { id: id }, data })
+
       return new Response(
         JSON.stringify(
-          await prisma.subscription.update({ where: { id: id }, data }),
+          `a contratação do serviço ${service?.name} foi atualizada`,
         ),
+        { status: 201 },
       )
     }
   } catch (error: any) {
