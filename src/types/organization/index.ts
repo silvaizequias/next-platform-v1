@@ -1,4 +1,17 @@
-import { OrganizationUserType } from '../organization-user'
+import { UserRole } from '@prisma/client'
+import { UserType } from '../user'
+
+export type OrganizationUserType = {
+  id: string
+  createdAt: Date
+  updatedAt: Date
+  organizationId: string
+  organization: OrganizationType
+  userId: string
+  user: UserType
+  isActive: boolean
+  role: UserRole
+}
 
 export type OrganizationType = {
   id: string

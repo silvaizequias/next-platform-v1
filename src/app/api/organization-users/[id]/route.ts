@@ -1,8 +1,8 @@
-import { prisma } from '@/libraries/prisma'
 import {
-  UpdateOrganizationUser,
-  UpdateOrganizationUserType,
-} from '@/types/organization-user/schema'
+  OrganizationUserUpdateDTO,
+  OrganizationUserUpdateDTOType,
+} from '@/dto/organization.dto'
+import { prisma } from '@/libraries/prisma'
 import { Prisma } from '@prisma/client'
 
 export async function GET(
@@ -54,12 +54,6 @@ export async function GET(
       ),
       {
         status: 200,
-        headers: {
-          'Access-Control-Allow-Credentials': 'true',
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET',
-          'Content-Type': 'application/json',
-        },
       },
     )
   } catch (error: any) {
@@ -76,31 +70,36 @@ export async function PATCH(
 ) {
   const { id } = params
   try {
-    const inputs: UpdateOrganizationUserType = await request.json()
-    if (await UpdateOrganizationUser.parseAsync(inputs)) {
-      const { userPhone, organizationDocumentCode } = inputs
-      delete inputs?.userPhone
+    const inputs: OrganizationUserUpdateDTOType = await request.json()
+    if (await OrganizationUserUpdateDTO.parseAsync(inputs)) {
+      const { userEmail, organizationDocumentCode } = inputs
+      delete inputs?.userEmail
       delete inputs?.organizationDocumentCode
 
       const user = await prisma.user.findFirst({
-        where: { phone: userPhone },
+        where: { email: userEmail },
       })
       if (!user)
-        return new Response('o usuario não existe no sistema', { status: 404 })
+        return new Response(JSON.stringify('o usuario não existe no sistema'), {
+          status: 404,
+        })
 
       const organization = await prisma.organization.findFirst({
         where: { documentCode: organizationDocumentCode },
       })
       if (!organization)
-        return new Response('a organização não existe no sistema', {
-          status: 404,
-        })
+        return new Response(
+          JSON.stringify('a organização não existe no sistema'),
+          {
+            status: 404,
+          },
+        )
 
       const data: Prisma.OrganizationUsersUpdateInput = {
         ...inputs,
         user: {
           update: {
-            phone: userPhone,
+            email: userEmail,
           },
         },
         organization: {
@@ -109,20 +108,11 @@ export async function PATCH(
           },
         },
       }
-      return new Response(
-        JSON.stringify(
-          await prisma.organizationUsers.update({ where: { id: id }, data }),
-        ),
-        {
-          status: 200,
-          headers: {
-            'Access-Control-Allow-Credentials': 'true',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'PATCH',
-            'Content-Type': 'application/json',
-          },
-        },
-      )
+      await prisma.organizationUsers.update({ where: { id: id }, data })
+
+      return new Response(JSON.stringify(`as informações foram atualizadas`), {
+        status: 201,
+      })
     }
   } catch (error: any) {
     await prisma.$disconnect()

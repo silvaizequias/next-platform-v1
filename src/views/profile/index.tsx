@@ -1,18 +1,25 @@
-import { Container, Grid } from '@mui/material'
-import ProfileRightGrid from './ProfileRightGrid'
-import ProfileLeftGrid from './ProfileLeftGrid'
+'use client'
 
-export default function ProfileView() {
+import useFetch from '@/hooks/use-fetch'
+import { Session } from 'next-auth'
+import { Suspense } from 'react'
+import LoadingView from '../loading'
+import ProfileLeft from './profile-left'
+import ProfileRight from './profile-right'
+import { UserType } from '@/types/user'
+
+interface Props {
+  session: Session
+}
+
+export default function ProfileView(props: Props) {
+  const { session } = props
+  const { data: profile } = useFetch<UserType>(`/api/profile`)
+
   return (
-    <Container maxWidth='xl'>
-      <Grid container columnSpacing={2} rowGap={2} paddingY={10}>
-        <Grid item xs={12} sm={12} md={4}>
-          <ProfileLeftGrid />
-        </Grid>
-        <Grid item xs={12} sm={12} md={8}>
-          <ProfileRightGrid />
-        </Grid>
-      </Grid>
-    </Container>
+    <Suspense fallback={<LoadingView />}>
+      <ProfileLeft user={profile!} />
+      <ProfileRight user={profile!} />
+    </Suspense>
   )
 }

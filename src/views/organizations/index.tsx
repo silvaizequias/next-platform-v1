@@ -1,11 +1,17 @@
-import { Container, Grid } from '@mui/material'
+import { Session } from 'next-auth'
+import OrganizationTable from './organization-table'
+import OrganizationUserView from './organization-user'
 
-export default function OrganizationView() {
-  return (
-    <Container maxWidth="xl">
-      <Grid container columnSpacing={2} rowGap={2} paddingY={10}>
-        <Grid item xs={12} sm={12} md={12}></Grid>
-      </Grid>
-    </Container>
+interface Props {
+  session: Session
+}
+
+export default function OrganizationView(props: Props) {
+  const { session } = props
+
+  return session?.user?.profile == 'MASTER' ? (
+    <OrganizationTable />
+  ) : (
+    <OrganizationUserView session={session} />
   )
 }

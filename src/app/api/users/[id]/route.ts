@@ -1,5 +1,5 @@
+import { UserUpdateDTO, UserUpdateDTOType } from '@/dto/user.dto'
 import { prisma } from '@/libraries/prisma'
-import { UpdateUser, UpdateUserType } from '@/types/user/schema'
 
 export async function GET(
   request: Request,
@@ -33,17 +33,12 @@ export async function GET(
                 },
               },
             },
+            subscriptions: true,
           },
         }),
       ),
       {
         status: 200,
-        headers: {
-          'Access-Control-Allow-Credentials': 'true',
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET',
-          'Content-Type': 'application/json',
-        },
       },
     )
   } catch (error: any) {
@@ -60,22 +55,13 @@ export async function PATCH(
 ) {
   const { id } = params
   try {
-    const inputs: UpdateUserType = await request.json()
-    if (await UpdateUser.parseAsync(inputs))
-      return new Response(
-        JSON.stringify(
-          await prisma.user.update({ where: { id: id }, data: inputs }),
-        ),
-        {
-          status: 201,
-          headers: {
-            'Access-Control-Allow-Credentials': 'true',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'PATCH',
-            'Content-Type': 'application/json',
-          },
-        },
-      )
+    const inputs: UserUpdateDTOType = await request.json()
+    if (await UserUpdateDTO.parseAsync(inputs)) {
+      await prisma.user.update({ where: { id: id }, data: inputs })
+      return new Response(JSON.stringify(`usuário atualizado`), {
+        status: 201,
+      })
+    }
   } catch (error: any) {
     await prisma.$disconnect()
     return new Response(error?.message || error, { status: 400 })

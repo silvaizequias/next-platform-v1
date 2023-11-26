@@ -1,9 +1,19 @@
-import { Grid } from '@mui/material'
+import { Session } from 'next-auth'
+import OrganizationUserView from '../organizations/organization-user'
+import { Fragment } from 'react'
+import UserSubscription from '../subscriptions/user-subscription'
 
-export default function AccountView() {
+interface Props {
+  session: Session
+}
+
+export default function AccountView(props: Props) {
+  const { session } = props
+
   return (
-    <Grid container spacing={2} marginY={10}>
-      <Grid item xs={12}></Grid>
-    </Grid>
+    <Fragment>
+      <OrganizationUserView session={session} />
+      <UserSubscription session={session} />
+    </Fragment>
   )
 }

@@ -1,23 +1,21 @@
 'use client'
 
-import CrispChat from '@/components/crisp-chat'
-import NextAppDirEmotionCacheProvider from '@/components/emotion-cache'
-import ToastProvider from '@/components/hot-toast'
-import defaultTheme from '@/theme/default'
-import { CssBaseline, ThemeProvider } from '@mui/material'
-import { ReactNode } from 'react'
+import { Fragment, ReactNode } from 'react'
+import { ThemeProvider } from '@material-tailwind/react'
+import { Provider as BalancerProvider } from 'react-wrap-balancer'
+import { Analytics } from '@vercel/analytics/react'
 
 export default function Providers({ children }: { children: ReactNode }) {
   const isDevelopment = process.env.NODE_ENV === 'development'
 
   return (
-    <NextAppDirEmotionCacheProvider options={{ key: 'mui' }}>
-      <ThemeProvider theme={defaultTheme}>
-        <CssBaseline />
-        {children}
-        <ToastProvider />
-        {!isDevelopment && <CrispChat />}
-      </ThemeProvider>
-    </NextAppDirEmotionCacheProvider>
+    <ThemeProvider>
+      <BalancerProvider>{children}</BalancerProvider>
+      {!isDevelopment && (
+        <Fragment>
+          <Analytics />
+        </Fragment>
+      )}
+    </ThemeProvider>
   )
 }

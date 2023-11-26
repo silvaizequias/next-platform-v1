@@ -1,8 +1,8 @@
-import { prisma } from '@/libraries/prisma'
 import {
-  CreateOrganization,
-  CreateOrganizationType,
-} from '@/types/organization/schema'
+  OrganizationCreateDTO,
+  OrganizationCreateDTOType,
+} from '@/dto/organization.dto'
+import { prisma } from '@/libraries/prisma'
 
 export async function GET(request: Request) {
   try {
@@ -48,12 +48,6 @@ export async function GET(request: Request) {
       ),
       {
         status: 200,
-        headers: {
-          'Access-Control-Allow-Credentials': 'true',
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET',
-          'Content-Type': 'application/json',
-        },
       },
     )
   } catch (error: any) {
@@ -66,20 +60,16 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
-    const inputs: CreateOrganizationType = await request.json()
-    if (await CreateOrganization.parseAsync(inputs))
+    const inputs: OrganizationCreateDTOType = await request.json()
+    if (await OrganizationCreateDTO.parseAsync(inputs)) {
+      await prisma.organization.create({ data: inputs })
       return new Response(
-        JSON.stringify(await prisma.organization.create({ data: inputs })),
+        JSON.stringify(`a organização ${inputs?.name} foi criada`),
         {
           status: 201,
-          headers: {
-            'Access-Control-Allow-Credentials': 'true',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'POST',
-            'Content-Type': 'application/json',
-          },
         },
       )
+    }
   } catch (error: any) {
     await prisma.$disconnect()
     return new Response(error?.message || error, { status: 400 })

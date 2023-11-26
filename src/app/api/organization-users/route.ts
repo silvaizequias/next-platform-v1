@@ -1,8 +1,9 @@
-import { prisma } from '@/libraries/prisma'
 import {
-  CreateOrganizationUser,
-  CreateOrganizationUserType,
-} from '@/types/organization-user/schema'
+  OrganizationUserCreateDTO,
+  OrganizationUserCreateDTOType,
+} from '@/dto/organization.dto'
+import { prisma } from '@/libraries/prisma'
+import { sendNewOrganizationUser } from '@/utils/send-message'
 import { Prisma } from '@prisma/client'
 
 export async function GET(request: Request) {
@@ -49,12 +50,6 @@ export async function GET(request: Request) {
       ),
       {
         status: 200,
-        headers: {
-          'Access-Control-Allow-Credentials': 'true',
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET',
-          'Content-Type': 'application/json',
-        },
       },
     )
   } catch (error: any) {
@@ -67,31 +62,36 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
-    const inputs: CreateOrganizationUserType = await request.json()
-    if (await CreateOrganizationUser.parseAsync(inputs)) {
-      const { userPhone, organizationDocumentCode } = inputs
-      delete inputs?.userPhone
+    const inputs: OrganizationUserCreateDTOType = await request.json()
+    if (await OrganizationUserCreateDTO.parseAsync(inputs)) {
+      const { userEmail, organizationDocumentCode } = inputs
+      delete inputs?.userEmail
       delete inputs?.organizationDocumentCode
 
       const user = await prisma.user.findFirst({
-        where: { phone: userPhone },
+        where: { email: userEmail },
       })
       if (!user)
-        return new Response('o usuario não existe no sistema', { status: 404 })
+        return new Response(JSON.stringify('o usuario não existe no sistema'), {
+          status: 404,
+        })
 
       const organization = await prisma.organization.findFirst({
         where: { documentCode: organizationDocumentCode },
       })
       if (!organization)
-        return new Response('a organização não existe no sistema', {
-          status: 404,
-        })
+        return new Response(
+          JSON.stringify('a organização não existe no sistema'),
+          {
+            status: 404,
+          },
+        )
 
       const data: Prisma.OrganizationUsersCreateInput = {
         ...inputs,
         user: {
           connect: {
-            phone: userPhone,
+            email: userEmail,
           },
         },
         organization: {
@@ -100,16 +100,21 @@ export async function POST(request: Request) {
           },
         },
       }
+      await prisma.organizationUsers.create({ data })
+      await sendNewOrganizationUser({
+        emailTo: user?.email,
+        name: user?.name,
+        organization: organization?.name,
+        phoneTo: `+55${user?.phone}`,
+        role: inputs?.role,
+      })
+
       return new Response(
-        JSON.stringify(await prisma.organizationUsers.create({ data })),
+        JSON.stringify(
+          `o usuário ${user?.name} foi inserido na organização ${organization?.name}`,
+        ),
         {
-          status: 200,
-          headers: {
-            'Access-Control-Allow-Credentials': 'true',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'POST',
-            'Content-Type': 'application/json',
-          },
+          status: 201,
         },
       )
     }

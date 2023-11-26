@@ -1,8 +1,8 @@
-import { prisma } from '@/libraries/prisma'
 import {
-  UpdateOrganization,
-  UpdateOrganizationType,
-} from '@/types/organization/schema'
+  OrganizationUpdateDTO,
+  OrganizationUpdateDTOType,
+} from '@/dto/organization.dto'
+import { prisma } from '@/libraries/prisma'
 
 export async function GET(
   request: Request,
@@ -42,12 +42,6 @@ export async function GET(
       ),
       {
         status: 200,
-        headers: {
-          'Access-Control-Allow-Credentials': 'true',
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET',
-          'Content-Type': 'application/json',
-        },
       },
     )
   } catch (error: any) {
@@ -64,25 +58,16 @@ export async function PATCH(
 ) {
   const { id } = params
   try {
-    const inputs: UpdateOrganizationType = await request.json()
-    if (await UpdateOrganization.parseAsync(inputs))
-      return new Response(
-        JSON.stringify(
-          await prisma.organization.update({
-            where: { id: id },
-            data: inputs,
-          }),
-        ),
-        {
-          status: 201,
-          headers: {
-            'Access-Control-Allow-Credentials': 'true',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'PATCH',
-            'Content-Type': 'application/json',
-          },
-        },
-      )
+    const inputs: OrganizationUpdateDTOType = await request.json()
+    if (await OrganizationUpdateDTO.parseAsync(inputs)) {
+      await prisma.organization.update({
+        where: { id: id },
+        data: inputs,
+      })
+      return new Response(JSON.stringify(`a organização foi atualizada`), {
+        status: 201,
+      })
+    }
   } catch (error: any) {
     await prisma.$disconnect()
     return new Response(error?.message || error, { status: 400 })

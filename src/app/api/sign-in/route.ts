@@ -1,43 +1,40 @@
+import { AuthSignInDTO, AuthSignInDTOType } from '@/dto/auth.dto'
 import { prisma } from '@/libraries/prisma'
-import { AuthSignIn, AuthSignInType } from '@/types/auth/schema'
+import { compareSync } from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 export async function POST(request: Request) {
   const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY!
   try {
-    const inputs: AuthSignInType = await request.json()
-    if (await AuthSignIn.parseAsync(inputs)) {
-      const { email, phone } = inputs
+    const inputs: AuthSignInDTOType = await request.json()
+    if (await AuthSignInDTO.parseAsync(inputs)) {
+      const { email, password } = inputs
       const user = await prisma.user.findFirst({
         where: {
           email: email,
-          phone: phone,
         },
-        select: {
-          id: true,
-          profile: true,
-          image: true,
-          name: true,
-          email: true,
-          phone: true,
+        include: {
           organizations: {
             select: {
+              organizationId: true,
+              organization: { select: { name: true, documentCode: true } },
               role: true,
-              organization: {
-                select: {
-                  id: true,
-                  name: true,
-                  image: true,
-                  documentCode: true,
-                },
-              },
             },
           },
         },
       })
       if (!user)
-        return new Response('as informações estão incorretas ou não existem', {
-          status: 404,
+        return new Response(
+          JSON.stringify('as informações estão incorretas ou não existem'),
+          {
+            status: 404,
+          },
+        )
+
+      const comparePass = compareSync(password, user.passHash!)
+      if (!comparePass)
+        return new Response(JSON.stringify('a senha está incorreta'), {
+          status: 403,
         })
 
       const encryptedToken = jwt.sign(
@@ -55,16 +52,18 @@ export async function POST(request: Request) {
         JSON.stringify({
           expiresIn: Math.floor(Date.now() / 1000) + 14 * 24 * 60 * 60,
           Authorization: encryptedToken,
-          data: user,
+          data: {
+            id: user.id,
+            profile: user.profile,
+            image: user.image,
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+            organizations: user.organizations,
+          },
         }),
         {
           status: 201,
-          headers: {
-            'Access-Control-Allow-Credentials': 'true',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'POST',
-            'Content-Type': 'application/json',
-          },
         },
       )
     }
