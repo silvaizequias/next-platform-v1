@@ -3,6 +3,7 @@ import {
   OrganizationUserCreateDTOType,
 } from '@/dto/organization.dto'
 import { prisma } from '@/libraries/prisma'
+import { sendNewOrganizationUser } from '@/utils/send-message'
 import { Prisma } from '@prisma/client'
 
 export async function GET(request: Request) {
@@ -63,12 +64,12 @@ export async function POST(request: Request) {
   try {
     const inputs: OrganizationUserCreateDTOType = await request.json()
     if (await OrganizationUserCreateDTO.parseAsync(inputs)) {
-      const { userPhone, organizationDocumentCode } = inputs
-      delete inputs?.userPhone
+      const { userEmail, organizationDocumentCode } = inputs
+      delete inputs?.userEmail
       delete inputs?.organizationDocumentCode
 
       const user = await prisma.user.findFirst({
-        where: { phone: userPhone },
+        where: { email: userEmail },
       })
       if (!user)
         return new Response(JSON.stringify('o usuario não existe no sistema'), {
@@ -90,7 +91,7 @@ export async function POST(request: Request) {
         ...inputs,
         user: {
           connect: {
-            phone: userPhone,
+            email: userEmail,
           },
         },
         organization: {
@@ -100,6 +101,13 @@ export async function POST(request: Request) {
         },
       }
       await prisma.organizationUsers.create({ data })
+      await sendNewOrganizationUser({
+        emailTo: user?.email,
+        name: user?.name,
+        organization: organization?.name,
+        phoneTo: user?.phone,
+        role: inputs?.role,
+      })
 
       return new Response(
         JSON.stringify(

@@ -2,6 +2,7 @@ export type SendTemplateType = {
   name?: string
   organization?: string
   password?: string
+  role?: string
   solution?: string
 }
 
@@ -19,7 +20,6 @@ export const welcomeMessageTemplate = async (data: SendTemplateType) => {
     },
   ]
 }
-
 export const passwordResetTemplate = async (data: SendTemplateType) => {
   return [
     {
@@ -30,6 +30,18 @@ export const passwordResetTemplate = async (data: SendTemplateType) => {
     <p>Sua nova senha é <strong>${data?.password}</strong></p>
     <p>Para qualquer dúvida ou dificuldade, conte sempre com o nosso suporte!</p>`,
       sms: `Sua NOVA SENHA para acessa ${data?.solution} é ${data?.password}`,
+    },
+  ]
+}
+
+export const newOrganizationUserTemplate = async (data: SendTemplateType) => {
+  return [
+    {
+      email: `<p>Olá <strong>${data?.name}</strong>!</p>
+    <p>Você foi incluído na Organização <strong>${data?.organization}</strong> como <strong>${data?.role}</strong></p>
+    <p>Ao acessa a plataforma ${data?.solution} você terá mais informações sobre essa organização.</p>
+    <p>É um prazer ter você em nosso sistema!</p>`,
+      sms: `Você foi incluído na Organização ${data?.organization} como ${data?.role}`,
     },
   ]
 }

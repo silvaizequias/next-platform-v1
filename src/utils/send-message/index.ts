@@ -1,5 +1,9 @@
 import { EmailFromType, sendEmail } from './sendgrid'
-import { passwordResetTemplate, welcomeMessageTemplate } from './templates'
+import {
+  newOrganizationUserTemplate,
+  passwordResetTemplate,
+  welcomeMessageTemplate,
+} from './templates'
 import { sendSms } from './twilio'
 
 export type SendMessageType = {
@@ -8,6 +12,7 @@ export type SendMessageType = {
   organization?: string
   password?: string
   phoneTo?: string
+  role?: string
   solution?: string
 }
 
@@ -55,6 +60,32 @@ export const sendPasswordResetMessage = async (data: SendMessageType) => {
     to: data?.emailTo,
     from: emailFrom,
     subject: `SEU ACESSO A ${data.organization || 'DEDICADO DIGITAL'}`,
+    text: message[0].email,
+    html: message[0].email,
+  })
+
+  if (data?.phoneTo)
+    sendSms({
+      to: data?.phoneTo,
+      from: TWILIO_PHONE_NUMBER,
+      body: message[0].sms,
+    })
+}
+
+export const sendNewOrganizationUser = async (data: SendMessageType) => {
+  const message = await newOrganizationUserTemplate({
+    name: data?.name,
+    organization: data?.organization,
+    role: data?.role,
+    solution: data?.solution || NEXTAUTH_URL,
+  })
+
+  sendEmail({
+    to: data?.emailTo,
+    from: emailFrom,
+    subject: `AGORA VOCÊ FAZ PARTE DA ${
+      data.organization || 'DEDICADO DIGITAL'
+    }`,
     text: message[0].email,
     html: message[0].email,
   })

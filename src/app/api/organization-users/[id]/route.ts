@@ -72,12 +72,12 @@ export async function PATCH(
   try {
     const inputs: OrganizationUserUpdateDTOType = await request.json()
     if (await OrganizationUserUpdateDTO.parseAsync(inputs)) {
-      const { userPhone, organizationDocumentCode } = inputs
-      delete inputs?.userPhone
+      const { userEmail, organizationDocumentCode } = inputs
+      delete inputs?.userEmail
       delete inputs?.organizationDocumentCode
 
       const user = await prisma.user.findFirst({
-        where: { phone: userPhone },
+        where: { email: userEmail },
       })
       if (!user)
         return new Response(JSON.stringify('o usuario não existe no sistema'), {
@@ -99,7 +99,7 @@ export async function PATCH(
         ...inputs,
         user: {
           update: {
-            phone: userPhone,
+            email: userEmail,
           },
         },
         organization: {

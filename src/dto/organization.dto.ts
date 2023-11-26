@@ -39,7 +39,7 @@ export const OrganizationUpdateDTO = z.object({
 export type OrganizationUpdateDTOType = z.infer<typeof OrganizationUpdateDTO>
 
 export const OrganizationUserCreateDTO = z.object({
-  userPhone: z.string().length(11).optional(),
+  userEmail: z.string().email().optional(),
   organizationDocumentCode: z.string().length(14).optional(),
   role: z.enum(ROLE),
 })
@@ -48,7 +48,7 @@ export type OrganizationUserCreateDTOType = z.infer<
 >
 
 export const OrganizationUserUpdateDTO = z.object({
-  userPhone: z.string().length(11).optional(),
+  userEmail: z.string().email().optional(),
   organizationDocumentCode: z.string().length(14).optional(),
   isActive: z.boolean().optional(),
   role: z.enum(ROLE),
