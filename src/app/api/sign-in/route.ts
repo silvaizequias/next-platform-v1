@@ -14,7 +14,13 @@ export async function POST(request: Request) {
           email: email,
         },
         include: {
-          organizations: true,
+          organizations: {
+            select: {
+              organizationId: true,
+              organization: { select: { name: true, documentCode: true } },
+              role: true,
+            },
+          },
         },
       })
       if (!user)
