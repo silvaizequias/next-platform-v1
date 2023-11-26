@@ -15,6 +15,15 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials): Promise<any> {
         const user = await prisma.user.findFirst({
           where: { email: credentials?.email },
+          include: {
+            organizations: {
+              select: {
+                organizationId: true,
+                organization: { select: { name: true, documentCode: true } },
+                role: true,
+              },
+            },
+          },
         })
         if (!user)
           throw new Error(
@@ -38,6 +47,15 @@ export const authOptions: NextAuthOptions = {
       if (!user) {
         const user = await prisma.user.findFirst({
           where: { email: token.email! },
+          include: {
+            organizations: {
+              select: {
+                organizationId: true,
+                organization: { select: { name: true, documentCode: true } },
+                role: true,
+              },
+            },
+          },
         })
         if (user) {
           token.email = user.email

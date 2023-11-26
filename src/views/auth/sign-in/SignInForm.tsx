@@ -2,7 +2,7 @@
 
 import { AuthSignInDTO, AuthSignInDTOType } from '@/dto/auth.dto'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { signIn } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
@@ -42,5 +42,38 @@ export default function SignInForm() {
     }
   }
 
-  return <form onSubmit={handleSubmit(onSubmit)}></form>
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Controller
+        {...register('email')}
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <input
+            color="blue"
+            name="email"
+            type="email"
+            value={value}
+            onChange={onChange}
+          />
+        )}
+      />
+
+      <Controller
+        {...register('password')}
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <input
+            color="blue"
+            name="password"
+            type="password"
+            value={value}
+            onChange={onChange}
+          />
+        )}
+      />
+      <button type="submit">
+        Autenticar-se
+      </button>
+    </form>
+  )
 }

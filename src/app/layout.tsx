@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import Providers from './providers'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/libraries/next-auth'
+import TopBar from '@/components/top-bar'
 
 export const metadata: Metadata = {
   title: {
@@ -23,6 +24,7 @@ export default async function RootLayout({
     <html lang="en">
       <body>
         <Providers>
+          <TopBar session={session!} />
           <main>{children}</main>
         </Providers>
       </body>
