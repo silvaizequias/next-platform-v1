@@ -1,12 +1,12 @@
 import { authOptions } from '@/libraries/next-auth'
 import { getServerSession } from 'next-auth'
 import { prisma } from '@/libraries/prisma'
-import {
-  UserPasswordUpdateDTO,
-  UserPasswordUpdateDTOType,
-} from '@/dto/user.dto'
 import { compareSync, hashSync } from 'bcrypt'
 import { Prisma } from '@prisma/client'
+import {
+  ProfilePasswordUpdateDTO,
+  ProfilePasswordUpdateDTOType,
+} from '@/dto/profile.dto'
 
 export async function POST(request: Request) {
   const session = await getServerSession(authOptions)
@@ -17,8 +17,8 @@ export async function POST(request: Request) {
         status: 403,
       })
 
-    const inputs: UserPasswordUpdateDTOType = await request.json()
-    if (await UserPasswordUpdateDTO.parseAsync(inputs)) {
+    const inputs: ProfilePasswordUpdateDTOType = await request.json()
+    if (await ProfilePasswordUpdateDTO.parseAsync(inputs)) {
       const { password, newPassword } = inputs
 
       const user = await prisma.user.findFirst({

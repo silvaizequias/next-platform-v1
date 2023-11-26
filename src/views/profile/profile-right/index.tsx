@@ -1,6 +1,7 @@
 import { UserType } from '@/types/user'
 import { Fragment } from 'react'
-import UserPasswordUpdate from './user-password-update'
+import ProfilePasswordUpdate from './profile-password-update'
+import ProfileInformations from './profile-informations'
 
 interface Props {
   user: UserType
@@ -11,7 +12,8 @@ export default function ProfileRight(props: Props) {
 
   return (
     <Fragment>
-      <UserPasswordUpdate user={user} />
+      <ProfileInformations user={user} />
+      <ProfilePasswordUpdate user={user} />
     </Fragment>
   )
 }

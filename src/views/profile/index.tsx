@@ -14,12 +14,12 @@ interface Props {
 
 export default function ProfileView(props: Props) {
   const { session } = props
-  const { data: user } = useFetch<UserType>(`/api/users/${session?.user?.id}`)
+  const { data: profile } = useFetch<UserType>(`/api/profile`)
 
   return (
     <Suspense fallback={<LoadingView />}>
-      <ProfileLeft user={user!} />
-      <ProfileRight user={user!} />
+      <ProfileLeft user={profile!} />
+      <ProfileRight user={profile!} />
     </Suspense>
   )
 }

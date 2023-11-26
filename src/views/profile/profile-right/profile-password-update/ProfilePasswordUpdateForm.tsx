@@ -1,9 +1,9 @@
 'use client'
 
 import {
-  UserPasswordUpdateDTO,
-  UserPasswordUpdateDTOType,
-} from '@/dto/user.dto'
+  ProfilePasswordUpdateDTO,
+  ProfilePasswordUpdateDTOType,
+} from '@/dto/profile.dto'
 import { UserType } from '@/types/user'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -13,7 +13,7 @@ interface Props {
   user: UserType
 }
 
-export default function UserPasswordUpdateForm(props: Props) {
+export default function ProfilePasswordUpdateForm(props: Props) {
   const { user } = props
 
   const {
@@ -22,14 +22,16 @@ export default function UserPasswordUpdateForm(props: Props) {
     formState: { errors },
     register,
     reset,
-  } = useForm<UserPasswordUpdateDTOType>({
+  } = useForm<ProfilePasswordUpdateDTOType>({
     mode: 'all',
-    resolver: zodResolver(UserPasswordUpdateDTO),
+    resolver: zodResolver(ProfilePasswordUpdateDTO),
   })
 
-  const onSubmit: SubmitHandler<UserPasswordUpdateDTOType> = async (inputs) => {
+  const onSubmit: SubmitHandler<ProfilePasswordUpdateDTOType> = async (
+    inputs,
+  ) => {
     try {
-      await fetch(`/api/password-update`, {
+      await fetch(`/api/profile/password-update`, {
         method: 'POST',
         body: JSON.stringify(inputs),
         headers: { 'Content-Type': 'application/json' },
