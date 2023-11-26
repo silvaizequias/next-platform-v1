@@ -1,11 +1,17 @@
-import { Session } from 'next-auth'
+'use client'
 
-interface Props {
-  session: Session
-}
+import useFetch from '@/hooks/use-fetch'
+import { SubscriptionType } from '@/types/subscription'
+import LoadingView from '@/views/loading'
+import { Suspense } from 'react'
 
-export default function SubscriptionTable(props: Props) {
-  const { session } = props
+export default function SubscriptionTable() {
+  const { data: subscriptions } =
+    useFetch<SubscriptionType[]>('/api/subscriptions')
 
-  return ''
+  return (
+    <Suspense fallback={<LoadingView />}>
+      {JSON.stringify(subscriptions)}
+    </Suspense>
+  )
 }

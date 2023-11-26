@@ -1,4 +1,6 @@
 import { Session } from 'next-auth'
+import SubscriptionTable from './subscription-table'
+import UserSubscription from './user-subscription'
 
 interface Props {
   session: Session
@@ -7,5 +9,9 @@ interface Props {
 export default function SubscriptionView(props: Props) {
   const { session } = props
 
-  return ''
+  return session?.user?.profile == 'MASTER' ? (
+    <SubscriptionTable />
+  ) : (
+    <UserSubscription session={session} />
+  )
 }

@@ -1,11 +1,17 @@
-import { Session } from 'next-auth'
+import { UserType } from '@/types/user'
+import { Fragment } from 'react'
+import UserPasswordUpdate from './user-password-update'
 
 interface Props {
-  session: Session
+  user: UserType
 }
 
 export default function ProfileRight(props: Props) {
-  const { session } = props
+  const { user } = props
 
-  return ''
+  return (
+    <Fragment>
+      <UserPasswordUpdate user={user} />
+    </Fragment>
+  )
 }

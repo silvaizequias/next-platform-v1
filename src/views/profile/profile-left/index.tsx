@@ -1,11 +1,11 @@
-import { Session } from 'next-auth'
+import { UserType } from '@/types/user'
 
 interface Props {
-  session: Session
+  user: UserType
 }
 
 export default function ProfileLeft(props: Props) {
-  const { session } = props
+  const { user } = props
 
-  return ''
+  return JSON.stringify(user?.name)
 }

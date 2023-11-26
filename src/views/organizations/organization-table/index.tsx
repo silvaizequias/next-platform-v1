@@ -1,11 +1,15 @@
-import { Session } from 'next-auth'
+'use client'
 
-interface Props {
-  session: Session
-}
+import useFetch from '@/hooks/use-fetch'
+import LoadingView from '@/views/loading'
+import { Suspense } from 'react'
 
-export default function OrganizationTable(props: Props) {
-  const { session } = props
+export default function OrganizationTable() {
+  const { data: organizations } = useFetch('/api/organizations')
 
-  return ''
+  return (
+    <Suspense fallback={<LoadingView />}>
+      {JSON.stringify(organizations)}
+    </Suspense>
+  )
 }
