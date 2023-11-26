@@ -105,7 +105,7 @@ export async function POST(request: Request) {
         emailTo: user?.email,
         name: user?.name,
         organization: organization?.name,
-        phoneTo: user?.phone,
+        phoneTo: `+55${user?.phone}`,
         role: inputs?.role,
       })
 
