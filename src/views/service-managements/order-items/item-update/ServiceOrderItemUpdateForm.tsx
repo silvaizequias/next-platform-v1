@@ -4,11 +4,23 @@ import {
   OrderItemUpdateDTO,
   OrderItemUpdateDTOType,
 } from '@/dto/order-item.dto'
+import useFetch from '@/hooks/use-fetch'
+import { OrderItemType } from '@/types/order'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
-export default function ServiceOrderItemUpdateForm() {
+interface Props {
+  item: OrderItemType
+}
+
+export default function ServiceOrderItemUpdateForm(props: Props) {
+  const { item } = props
+  const SERVICE_MANAGEMENTE_API_URL =
+    process.env.NEXT_PUBLIC_SERVICE_MANAGEMENTE_API_URL!
+  const { data: items, mutate } = useFetch<OrderItemType[]>(
+    `${SERVICE_MANAGEMENTE_API_URL}/items`,
+  )
   const {
     control,
     handleSubmit,
@@ -22,12 +34,18 @@ export default function ServiceOrderItemUpdateForm() {
 
   const onSubmit: SubmitHandler<OrderItemUpdateDTOType> = async (inputs) => {
     try {
-      await fetch(``, {
+      await fetch(`${SERVICE_MANAGEMENTE_API_URL}/items/${item?.id}`, {
         method: 'PATCH',
         body: JSON.stringify(inputs),
         headers: { 'Content-Type': 'application/json' },
       }).then(async (res: any) => {
         if (res?.status !== 201) toast.error(await res?.json())
+
+        await mutate(...(items && res?.json()), {
+          revalidate: true,
+          rollbackOnError: true,
+        })
+
         toast.success(await res?.json())
       })
     } catch (error: any) {

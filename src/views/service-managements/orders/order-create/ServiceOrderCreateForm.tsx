@@ -6,6 +6,9 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
 export default function ServiceOrderCreateForm() {
+  const SERVICE_MANAGEMENTE_API_URL =
+    process.env.NEXT_PUBLIC_SERVICE_MANAGEMENTE_API_URL!
+
   const {
     control,
     handleSubmit,
@@ -19,7 +22,7 @@ export default function ServiceOrderCreateForm() {
 
   const onSubmit: SubmitHandler<OrderCreateDTOType> = async (inputs) => {
     try {
-      await fetch(``, {
+      await fetch(`${SERVICE_MANAGEMENTE_API_URL}/orders`, {
         method: 'POST',
         body: JSON.stringify(inputs),
         headers: { 'Content-Type': 'application/json' },
