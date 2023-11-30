@@ -1,8 +1,8 @@
-import { prisma } from '@/libraries/prisma'
-import { compareSync } from 'bcrypt'
 import { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 const SECRET = process.env.NEXTAUTH_SECRET!
+const PLATFORM_MANAGEMENT_API_URL =
+  process.env.NEXT_PUBLIC_PLATFORM_MANAGEMENT_API_URL!
 
 export const authOptions: NextAuthOptions = {
   secret: SECRET,
@@ -13,27 +13,21 @@ export const authOptions: NextAuthOptions = {
         password: { type: 'password' },
       },
       async authorize(credentials): Promise<any> {
-        const user = await prisma.user.findFirst({
-          where: { email: credentials?.email },
-          include: {
-            organizations: {
-              select: {
-                organizationId: true,
-                organization: { select: { name: true, documentCode: true } },
-                role: true,
-              },
-            },
-          },
+        return await fetch(`${PLATFORM_MANAGEMENT_API_URL}/auth/signin`, {
+          method: 'POST',
+          body: JSON.stringify({
+            email: credentials?.email,
+            password: credentials?.password,
+          }),
+          headers: { 'Content-Type': 'application/json' },
         })
-        if (!user)
-          throw new Error(
-            `o e-mail ${credentials?.email} não existe no sistema`,
-          )
-
-        const comparePass = compareSync(credentials?.password!, user.passHash!)
-        if (!comparePass) throw new Error('a senha está incorreta')
-
-        return user
+          .then(async (res: any) => {
+            if (res.status !== 201) return null
+            return res.json()
+          })
+          .catch((error: any) => {
+            throw new Error('', error)
+          })
       },
     }),
   ],
@@ -45,25 +39,11 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     jwt: async ({ token, user }) => {
       if (!user) {
-        const user = await prisma.user.findFirst({
-          where: { email: token.email! },
-          include: {
-            organizations: {
-              select: {
-                organizationId: true,
-                organization: { select: { name: true, documentCode: true } },
-                role: true,
-              },
-            },
-          },
-        })
-        if (user) {
-          token.email = user.email
-        }
         return token
       }
 
       return {
+        authorization: user.authorization,
         id: user.id,
         profile: user.profile,
         picture: user.image,
@@ -74,6 +54,7 @@ export const authOptions: NextAuthOptions = {
     },
     session: async ({ session, token }) => {
       if (token) {
+        session.user.authorization = token.authorization
         session.user.id = token.id
         session.user.profile = token.profile
         session.user.image = token.picture

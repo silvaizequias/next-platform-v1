@@ -9,8 +9,8 @@ interface Props {
 export default function UserView(props: Props) {
   const { session } = props
 
-  return session?.user?.profile == 'MASTER' ? (
-    <UserTable />
+  return session?.user?.profile == 'USER' ? (
+    <UserTable session={session} />
   ) : (
     <UnauthorizedView session={session} />
   )

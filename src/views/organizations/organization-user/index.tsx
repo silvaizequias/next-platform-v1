@@ -12,7 +12,12 @@ interface Props {
 
 export default function OrganizationUserView(props: Props) {
   const { session } = props
-  const { data: user } = useFetch<UserType>(`/api/users/${session?.user?.id}`)
+  const PLATFORM_MANAGEMENT_API_URL =
+    process.env.NEXT_PUBLIC_PLATFORM_MANAGEMENT_API_URL!
+  const { data: user } = useFetch<UserType>(
+    `${PLATFORM_MANAGEMENT_API_URL}/users/${session?.user?.id}`,
+    session?.user?.authorization,
+  )
 
   return (
     <Suspense fallback={<LoadingView />}>

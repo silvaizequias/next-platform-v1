@@ -10,7 +10,7 @@ export default function OrganizationView(props: Props) {
   const { session } = props
 
   return session?.user?.profile == 'MASTER' ? (
-    <OrganizationTable />
+    <OrganizationTable session={session} />
   ) : (
     <OrganizationUserView session={session} />
   )

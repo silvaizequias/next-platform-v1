@@ -14,7 +14,13 @@ interface Props {
 
 export default function ProfileView(props: Props) {
   const { session } = props
-  const { data: profile } = useFetch<UserType>(`/api/profile`)
+  const PLATFORM_MANAGEMENT_API_URL =
+    process.env.NEXT_PUBLIC_PLATFORM_MANAGEMENT_API_URL!
+
+  const { data: profile } = useFetch<UserType>(
+    `${PLATFORM_MANAGEMENT_API_URL}/users/${session?.user?.id}`,
+    session?.user?.authorization,
+  )
 
   return (
     <Suspense fallback={<LoadingView />}>

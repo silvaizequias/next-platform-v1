@@ -28,15 +28,15 @@ export default function SignInForm() {
         email: inputs?.email,
         password: inputs?.password,
       }).then(async (res: any) => {
-        if (!res?.error) {
+        if (res.ok) {
+          toast.success(`boas vindas`)
           router.refresh()
         } else {
-          toast.error(res?.error)
+          toast.error(`ocorreu um erro inesperado (ERRO ${res.status})`)
         }
       })
     } catch (error: any) {
       toast.error(error?.message || 'ocorreu um erro inesperado')
-      console.error(error)
     } finally {
       reset
     }
@@ -71,9 +71,7 @@ export default function SignInForm() {
           />
         )}
       />
-      <button type="submit">
-        Autenticar-se
-      </button>
+      <button type="submit">Autenticar-se</button>
     </form>
   )
 }
