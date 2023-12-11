@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
-import { Inter, Roboto } from 'next/font/google'
+import { Roboto } from 'next/font/google'
 import './globals.css'
 import { ReactNode } from 'react'
+import { Providers } from './providers'
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -17,7 +18,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={`${roboto.variable} font-sans`}>
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   )
 }
