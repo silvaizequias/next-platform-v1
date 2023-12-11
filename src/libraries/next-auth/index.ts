@@ -1,11 +1,11 @@
-import { prisma } from '@/libraries/prisma'
-import { compareSync } from 'bcrypt'
 import { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-const SECRET = process.env.NEXTAUTH_SECRET!
+
+const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET
+const PLATFORM_API_URL = process.env.PLATFORM_API_URL
 
 export const authOptions: NextAuthOptions = {
-  secret: SECRET,
+  pages: { signIn: '/', signOut: '/', error: '/' },
   providers: [
     CredentialsProvider({
       credentials: {
@@ -13,18 +13,21 @@ export const authOptions: NextAuthOptions = {
         password: { type: 'password' },
       },
       async authorize(credentials): Promise<any> {
-        const user = await prisma.user.findFirst({
-          where: { email: credentials?.email },
+        const data = await fetch(`${PLATFORM_API_URL}/auth/signin`, {
+          method: 'POST',
+          body: JSON.stringify({
+            email: credentials?.email,
+            password: credentials?.password,
+          }),
+          headers: { 'Content-Type': 'application/json' },
         })
-        if (!user)
-          throw new Error(
-            `o e-mail ${credentials?.email} não existe no sistema`,
-          )
+        const user = await data.json()
 
-        const comparePass = compareSync(credentials?.password!, user.passHash!)
-        if (!comparePass) throw new Error('a senha está incorreta')
-
-        return user
+        if (user && user.authorization) {
+          return { ...user }
+        } else {
+          throw new Error(user?.message)
+        }
       },
     }),
   ],
@@ -36,18 +39,21 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     jwt: async ({ token, user }) => {
       if (!user) {
-        const user = await prisma.user.findFirst({
-          where: { email: token.email! },
-        })
-        if (user) {
-          token.email = user.email
+        return {
+          id: token.id,
+          profile: token.profile,
+          authorization: token.authorization,
+          image: token.picture,
+          name: token.name,
+          email: token.email,
+          organizations: token.organizations,
         }
-        return token
       }
 
       return {
         id: user.id,
         profile: user.profile,
+        authorization: user.authorization,
         picture: user.image,
         name: user.name,
         email: user.email,
@@ -58,6 +64,7 @@ export const authOptions: NextAuthOptions = {
       if (token) {
         session.user.id = token.id
         session.user.profile = token.profile
+        session.user.authorization = token.authorization
         session.user.image = token.picture
         session.user.name = token.name
         session.user.email = token.email
@@ -66,5 +73,5 @@ export const authOptions: NextAuthOptions = {
       return session
     },
   },
-  pages: { signIn: '/', signOut: '/', error: '/' },
+  secret: NEXTAUTH_SECRET,
 }
