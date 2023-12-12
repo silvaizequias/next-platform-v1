@@ -14,7 +14,7 @@ interface Props {
   session: Session
 }
 
-export default function MainView(props: Props) {
+export default function SignInTemporaryView(props: Props) {
   const { session } = props
 
   const router = useRouter()
