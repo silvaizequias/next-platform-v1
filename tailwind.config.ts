@@ -8,13 +8,21 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
   ],
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: ['var(--font-roboto)'],
-      },
-    },
-  },
   darkMode: 'class',
-  plugins: [nextui()],
+  plugins: [
+    nextui({
+      themes: {
+        dark: {
+          colors: {
+            background: '#212121',
+          },
+        },
+        light: {
+          colors: {
+            background: '#E2E2E2',
+          },
+        },
+      },
+    }),
+  ],
 }
