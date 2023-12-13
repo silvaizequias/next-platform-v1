@@ -1,0 +1,126 @@
+'use client'
+
+import {
+  CreateSupportTicketDTO,
+  CreateSupportTicketDTOType,
+} from '@/app/api/support-management/tickets/dto'
+import useFetch from '@/hooks/use-fetch'
+import { SupportTicketType } from '@/types/support-management/ticket'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Button, Input, Textarea } from '@nextui-org/react'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+
+export default function CreateSupportTicketForm() {
+  const { data: supportTickets, mutate } = useFetch<SupportTicketType[] | any>(
+    '/api/support-management/tickets',
+  )
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    register,
+    reset,
+  } = useForm<CreateSupportTicketDTOType>({
+    mode: 'all',
+    resolver: zodResolver(CreateSupportTicketDTO),
+  })
+
+  const onSubmit: SubmitHandler<CreateSupportTicketDTOType> = async (
+    inputs,
+  ) => {
+    try {
+      await fetch(`/api/support-management/tickets`, {
+        method: 'POST',
+        body: JSON.stringify(inputs),
+        headers: { 'Content-Type': 'application/json' },
+      }).then(async (res: any) => {
+        const data = await res.json()
+        if (res.status == 201) {
+          await mutate(...supportTickets, data, {
+            revalidate: true,
+            rollbackOnError: true,
+          })
+
+          toast.success(data)
+        } else {
+          toast.error(data)
+        }
+      })
+    } catch (error: any) {
+      toast.error(error?.message)
+      console.error(error)
+    } finally {
+      reset(inputs)
+    }
+  }
+
+  return (
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col flex-1 gap-4 m-2"
+    >
+      <Controller
+        {...register('organization')}
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <Input
+            variant="underlined"
+            size="sm"
+            name="organization"
+            type="text"
+            label="Organização"
+            errorMessage={errors.organization?.message}
+            value={value}
+            onChange={onChange}
+          />
+        )}
+      />
+
+      <Controller
+        {...register('subject')}
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <Input
+            variant="underlined"
+            size="sm"
+            name="subject"
+            type="text"
+            label="Assunto"
+            errorMessage={errors.subject?.message}
+            value={value}
+            onChange={onChange}
+          />
+        )}
+      />
+
+      <Controller
+        {...register('content')}
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <Textarea
+            variant="underlined"
+            size="sm"
+            name="content"
+            type="text"
+            label="Mensagem"
+            errorMessage={errors.content?.message}
+            value={value}
+            onChange={onChange}
+          />
+        )}
+      />
+
+      <Button
+        size="sm"
+        variant="flat"
+        color="warning"
+        className="w-full uppercase"
+        type="submit"
+      >
+        Criar Ticket
+      </Button>
+    </form>
+  )
+}
