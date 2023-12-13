@@ -1,3 +1,5 @@
+'use client'
+
 import {
   SignUpDTO,
   SignUpDTOType,
@@ -120,7 +122,7 @@ export default function SignUpForm() {
       <Button
         size="sm"
         variant="flat"
-        color="warning"
+        color="primary"
         className="w-full uppercase"
         type="submit"
       >

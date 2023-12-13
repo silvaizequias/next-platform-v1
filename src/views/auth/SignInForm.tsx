@@ -1,3 +1,5 @@
+'use client'
+
 import {
   SignInDTO,
   SignInDTOType,
@@ -78,11 +80,17 @@ export default function SignInForm() {
           />
         )}
       />
+      <p
+        className="font-thint text-xs text-right italic cursor-pointer hover:opacity-50"
+        onClick={() => router.push('/auth/redefinir-senha')}
+      >
+        esqueceu a senha?
+      </p>
 
       <Button
         size="sm"
         variant="flat"
-        color="warning"
+        color="primary"
         className="w-full uppercase"
         type="submit"
       >
