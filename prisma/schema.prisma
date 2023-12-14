@@ -18,7 +18,7 @@ model Authorization {
   solution   Solution @relation(fields: [solutionId], references: [id], onUpdate: Cascade)
 
   organization String
-  apiKey       String    @map("api_key")
+  apiKey       String    @unique @map("api_key")
   expireIn     DateTime? @map("expire_in")
   isActive     Boolean?  @default(false) @map("is_active")
 
@@ -34,7 +34,7 @@ model Solution {
 
   name           String
   description    String?
-  apiUrl         String          @map("api_url")
+  apiUrl         String          @unique @map("api_url")
   authorizations Authorization[]
 
   @@map("solutions")
