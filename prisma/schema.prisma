@@ -15,7 +15,7 @@ model Authorization {
   softDeleted Boolean?  @default(false) @map("soft_deleted")
 
   solutionId String   @map("solution_id") @db.ObjectId
-  solution   Solution @relation(fields: [solutionId], references: [id])
+  solution   Solution @relation(fields: [solutionId], references: [id], onUpdate: Cascade)
 
   organization String
   apiKey       String    @map("api_key")

@@ -1,19 +1,19 @@
 'use client'
 
 import {
-  CreateAuthorizationDTO,
-  CreateAuthorizationDTOType,
-} from '@/app/api/authorizations/dto'
+  CreateSolutionDTO,
+  CreateSolutionDTOType,
+} from '@/app/api/solutions/dto'
 import useFetch from '@/hooks/use-fetch'
-import { AuthorizationType } from '@/types/authorization'
+import { SolutionType } from '@/types/solution'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Input } from '@mui/base'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
-export default function CreateAuthorizationForm() {
-  const { data: authorizations, mutate } = useFetch<AuthorizationType[] | any>(
-    '/api/authorizations',
+export default function CreateSolutionForm() {
+  const { data: solutions, mutate } = useFetch<SolutionType[] | any>(
+    '/api/solutions',
   )
 
   const {
@@ -22,23 +22,21 @@ export default function CreateAuthorizationForm() {
     formState: { errors },
     register,
     reset,
-  } = useForm<CreateAuthorizationDTOType>({
+  } = useForm<CreateSolutionDTOType>({
     mode: 'all',
-    resolver: zodResolver(CreateAuthorizationDTO),
+    resolver: zodResolver(CreateSolutionDTO),
   })
 
-  const onSubmit: SubmitHandler<CreateAuthorizationDTOType> = async (
-    inputs,
-  ) => {
+  const onSubmit: SubmitHandler<CreateSolutionDTOType> = async (inputs) => {
     try {
-      await fetch(`/api/authorizations`, {
+      await fetch(`/api/solutions`, {
         method: 'POST',
         body: JSON.stringify(inputs),
         headers: { 'Content-Type': 'application/json' },
       }).then(async (res: any) => {
         const data = await res.json()
         if (res.status == 201) {
-          await mutate(...authorizations, data, {
+          await mutate(...solutions, data, {
             revalidate: true,
             rollbackOnError: true,
           })
@@ -62,11 +60,19 @@ export default function CreateAuthorizationForm() {
       className="flex flex-col flex-1 gap-4 m-2"
     >
       <Controller
-        {...register('solutionId')}
+        {...register('name')}
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <Input name="name" type="text" value={value} onChange={onChange} />
+        )}
+      />
+
+      <Controller
+        {...register('description')}
         control={control}
         render={({ field: { value, onChange } }) => (
           <Input
-            name="solutionId"
+            name="description"
             type="text"
             value={value}
             onChange={onChange}
@@ -75,33 +81,15 @@ export default function CreateAuthorizationForm() {
       />
 
       <Controller
-        {...register('organization')}
+        {...register('apiUrl')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
-            name="organization"
-            type="text"
-            value={value}
-            onChange={onChange}
-          />
-        )}
-      />
-
-      <Controller
-        {...register('expireIn')}
-        control={control}
-        render={({ field: { value, onChange } }) => (
-          <Input
-            name="expireIn"
-            type="date"
-            value={value}
-            onChange={onChange}
-          />
+          <Input name="apiUrl" type="date" value={value} onChange={onChange} />
         )}
       />
 
       <Button color="primary" className="w-full uppercase" type="submit">
-        Criar Chave de Autorização
+        Criar Solução
       </Button>
     </form>
   )

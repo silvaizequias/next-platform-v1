@@ -2,6 +2,7 @@ import { prisma } from '@/libraries/prisma'
 import { UpdateAuthorizationDTO, UpdateAuthorizationDTOType } from '../dto'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/libraries/next-auth'
+import { Prisma } from '@prisma/client'
 
 export async function GET(
   request: Request,
@@ -15,6 +16,9 @@ export async function GET(
         JSON.stringify(
           await prisma.authorization.findFirst({
             where: { id: id, softDeleted: false },
+            include: {
+              solution: true,
+            },
           }),
         ),
       )
@@ -40,10 +44,37 @@ export async function POST(
     if (session && session?.user.profile == 'MASTER') {
       const inputs: UpdateAuthorizationDTOType = await request.json()
       if (await UpdateAuthorizationDTO.parseAsync(inputs)) {
-        await prisma.authorization.update({
-          where: { id: id, softDeleted: false },
-          data: inputs,
+        const { solutionId } = inputs
+        delete inputs?.solutionId
+
+        if (!solutionId) {
+          await prisma.authorization.update({
+            where: { id: id, softDeleted: false },
+            data: { ...inputs },
+          })
+          return new Response(
+            JSON.stringify('as informações de autorização	foram atualizadas'),
+            { status: 201 },
+          )
+        }
+
+        const solution = await prisma.solution.findFirst({
+          where: { id: solutionId, softDeleted: false },
         })
+        if (!solution)
+          return new Response(JSON.stringify('a solução não existe'), {
+            status: 404,
+          })
+
+        const data: Prisma.AuthorizationUpdateInput = {
+          ...inputs,
+          solution: {
+            update: {
+              apiUrl: solution.apiUrl,
+            },
+          },
+        }
+        await prisma.authorization.update({ where: { id: id }, data })
 
         return new Response(
           JSON.stringify('as informações de autorização	foram atualizadas'),

@@ -5,6 +5,7 @@ export type AuthorizationType = {
   deletedAt: Date
   softDeleted: boolean
   solution: string
+  solutionId: string
   organization: string
   role: string
   apiKey: string

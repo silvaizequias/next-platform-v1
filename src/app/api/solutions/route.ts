@@ -1,9 +1,7 @@
 import { prisma } from '@/libraries/prisma'
-import { CreateAuthorizationDTO, CreateAuthorizationDTOType } from './dto'
-import { randomUUID } from 'crypto'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/libraries/next-auth'
-import { Prisma } from '@prisma/client'
+import { CreateSolutionDTO, CreateSolutionDTOType } from './dto'
 
 export async function GET(request: Request) {
   const session = await getServerSession(authOptions)
@@ -11,10 +9,10 @@ export async function GET(request: Request) {
     if (session && session.user.profile == 'MASTER')
       return new Response(
         JSON.stringify(
-          await prisma.authorization.findFirst({
+          await prisma.solution.findFirst({
             where: { softDeleted: false },
             include: {
-              solution: true,
+              authorizations: true,
             },
           }),
         ),
@@ -35,38 +33,15 @@ export async function POST(request: Request) {
   const session = await getServerSession(authOptions)
   try {
     if (session && session.user.profile == 'MASTER') {
-      const inputs: CreateAuthorizationDTOType = await request.json()
-      if (await CreateAuthorizationDTO.parseAsync(inputs)) {
-        const { solutionId } = inputs
-        delete inputs?.solutionId
-
-        const keyGeneration = randomUUID()
-
-        const solution = await prisma.solution.findFirst({
-          where: { id: solutionId, softDeleted: false },
-        })
-        if (!solution)
-          return new Response(JSON.stringify('a solução não existe'), {
-            status: 404,
-          })
-
-        const data: Prisma.AuthorizationCreateInput = {
-          ...inputs,
-          apiKey: keyGeneration,
-          solution: {
-            connect: {
-              id: solutionId,
-            },
-          },
-        }
-        await prisma.authorization.create({
-          data,
+      const inputs: CreateSolutionDTOType = await request.json()
+      if (await CreateSolutionDTO.parseAsync(inputs)) {
+        await prisma.solution.create({
+          data: {...inputs},
         })
 
-        return new Response(
-          JSON.stringify('a chave api de autorização foi criada'),
-          { status: 201 },
-        )
+        return new Response(JSON.stringify('a solução foi criada'), {
+          status: 201,
+        })
       }
     }
     return new Response(JSON.stringify('acesso não autorizado'), {

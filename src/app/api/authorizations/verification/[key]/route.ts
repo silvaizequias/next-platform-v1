@@ -13,7 +13,6 @@ export async function GET(
       where: { apiKey: key, softDeleted: false, isActive: true },
       select: {
         expireIn: true,
-        role: true,
         solution: true,
       },
     })
