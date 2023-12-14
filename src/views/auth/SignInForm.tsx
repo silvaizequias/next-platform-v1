@@ -5,7 +5,7 @@ import {
   SignInDTOType,
 } from '@/app/api/platform-management/signin/dto'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input } from '@nextui-org/react'
+import { Button, FormControl, Input } from '@mui/base'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
@@ -45,41 +45,39 @@ export default function SignInForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
+      noValidate
       className="flex flex-col flex-1 gap-4 m-2"
     >
-      <Controller
-        {...register('email')}
-        control={control}
-        render={({ field: { value, onChange } }) => (
-          <Input
-            variant="underlined"
-            size="sm"
-            name="email"
-            type="email"
-            label="E-mail"
-            errorMessage={errors.email?.message}
-            value={value}
-            onChange={onChange}
-          />
-        )}
-      />
+      <FormControl defaultValue="" required>
+        <Controller
+          {...register('email')}
+          control={control}
+          render={({ field: { value, onChange } }) => (
+            <Input
+              name="email"
+              type="email"
+              value={value}
+              onChange={onChange}
+            />
+          )}
+        />
+      </FormControl>
 
-      <Controller
-        {...register('password')}
-        control={control}
-        render={({ field: { value, onChange } }) => (
-          <Input
-            variant="underlined"
-            size="sm"
-            name="password"
-            type="password"
-            label="Senha"
-            errorMessage={errors.password?.message}
-            value={value}
-            onChange={onChange}
-          />
-        )}
-      />
+      <FormControl defaultValue="" required>
+        <Controller
+          {...register('password')}
+          control={control}
+          render={({ field: { value, onChange } }) => (
+            <Input
+              name="password"
+              type="password"
+              value={value}
+              onChange={onChange}
+            />
+          )}
+        />
+      </FormControl>
+
       <p
         className="font-thint text-xs text-right italic cursor-pointer hover:opacity-50"
         onClick={() => router.push('/auth/redefinir-senha')}
@@ -87,13 +85,7 @@ export default function SignInForm() {
         esqueceu a senha?
       </p>
 
-      <Button
-        size="sm"
-        variant="flat"
-        color="primary"
-        className="w-full uppercase"
-        type="submit"
-      >
+      <Button color="primary" className="w-full uppercase" type="submit">
         Acessar
       </Button>
     </form>

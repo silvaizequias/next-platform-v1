@@ -3,7 +3,7 @@ import {
   UpdateProfilePasswordDTOType,
 } from '@/app/api/profile/dto'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input } from '@nextui-org/react'
+import { Button, Input } from '@mui/base'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -53,12 +53,8 @@ export default function UpdateProfilePasswordForm() {
         control={control}
         render={({ field: { value, onChange } }) => (
           <Input
-            variant="underlined"
-            size="sm"
             name="oldPassword"
             type="text"
-            label="Senha Atual"
-            errorMessage={errors.oldPassword?.message}
             value={value}
             onChange={onChange}
           />
@@ -70,12 +66,8 @@ export default function UpdateProfilePasswordForm() {
         control={control}
         render={({ field: { value, onChange } }) => (
           <Input
-            variant="underlined"
-            size="sm"
             name="newPassword"
             type="text"
-            label="Nova Senha"
-            errorMessage={errors.newPassword?.message}
             value={value}
             onChange={onChange}
           />
@@ -87,25 +79,15 @@ export default function UpdateProfilePasswordForm() {
         control={control}
         render={({ field: { value, onChange } }) => (
           <Input
-            variant="underlined"
-            size="sm"
             name="confirmNewPassword"
             type="text"
-            label="Confirmar Nova Senha"
-            errorMessage={errors.confirmNewPassword?.message}
             value={value}
             onChange={onChange}
           />
         )}
       />
 
-      <Button
-        size="sm"
-        variant="flat"
-        color="warning"
-        className="w-full uppercase"
-        type="submit"
-      >
+      <Button color="primary" className="w-full uppercase" type="submit">
         Atualizar Senha
       </Button>
     </form>

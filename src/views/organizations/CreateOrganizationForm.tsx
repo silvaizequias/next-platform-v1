@@ -7,7 +7,7 @@ import {
 import useFetch from '@/hooks/use-fetch'
 import { OrganizationType } from '@/types/platform-management/organization'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input } from '@nextui-org/react'
+import { Button, Input } from '@mui/base'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -64,16 +64,7 @@ export default function CreateOrganizationForm() {
         {...register('name')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
-            variant="underlined"
-            size="sm"
-            name="name"
-            type="text"
-            label="Nome da Organização"
-            errorMessage={errors.name?.message}
-            value={value}
-            onChange={onChange}
-          />
+          <Input name="name" type="text" value={value} onChange={onChange} />
         )}
       />
 
@@ -82,25 +73,15 @@ export default function CreateOrganizationForm() {
         control={control}
         render={({ field: { value, onChange } }) => (
           <Input
-            variant="underlined"
-            size="sm"
             name="documentCode"
             type="number"
-            label="CNPJ"
-            errorMessage={errors.documentCode?.message}
             value={value}
             onChange={onChange}
           />
         )}
       />
 
-      <Button
-        size="sm"
-        variant="flat"
-        color="warning"
-        className="w-full uppercase"
-        type="submit"
-      >
+      <Button color="prmary" className="w-full uppercase" type="submit">
         Criar Organização
       </Button>
     </form>

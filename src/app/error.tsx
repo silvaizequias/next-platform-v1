@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@nextui-org/react'
+import { Button } from '@mui/base'
 import { useEffect } from 'react'
 
 export default function Error({
@@ -23,8 +23,6 @@ export default function Error({
           </h4>
           <p className="font-light text-base">{error.message}</p>
           <Button
-            variant="faded"
-            size="sm"
             color="warning"
             onClick={() => reset()}
           >

@@ -7,7 +7,7 @@ import {
 import useFetch from '@/hooks/use-fetch'
 import { AuthorizationType } from '@/types/authorization'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input } from '@nextui-org/react'
+import { Button, Input } from '@mui/base'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -66,12 +66,8 @@ export default function CreateAuthorizationForm() {
         control={control}
         render={({ field: { value, onChange } }) => (
           <Input
-            variant="underlined"
-            size="sm"
             name="solution"
             type="text"
-            label="Solução"
-            errorMessage={errors.solution?.message}
             value={value}
             onChange={onChange}
           />
@@ -83,12 +79,8 @@ export default function CreateAuthorizationForm() {
         control={control}
         render={({ field: { value, onChange } }) => (
           <Input
-            variant="underlined"
-            size="sm"
             name="organization"
             type="text"
-            label="Organização"
-            errorMessage={errors.organization?.message}
             value={value}
             onChange={onChange}
           />
@@ -99,16 +91,7 @@ export default function CreateAuthorizationForm() {
         {...register('role')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
-            variant="underlined"
-            size="sm"
-            name="role"
-            type="text"
-            label="Função"
-            errorMessage={errors.role?.message}
-            value={value}
-            onChange={onChange}
-          />
+          <Input name="role" type="text" value={value} onChange={onChange} />
         )}
       />
 
@@ -117,25 +100,15 @@ export default function CreateAuthorizationForm() {
         control={control}
         render={({ field: { value, onChange } }) => (
           <Input
-            variant="underlined"
-            size="sm"
             name="expireIn"
             type="date"
-            label="Expira em"
-            errorMessage={errors.expireIn?.message}
-            //value={value}
+            value={value}
             onChange={onChange}
           />
         )}
       />
 
-      <Button
-        size="sm"
-        variant="flat"
-        color="warning"
-        className="w-full uppercase"
-        type="submit"
-      >
+      <Button color="primary" className="w-full uppercase" type="submit">
         Criar Chave de Autorização
       </Button>
     </form>

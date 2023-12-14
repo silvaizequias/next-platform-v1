@@ -7,7 +7,7 @@ import {
 import useFetch from '@/hooks/use-fetch'
 import { SupportTicketType } from '@/types/support-management/ticket'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input, Textarea } from '@nextui-org/react'
+import { Button, Input } from '@mui/base'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -66,12 +66,8 @@ export default function CreateSupportTicketForm() {
         control={control}
         render={({ field: { value, onChange } }) => (
           <Input
-            variant="underlined"
-            size="sm"
             name="organization"
             type="text"
-            label="Organização"
-            errorMessage={errors.organization?.message}
             value={value}
             onChange={onChange}
           />
@@ -82,16 +78,7 @@ export default function CreateSupportTicketForm() {
         {...register('subject')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
-            variant="underlined"
-            size="sm"
-            name="subject"
-            type="text"
-            label="Assunto"
-            errorMessage={errors.subject?.message}
-            value={value}
-            onChange={onChange}
-          />
+          <Input name="subject" type="text" value={value} onChange={onChange} />
         )}
       />
 
@@ -99,26 +86,11 @@ export default function CreateSupportTicketForm() {
         {...register('content')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Textarea
-            variant="underlined"
-            size="sm"
-            name="content"
-            type="text"
-            label="Mensagem"
-            errorMessage={errors.content?.message}
-            value={value}
-            onChange={onChange}
-          />
+          <Input name="content" type="text" value={value} onChange={onChange} />
         )}
       />
 
-      <Button
-        size="sm"
-        variant="flat"
-        color="warning"
-        className="w-full uppercase"
-        type="submit"
-      >
+      <Button color="primary" className="w-full uppercase" type="submit">
         Criar Ticket
       </Button>
     </form>

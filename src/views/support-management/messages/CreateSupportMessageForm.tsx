@@ -7,7 +7,7 @@ import {
 import useFetch from '@/hooks/use-fetch'
 import { SupportMessageType } from '@/types/support-management/message'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input, Textarea } from '@nextui-org/react'
+import { Button, Input } from '@mui/base'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -66,12 +66,8 @@ export default function CreateSupportMessageForm() {
         control={control}
         render={({ field: { value, onChange } }) => (
           <Input
-            variant="underlined"
-            size="sm"
             name="ticketId"
             type="text"
-            label="Código do Ticket"
-            errorMessage={errors.ticketId?.message}
             value={value}
             onChange={onChange}
           />
@@ -82,16 +78,7 @@ export default function CreateSupportMessageForm() {
         {...register('to')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
-            variant="underlined"
-            size="sm"
-            name="to"
-            type="text"
-            label="Destinatário"
-            errorMessage={errors.to?.message}
-            value={value}
-            onChange={onChange}
-          />
+          <Input name="to" type="text" value={value} onChange={onChange} />
         )}
       />
 
@@ -99,26 +86,11 @@ export default function CreateSupportMessageForm() {
         {...register('content')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Textarea
-            variant="underlined"
-            size="sm"
-            name="content"
-            type="text"
-            label="Mensagem"
-            errorMessage={errors.content?.message}
-            value={value}
-            onChange={onChange}
-          />
+          <Input name="content" type="text" value={value} onChange={onChange} />
         )}
       />
 
-      <Button
-        size="sm"
-        variant="flat"
-        color="warning"
-        className="w-full uppercase"
-        type="submit"
-      >
+      <Button color="primary" className="w-full uppercase" type="submit">
         Enviar Mensagem
       </Button>
     </form>

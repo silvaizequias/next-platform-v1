@@ -1,6 +1,6 @@
 'use client'
 
-import { Switch } from '@nextui-org/react'
+import { Switch } from '@mui/base'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { FaMoon, FaSun } from 'react-icons/fa'
@@ -17,18 +17,12 @@ export function ThemeSwitcher() {
 
   return (
     <div>
-      <Switch
-        defaultSelected
-        size="lg"
-        color="default"
-        thumbIcon={({ isSelected, className }) =>
-          theme == 'dark' ? (
-            <FaSun className={className} onClick={() => setTheme('light')} />
-          ) : (
-            <FaMoon className={className} onClick={() => setTheme('dark')} />
-          )
-        }
-      ></Switch>
+      <Switch color="default"></Switch>
+      {theme == 'dark' ? (
+        <FaSun onClick={() => setTheme('light')} />
+      ) : (
+        <FaMoon onClick={() => setTheme('dark')} />
+      )}
     </div>
   )
 }

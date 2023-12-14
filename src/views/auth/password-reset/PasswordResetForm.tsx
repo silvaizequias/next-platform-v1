@@ -3,7 +3,7 @@ import {
   PasswordResetDTOType,
 } from '@/app/api/platform-management/password-reset/dto'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input } from '@nextui-org/react'
+import { Button, Input } from '@mui/base'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -51,16 +51,7 @@ export default function PasswordResetForm() {
         {...register('email')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
-            variant="underlined"
-            size="sm"
-            name="email"
-            type="email"
-            label="E-mail"
-            errorMessage={errors.email?.message}
-            value={value}
-            onChange={onChange}
-          />
+          <Input name="email" type="email" value={value} onChange={onChange} />
         )}
       />
 
@@ -68,26 +59,11 @@ export default function PasswordResetForm() {
         {...register('phone')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
-            variant="underlined"
-            size="sm"
-            name="phone"
-            type="number"
-            label="Celular"
-            errorMessage={errors.phone?.message}
-            value={value}
-            onChange={onChange}
-          />
+          <Input name="phone" type="number" value={value} onChange={onChange} />
         )}
       />
 
-      <Button
-        size="sm"
-        variant="flat"
-        color="warning"
-        className="w-full uppercase"
-        type="submit"
-      >
+      <Button color="warning" className="w-full uppercase" type="submit">
         Redefinir a Senha
       </Button>
     </form>

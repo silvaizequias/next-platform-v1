@@ -7,7 +7,7 @@ import {
 import useFetch from '@/hooks/use-fetch'
 import { ServiceItemType } from '@/types/service-management/item'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input } from '@nextui-org/react'
+import { Button, Input } from '@mui/base'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -63,16 +63,7 @@ export default function CreateServiceItemForm() {
         {...register('orderId')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
-            variant="underlined"
-            size="sm"
-            name="orderId"
-            type="text"
-            label="Código da OS"
-            errorMessage={errors.orderId?.message}
-            value={value}
-            onChange={onChange}
-          />
+          <Input name="orderId" type="text" value={value} onChange={onChange} />
         )}
       />
 
@@ -80,16 +71,7 @@ export default function CreateServiceItemForm() {
         {...register('note')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
-            variant="underlined"
-            size="sm"
-            name="note"
-            type="text"
-            label="Observação"
-            errorMessage={errors.note?.message}
-            value={value}
-            onChange={onChange}
-          />
+          <Input name="note" type="text" value={value} onChange={onChange} />
         )}
       />
 
@@ -98,13 +80,9 @@ export default function CreateServiceItemForm() {
         control={control}
         render={({ field: { value, onChange } }) => (
           <Input
-            variant="underlined"
-            size="sm"
             name="amount"
             type="number"
-            label="Quantidade"
-            errorMessage={errors.amount?.message}
-            //value={value}
+            value={value}
             onChange={onChange}
           />
         )}
@@ -114,26 +92,11 @@ export default function CreateServiceItemForm() {
         {...register('file')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
-            variant="underlined"
-            size="sm"
-            name="file"
-            type="text"
-            label="URL do Arquivo"
-            errorMessage={errors.file?.message}
-            value={value}
-            onChange={onChange}
-          />
+          <Input name="file" type="text" value={value} onChange={onChange} />
         )}
       />
 
-      <Button
-        size="sm"
-        variant="flat"
-        color="warning"
-        className="w-full uppercase"
-        type="submit"
-      >
+      <Button color="primary" className="w-full uppercase" type="submit">
         Adicionar Item
       </Button>
     </form>

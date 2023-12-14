@@ -5,7 +5,7 @@ import {
   SignUpDTOType,
 } from '@/app/api/platform-management/signup/dto'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input } from '@nextui-org/react'
+import { Button, Input } from '@mui/base'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
@@ -74,58 +74,25 @@ export default function SignUpForm() {
         {...register('name')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
-            variant="underlined"
-            size="sm"
-            name="name"
-            type="text"
-            label="Nome Completo"
-            errorMessage={errors.name?.message}
-            value={value}
-            onChange={onChange}
-          />
+          <Input name="name" type="text" value={value} onChange={onChange} />
         )}
       />
       <Controller
         {...register('email')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
-            variant="underlined"
-            size="sm"
-            name="email"
-            type="email"
-            label="E-mail"
-            errorMessage={errors.email?.message}
-            value={value}
-            onChange={onChange}
-          />
+          <Input name="email" type="email" value={value} onChange={onChange} />
         )}
       />
       <Controller
         {...register('phone')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
-            variant="underlined"
-            size="sm"
-            name="phone"
-            type="number"
-            label="Celular"
-            errorMessage={errors.phone?.message}
-            value={value}
-            onChange={onChange}
-          />
+          <Input name="phone" type="number" value={value} onChange={onChange} />
         )}
       />
 
-      <Button
-        size="sm"
-        variant="flat"
-        color="primary"
-        className="w-full uppercase"
-        type="submit"
-      >
+      <Button color="primary" className="w-full uppercase" type="submit">
         Registrar-se
       </Button>
     </form>

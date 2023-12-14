@@ -4,7 +4,7 @@ import { UpdateProfileDTO, UpdateProfileDTOType } from '@/app/api/profile/dto'
 import useFetch from '@/hooks/use-fetch'
 import { UserType } from '@/types/platform-management/user'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input } from '@nextui-org/react'
+import { Button, Input } from '@mui/base'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -58,26 +58,11 @@ export default function UpdateProfileForm() {
         {...register('name')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
-            variant="underlined"
-            size="sm"
-            name="name"
-            type="text"
-            label="Nome Completo"
-            errorMessage={errors.name?.message}
-            value={value}
-            onChange={onChange}
-          />
+          <Input name="name" type="text" value={value} onChange={onChange} />
         )}
       />
 
-      <Button
-        size="sm"
-        variant="flat"
-        color="warning"
-        className="w-full uppercase"
-        type="submit"
-      >
+      <Button color="primary" className="w-full uppercase" type="submit">
         Atualizar Informações
       </Button>
     </form>

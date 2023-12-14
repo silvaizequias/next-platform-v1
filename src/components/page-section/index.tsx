@@ -1,4 +1,3 @@
-import { Divider } from '@nextui-org/react'
 import { ReactNode } from 'react'
 
 interface Props {
@@ -27,7 +26,7 @@ export default function PageSection(props: Props) {
             </h4>
           </div>
           <div className="my-6 mx-24 sm:mx-40 md:mx-60">
-            <Divider />
+            <div className='my-2 bg-slate-400 px-14'></div>
           </div>
           <div className="my-2 sm:my-4 mx-auto md:mx-60">
             <p className="italic">{description}</p>

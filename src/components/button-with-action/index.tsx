@@ -1,10 +1,9 @@
 'use client'
 
-import { Button } from '@nextui-org/react'
+import { Button } from '@mui/base'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import toast from 'react-hot-toast'
-import { IconType } from 'react-icons'
 
 interface Props {
   color?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger'
@@ -12,12 +11,10 @@ interface Props {
   message?: string
   name: string
   path?: string
-  size?: 'sm' | 'md' | 'lg'
-  variant?: 'faded' | 'bordered' | 'light' | 'flat' | 'ghost' | 'shadow'
 }
 
 export default function ButtonWithAction(props: Props) {
-  const { color, id, message, name, path, size, variant } = props
+  const { color, id, message, name, path } = props
 
   const router = useRouter()
 
@@ -36,8 +33,6 @@ export default function ButtonWithAction(props: Props) {
         className="uppercase"
         id={id}
         onClick={() => handleClick(path, message)}
-        variant={variant || 'solid'}
-        size={size || 'sm'}
       >
         {name}
       </Button>
