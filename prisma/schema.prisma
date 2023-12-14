@@ -14,12 +14,42 @@ model Authorization {
   deletedAt   DateTime? @map("deleted_at") @db.Date
   softDeleted Boolean?  @default(false) @map("soft_deleted")
 
-  solution     String
+  solutionId String   @map("solution_id") @db.ObjectId
+  solution   Solution @relation(fields: [solutionId], references: [id])
+
   organization String
-  role         String
   apiKey       String    @map("api_key")
   expireIn     DateTime? @map("expire_in")
   isActive     Boolean?  @default(false) @map("is_active")
 
   @@map("authorizations")
+}
+
+model Solution {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at") @db.Date
+  softDeleted Boolean?  @default(false) @map("soft_deleted")
+
+  name           String
+  description    String?
+  apiUrl         String          @map("api_url")
+  authorizations Authorization[]
+
+  @@map("solutions")
+}
+
+model Subdomain {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at") @db.Date
+  softDeleted Boolean?  @default(false) @map("soft_deleted")
+
+  name    String
+  slug    String   @unique
+  private Boolean? @default(false)
+
+  @@map("subdomains")
 }
