@@ -12,9 +12,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <Providers>
-          <main className="mx-auto h-full w-full">{children}</main>
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   )
