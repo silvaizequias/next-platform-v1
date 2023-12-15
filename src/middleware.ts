@@ -20,9 +20,21 @@ export default async function middleware(req: NextRequest) {
     searchParams.length > 0 ? `?${searchParams}` : ''
   }`
 
+  if (hostname == `blog.${process.env.NEXTAUTH_URL}`) {
+    return NextResponse.rewrite(
+      new URL(`/blog${path === '/' ? '' : path}`, req.url),
+    )
+  }
+
+  if (hostname == `portal.${process.env.NEXTAUTH_URL}`) {
+    return NextResponse.rewrite(
+      new URL(`/portal${path === '/' ? '' : path}`, req.url),
+    )
+  }
+
   if (hostname === 'localhost:3000' || hostname === process.env.NEXTAUTH_URL) {
     return NextResponse.rewrite(
-      new URL(`/${path === '/' ? '' : path}`, req.url),
+      new URL(`/landing/${path === '/' ? '' : path}`, req.url),
     )
   }
 
