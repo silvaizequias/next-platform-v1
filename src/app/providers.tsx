@@ -1,14 +1,22 @@
 'use client'
 
-import CrispChat from '@/components/crisp-chat'
-import { NextUIProvider } from '@nextui-org/react'
+import { Analytics } from '@vercel/analytics/react'
+import { Provider as BalancerProvider } from 'react-wrap-balancer'
 import { ReactNode } from 'react'
+import { Toaster } from 'react-hot-toast'
+import { SessionProvider } from 'next-auth/react'
 
-export default function Providers({ children }: { children: ReactNode }) {
+export function Providers({ children }: { children: ReactNode }) {
+  const isDevelopment = process.env.NODE_ENV === 'development'
+
   return (
-    <NextUIProvider>
-      {children}
-      <CrispChat />
-    </NextUIProvider>
+    <SessionProvider>
+      <BalancerProvider>{children}</BalancerProvider>
+      <Toaster
+        position={'top-center'}
+        toastOptions={{ className: 'react-hot-toast' }}
+      />
+      {!isDevelopment && <Analytics />}
+    </SessionProvider>
   )
 }

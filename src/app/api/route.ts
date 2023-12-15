@@ -1,3 +1,14 @@
+import { authOptions } from '@/libraries/next-auth'
+import { getServerSession } from 'next-auth'
+
 export async function GET(request: Request) {
-  return new Response(JSON.stringify(request.method), { status: 200 })
+  const session = await getServerSession(authOptions)
+  try {
+    if (session) return new Response(JSON.stringify(session))
+    return new Response(JSON.stringify('acesso não autorizado'), {
+      status: 403,
+    })
+  } catch (error: any) {
+    return new Response(error.message || error, { status: 400 })
+  }
 }

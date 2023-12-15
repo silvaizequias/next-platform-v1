@@ -4,15 +4,10 @@
 /node_modules
 /.pnp
 .pnp.js
+.yarn/install-state.gz
 
 # testing
 /coverage
-
-# temp
-/temp/
-
-# vscode
-/.vscode/
 
 # next.js
 /.next/
@@ -40,3 +35,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+

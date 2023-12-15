@@ -1,0 +1,81 @@
+'use client'
+
+import {
+  UpdateProfileAddressDTO,
+  UpdateProfileAddressDTOType,
+} from '@/app/api/profile/dto'
+import useFetch from '@/hooks/use-fetch'
+import { UserType } from '@/types/platform-management/user'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Button, Input } from '@mui/base'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+
+export default function UpdateProfileAddressForm() {
+  const { data: profile, mutate } = useFetch<UserType | any>('/api/profile')
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    register,
+    reset,
+  } = useForm<UpdateProfileAddressDTOType>({
+    mode: 'all',
+    resolver: zodResolver(UpdateProfileAddressDTO),
+  })
+
+  const onSubmit: SubmitHandler<UpdateProfileAddressDTOType> = async (
+    inputs,
+  ) => {
+    try {
+      await fetch(`/api/profile/update-address`, {
+        method: 'POST',
+        body: JSON.stringify(inputs),
+        headers: { 'Content-Type': 'application/json' },
+      }).then(async (res: any) => {
+        const data = await res.json()
+        if (res.status == 201) {
+          await mutate(...profile, data, {
+            revalidate: true,
+            rollbackOnError: true,
+          })
+
+          reset(inputs)
+          toast.success(data)
+        } else {
+          toast.error(data)
+        }
+      })
+    } catch (error: any) {
+      toast.error(error?.message)
+      console.error(error)
+    } finally {
+      reset(inputs)
+    }
+  }
+
+  return (
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col flex-1 gap-4 m-2"
+    >
+      <Controller
+        {...register('zipCode')}
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <Input
+            name="zipCode"
+            type="number"
+            value={value}
+            onChange={onChange}
+          />
+        )}
+      />
+
+      <Button color="primary" className="w-full uppercase" type="submit">
+        Atualizar Endereço
+      </Button>
+    </form>
+  )
+}

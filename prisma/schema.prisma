@@ -1,107 +1,55 @@
-datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
-}
-
 generator client {
   provider = "prisma-client-js"
 }
 
-enum UserProfile {
-  USER
-  MASTER
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
 
-enum UserRole {
-  GUEST
-  CUSTOMER
-  MEMBER
-  ADMINISTRATOR
-  OWNER
-}
-
-model User {
-  id          String    @id @default(cuid())
+model Authorization {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime  @updatedAt @map("updated_at")
   deletedAt   DateTime? @map("deleted_at") @db.Date
   softDeleted Boolean?  @default(false) @map("soft_deleted")
 
-  isActive Boolean?     @default(true) @map("is_active")
-  profile  UserProfile? @default(USER)
+  solutionId String   @map("solution_id") @db.ObjectId
+  solution   Solution @relation(fields: [solutionId], references: [id], onUpdate: Cascade)
 
-  name         String
-  image        String?
-  email        String  @unique
-  phone        String  @unique
-  documentCode String? @unique @map("document_code")
+  organization String
+  apiKey       String    @unique @map("api_key")
+  expireIn     DateTime? @map("expire_in")
+  isActive     Boolean?  @default(false) @map("is_active")
 
-  accessCode String? @unique @map("access_Code")
-  passHash   String? @map("pass_hash")
-
-  zipCode    String?
-  street     String?
-  complement String?
-  district   String?
-  city       String?
-  state      String?
-  country    String?
-
-  latitude  Float?
-  longitude Float?
-
-  organizations OrganizationUsers[]
-
-  @@map("users")
+  @@map("authorizations")
 }
 
-model Organization {
-  id          String    @id @default(cuid())
+model Solution {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime  @updatedAt @map("updated_at")
   deletedAt   DateTime? @map("deleted_at") @db.Date
   softDeleted Boolean?  @default(false) @map("soft_deleted")
 
-  isActive Boolean? @default(true) @map("is_active")
+  name           String
+  description    String?
+  apiUrl         String          @unique @map("api_url")
+  authorizations Authorization[]
 
-  name         String
-  image        String?
-  email        String? @unique
-  phone        String? @unique
-  documentCode String  @unique @map("document_code")
-
-  zipCode    String?
-  street     String?
-  complement String?
-  district   String?
-  city       String?
-  state      String?
-  country    String?
-
-  latitude  Float?
-  longitude Float?
-
-  users OrganizationUsers[]
-
-  @@map("organizations")
+  @@map("solutions")
 }
 
-model OrganizationUsers {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+model Subdomain {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at") @db.Date
+  softDeleted Boolean?  @default(false) @map("soft_deleted")
 
-  organizationId String       @map("organization_id")
-  organization   Organization @relation(fields: [organizationId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  name    String
+  slug    String   @unique
+  private Boolean? @default(false)
 
-  userId String @map("user_id")
-  user   User   @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
-
-  isActive Boolean?  @default(true) @map("is_active")
-  role     UserRole? @default(GUEST)
-
-  @@index([organizationId])
-  @@index([userId])
-  @@map("organization_users")
+  @@map("subdomains")
 }
