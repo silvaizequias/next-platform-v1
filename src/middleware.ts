@@ -32,6 +32,12 @@ export default async function middleware(req: NextRequest) {
     )
   }
 
+  if (hostname == `www.${process.env.NEXTAUTH_URL}`) {
+    return NextResponse.rewrite(
+      new URL(`/landing/${path === '/' ? '' : path}`, req.url),
+    )
+  }
+
   if (hostname === 'localhost:3000' || hostname === process.env.NEXTAUTH_URL) {
     return NextResponse.rewrite(
       new URL(`/landing/${path === '/' ? '' : path}`, req.url),
