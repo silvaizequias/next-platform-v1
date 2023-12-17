@@ -7,7 +7,6 @@ import {
 import useFetch from '@/hooks/use-fetch'
 import { UserType } from '@/types/platform-management/user'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input } from '@mui/base'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -64,7 +63,7 @@ export default function UpdateProfileAddressForm() {
         {...register('zipCode')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
+          <input
             name="zipCode"
             type="number"
             value={value}
@@ -73,9 +72,9 @@ export default function UpdateProfileAddressForm() {
         )}
       />
 
-      <Button color="primary" className="w-full uppercase" type="submit">
+      <button className="w-full uppercase" type="submit">
         Atualizar Endereço
-      </Button>
+      </button>
     </form>
   )
 }

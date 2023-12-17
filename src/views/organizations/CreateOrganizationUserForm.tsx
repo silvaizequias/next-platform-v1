@@ -7,7 +7,6 @@ import {
 import useFetch from '@/hooks/use-fetch'
 import { OrganizationUserType } from '@/types/platform-management/organization'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input } from '@mui/base'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -66,7 +65,7 @@ export default function CreateOrganizationUserForm() {
         {...register('organizationId')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
+          <input
             name="organizationId"
             type="text"
             value={value}
@@ -79,7 +78,7 @@ export default function CreateOrganizationUserForm() {
         {...register('userId')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input name="userId" type="text" value={value} onChange={onChange} />
+          <input name="userId" type="text" value={value} onChange={onChange} />
         )}
       />
 
@@ -87,13 +86,13 @@ export default function CreateOrganizationUserForm() {
         {...register('role')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input name="role" type="text" value={value} onChange={onChange} />
+          <input name="role" type="text" value={value} onChange={onChange} />
         )}
       />
 
-      <Button color="primary" className="w-full uppercase" type="submit">
+      <button color="primary" className="w-full uppercase" type="submit">
         Adicionar Usuário
-      </Button>
+      </button>
     </form>
   )
 }

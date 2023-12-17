@@ -4,7 +4,6 @@ import { UpdateProfileDTO, UpdateProfileDTOType } from '@/app/api/profile/dto'
 import useFetch from '@/hooks/use-fetch'
 import { UserType } from '@/types/platform-management/user'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input } from '@mui/base'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -58,13 +57,13 @@ export default function UpdateProfileForm() {
         {...register('name')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input name="name" type="text" value={value} onChange={onChange} />
+          <input name="name" type="text" value={value} onChange={onChange} />
         )}
       />
 
-      <Button color="primary" className="w-full uppercase" type="submit">
+      <button color="primary" className="w-full uppercase" type="submit">
         Atualizar Informações
-      </Button>
+      </button>
     </form>
   )
 }

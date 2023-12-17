@@ -3,7 +3,6 @@ import {
   UpdateProfilePasswordDTOType,
 } from '@/app/api/profile/dto'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input } from '@mui/base'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -52,7 +51,7 @@ export default function UpdateProfilePasswordForm() {
         {...register('oldPassword')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
+          <input
             name="oldPassword"
             type="text"
             value={value}
@@ -65,7 +64,7 @@ export default function UpdateProfilePasswordForm() {
         {...register('newPassword')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
+          <input
             name="newPassword"
             type="text"
             value={value}
@@ -78,7 +77,7 @@ export default function UpdateProfilePasswordForm() {
         {...register('confirmNewPassword')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
+          <input
             name="confirmNewPassword"
             type="text"
             value={value}
@@ -87,9 +86,9 @@ export default function UpdateProfilePasswordForm() {
         )}
       />
 
-      <Button color="primary" className="w-full uppercase" type="submit">
+      <button className="w-full uppercase" type="submit">
         Atualizar Senha
-      </Button>
+      </button>
     </form>
   )
 }

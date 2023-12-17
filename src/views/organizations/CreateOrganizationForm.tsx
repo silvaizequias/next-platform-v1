@@ -7,7 +7,6 @@ import {
 import useFetch from '@/hooks/use-fetch'
 import { OrganizationType } from '@/types/platform-management/organization'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input } from '@mui/base'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -64,7 +63,7 @@ export default function CreateOrganizationForm() {
         {...register('name')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input name="name" type="text" value={value} onChange={onChange} />
+          <input name="name" type="text" value={value} onChange={onChange} />
         )}
       />
 
@@ -72,7 +71,7 @@ export default function CreateOrganizationForm() {
         {...register('documentCode')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
+          <input
             name="documentCode"
             type="number"
             value={value}
@@ -81,9 +80,9 @@ export default function CreateOrganizationForm() {
         )}
       />
 
-      <Button color="prmary" className="w-full uppercase" type="submit">
+      <button className="w-full uppercase" type="submit">
         Criar Organização
-      </Button>
+      </button>
     </form>
   )
 }

@@ -7,7 +7,6 @@ import {
 import useFetch from '@/hooks/use-fetch'
 import { UserType } from '@/types/platform-management/user'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input } from '@mui/base'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -63,7 +62,7 @@ export default function CreateUserForm() {
         {...register('profile')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input name="profile" type="text" value={value} onChange={onChange} />
+          <input name="profile" type="text" value={value} onChange={onChange} />
         )}
       />
 
@@ -71,7 +70,7 @@ export default function CreateUserForm() {
         {...register('name')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input name="name" type="text" value={value} onChange={onChange} />
+          <input name="name" type="text" value={value} onChange={onChange} />
         )}
       />
 
@@ -79,7 +78,7 @@ export default function CreateUserForm() {
         {...register('email')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input name="email" type="email" value={value} onChange={onChange} />
+          <input name="email" type="email" value={value} onChange={onChange} />
         )}
       />
 
@@ -87,13 +86,13 @@ export default function CreateUserForm() {
         {...register('phone')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input name="phone" type="number" value={value} onChange={onChange} />
+          <input name="phone" type="number" value={value} onChange={onChange} />
         )}
       />
 
-      <Button color="primary" className="w-full uppercase" type="submit">
+      <button className="w-full uppercase" type="submit">
         Criar Usuário
-      </Button>
+      </button>
     </form>
   )
 }

@@ -7,7 +7,6 @@ import {
 import useFetch from '@/hooks/use-fetch'
 import { SupportCategoryType } from '@/types/support-management/category'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input } from '@mui/base'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -65,7 +64,7 @@ export default function CreateSupportCategoryForm() {
         {...register('name')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input name="name" type="type" value={value} onChange={onChange} />
+          <input name="name" type="type" value={value} onChange={onChange} />
         )}
       />
 
@@ -73,7 +72,7 @@ export default function CreateSupportCategoryForm() {
         {...register('description')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
+          <input
             name="description"
             type="text"
             value={value}
@@ -82,9 +81,9 @@ export default function CreateSupportCategoryForm() {
         )}
       />
 
-      <Button color="primary" className="w-full uppercase" type="submit">
+      <button className="w-full uppercase" type="submit">
         Adicionar Categoria
-      </Button>
+      </button>
     </form>
   )
 }

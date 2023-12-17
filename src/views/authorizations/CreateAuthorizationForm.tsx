@@ -7,7 +7,6 @@ import {
 import useFetch from '@/hooks/use-fetch'
 import { AuthorizationType } from '@/types/authorization'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input } from '@mui/base'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -65,7 +64,7 @@ export default function CreateAuthorizationForm() {
         {...register('solutionId')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
+          <input
             name="solutionId"
             type="text"
             value={value}
@@ -78,7 +77,7 @@ export default function CreateAuthorizationForm() {
         {...register('organization')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
+          <input
             name="organization"
             type="text"
             value={value}
@@ -91,18 +90,18 @@ export default function CreateAuthorizationForm() {
         {...register('expireIn')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
+          <input
             name="expireIn"
             type="date"
-            value={value}
+            //value={value}
             onChange={onChange}
           />
         )}
       />
 
-      <Button color="primary" className="w-full uppercase" type="submit">
+      <button className="w-full uppercase" type="submit">
         Criar Chave de Autorização
-      </Button>
+      </button>
     </form>
   )
 }
