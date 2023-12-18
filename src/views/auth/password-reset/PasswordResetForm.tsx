@@ -3,10 +3,13 @@ import {
   PasswordResetDTOType,
 } from '@/app/api/platform-management/password-reset/dto'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
 export default function PasswordResetForm() {
+  const router = useRouter()
+  
   const {
     control,
     handleSubmit,
@@ -29,6 +32,7 @@ export default function PasswordResetForm() {
         if (res.status == 201) {
           reset(inputs)
           toast.success(data)
+          router.push('/auth')
         } else {
           toast.error(data)
         }
