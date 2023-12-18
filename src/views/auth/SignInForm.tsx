@@ -29,9 +29,12 @@ export default function SignInForm() {
         email: email,
         password: password,
       }).then(async (res: any) => {
-        if (res.error) alert(res.error)
-        toast.success('boas vindas!')
-        router.refresh()
+        if (!res.error) {
+          toast.success('boas vindas!')
+          router.refresh()
+        } else {
+          toast.error(res.error)
+        }
       })
     } catch (error: any) {
       toast.error(error?.message)
