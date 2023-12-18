@@ -16,10 +16,13 @@ const comfortaa = Comfortaa({
   weight: ['300', '400', '500', '600'],
 })
 
-const NEXTAUTH_URL = process.env.NEXTAUTH_URL
+const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
 
 export const metadata: Metadata = {
-  title: 'Suporte e Desenvolvimento Dedicado',
+  title: {
+    default: 'Suporte e Desenvolvimento Dedicado',
+    template: `%s | Dedicado`,
+  },
   description:
     'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
   icons: './favicon.ico',
@@ -29,7 +32,7 @@ export const metadata: Metadata = {
       'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
     images: ['/logotipo.png'],
   },
-  metadataBase: new URL(`${NEXTAUTH_URL}`),
+  metadataBase: new URL(NEXTAUTH_URL),
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
