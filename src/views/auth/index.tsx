@@ -16,7 +16,7 @@ export default function AuthSignInView() {
     >
       <Box>
         <div className="flex justify-center text-center">
-          <div className="min-w-[360px] sm:w-[400px] bg-zinc-200 rounded-md">
+          <div className="min-w-[360px] sm:w-[400px] bg-slate-50 rounded-md p-4 shadow-md">
             <div>
               <SignInForm />
             </div>

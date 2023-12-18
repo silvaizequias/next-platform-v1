@@ -73,25 +73,46 @@ export default function SignUpForm() {
         {...register('name')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input name="name" type="text" value={value} onChange={onChange} />
+          <input
+            className="rounded-md"
+            name="name"
+            type="text"
+            value={value}
+            onChange={onChange}
+          />
         )}
       />
       <Controller
         {...register('email')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input name="email" type="email" value={value} onChange={onChange} />
+          <input
+            className="rounded-md"
+            name="email"
+            type="email"
+            value={value}
+            onChange={onChange}
+          />
         )}
       />
       <Controller
         {...register('phone')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input name="phone" type="number" value={value} onChange={onChange} />
+          <input
+            className="rounded-md"
+            name="phone"
+            type="number"
+            value={value}
+            onChange={onChange}
+          />
         )}
       />
 
-      <button className="w-full uppercase" type="submit">
+      <button
+        className="w-full uppercase rounded-md bg-green-600 hover:opacity-75 py-2 text-white text-base hover:font-medium"
+        type="submit"
+      >
         Registrar-se
       </button>
     </form>

@@ -51,7 +51,13 @@ export default function SignInForm() {
         {...register('email')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input name="email" type="email" value={value} onChange={onChange} />
+          <input
+            className="rounded-md"
+            name="email"
+            type="email"
+            value={value}
+            onChange={onChange}
+          />
         )}
       />
 
@@ -60,6 +66,7 @@ export default function SignInForm() {
         control={control}
         render={({ field: { value, onChange } }) => (
           <input
+            className="rounded-md"
             name="password"
             type="password"
             value={value}
@@ -75,7 +82,10 @@ export default function SignInForm() {
         esqueceu a senha?
       </p>
 
-      <button className="w-full uppercase" type="submit">
+      <button
+        className="w-full uppercase rounded-md bg-sky-600 hover:opacity-75 py-2 text-white text-base hover:font-medium"
+        type="submit"
+      >
         Acessar
       </button>
     </form>

@@ -21,7 +21,7 @@ export default function PageSection(props: Props) {
             </h1>
           </div>
           <div className="my-2 sm:my-4 mx-auto md:mx-40">
-            <h4 className="text-lg sm:text-2xl font-normal uppercase">
+            <h4 className="text-lg sm:text-xl font-normal uppercase">
               {subtitle}
             </h4>
           </div>

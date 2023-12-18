@@ -25,7 +25,7 @@ export default function LandingView() {
             </h1>
           </div>
           <div className="my-2 sm:my-4 mx-auto md:mx-40">
-            <h4 className="text-lg sm:text-2xl font-normal uppercase">
+            <h4 className="text-lg sm:text-xl font-normal uppercase">
               Suporte e Desenvolvimento
             </h4>
           </div>
