@@ -9,7 +9,7 @@ import toast from 'react-hot-toast'
 
 export default function PasswordResetForm() {
   const router = useRouter()
-  
+
   const {
     control,
     handleSubmit,
@@ -60,7 +60,7 @@ export default function PasswordResetForm() {
             type="email"
             value={value}
             onChange={onChange}
-            placeholder='seu@email.com'
+            placeholder="seu@email.com"
           />
         )}
       />
@@ -80,7 +80,7 @@ export default function PasswordResetForm() {
             type="number"
             value={value}
             onChange={onChange}
-            placeholder='48 98765 4321'
+            placeholder="48 98765 4321"
           />
         )}
       />

@@ -2,30 +2,30 @@
 
 import Box from '@/components/box'
 import PageSection from '@/components/page-section'
-import SignInForm from './SignInForm'
+import PasswordResetForm from './form'
 import { useRouter } from 'next/navigation'
 
-export default function AuthSignInView() {
+export default function AuthPasswordResetScreen() {
   const router = useRouter()
 
   return (
     <PageSection
       title="Dedicado"
-      subtitle=" Autenticar-se"
-      description="Informe suas credenciais para acessar o sistema"
+      subtitle="Redefinição de senha"
+      description="Informe seu e-mail e telefone para receber uma nova senha de acesso"
     >
       <Box>
         <div className="flex justify-center text-center">
           <div className="min-w-[360px] sm:w-[400px] bg-slate-50 rounded-md p-4 shadow-md">
             <div>
-              <SignInForm />
+              <PasswordResetForm />
             </div>
             <div className="flex justify-end">
               <p
                 className="font-thint text-xs text-right italic m-2 cursor-pointer hover:opacity-50 lowercase"
-                onClick={() => router.push('/auth/registrar-se')}
+                onClick={() => router.push('/auth')}
               >
-                Ainda não possui acesso?
+                Mudou de ideia?
               </p>
             </div>
           </div>

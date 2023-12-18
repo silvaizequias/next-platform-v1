@@ -1,7 +1,6 @@
-import PageSection from '@/components/page-section'
 import Image from 'next/image'
 
-export default function LandingView() {
+export default function LandingScreen() {
   const logotipo = '/logotipo.svg'
 
   return (

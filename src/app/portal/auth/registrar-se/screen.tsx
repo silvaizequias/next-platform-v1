@@ -1,11 +1,11 @@
 'use client'
 
 import PageSection from '@/components/page-section'
-import SignUpForm from './SignUpForm'
+import SignUpForm from './form'
 import Box from '@/components/box'
 import { useRouter } from 'next/navigation'
 
-export default function AuthSignUpView() {
+export default function AuthSignUpScreen() {
   const router = useRouter()
 
   return (

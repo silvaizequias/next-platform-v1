@@ -1,5 +1,5 @@
-import AuthPasswordResetView from '@/views/auth/password-reset'
+import AuthPasswordResetScreen from './screen'
 
 export default async function AuthPasswordResetPage() {
-  return <AuthPasswordResetView />
+  return <AuthPasswordResetScreen />
 }

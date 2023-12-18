@@ -60,7 +60,7 @@ export default function SignInForm() {
             type="email"
             value={value}
             onChange={onChange}
-            placeholder='seu@email.com'
+            placeholder="seu@email.com"
           />
         )}
       />
@@ -80,7 +80,7 @@ export default function SignInForm() {
             type="password"
             value={value}
             onChange={onChange}
-            placeholder='*s*u*a-s*e*n*h*a'
+            placeholder="*s*u*a-s*e*n*h*a"
           />
         )}
       />

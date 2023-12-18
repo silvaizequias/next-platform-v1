@@ -1,6 +1,5 @@
-import AuthSignInView from '@/views/auth'
+import AuthSignInScreen from './screen'
 
 export default async function AuthSignInPage() {
-
-  return <AuthSignInView />
+  return <AuthSignInScreen />
 }

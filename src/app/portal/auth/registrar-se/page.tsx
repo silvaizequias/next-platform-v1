@@ -1,5 +1,5 @@
-import AuthSignUpView from '@/views/auth/signup'
+import AuthSignUpScreen from './screen'
 
 export default async function AuthSignUpPage() {
-  return <AuthSignUpView />
+  return <AuthSignUpScreen />
 }
