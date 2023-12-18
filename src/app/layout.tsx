@@ -17,8 +17,16 @@ export const comfortaa = Comfortaa({
 })
 
 export const metadata: Metadata = {
-  title: 'Dedicado',
-  description: 'Suporte e Desenvolvimento',
+  title: 'Suporte e Desenvolvimento Dedicado',
+  description:
+    'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
+  icons: './favicon.ico',
+  openGraph: {
+    title: 'Suporte e Desenvolvimento Dedicado',
+    description:
+      'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
+    images: ['/logotipo.png'],
+  },
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
