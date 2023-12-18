@@ -1,9 +1,9 @@
 import { authOptions } from '@/libraries/next-auth'
 import { getServerSession } from 'next-auth'
-import UserScreen from './screen'
 import UnauthorizedAccess from '@/components/unauthorized-access'
+import SolutionScreen from './screen'
 
-export default async function UserPage() {
+export default async function SolutionPage() {
   const session = await getServerSession(authOptions)
 
   return session && session.user?.profile == 'MASTER' ? (
@@ -13,7 +13,7 @@ export default async function UserPage() {
           <h4 className="text-lg sm:text-2xl uppercase py-4">
             Usuários do Sistema
           </h4>
-          <UserScreen />
+          <SolutionScreen />
         </div>
       </div>
     </div>

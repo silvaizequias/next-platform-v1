@@ -1,9 +1,9 @@
 import { authOptions } from '@/libraries/next-auth'
 import { getServerSession } from 'next-auth'
-import UserScreen from './screen'
 import UnauthorizedAccess from '@/components/unauthorized-access'
+import OrganizationScreen from './screen'
 
-export default async function UserPage() {
+export default async function OrganizationPage() {
   const session = await getServerSession(authOptions)
 
   return session && session.user?.profile == 'MASTER' ? (
@@ -11,9 +11,9 @@ export default async function UserPage() {
       <div className="max-w-full pt-20">
         <div className="mx-2 sm:mx-8">
           <h4 className="text-lg sm:text-2xl uppercase py-4">
-            Usuários do Sistema
+            Organizações do Sistema
           </h4>
-          <UserScreen />
+          <OrganizationScreen />
         </div>
       </div>
     </div>
