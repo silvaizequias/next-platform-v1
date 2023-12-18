@@ -22,7 +22,7 @@ export default function AuthSignInView() {
             </div>
             <div className="flex justify-end">
               <p
-                className="font-thint text-xs text-right italic m-2 cursor-pointer hover:opacity-50"
+                className="font-thint text-xs text-right italic m-2 cursor-pointer hover:opacity-50 lowercase"
                 onClick={() => router.push('/auth/registrar-se')}
               >
                 Ainda não possui acesso?

@@ -48,7 +48,7 @@ export default function SignInForm() {
     <form
       onSubmit={handleSubmit(onSubmit)}
       noValidate
-      className="flex flex-col flex-1 gap-4 m-2"
+      className="flex flex-col flex-1 gap-2 m-2"
     >
       <Controller
         {...register('email')}
@@ -60,9 +60,15 @@ export default function SignInForm() {
             type="email"
             value={value}
             onChange={onChange}
+            placeholder='seu@email.com'
           />
         )}
       />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.email?.message}
+        </span>
+      )}
 
       <Controller
         {...register('password')}
@@ -74,19 +80,25 @@ export default function SignInForm() {
             type="password"
             value={value}
             onChange={onChange}
+            placeholder='*s*u*a-s*e*n*h*a'
           />
         )}
       />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.password?.message}
+        </span>
+      )}
 
       <p
-        className="font-thint text-xs text-right italic cursor-pointer hover:opacity-50"
+        className="font-thint text-xs text-right italic cursor-pointer hover:opacity-50 lowercase"
         onClick={() => router.push('/auth/redefinir-senha')}
       >
         esqueceu a senha?
       </p>
 
       <button
-        className="w-full uppercase rounded-md bg-sky-600 hover:opacity-75 py-2 text-white text-base hover:font-medium"
+        className="mt-2 w-full uppercase rounded-md bg-sky-600 hover:opacity-75 py-2 text-white text-base hover:font-medium"
         type="submit"
       >
         Acessar

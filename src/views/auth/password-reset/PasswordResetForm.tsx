@@ -48,7 +48,7 @@ export default function PasswordResetForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col flex-1 gap-4 m-2"
+      className="flex flex-col flex-1 gap-2 m-2"
     >
       <Controller
         {...register('email')}
@@ -60,9 +60,15 @@ export default function PasswordResetForm() {
             type="email"
             value={value}
             onChange={onChange}
+            placeholder='seu@email.com'
           />
         )}
       />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.email?.message}
+        </span>
+      )}
 
       <Controller
         {...register('phone')}
@@ -74,12 +80,18 @@ export default function PasswordResetForm() {
             type="number"
             value={value}
             onChange={onChange}
+            placeholder='48 98765 4321'
           />
         )}
       />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.phone?.message}
+        </span>
+      )}
 
       <button
-        className="w-full uppercase rounded-md bg-orange-600 hover:opacity-75 py-2 text-white text-base hover:font-medium"
+        className="mt-2 w-full uppercase rounded-md bg-orange-600 hover:opacity-75 py-2 text-white text-base hover:font-medium"
         type="submit"
       >
         Redefinir a Senha
