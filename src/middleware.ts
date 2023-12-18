@@ -26,9 +26,9 @@ export default async function middleware(req: NextRequest) {
     )
   }
 
-  if (hostname == `portal.${process.env.NEXTAUTH_URL}`) {
+  if (hostname == `sistema.${process.env.NEXTAUTH_URL}`) {
     return NextResponse.rewrite(
-      new URL(`/portal${path === '/' ? '' : path}`, req.url),
+      new URL(`/sistema${path === '/' ? '' : path}`, req.url),
     )
   }
 
