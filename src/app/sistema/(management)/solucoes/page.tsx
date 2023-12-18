@@ -11,7 +11,7 @@ export default async function SolutionPage() {
       <div className="max-w-full pt-20">
         <div className="mx-2 sm:mx-8">
           <h4 className="text-lg sm:text-2xl uppercase py-4">
-            Usuários do Sistema
+            Soluções do Sistema
           </h4>
           <SolutionScreen />
         </div>
