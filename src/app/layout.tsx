@@ -2,9 +2,15 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { ReactNode } from 'react'
 import { Providers } from './providers'
-import { Comfortaa } from 'next/font/google'
+import { Comfortaa, Poppins } from 'next/font/google'
 
-export const comfortaa = Comfortaa({
+const poppins = Poppins({
+  subsets: ['latin'],
+  variable: '--font-poppins',
+  weight: ['100', '200', '400', '500'],
+})
+
+const comfortaa = Comfortaa({
   subsets: ['latin'],
   variable: '--font-comfortaa',
   weight: ['300', '400', '500', '600'],
