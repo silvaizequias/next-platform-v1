@@ -32,7 +32,7 @@ export const metadata: Metadata = {
       'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
     images: ['/logotipo.png'],
   },
-  metadataBase: new URL(NEXTAUTH_URL),
+  metadataBase: new URL('https://' + NEXTAUTH_URL),
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
