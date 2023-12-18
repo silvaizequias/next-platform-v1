@@ -7,7 +7,6 @@ import {
 import useFetch from '@/hooks/use-fetch'
 import { SupportTicketType } from '@/types/support-management/ticket'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input } from '@mui/base'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -65,7 +64,7 @@ export default function CreateSupportTicketForm() {
         {...register('organization')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
+          <input
             name="organization"
             type="text"
             value={value}
@@ -78,7 +77,7 @@ export default function CreateSupportTicketForm() {
         {...register('subject')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input name="subject" type="text" value={value} onChange={onChange} />
+          <input name="subject" type="text" value={value} onChange={onChange} />
         )}
       />
 
@@ -86,13 +85,13 @@ export default function CreateSupportTicketForm() {
         {...register('content')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input name="content" type="text" value={value} onChange={onChange} />
+          <input name="content" type="text" value={value} onChange={onChange} />
         )}
       />
 
-      <Button color="primary" className="w-full uppercase" type="submit">
+      <button className="w-full uppercase" type="submit">
         Criar Ticket
-      </Button>
+      </button>
     </form>
   )
 }

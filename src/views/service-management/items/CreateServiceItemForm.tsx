@@ -7,7 +7,6 @@ import {
 import useFetch from '@/hooks/use-fetch'
 import { ServiceItemType } from '@/types/service-management/item'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input } from '@mui/base'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -63,7 +62,7 @@ export default function CreateServiceItemForm() {
         {...register('orderId')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input name="orderId" type="text" value={value} onChange={onChange} />
+          <input name="orderId" type="text" value={value} onChange={onChange} />
         )}
       />
 
@@ -71,7 +70,7 @@ export default function CreateServiceItemForm() {
         {...register('note')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input name="note" type="text" value={value} onChange={onChange} />
+          <input name="note" type="text" value={value} onChange={onChange} />
         )}
       />
 
@@ -79,7 +78,7 @@ export default function CreateServiceItemForm() {
         {...register('amount')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
+          <input
             name="amount"
             type="number"
             value={value}
@@ -92,13 +91,13 @@ export default function CreateServiceItemForm() {
         {...register('file')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input name="file" type="text" value={value} onChange={onChange} />
+          <input name="file" type="text" value={value} onChange={onChange} />
         )}
       />
 
-      <Button color="primary" className="w-full uppercase" type="submit">
+      <button className="w-full uppercase" type="submit">
         Adicionar Item
-      </Button>
+      </button>
     </form>
   )
 }

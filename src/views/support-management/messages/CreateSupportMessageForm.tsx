@@ -7,7 +7,6 @@ import {
 import useFetch from '@/hooks/use-fetch'
 import { SupportMessageType } from '@/types/support-management/message'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input } from '@mui/base'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -65,7 +64,7 @@ export default function CreateSupportMessageForm() {
         {...register('ticketId')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
+          <input
             name="ticketId"
             type="text"
             value={value}
@@ -78,7 +77,7 @@ export default function CreateSupportMessageForm() {
         {...register('to')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input name="to" type="text" value={value} onChange={onChange} />
+          <input name="to" type="text" value={value} onChange={onChange} />
         )}
       />
 
@@ -86,13 +85,13 @@ export default function CreateSupportMessageForm() {
         {...register('content')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input name="content" type="text" value={value} onChange={onChange} />
+          <input name="content" type="text" value={value} onChange={onChange} />
         )}
       />
 
-      <Button color="primary" className="w-full uppercase" type="submit">
+      <button className="w-full uppercase" type="submit">
         Enviar Mensagem
-      </Button>
+      </button>
     </form>
   )
 }

@@ -1,12 +1,10 @@
 'use client'
 
-import { Button } from '@mui/base'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import toast from 'react-hot-toast'
 
 interface Props {
-  color?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger'
   id?: string
   message?: string
   name: string
@@ -14,7 +12,7 @@ interface Props {
 }
 
 export default function ButtonWithAction(props: Props) {
-  const { color, id, message, name, path } = props
+  const { id, message, name, path } = props
 
   const router = useRouter()
 
@@ -28,14 +26,14 @@ export default function ButtonWithAction(props: Props) {
 
   return (
     <div className="relative">
-      <Button
-        color={color || 'default'}
+      <button
+        type="button"
         className="uppercase"
         id={id}
         onClick={() => handleClick(path, message)}
       >
         {name}
-      </Button>
+      </button>
     </div>
   )
 }

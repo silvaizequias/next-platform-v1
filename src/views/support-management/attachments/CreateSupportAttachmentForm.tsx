@@ -7,7 +7,6 @@ import {
 import useFetch from '@/hooks/use-fetch'
 import { SupportAttachmentType } from '@/types/support-management/attachment'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input } from '@mui/base'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -65,7 +64,7 @@ export default function CreateSupportAttachmentForm() {
         {...register('ticketId')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
+          <input
             name="ticketId"
             type="text"
             value={value}
@@ -78,7 +77,7 @@ export default function CreateSupportAttachmentForm() {
         {...register('note')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input name="note" type="text" value={value} onChange={onChange} />
+          <input name="note" type="text" value={value} onChange={onChange} />
         )}
       />
 
@@ -86,13 +85,13 @@ export default function CreateSupportAttachmentForm() {
         {...register('file')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input name="file" type="text" value={value} onChange={onChange} />
+          <input name="file" type="text" value={value} onChange={onChange} />
         )}
       />
 
-      <Button color="primary" className="w-full uppercase" type="submit">
+      <button className="w-full uppercase" type="submit">
         Anexar
-      </Button>
+      </button>
     </form>
   )
 }

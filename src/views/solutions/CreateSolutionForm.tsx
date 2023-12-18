@@ -7,7 +7,6 @@ import {
 import useFetch from '@/hooks/use-fetch'
 import { SolutionType } from '@/types/solution'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input } from '@mui/base'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -63,7 +62,7 @@ export default function CreateSolutionForm() {
         {...register('name')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input name="name" type="text" value={value} onChange={onChange} />
+          <input name="name" type="text" value={value} onChange={onChange} />
         )}
       />
 
@@ -71,7 +70,7 @@ export default function CreateSolutionForm() {
         {...register('description')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input
+          <input
             name="description"
             type="text"
             value={value}
@@ -84,13 +83,13 @@ export default function CreateSolutionForm() {
         {...register('apiUrl')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input name="apiUrl" type="date" value={value} onChange={onChange} />
+          <input name="apiUrl" type="date" value={value} onChange={onChange} />
         )}
       />
 
-      <Button color="primary" className="w-full uppercase" type="submit">
+      <button className="w-full uppercase" type="submit">
         Criar Solução
-      </Button>
+      </button>
     </form>
   )
 }

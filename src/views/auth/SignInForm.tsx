@@ -5,7 +5,6 @@ import {
   SignInDTOType,
 } from '@/app/api/platform-management/signin/dto'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, FormControl, Input } from '@mui/base'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
@@ -48,35 +47,26 @@ export default function SignInForm() {
       noValidate
       className="flex flex-col flex-1 gap-4 m-2"
     >
-      <FormControl defaultValue="" required>
-        <Controller
-          {...register('email')}
-          control={control}
-          render={({ field: { value, onChange } }) => (
-            <Input
-              name="email"
-              type="email"
-              value={value}
-              onChange={onChange}
-            />
-          )}
-        />
-      </FormControl>
+      <Controller
+        {...register('email')}
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <input name="email" type="email" value={value} onChange={onChange} />
+        )}
+      />
 
-      <FormControl defaultValue="" required>
-        <Controller
-          {...register('password')}
-          control={control}
-          render={({ field: { value, onChange } }) => (
-            <Input
-              name="password"
-              type="password"
-              value={value}
-              onChange={onChange}
-            />
-          )}
-        />
-      </FormControl>
+      <Controller
+        {...register('password')}
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <input
+            name="password"
+            type="password"
+            value={value}
+            onChange={onChange}
+          />
+        )}
+      />
 
       <p
         className="font-thint text-xs text-right italic cursor-pointer hover:opacity-50"
@@ -85,9 +75,9 @@ export default function SignInForm() {
         esqueceu a senha?
       </p>
 
-      <Button color="primary" className="w-full uppercase" type="submit">
+      <button className="w-full uppercase" type="submit">
         Acessar
-      </Button>
+      </button>
     </form>
   )
 }

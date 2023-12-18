@@ -1,6 +1,5 @@
 'use client'
 
-import { Button } from '@mui/base'
 import { useEffect } from 'react'
 
 export default function Error({
@@ -22,12 +21,13 @@ export default function Error({
             Ops! Aconteceu um erro inesperado
           </h4>
           <p className="font-light text-base">{error.message}</p>
-          <Button
-            color="warning"
+          <button
+            type="button"
+            className="uppercase text-base bg-zinc-200 rounded-md "
             onClick={() => reset()}
           >
             Tente novamente
-          </Button>
+          </button>
         </div>
       </div>
     </div>

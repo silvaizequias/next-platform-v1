@@ -3,7 +3,6 @@ import {
   PasswordResetDTOType,
 } from '@/app/api/platform-management/password-reset/dto'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input } from '@mui/base'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -51,7 +50,7 @@ export default function PasswordResetForm() {
         {...register('email')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input name="email" type="email" value={value} onChange={onChange} />
+          <input name="email" type="email" value={value} onChange={onChange} />
         )}
       />
 
@@ -59,13 +58,13 @@ export default function PasswordResetForm() {
         {...register('phone')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <Input name="phone" type="number" value={value} onChange={onChange} />
+          <input name="phone" type="number" value={value} onChange={onChange} />
         )}
       />
 
-      <Button color="warning" className="w-full uppercase" type="submit">
+      <button className="w-full uppercase" type="submit">
         Redefinir a Senha
-      </Button>
+      </button>
     </form>
   )
 }
