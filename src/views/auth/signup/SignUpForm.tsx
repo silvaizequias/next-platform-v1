@@ -46,7 +46,7 @@ export default function SignUpForm() {
             password: randomCode,
           }).then(async (res: any) => {
             if (!res.error) {
-              toast.success(`olá ${inputs.name}`)
+              toast.success(`boas vindas a portal dedicado ${inputs.name}`)
               router.refresh()
             } else {
               toast.error(res.error)

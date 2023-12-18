@@ -30,7 +30,7 @@ export default function SignInForm() {
         password: password,
       }).then(async (res: any) => {
         if (!res.error) {
-          toast.success('boas vindas!')
+          toast.success('boas vindas ao portal dedicado')
           router.refresh()
         } else {
           toast.error(res.error)
