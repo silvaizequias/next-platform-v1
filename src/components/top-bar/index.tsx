@@ -1,5 +1,6 @@
 import { Session } from 'next-auth'
 import Image from 'next/image'
+import AppBar from '../app-bar'
 
 interface Props {
   session: Session
@@ -17,7 +18,7 @@ export default function TopBar(props: Props) {
             <Image
               className="my-4 w-[17px] h-[25px]"
               src={logotipo}
-              alt={''}
+              alt={'dedicado'}
               priority
               width={17}
               height={25}
@@ -26,7 +27,9 @@ export default function TopBar(props: Props) {
               dedicado
             </h6>
           </div>
-          <div className="flex flex-1 items-center justify-end"></div>
+          <div className="flex flex-1 items-center justify-end">
+            <AppBar session={session} />
+          </div>
         </div>
       </div>
     </div>
