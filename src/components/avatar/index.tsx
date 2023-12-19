@@ -12,17 +12,15 @@ export default function Avatar(props: Props) {
   const avatar = '/avatar.svg'
 
   return (
-    <div className="rounded-full p-2 hover:opacity-75 cursor-pointer">
-      <Image
-        className={`w-[${size || 28}px] sm:w-[${size || 32}px] h-[${
-          size || 28
-        }px] sm:h-[${size || 32}px]`}
-        src={image || session?.user?.image || avatar}
-        alt={session?.user?.name || 'user avatar'}
-        priority
-        width={size || 32}
-        height={size || 32}
-      />
-    </div>
+    <Image
+      className={`w-[${size || 24}px] sm:w-[${size || 28}px] h-[${
+        size || 24
+      }px] sm:h-[${size || 28}px]`}
+      src={image || session?.user?.image || avatar}
+      alt={session?.user?.name || 'user avatar'}
+      priority
+      width={size || 28}
+      height={size || 28}
+    />
   )
 }
