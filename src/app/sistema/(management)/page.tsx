@@ -12,7 +12,7 @@ export default async function MainPage() {
           <h4 className="text-lg sm:text-2xl uppercase py-4">
             Sistema Dedicado
           </h4>
-          <MainScreen />
+          <MainScreen session={session!} />
         </div>
       </div>
     </div>
