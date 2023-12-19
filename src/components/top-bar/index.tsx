@@ -12,11 +12,11 @@ export default function TopBar(props: Props) {
 
   return (
     <div className="fixed w-full backdrop-blur-sm bg-slate/30 dark:bg-slate-800/30 shadow-md">
-      <div className="h-16 mx-auto py-1">
+      <div className="h-14 mx-auto py-1">
         <div className="min-h-full flex justify-between items-center sm:mx-8 mx-2">
           <div className="flex items-center gap-2">
             <Image
-              className="my-4 w-[17px] h-[25px]"
+              className="my-2 w-[17px] h-[25px]"
               src={logotipo}
               alt={'dedicado'}
               priority
