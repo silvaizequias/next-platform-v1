@@ -1,13 +1,11 @@
 'use client'
 
 import useFetch from '@/hooks/use-fetch'
-import {
-  OrganizationType,
-  OrganizationUserType,
-} from '@/types/platform-management/organization'
+import { OrganizationUserType } from '@/types/platform-management/organization'
 import { UserType } from '@/types/platform-management/user'
 import { Session } from 'next-auth'
-import OrganizationCardView from './views/cards/OrganizationCardView'
+import Box from '@/components/box'
+import OrganizationCardView from './organizacoes/views/cards/OrganizationCardView'
 
 interface Props {
   session: Session
@@ -16,29 +14,24 @@ interface Props {
 export default function MainScreen(props: Props) {
   const { session } = props
   const { data: profile } = useFetch<UserType | any>('/api/profile')
-  const { data: organizations } = useFetch<OrganizationType[] | any>(
-    '/api/platform-management/organizations',
-  )
 
   return (
     <div className="w-full flex flex-1 bg-slate-50 rounded-md p-4 shadow-md">
       <div className="flex flex-wrap gap-4">
-        {session.user.profile !== 'MASTER'
-          ? profile?.organizations?.map(
-              (organization: OrganizationUserType) => (
-                <div key={organization?.organization?.id}>
-                  <OrganizationCardView
-                    id={organization?.organization?.id}
-                    role={organization?.role}
-                  />
-                </div>
-              ),
-            )
-          : organizations?.map((organization: OrganizationType) => (
-              <div key={organization?.id}>
-                <OrganizationCardView id={organization?.id} />
-              </div>
-            ))}
+        {profile?.organizations?.lenght > 0 ? (
+          profile?.organizations?.map((organization: OrganizationUserType) => (
+            <div key={organization?.organization?.id}>
+              <OrganizationCardView
+                id={organization?.organization?.id}
+                role={organization?.role}
+              />
+            </div>
+          ))
+        ) : (
+          <h6 className="text-lg sm:text-xl text-center lowercase">
+            Sem organizações para exibir!
+          </h6>
+        )}
       </div>
     </div>
   )
