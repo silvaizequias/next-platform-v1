@@ -4,7 +4,6 @@ import useFetch from '@/hooks/use-fetch'
 import { OrganizationUserType } from '@/types/platform-management/organization'
 import { UserType } from '@/types/platform-management/user'
 import { Session } from 'next-auth'
-import Box from '@/components/box'
 import OrganizationCardView from './organizacoes/views/cards/OrganizationCardView'
 
 interface Props {
@@ -18,7 +17,7 @@ export default function MainScreen(props: Props) {
   return (
     <div className="w-full flex flex-1 bg-slate-50 rounded-md p-4 shadow-md">
       <div className="flex flex-wrap gap-4">
-        {profile?.organizations?.lenght > 0 ? (
+        {profile?.organizations ? (
           profile?.organizations?.map((organization: OrganizationUserType) => (
             <div key={organization?.organization?.id}>
               <OrganizationCardView
