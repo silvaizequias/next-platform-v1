@@ -58,6 +58,7 @@ model Post {
   video     String?
   content   String
   keywords  String?
+  author    String
 
   @@map("posts")
 }

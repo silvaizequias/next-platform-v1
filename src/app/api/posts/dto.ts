@@ -11,6 +11,7 @@ export const CreatePostDTO = z.object({
   video: z.string().optional(),
   content: z.string(),
   keywords: z.string().optional(),
+  author: z.string().optional(),
 })
 export type CreatePostDTOType = z.infer<typeof CreatePostDTO>
 
@@ -25,5 +26,6 @@ export const PostUpdateDTO = z.object({
   video: z.string().optional(),
   content: z.string().optional(),
   keywords: z.string().optional(),
+  author: z.string().optional(),
 })
 export type PostUpdateDTOType = z.infer<typeof PostUpdateDTO>

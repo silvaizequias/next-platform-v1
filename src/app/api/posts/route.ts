@@ -28,12 +28,13 @@ export async function POST(request: Request) {
     if (session && session.user.profile == 'MASTER') {
       const inputs: CreatePostDTOType = await request.json()
       if (await CreatePostDTO.parseAsync(inputs)) {
-        const { title } = inputs
+        const { author, title } = inputs
         const slug = slugify(title)
 
         const data: Prisma.PostCreateInput = {
           ...inputs,
           slug: slug,
+          author: author || session.user?.name!,
         }
         await prisma.post.create({
           data,

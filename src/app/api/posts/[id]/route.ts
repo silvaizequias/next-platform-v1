@@ -36,7 +36,7 @@ export async function POST(
     if (session && session?.user.profile == 'MASTER') {
       const inputs: PostUpdateDTOType = await request.json()
       if (await PostUpdateDTO.parseAsync(inputs)) {
-        const { title } = inputs
+        const { author, title } = inputs
 
         if (title) {
           const slug = slugify(title)
@@ -45,6 +45,7 @@ export async function POST(
             data: {
               ...inputs,
               slug: slug,
+              author: author || session.user?.name!,
             },
           })
           return new Response(
