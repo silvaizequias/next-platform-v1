@@ -16,18 +16,31 @@ export default function Error({
   return (
     <div className="min-h-screen flex justify-center items-center">
       <div className="sm:mx-8 mx-2">
-        <div className="flex flex-col text-center uppercase">
-          <h4 className="font-medium text-2xl text-red-400">
-            Ops! Aconteceu um erro inesperado
+        <div className="flex flex-col justify-center gap-4">
+          <h4 className="font-semibold text-center text-red-400 text-4xl sm:text-6xl">
+            Ops!{' '}
           </h4>
-          <p className="font-light text-base">{error.message}</p>
-          <button
-            type="button"
-            className="uppercase text-base bg-zinc-200 rounded-md "
-            onClick={() => reset()}
-          >
-            Tente novamente
-          </button>
+          <p className="font-light text-base text-center">
+            Ocorreu um erro inesperado!
+          </p>
+          <div className="w-[360px] sm:w-[480px] bg-slate-50 rounded-md shadow-md p-4">
+            <div className="flex flex-col justify-center gap-4">
+              <p className="text-center  uppercase ">
+                {error.name}:{' '}
+                <span className="italic text-lg font-semibold text-red-400">
+                  {' '}
+                  {error.digest}
+                </span>
+              </p>
+              <button
+                className="mt-2 w-full uppercase rounded-md bg-sky-600 hover:opacity-75 py-2 text-white text-base hover:font-medium"
+                type="button"
+                onClick={() => reset()}
+              >
+                Tente novamente
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
