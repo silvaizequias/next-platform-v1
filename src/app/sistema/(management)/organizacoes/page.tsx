@@ -1,7 +1,7 @@
 import { authOptions } from '@/libraries/next-auth'
 import { getServerSession } from 'next-auth'
-import UnauthorizedAccess from '@/components/unauthorized-access'
 import OrganizationScreen from './screen'
+import { redirect } from 'next/navigation'
 
 export default async function OrganizationPage() {
   const session = await getServerSession(authOptions)
@@ -18,6 +18,6 @@ export default async function OrganizationPage() {
       </div>
     </div>
   ) : (
-    <UnauthorizedAccess />
+    redirect('/')
   )
 }
