@@ -21,6 +21,7 @@ export type OrganizationType = {
   country: string
   latitude: number
   longitude: number
+  users: OrganizationUserType[]
 }
 
 export type OrganizationUserType = {
