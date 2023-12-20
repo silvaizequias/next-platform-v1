@@ -1,11 +1,19 @@
+'use client'
+
 import { PostUpdateDTO, PostUpdateDTOType } from '@/app/api/posts/dto'
 import useFetch from '@/hooks/use-fetch'
+import { PostType } from '@/types/post'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
-export default function PostUpdateForm() {
-  const { data: posts, mutate } = useFetch<[] | any>('/api/blog/posts')
+interface Props {
+  id: string
+}
+
+export default function PostUpdateForm(props: Props) {
+  const { data: posts, mutate } = useFetch<PostType[] | any>('/api/posts')
+  const { data: post } = useFetch<PostType | any>(`/api/posts/${props?.id}`)
 
   const {
     control,
@@ -20,7 +28,7 @@ export default function PostUpdateForm() {
 
   const onSubmit: SubmitHandler<PostUpdateDTOType> = async (inputs) => {
     try {
-      await fetch(`/api/posts`, {
+      await fetch(`/api/posts/${props?.id}`, {
         method: 'PATCH',
         body: JSON.stringify(inputs),
         headers: { 'Content-Type': 'application/json' },
@@ -51,6 +59,67 @@ export default function PostUpdateForm() {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col flex-1 gap-4 m-2"
     >
+      <Controller
+        {...register('title')}
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <input
+            className="rounded-md"
+            name="title"
+            type="text"
+            value={value}
+            defaultValue={post?.title}
+            onChange={onChange}
+          />
+        )}
+      />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.title?.message}
+        </span>
+      )}
+
+      <Controller
+        {...register('subject')}
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <input
+            className="rounded-md"
+            name="subject"
+            type="text"
+            value={value}
+            defaultValue={post?.subject}
+            onChange={onChange}
+          />
+        )}
+      />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.subject?.message}
+        </span>
+      )}
+
+      <Controller
+        {...register('content')}
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <textarea
+            className="rounded-md"
+            name="content"
+            cols={5}
+            rows={5}
+            value={value}
+            defaultValue={post?.content}
+            onChange={onChange}
+          />
+        )}
+      />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.content?.message}
+        </span>
+      )}
+
       <button className="w-full uppercase" type="submit">
         Atualizar Postagem
       </button>

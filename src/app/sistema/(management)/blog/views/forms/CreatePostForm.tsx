@@ -1,11 +1,14 @@
+'use client'
+
 import { CreatePostDTO, CreatePostDTOType } from '@/app/api/posts/dto'
 import useFetch from '@/hooks/use-fetch'
+import { PostType } from '@/types/post'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
 export default function CreatePostForm() {
-  const { data: posts, mutate } = useFetch<[] | any>('/api/blog/posts')
+  const { data: posts, mutate } = useFetch<PostType[] | any>('/api/posts')
 
   const {
     control,
@@ -31,8 +34,6 @@ export default function CreatePostForm() {
             revalidate: true,
             rollbackOnError: true,
           })
-
-          reset(inputs)
           toast.success(data)
         } else {
           toast.error(data)
@@ -51,7 +52,70 @@ export default function CreatePostForm() {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col flex-1 gap-4 m-2"
     >
-      <button className="w-full uppercase" type="submit">
+      <Controller
+        {...register('title')}
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <input
+            className="rounded-md"
+            name="title"
+            type="text"
+            value={value}
+            onChange={onChange}
+            placeholder="Título da Postagem"
+          />
+        )}
+      />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.title?.message}
+        </span>
+      )}
+
+      <Controller
+        {...register('subject')}
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <input
+            className="rounded-md"
+            name="subject"
+            type="text"
+            value={value}
+            onChange={onChange}
+            placeholder="Assunto da Postagem"
+          />
+        )}
+      />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.subject?.message}
+        </span>
+      )}
+
+      <Controller
+        {...register('content')}
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <input
+            className="rounded-md"
+            name="content"
+            type="text"
+            value={value}
+            onChange={onChange}
+            placeholder="Conteúdo da Postagem"
+          />
+        )}
+      />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.content?.message}
+        </span>
+      )}
+
+      <button
+        className="mt-2 w-full uppercase rounded-md bg-sky-600 hover:opacity-75 py-2 text-white text-base hover:font-medium"
+        type="submit"
+      >
         Criar Postagem
       </button>
     </form>
