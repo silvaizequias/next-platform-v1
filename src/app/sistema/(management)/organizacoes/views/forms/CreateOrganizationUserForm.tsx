@@ -10,7 +10,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
-export default function CreateOrganizationUserForm() {
+interface Props {
+  organizationId: string
+}
+
+export default function CreateOrganizationUserForm(props: Props) {
   const { data: organizationUsers, mutate } = useFetch<
     OrganizationUserType[] | any
   >('/api/platform-management/organization-users')
@@ -32,7 +36,11 @@ export default function CreateOrganizationUserForm() {
     try {
       await fetch(`/api/platform-management/organization-users`, {
         method: 'POST',
-        body: JSON.stringify(inputs),
+        body: JSON.stringify({
+          organizationId: props.organizationId,
+          role: inputs?.role,
+          userId: inputs?.userId,
+        }),
         headers: { 'Content-Type': 'application/json' },
       }).then(async (res: any) => {
         const data = await res.json()
@@ -62,23 +70,17 @@ export default function CreateOrganizationUserForm() {
       className="flex flex-col flex-1 gap-4 m-2"
     >
       <Controller
-        {...register('organizationId')}
-        control={control}
-        render={({ field: { value, onChange } }) => (
-          <input
-            name="organizationId"
-            type="text"
-            value={value}
-            onChange={onChange}
-          />
-        )}
-      />
-
-      <Controller
         {...register('userId')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input name="userId" type="text" value={value} onChange={onChange} />
+          <input
+            className="rounded-md"
+            name="userId"
+            type="text"
+            value={value}
+            onChange={onChange}
+            placeholder={'Usuário'}
+          />
         )}
       />
 
@@ -86,11 +88,21 @@ export default function CreateOrganizationUserForm() {
         {...register('role')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input name="role" type="text" value={value} onChange={onChange} />
+          <input
+            className="rounded-md"
+            name="role"
+            type="text"
+            value={value}
+            onChange={onChange}
+            placeholder={'Função do Usuário'}
+          />
         )}
       />
 
-      <button color="primary" className="w-full uppercase" type="submit">
+      <button
+        className="mt-2 w-full uppercase rounded-md bg-sky-600 hover:opacity-75 py-2 text-white text-base hover:font-medium"
+        type="submit"
+      >
         Adicionar Usuário
       </button>
     </form>

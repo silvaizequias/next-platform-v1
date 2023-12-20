@@ -63,24 +63,46 @@ export default function CreateOrganizationForm() {
         {...register('name')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input name="name" type="text" value={value} onChange={onChange} />
+          <input
+            className="rounded-md"
+            name="name"
+            type="text"
+            value={value}
+            onChange={onChange}
+            placeholder={'Nome da Organização'}
+          />
         )}
       />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.name?.message}
+        </span>
+      )}
 
       <Controller
         {...register('documentCode')}
         control={control}
         render={({ field: { value, onChange } }) => (
           <input
+            className="rounded-md"
             name="documentCode"
             type="number"
             value={value}
             onChange={onChange}
+            placeholder={'CNPJ'}
           />
         )}
       />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.documentCode?.message}
+        </span>
+      )}
 
-      <button className="w-full uppercase" type="submit">
+      <button
+        className="mt-2 w-full uppercase rounded-md bg-sky-600 hover:opacity-75 py-2 text-white text-base hover:font-medium"
+        type="submit"
+      >
         Criar Organização
       </button>
     </form>

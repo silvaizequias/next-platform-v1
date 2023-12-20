@@ -62,35 +62,86 @@ export default function CreateUserForm() {
         {...register('profile')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input name="profile" type="text" value={value} onChange={onChange} />
+          <input
+            className="rounded-md"
+            name="profile"
+            type="text"
+            value={value}
+            onChange={onChange}
+            placeholder="Perfil do Usuário"
+          />
         )}
       />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.profile?.message}
+        </span>
+      )}
 
       <Controller
         {...register('name')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input name="name" type="text" value={value} onChange={onChange} />
+          <input
+            className="rounded-md"
+            name="name"
+            type="text"
+            value={value}
+            onChange={onChange}
+            placeholder="Nome Completo"
+          />
         )}
       />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.name?.message}
+        </span>
+      )}
 
       <Controller
         {...register('email')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input name="email" type="email" value={value} onChange={onChange} />
+          <input
+            className="rounded-md"
+            name="email"
+            type="email"
+            value={value}
+            onChange={onChange}
+            placeholder="E-mail"
+          />
         )}
       />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.email?.message}
+        </span>
+      )}
 
       <Controller
         {...register('phone')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input name="phone" type="number" value={value} onChange={onChange} />
+          <input
+            className="rounded-md"
+            name="phone"
+            type="number"
+            value={value}
+            onChange={onChange}
+            placeholder="Celular"
+          />
         )}
       />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.phone?.message}
+        </span>
+      )}
 
-      <button className="w-full uppercase" type="submit">
+      <button
+        className="mt-2 w-full uppercase rounded-md bg-sky-600 hover:opacity-75 py-2 text-white text-base hover:font-medium"
+        type="submit"
+      >
         Criar Usuário
       </button>
     </form>
