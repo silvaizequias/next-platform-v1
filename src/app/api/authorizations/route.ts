@@ -11,7 +11,7 @@ export async function GET(request: Request) {
     if (session && session.user.profile == 'MASTER')
       return new Response(
         JSON.stringify(
-          await prisma.authorization.findFirst({
+          await prisma.authorization.findMany({
             where: { softDeleted: false },
             include: {
               solution: true,

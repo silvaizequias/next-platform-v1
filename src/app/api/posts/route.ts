@@ -9,7 +9,7 @@ export async function GET(request: Request) {
   try {
     return new Response(
       JSON.stringify(
-        await prisma.post.findFirst({
+        await prisma.post.findMany({
           where: { softDeleted: false },
         }),
       ),
@@ -29,10 +29,11 @@ export async function POST(request: Request) {
       const inputs: CreatePostDTOType = await request.json()
       if (await CreatePostDTO.parseAsync(inputs)) {
         const { title } = inputs
+        const slug = slugify(title)
 
         const data: Prisma.PostCreateInput = {
           ...inputs,
-          slug: slugify(title),
+          slug: slug,
         }
         await prisma.post.create({
           data,

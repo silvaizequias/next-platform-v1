@@ -39,11 +39,12 @@ export async function POST(
         const { title } = inputs
 
         if (title) {
+          const slug = slugify(title)
           await prisma.post.update({
             where: { id: id },
             data: {
               ...inputs,
-              slug: slugify(title),
+              slug: slug,
             },
           })
           return new Response(
