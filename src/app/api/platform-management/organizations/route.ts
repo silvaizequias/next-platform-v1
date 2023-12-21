@@ -27,13 +27,10 @@ export async function GET(request: Request) {
   }
 }
 
-export async function POST(
-  request: Request,
-  { params }: { params: { id: string } },
-) {
+export async function POST(request: Request) {
   const session = await getServerSession(authOptions)
   const PLATFORM_API_URL = process.env.PLATFORM_API_URL
-  const { id } = params
+
   try {
     if (session) {
       const inputs: CreateOrganizationDTOType = await request.json()
@@ -47,6 +44,24 @@ export async function POST(
             Authorization: `Bearer ${session.user.authorization}`,
           },
         })
+
+        const newOrganization = await data.json()
+
+        await fetch(`${PLATFORM_API_URL}/organization-users`, {
+          method: 'POST',
+          body: JSON.stringify({
+            role: 'OWNER',
+            organizationId: newOrganization?.id,
+            userId: session.user?.id,
+            isActive: true,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${session.user.authorization}`,
+          },
+        })
+
         return new Response(JSON.stringify(await data.json()), {
           status: data.status,
         })

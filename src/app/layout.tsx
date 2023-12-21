@@ -3,6 +3,9 @@ import type { Metadata } from 'next'
 import { ReactNode } from 'react'
 import { Providers } from './providers'
 import { Comfortaa, Poppins } from 'next/font/google'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/libraries/next-auth'
+import TopBar from '@/components/top-bar'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -16,7 +19,7 @@ const comfortaa = Comfortaa({
   weight: ['300', '400', '500', '600'],
 })
 
-const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
+const NEXT_PUBLIC_URL = process.env.NEXT_PUBLIC_URL!
 
 export const metadata: Metadata = {
   title: {
@@ -32,14 +35,23 @@ export const metadata: Metadata = {
       'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
     images: ['/logotipo.png'],
   },
-  metadataBase: new URL('https://' + NEXTAUTH_URL),
+  metadataBase: new URL('https://' + NEXT_PUBLIC_URL),
 }
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: ReactNode
+}) {
+  const session = await getServerSession(authOptions)
+
   return (
     <html lang="en" className={`${comfortaa.variable} font-default`}>
       <body className="min-h-screen bg-slate-200 text-zinc-600 dark:bg-slate-800 dark:text-zinc-200 text-base font-light">
-        <Providers>{children}</Providers>
+        <Providers>
+          <TopBar session={session!} />
+          {children}
+        </Providers>
       </body>
     </html>
   )
