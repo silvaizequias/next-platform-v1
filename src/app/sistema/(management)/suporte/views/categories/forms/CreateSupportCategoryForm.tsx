@@ -58,30 +58,52 @@ export default function CreateSupportCategoryForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col flex-1 gap-4 m-2"
+      className="flex flex-col flex-1 gap-4 m-2 sm:min-w-[320px]"
     >
       <Controller
         {...register('name')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input name="name" type="type" value={value} onChange={onChange} />
+          <input
+            className="rounded-md"
+            name="name"
+            type="text"
+            value={value}
+            onChange={onChange}
+            placeholder={'nome para a categoria'}
+          />
         )}
       />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.name?.message}
+        </span>
+      )}
 
       <Controller
         {...register('description')}
         control={control}
         render={({ field: { value, onChange } }) => (
           <input
+            className="rounded-md"
             name="description"
             type="text"
             value={value}
             onChange={onChange}
+            placeholder={'breve descrição'}
           />
         )}
       />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.description?.message}
+        </span>
+      )}
 
-      <button className="w-full uppercase" type="submit">
+      <button
+        className="mt-2 w-full uppercase rounded-md bg-sky-600 hover:opacity-75 py-2 text-white text-base hover:font-medium"
+        type="submit"
+      >
         Adicionar Categoria
       </button>
     </form>

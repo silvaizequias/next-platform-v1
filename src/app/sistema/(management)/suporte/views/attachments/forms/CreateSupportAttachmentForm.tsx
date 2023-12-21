@@ -65,10 +65,12 @@ export default function CreateSupportAttachmentForm() {
         control={control}
         render={({ field: { value, onChange } }) => (
           <input
+            className="rounded-md"
             name="ticketId"
             type="text"
             value={value}
             onChange={onChange}
+            placeholder={'ticket'}
           />
         )}
       />
@@ -77,7 +79,14 @@ export default function CreateSupportAttachmentForm() {
         {...register('note')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input name="note" type="text" value={value} onChange={onChange} />
+          <input
+            className="rounded-md"
+            name="note"
+            type="text"
+            value={value}
+            onChange={onChange}
+            placeholder={'observação'}
+          />
         )}
       />
 
@@ -85,11 +94,21 @@ export default function CreateSupportAttachmentForm() {
         {...register('file')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input name="file" type="text" value={value} onChange={onChange} />
+          <input
+            className="rounded-md"
+            name="file"
+            type="text"
+            value={value}
+            onChange={onChange}
+            placeholder={'arquivo'}
+          />
         )}
       />
 
-      <button className="w-full uppercase" type="submit">
+      <button
+        className="mt-2 w-full uppercase rounded-md bg-sky-600 hover:opacity-75 py-2 text-white text-base hover:font-medium"
+        type="submit"
+      >
         Anexar
       </button>
     </form>

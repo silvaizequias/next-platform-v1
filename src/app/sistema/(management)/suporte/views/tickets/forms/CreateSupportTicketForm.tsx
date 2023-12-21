@@ -65,31 +65,65 @@ export default function CreateSupportTicketForm() {
         control={control}
         render={({ field: { value, onChange } }) => (
           <input
+            className="rounded-md"
             name="organization"
             type="text"
             value={value}
             onChange={onChange}
+            placeholder={'organizacao'}
           />
         )}
       />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.organization?.message}
+        </span>
+      )}
 
       <Controller
         {...register('subject')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input name="subject" type="text" value={value} onChange={onChange} />
+          <input
+            className="rounded-md"
+            name="subject"
+            type="text"
+            value={value}
+            onChange={onChange}
+            placeholder={'assunto'}
+          />
         )}
       />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.subject?.message}
+        </span>
+      )}
 
       <Controller
         {...register('content')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input name="content" type="text" value={value} onChange={onChange} />
+          <textarea
+            className="rounded-md"
+            name="content"
+            rows={10}
+            value={value}
+            onChange={onChange}
+            placeholder={'conteúdo'}
+          />
         )}
       />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.content?.message}
+        </span>
+      )}
 
-      <button className="w-full uppercase" type="submit">
+      <button
+        className="mt-2 w-full uppercase rounded-md bg-sky-600 hover:opacity-75 py-2 text-white text-base hover:font-medium"
+        type="submit"
+      >
         Criar Ticket
       </button>
     </form>

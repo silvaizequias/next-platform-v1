@@ -68,7 +68,7 @@ export default function CreateUserForm() {
             type="text"
             value={value}
             onChange={onChange}
-            placeholder="Perfil do Usuário"
+            placeholder="perfil"
           />
         )}
       />
@@ -88,7 +88,7 @@ export default function CreateUserForm() {
             type="text"
             value={value}
             onChange={onChange}
-            placeholder="Nome Completo"
+            placeholder="nome completo"
           />
         )}
       />
@@ -108,7 +108,7 @@ export default function CreateUserForm() {
             type="email"
             value={value}
             onChange={onChange}
-            placeholder="E-mail"
+            placeholder="email@cominio.com"
           />
         )}
       />
@@ -128,7 +128,7 @@ export default function CreateUserForm() {
             type="number"
             value={value}
             onChange={onChange}
-            placeholder="Celular"
+            placeholder="48 98765 4321"
           />
         )}
       />

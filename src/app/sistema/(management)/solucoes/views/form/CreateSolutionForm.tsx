@@ -62,7 +62,14 @@ export default function CreateSolutionForm() {
         {...register('name')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input name="name" type="text" value={value} onChange={onChange} />
+          <input
+            className="rounded-md"
+            name="name"
+            type="text"
+            value={value}
+            onChange={onChange}
+            placeholder={'nome'}
+          />
         )}
       />
 
@@ -71,10 +78,12 @@ export default function CreateSolutionForm() {
         control={control}
         render={({ field: { value, onChange } }) => (
           <input
+            className="rounded-md"
             name="description"
             type="text"
             value={value}
             onChange={onChange}
+            placeholder={'descrição'}
           />
         )}
       />
@@ -83,11 +92,21 @@ export default function CreateSolutionForm() {
         {...register('apiUrl')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input name="apiUrl" type="date" value={value} onChange={onChange} />
+          <input
+            className="rounded-md"
+            name="apiUrl"
+            type="text"
+            value={value}
+            onChange={onChange}
+            placeholder={'https://...'}
+          />
         )}
       />
 
-      <button className="w-full uppercase" type="submit">
+      <button
+        className="mt-2 w-full uppercase rounded-md bg-sky-600 hover:opacity-75 py-2 text-white text-base hover:font-medium"
+        type="submit"
+      >
         Criar Solução
       </button>
     </form>

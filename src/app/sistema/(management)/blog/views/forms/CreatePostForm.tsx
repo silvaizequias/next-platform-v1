@@ -62,7 +62,7 @@ export default function CreatePostForm() {
             type="text"
             value={value}
             onChange={onChange}
-            placeholder="Título da Postagem"
+            placeholder="título da postagem"
           />
         )}
       />
@@ -82,7 +82,7 @@ export default function CreatePostForm() {
             type="text"
             value={value}
             onChange={onChange}
-            placeholder="Assunto da Postagem"
+            placeholder="assunto da postagem"
           />
         )}
       />
@@ -102,7 +102,7 @@ export default function CreatePostForm() {
             rows={10}
             value={value}
             onChange={onChange}
-            placeholder="Conteúdo da Postagem"
+            placeholder="conteúdo da postagem"
           />
         )}
       />

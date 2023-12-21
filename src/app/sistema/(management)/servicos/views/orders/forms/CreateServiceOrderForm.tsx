@@ -63,41 +63,65 @@ export default function CreateServiceOrderForm() {
         control={control}
         render={({ field: { value, onChange } }) => (
           <input
+            className="rounded-md"
             name="organization"
             type="text"
             value={value}
             onChange={onChange}
+            placeholder={'organizacao'}
           />
         )}
       />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.organization?.message}
+        </span>
+      )}
 
       <Controller
         {...register('customer')}
         control={control}
         render={({ field: { value, onChange } }) => (
           <input
+            className="rounded-md"
             name="customer"
             type="text"
             value={value}
             onChange={onChange}
+            placeholder={'cliente'}
           />
         )}
       />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.customer?.message}
+        </span>
+      )}
 
       <Controller
         {...register('deadline')}
         control={control}
         render={({ field: { value, onChange } }) => (
           <input
+            className="rounded-md"
             name="deadline"
             type="date"
             //value={value}
             onChange={onChange}
+            placeholder={'prazo final'}
           />
         )}
       />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.deadline?.message}
+        </span>
+      )}
 
-      <button className="w-full uppercase" type="submit">
+      <button
+        className="mt-2 w-full uppercase rounded-md bg-sky-600 hover:opacity-75 py-2 text-white text-base hover:font-medium"
+        type="submit"
+      >
         Criar Ordem de Serviço
       </button>
     </form>

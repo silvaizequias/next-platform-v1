@@ -62,40 +62,86 @@ export default function CreateServiceItemForm() {
         {...register('orderId')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input name="orderId" type="text" value={value} onChange={onChange} />
+          <input
+            className="rounded-md"
+            name="orderId"
+            type="text"
+            value={value}
+            onChange={onChange}
+            placeholder={'código da os'}
+          />
         )}
       />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.orderId?.message}
+        </span>
+      )}
 
       <Controller
         {...register('note')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input name="note" type="text" value={value} onChange={onChange} />
+          <textarea
+            className="rounded-md"
+            name="note"
+            rows={5}
+            value={value}
+            onChange={onChange}
+            placeholder={'observação'}
+          />
         )}
       />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.note?.message}
+        </span>
+      )}
 
       <Controller
         {...register('amount')}
         control={control}
         render={({ field: { value, onChange } }) => (
           <input
+            className="rounded-md"
             name="amount"
             type="number"
             value={value}
             onChange={onChange}
+            placeholder={'0'}
           />
         )}
       />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.amount?.message}
+        </span>
+      )}
 
       <Controller
         {...register('file')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input name="file" type="text" value={value} onChange={onChange} />
+          <input
+            className="rounded-md"
+            name="file"
+            type="text"
+            value={value}
+            onChange={onChange}
+            placeholder={'arquivo'}
+          />
         )}
       />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.file?.message}
+        </span>
+      )}
 
-      <button className="w-full uppercase" type="submit">
+      <button
+        className="mt-2 w-full uppercase rounded-md bg-sky-600 hover:opacity-75 py-2 text-white text-base hover:font-medium"
+        type="submit"
+      >
         Adicionar Item
       </button>
     </form>

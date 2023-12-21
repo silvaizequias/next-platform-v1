@@ -69,7 +69,7 @@ export default function CreateOrganizationForm() {
             type="text"
             value={value}
             onChange={onChange}
-            placeholder={'Nome da Organização'}
+            placeholder={'nome da organização'}
           />
         )}
       />
@@ -89,7 +89,7 @@ export default function CreateOrganizationForm() {
             type="number"
             value={value}
             onChange={onChange}
-            placeholder={'CNPJ'}
+            placeholder={'cnpj'}
           />
         )}
       />
