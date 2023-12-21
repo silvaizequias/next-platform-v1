@@ -50,7 +50,7 @@ export default function CreatePostForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col flex-1 gap-4 m-2"
+      className="flex flex-col flex-1 gap-4 m-2 sm:min-w-[400px]"
     >
       <Controller
         {...register('title')}
@@ -96,10 +96,10 @@ export default function CreatePostForm() {
         {...register('content')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input
+          <textarea
             className="rounded-md"
             name="content"
-            type="text"
+            rows={10}
             value={value}
             onChange={onChange}
             placeholder="Conteúdo da Postagem"
