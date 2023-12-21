@@ -7,7 +7,7 @@ import {
 import { SendMessageType } from '@/types/send-message'
 import { sendSms } from '@/services/twilio'
 
-const NEXTAUTH_URL = process.env.NEXTAUTH_URL
+const NEXT_PUBLIC_URL = process.env.NEXT_PUBLIC_URL
 const SENDGRID_EMAIL_FROM = process.env.SENDGRID_EMAIL_FROM
 const TWILIO_PHONE_NUMBER = process.env.TWILIO_PHONE_NUMBER!
 
@@ -21,7 +21,7 @@ export const sendWelcomeMessage = async (data: SendMessageType) => {
     name: data?.name,
     organization: data?.organization,
     password: data?.password,
-    solution: data?.solution || NEXTAUTH_URL,
+    solution: data?.solution || NEXT_PUBLIC_URL,
   })
 
   sendEmail({
@@ -45,7 +45,7 @@ export const sendPasswordResetMessage = async (data: SendMessageType) => {
     name: data?.name,
     organization: data?.organization,
     password: data?.password,
-    solution: data?.solution || NEXTAUTH_URL,
+    solution: data?.solution || NEXT_PUBLIC_URL,
   })
 
   sendEmail({

@@ -13,13 +13,22 @@ interface Props {
 export default function AppBar(props: Props) {
   const { session } = props
 
+  const isDevelopment = process.env.NODE_ENV === 'development'
+
   const router = useRouter()
 
   const handleClick = useCallback(
-    (path?: string, message?: string) => {
+    (path?: string) => {
+      if (!path) {
+        if (!isDevelopment)
+          router.push(`https://sistema.${process.env.NEXT_PUBLIC_URL}`)
+
+        router.push(`http://sistema.${process.env.NEXT_PUBLIC_URL}`)
+      }
+
       path && router.push(path)
     },
-    [router],
+    [isDevelopment, router],
   )
 
   return (
@@ -27,7 +36,7 @@ export default function AppBar(props: Props) {
       <div className="rounded-full p-2 hover:bg-slate-100 cursor-pointer">
         <div
           className="flex items-center justify-center w-[24px] sm:w-[28px] h-[24px] sm:h-[28px] text-sky-400 text-xl sm:text-2xl"
-          onClick={() => handleClick('https://sistema.dedicado.digital')}
+          onClick={() => handleClick()}
         >
           <MdDashboard />
         </div>

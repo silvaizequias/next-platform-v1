@@ -19,7 +19,7 @@ const comfortaa = Comfortaa({
   weight: ['300', '400', '500', '600'],
 })
 
-const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
+const NEXT_PUBLIC_URL = process.env.NEXT_PUBLIC_URL!
 
 export const metadata: Metadata = {
   title: {
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
       'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
     images: ['/logotipo.png'],
   },
-  metadataBase: new URL('https://' + NEXTAUTH_URL),
+  metadataBase: new URL('https://' + NEXT_PUBLIC_URL),
 }
 
 export default async function RootLayout({
