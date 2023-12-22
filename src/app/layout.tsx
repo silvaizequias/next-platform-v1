@@ -47,7 +47,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className={`${comfortaa.variable} font-default`}>
-      <body>
+      <body className="min-h-screen bg-blue-gray-50 text-blue-gray-800 dark:bg-blue-gray-800 dark:text-blue-gray-50 text-base font-light">
         <Providers>
           <TopBar session={session!} />
           {children}

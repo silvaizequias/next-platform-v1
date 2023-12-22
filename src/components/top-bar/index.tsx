@@ -24,7 +24,7 @@ export default function TopBar(props: Props) {
               width={17}
               height={25}
             />
-            <h6 className="text-xl sm:text-2xl tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-sky-400 font-semibold lowercase text-sky-400 cursor-pointer">
+            <h6 className="text-xl sm:text-2xl tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-light-blue-200 font-semibold lowercase text-sky-400 cursor-pointer">
               dedicado
             </h6>
           </Link>
