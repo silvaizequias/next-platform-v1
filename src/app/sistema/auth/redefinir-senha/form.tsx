@@ -3,6 +3,7 @@ import {
   PasswordResetDTOType,
 } from '@/app/api/platform-management/password-reset/dto'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Button } from '@material-tailwind/react'
 import { useRouter } from 'next/navigation'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -90,12 +91,15 @@ export default function PasswordResetForm() {
         </span>
       )}
 
-      <button
-        className="mt-2 w-full uppercase rounded-md bg-orange-600 hover:opacity-75 py-2 text-white text-base hover:font-medium"
+      <Button
+        variant="gradient"
+        color="orange"
+        size="sm"
+        fullWidth
         type="submit"
       >
         Redefinir a Senha
-      </button>
+      </Button>
     </form>
   )
 }

@@ -4,6 +4,7 @@ import { PostUpdateDTO, PostUpdateDTOType } from '@/app/api/posts/dto'
 import useFetch from '@/hooks/use-fetch'
 import { PostType } from '@/types/post'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Button } from '@material-tailwind/react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -120,9 +121,9 @@ export default function PostUpdateForm(props: Props) {
         </span>
       )}
 
-      <button className="w-full uppercase" type="submit">
+      <Button variant="gradient" color="blue" size="sm" fullWidth type="submit">
         Atualizar Postagem
-      </button>
+      </Button>
     </form>
   )
 }

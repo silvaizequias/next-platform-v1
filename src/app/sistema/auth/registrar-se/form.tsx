@@ -5,6 +5,7 @@ import {
   SignUpDTOType,
 } from '@/app/api/platform-management/signup/dto'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Button } from '@material-tailwind/react'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
@@ -129,12 +130,9 @@ export default function SignUpForm() {
         </span>
       )}
 
-      <button
-        className="mt-2 w-full uppercase rounded-md bg-green-600 hover:opacity-75 py-2 text-white text-base hover:font-medium"
-        type="submit"
-      >
+      <Button variant="gradient" color="green" size="sm" fullWidth type="submit">
         Registrar-se
-      </button>
+      </Button>
     </form>
   )
 }

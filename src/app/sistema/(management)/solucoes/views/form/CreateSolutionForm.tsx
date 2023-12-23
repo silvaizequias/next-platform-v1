@@ -7,6 +7,7 @@ import {
 import useFetch from '@/hooks/use-fetch'
 import { SolutionType } from '@/types/solution'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Button } from '@material-tailwind/react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -103,12 +104,9 @@ export default function CreateSolutionForm() {
         )}
       />
 
-      <button
-        className="mt-2 w-full uppercase rounded-md bg-sky-600 hover:opacity-75 py-2 text-white text-base hover:font-medium"
-        type="submit"
-      >
+      <Button variant="gradient" color="blue" size="sm" fullWidth type="submit">
         Criar Solução
-      </button>
+      </Button>
     </form>
   )
 }

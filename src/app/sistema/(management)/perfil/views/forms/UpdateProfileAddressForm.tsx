@@ -7,6 +7,7 @@ import {
 import useFetch from '@/hooks/use-fetch'
 import { UserType } from '@/types/platform-management/user'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Button } from '@material-tailwind/react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -72,9 +73,9 @@ export default function UpdateProfileAddressForm() {
         )}
       />
 
-      <button className="w-full uppercase" type="submit">
+      <Button variant="gradient" color="blue" size="sm" fullWidth type="submit">
         Atualizar Endereço
-      </button>
+      </Button>
     </form>
   )
 }

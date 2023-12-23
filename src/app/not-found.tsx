@@ -1,5 +1,6 @@
 'use client'
 
+import { Button } from '@material-tailwind/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
@@ -16,13 +17,16 @@ export default function NotFound() {
           <p className="font-light text-base text-center">
             O conteúdo não foi encontrado...
           </p>
-          <button
-            className="mt-2 w-full uppercase rounded-md bg-sky-600 hover:opacity-75 py-2 text-white text-base hover:font-medium"
+          <Button
+            variant="gradient"
+            color="blue"
+            size="sm"
+            fullWidth
             type="button"
             onClick={() => router.back()}
           >
             Retorne daqui
-          </button>
+          </Button>
         </div>
       </div>
     </div>
