@@ -12,7 +12,6 @@ export default async function AuthLayout({
 
   return !session ? (
     <div className="min-h-screen flex justify-center items-center">
-      <div className="sm:mx-8 mx-2"></div>
       {children}
     </div>
   ) : (
