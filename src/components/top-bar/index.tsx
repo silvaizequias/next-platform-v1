@@ -12,7 +12,7 @@ export default function TopBar(props: Props) {
   const logotipo = '/logotipo.svg'
 
   return (
-    <div className="fixed w-full backdrop-blur-sm bg-slate/30 dark:bg-slate-800/30 shadow-md">
+    <div className="fixed w-full z-10 backdrop-blur-sm bg-slate/30 dark:bg-slate-800/30 shadow-md">
       <div className="h-14 mx-auto py-1">
         <div className="min-h-full flex justify-between items-center sm:mx-8 mx-2">
           <Link className="flex items-center gap-2" href={'/'}>
