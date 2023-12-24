@@ -4,7 +4,7 @@ import { CreatePostDTO, CreatePostDTOType } from '@/app/api/posts/dto'
 import useFetch from '@/hooks/use-fetch'
 import { PostType } from '@/types/post'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input, Textarea } from '@material-tailwind/react'
+import { Button, Checkbox, Input, Textarea } from '@material-tailwind/react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -98,6 +98,48 @@ export default function CreatePostForm() {
       )}
 
       <Controller
+        {...register('resume')}
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <Textarea
+            color="green"
+            label={'resumo'}
+            name="resume"
+            rows={2}
+            value={value}
+            onChange={onChange}
+          />
+        )}
+      />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.content?.message}
+        </span>
+      )}
+
+      <Controller
+        {...register('video')}
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <Input
+            crossOrigin={undefined}
+            color="green"
+            size="md"
+            label={'url de video'}
+            name="video"
+            type="text"
+            value={value}
+            onChange={onChange}
+          />
+        )}
+      />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.subject?.message}
+        </span>
+      )}
+
+      <Controller
         {...register('content')}
         control={control}
         render={({ field: { value, onChange } }) => (
@@ -116,6 +158,56 @@ export default function CreatePostForm() {
           {errors.content?.message}
         </span>
       )}
+
+      <div className='flex flex-1 items-center gap-2'>
+        <Controller
+          {...register('private')}
+          control={control}
+          render={({ field: { value, onChange } }) => (
+            <Checkbox
+              crossOrigin={undefined}
+              color="green"
+              label={'conteúdo privado'}
+              defaultChecked={false}
+              name="private"
+              type="boolean"
+              onChange={onChange}
+            />
+          )}
+        />
+
+        <Controller
+          {...register('draft')}
+          control={control}
+          render={({ field: { value, onChange } }) => (
+            <Checkbox
+              crossOrigin={undefined}
+              color="green"
+              label={'rascunho'}
+              defaultChecked={false}
+              name="draft"
+              type="boolean"
+              onChange={onChange}
+            />
+          )}
+        />
+
+        <Controller
+          {...register('spotlight')}
+          control={control}
+          render={({ field: { value, onChange } }) => (
+            <Checkbox
+              crossOrigin={undefined}
+              color="green"
+              label={'destaque'}
+              defaultChecked={false}
+              name="spotlight"
+              type="boolean"
+              onChange={onChange}
+            />
+          )}
+        />
+      </div>
 
       <Button
         variant="gradient"
