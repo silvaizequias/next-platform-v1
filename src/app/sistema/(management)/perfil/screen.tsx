@@ -1,11 +1,13 @@
 'use client'
 
-import Avatar from '@/components/avatar'
 import useFetch from '@/hooks/use-fetch'
 import { UserType } from '@/types/platform-management/user'
+import { Avatar } from '@material-tailwind/react'
 
 export default function ProfileScreen() {
   const { data: profile, mutate } = useFetch<UserType | any>('/api/profile')
+
+  const avatar = '/avatar.svg'
 
   return (
     <div className="flex flex-col md:flex-row gap-4">
@@ -13,13 +15,13 @@ export default function ProfileScreen() {
         <div className="flex justify-center">
           <div className="flex flex-col justify-center items-center gap-4">
             <div className="flex justify-center item-center mb-2">
-              <div className="p-10 rounded-full bg-slate-50 border-4 border-sky-600 shadow-lg">
-                <Avatar image={profile?.image} size={160} />
+              <div className="rounded-full p-2 opacity-25 hover:opacity-95 hover:bg-gray-50 cursor-pointer">
+                <Avatar size="xl" src={profile?.image || avatar} />
               </div>
             </div>
-            <h4 className="text-xl sm:text-4xl text-slate-400 font-medium">
+            <h6 className="text-xl sm:text-2xl text-slate-400 font-medium">
               {profile?.name.split(' ')[0]}
-            </h4>
+            </h6>
             <span className="bg-slate-50 text-slate-400 rounded-md shadow-md py-2 px-4 text-xs">
               {profile?.profile}
             </span>
