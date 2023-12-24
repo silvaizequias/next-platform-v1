@@ -10,6 +10,7 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@heroicons/react": "^2.1.1",
     "@hookform/resolvers": "^3.3.2",
     "@lexical/code": "^0.12.5",
     "@lexical/link": "^0.12.5",
