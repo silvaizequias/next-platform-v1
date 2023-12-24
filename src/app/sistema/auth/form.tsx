@@ -5,7 +5,7 @@ import {
   SignInDTOType,
 } from '@/app/api/platform-management/signin/dto'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button } from '@material-tailwind/react'
+import { Button, Input } from '@material-tailwind/react'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
@@ -55,13 +55,15 @@ export default function SignInForm() {
         {...register('email')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input
-            className="rounded-md"
+          <Input
+            crossOrigin={undefined}
+            color="blue"
+            size="md"
+            label={'e-mail'}
             name="email"
             type="email"
             value={value}
             onChange={onChange}
-            placeholder="seu@email.com"
           />
         )}
       />
@@ -75,13 +77,15 @@ export default function SignInForm() {
         {...register('password')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input
-            className="rounded-md"
+          <Input
+            crossOrigin={undefined}
+            color="blue"
+            size="md"
+            label={'senha'}
             name="password"
             type="password"
             value={value}
             onChange={onChange}
-            placeholder="*s*u*a-s*e*n*h*a"
           />
         )}
       />

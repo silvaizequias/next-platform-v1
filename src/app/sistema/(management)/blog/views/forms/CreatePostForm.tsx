@@ -4,7 +4,7 @@ import { CreatePostDTO, CreatePostDTOType } from '@/app/api/posts/dto'
 import useFetch from '@/hooks/use-fetch'
 import { PostType } from '@/types/post'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button } from '@material-tailwind/react'
+import { Button, Input, Textarea } from '@material-tailwind/react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -57,13 +57,15 @@ export default function CreatePostForm() {
         {...register('title')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input
-            className="rounded-md"
+          <Input
+            crossOrigin={undefined}
+            color="green"
+            size="md"
+            label={'título'}
             name="title"
             type="text"
             value={value}
             onChange={onChange}
-            placeholder="título da postagem"
           />
         )}
       />
@@ -77,13 +79,15 @@ export default function CreatePostForm() {
         {...register('subject')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input
-            className="rounded-md"
+          <Input
+            crossOrigin={undefined}
+            color="green"
+            size="md"
+            label={'assunto'}
             name="subject"
             type="text"
             value={value}
             onChange={onChange}
-            placeholder="assunto da postagem"
           />
         )}
       />
@@ -97,13 +101,13 @@ export default function CreatePostForm() {
         {...register('content')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <textarea
-            className="rounded-md"
+          <Textarea
+            color="green"
+            label={'conteúdo'}
             name="content"
             rows={10}
             value={value}
             onChange={onChange}
-            placeholder="conteúdo da postagem"
           />
         )}
       />
@@ -113,7 +117,13 @@ export default function CreatePostForm() {
         </span>
       )}
 
-      <Button variant="gradient" color="blue" size="sm" fullWidth type="submit">
+      <Button
+        variant="gradient"
+        color="green"
+        size="sm"
+        fullWidth
+        type="submit"
+      >
         Criar Postagem
       </Button>
     </form>

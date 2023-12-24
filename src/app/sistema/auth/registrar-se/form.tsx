@@ -5,7 +5,7 @@ import {
   SignUpDTOType,
 } from '@/app/api/platform-management/signup/dto'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button } from '@material-tailwind/react'
+import { Button, Input } from '@material-tailwind/react'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
@@ -74,13 +74,15 @@ export default function SignUpForm() {
         {...register('name')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input
-            className="rounded-md"
+          <Input
+            crossOrigin={undefined}
+            color="green"
+            size="md"
+            label={'nome completo'}
             name="name"
             type="text"
             value={value}
             onChange={onChange}
-            placeholder="Seu Nome Completo"
           />
         )}
       />
@@ -94,13 +96,15 @@ export default function SignUpForm() {
         {...register('email')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input
-            className="rounded-md"
+          <Input
+            crossOrigin={undefined}
+            color="green"
+            size="md"
+            label={'e-mail'}
             name="email"
             type="email"
             value={value}
             onChange={onChange}
-            placeholder="seu@email.com"
           />
         )}
       />
@@ -114,13 +118,15 @@ export default function SignUpForm() {
         {...register('phone')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input
-            className="rounded-md"
+          <Input
+            crossOrigin={undefined}
+            color="green"
+            size="md"
+            label={'celular'}
             name="phone"
             type="number"
             value={value}
             onChange={onChange}
-            placeholder="48 98765 4321"
           />
         )}
       />
@@ -130,7 +136,13 @@ export default function SignUpForm() {
         </span>
       )}
 
-      <Button variant="gradient" color="green" size="sm" fullWidth type="submit">
+      <Button
+        variant="gradient"
+        color="green"
+        size="sm"
+        fullWidth
+        type="submit"
+      >
         Registrar-se
       </Button>
     </form>
