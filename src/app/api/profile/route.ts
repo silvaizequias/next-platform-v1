@@ -45,7 +45,7 @@ export async function POST(request: Request) {
             },
           },
         )
-        return new Response(JSON.stringify(await data.json()), {
+        return new Response(data.body, {
           status: data.status,
         })
       }

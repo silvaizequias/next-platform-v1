@@ -3,6 +3,7 @@
 import useFetch from '@/hooks/use-fetch'
 import { UserType } from '@/types/platform-management/user'
 import { Avatar } from '@material-tailwind/react'
+import ProfileRightView from './views/ProfileRightView'
 
 export default function ProfileScreen() {
   const { data: profile, mutate } = useFetch<UserType | any>('/api/profile')
@@ -28,7 +29,11 @@ export default function ProfileScreen() {
           </div>
         </div>
       </div>
-      <div className="w-full flex flex-1 bg-slate-50 rounded-md p-4 shadow-md"></div>
+      <div className="w-full flex bg-slate-50 rounded-md p-4 shadow-md">
+        <div className="flex flex-1 flex-col justify-center">
+          <ProfileRightView />
+        </div>
+      </div>
     </div>
   )
 }
