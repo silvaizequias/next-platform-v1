@@ -2,9 +2,9 @@
 
 import { Session } from 'next-auth'
 import { MdDashboard } from 'react-icons/md'
-import Avatar from '../avatar'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
+import { Avatar } from '@material-tailwind/react'
 
 interface Props {
   session: Session
@@ -12,6 +12,8 @@ interface Props {
 
 export default function AppBar(props: Props) {
   const { session } = props
+
+  const avatar = '/avatar.svg'
 
   const isDevelopment = process.env.NODE_ENV === 'development'
 
@@ -33,9 +35,9 @@ export default function AppBar(props: Props) {
 
   return (
     <div className="flex items-center justify-end gap-2">
-      <div className="rounded-full p-2 hover:bg-slate-100 cursor-pointer">
+      <div className="rounded-full p-2 hover:bg-gray-50 cursor-pointer">
         <div
-          className="flex items-center justify-center w-[24px] sm:w-[28px] h-[24px] sm:h-[28px] text-sky-400 text-xl sm:text-2xl"
+          className="flex items-center justify-center w-[24px] sm:w-[28px] h-[24px] sm:h-[28px] text-light-blue-200 hover:text-light-blue-400 text-xl sm:text-2xl"
           onClick={() => handleClick()}
         >
           <MdDashboard />
@@ -43,10 +45,10 @@ export default function AppBar(props: Props) {
       </div>
       {session && (
         <div
-          className="rounded-full p-2 hover:bg-slate-100 cursor-pointer"
+          className="rounded-full p-2 opacity-25 hover:opacity-95 hover:bg-gray-50   cursor-pointer"
           onClick={() => handleClick('/perfil')}
         >
-          <Avatar session={session} />
+          <Avatar size="xs" src={session?.user?.image || avatar} />
         </div>
       )}
     </div>

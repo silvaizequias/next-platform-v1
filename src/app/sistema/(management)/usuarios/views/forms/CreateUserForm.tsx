@@ -7,6 +7,7 @@ import {
 import useFetch from '@/hooks/use-fetch'
 import { UserType } from '@/types/platform-management/user'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Button, Input, Option, Select } from '@material-tailwind/react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -62,14 +63,17 @@ export default function CreateUserForm() {
         {...register('profile')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input
-            className="rounded-md"
+          <Select
+            color="green"
+            size="md"
+            label={'perfil'}
             name="profile"
-            type="text"
             value={value}
             onChange={onChange}
-            placeholder="perfil"
-          />
+          >
+            <Option value={'USER'}>user</Option>
+            <Option value={'MASTER'}>master</Option>
+          </Select>
         )}
       />
       {errors && (
@@ -82,13 +86,15 @@ export default function CreateUserForm() {
         {...register('name')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input
-            className="rounded-md"
+          <Input
+            crossOrigin={undefined}
+            color="green"
+            size="md"
+            label={'nome completo'}
             name="name"
             type="text"
             value={value}
             onChange={onChange}
-            placeholder="nome completo"
           />
         )}
       />
@@ -102,13 +108,15 @@ export default function CreateUserForm() {
         {...register('email')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input
-            className="rounded-md"
+          <Input
+            crossOrigin={undefined}
+            color="green"
+            size="md"
+            label={'e-mail'}
             name="email"
             type="email"
             value={value}
             onChange={onChange}
-            placeholder="email@cominio.com"
           />
         )}
       />
@@ -122,13 +130,15 @@ export default function CreateUserForm() {
         {...register('phone')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input
-            className="rounded-md"
+          <Input
+            crossOrigin={undefined}
+            color="green"
+            size="md"
+            label={'celular'}
             name="phone"
             type="number"
             value={value}
             onChange={onChange}
-            placeholder="48 98765 4321"
           />
         )}
       />
@@ -138,12 +148,15 @@ export default function CreateUserForm() {
         </span>
       )}
 
-      <button
-        className="mt-2 w-full uppercase rounded-md bg-sky-600 hover:opacity-75 py-2 text-white text-base hover:font-medium"
+      <Button
+        variant="gradient"
+        color="green"
+        size="sm"
+        fullWidth
         type="submit"
       >
         Criar Usuário
-      </button>
+      </Button>
     </form>
   )
 }

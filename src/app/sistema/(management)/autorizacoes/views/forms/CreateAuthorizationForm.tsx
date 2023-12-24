@@ -1,19 +1,19 @@
 'use client'
 
 import {
-  CreateSolutionDTO,
-  CreateSolutionDTOType,
-} from '@/app/api/solutions/dto'
+  CreateAuthorizationDTO,
+  CreateAuthorizationDTOType,
+} from '@/app/api/authorizations/dto'
 import useFetch from '@/hooks/use-fetch'
-import { SolutionType } from '@/types/solution'
+import { AuthorizationType } from '@/types/authorization'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@material-tailwind/react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
-export default function CreateSolutionForm() {
-  const { data: solutions, mutate } = useFetch<SolutionType[] | any>(
-    '/api/solutions',
+export default function CreateAuthorizationForm() {
+  const { data: autorizations, mutate } = useFetch<AuthorizationType[] | any>(
+    '/api/authorizations',
   )
 
   const {
@@ -22,25 +22,26 @@ export default function CreateSolutionForm() {
     formState: { errors },
     register,
     reset,
-  } = useForm<CreateSolutionDTOType>({
+  } = useForm<CreateAuthorizationDTOType>({
     mode: 'all',
-    resolver: zodResolver(CreateSolutionDTO),
+    resolver: zodResolver(CreateAuthorizationDTO),
   })
 
-  const onSubmit: SubmitHandler<CreateSolutionDTOType> = async (inputs) => {
+  const onSubmit: SubmitHandler<CreateAuthorizationDTOType> = async (
+    inputs,
+  ) => {
     try {
-      await fetch(`/api/solutions`, {
+      await fetch(`/api/posts`, {
         method: 'POST',
         body: JSON.stringify(inputs),
         headers: { 'Content-Type': 'application/json' },
       }).then(async (res: any) => {
         const data = await res.json()
         if (res.status == 201) {
-          await mutate(...solutions, data, {
+          await mutate(...autorizations, data, {
             revalidate: true,
             rollbackOnError: true,
           })
-
           toast.success(data)
         } else {
           toast.error(data)
@@ -60,52 +61,67 @@ export default function CreateSolutionForm() {
       className="flex flex-col flex-1 gap-4 m-2"
     >
       <Controller
-        {...register('name')}
+        {...register('organization')}
         control={control}
         render={({ field: { value, onChange } }) => (
           <input
             className="rounded-md"
-            name="name"
+            name="organization"
             type="text"
             value={value}
             onChange={onChange}
-            placeholder={'nome'}
+            placeholder="organização"
           />
         )}
       />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.organization?.message}
+        </span>
+      )}
 
       <Controller
-        {...register('description')}
+        {...register('solutionId')}
         control={control}
         render={({ field: { value, onChange } }) => (
           <input
             className="rounded-md"
-            name="description"
+            name="solutionId"
             type="text"
             value={value}
             onChange={onChange}
-            placeholder={'descrição'}
+            placeholder="solução"
           />
         )}
       />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.solutionId?.message}
+        </span>
+      )}
 
       <Controller
-        {...register('apiUrl')}
+        {...register('expireIn')}
         control={control}
         render={({ field: { value, onChange } }) => (
           <input
             className="rounded-md"
-            name="apiUrl"
-            type="text"
-            value={value}
+            name="expireIn"
+            type="date"
+            //value={value}
             onChange={onChange}
-            placeholder={'https://...'}
+            placeholder="expira em"
           />
         )}
       />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.expireIn?.message}
+        </span>
+      )}
 
       <Button variant="gradient" color="blue" size="sm" fullWidth type="submit">
-        Criar Solução
+        Criar Autorização
       </Button>
     </form>
   )

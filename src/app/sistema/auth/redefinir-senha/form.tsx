@@ -3,6 +3,7 @@ import {
   PasswordResetDTOType,
 } from '@/app/api/platform-management/password-reset/dto'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Button, Input } from '@material-tailwind/react'
 import { useRouter } from 'next/navigation'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -54,13 +55,15 @@ export default function PasswordResetForm() {
         {...register('email')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input
-            className="rounded-md"
+          <Input
+            crossOrigin={undefined}
+            color="orange"
+            size="md"
+            label={'e-mail'}
             name="email"
             type="email"
             value={value}
             onChange={onChange}
-            placeholder="seu@email.com"
           />
         )}
       />
@@ -74,13 +77,15 @@ export default function PasswordResetForm() {
         {...register('phone')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input
-            className="rounded-md"
+          <Input
+            crossOrigin={undefined}
+            color="orange"
+            size="md"
+            label={'celular'}
             name="phone"
             type="number"
             value={value}
             onChange={onChange}
-            placeholder="48 98765 4321"
           />
         )}
       />
@@ -90,12 +95,15 @@ export default function PasswordResetForm() {
         </span>
       )}
 
-      <button
-        className="mt-2 w-full uppercase rounded-md bg-orange-600 hover:opacity-75 py-2 text-white text-base hover:font-medium"
+      <Button
+        variant="gradient"
+        color="orange"
+        size="sm"
+        fullWidth
         type="submit"
       >
         Redefinir a Senha
-      </button>
+      </Button>
     </form>
   )
 }

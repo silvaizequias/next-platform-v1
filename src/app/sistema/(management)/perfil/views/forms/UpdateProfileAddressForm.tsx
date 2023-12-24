@@ -7,6 +7,7 @@ import {
 import useFetch from '@/hooks/use-fetch'
 import { UserType } from '@/types/platform-management/user'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Button, Input } from '@material-tailwind/react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -19,6 +20,7 @@ export default function UpdateProfileAddressForm() {
     formState: { errors },
     register,
     reset,
+    setValue,
   } = useForm<UpdateProfileAddressDTOType>({
     mode: 'all',
     resolver: zodResolver(UpdateProfileAddressDTO),
@@ -33,17 +35,14 @@ export default function UpdateProfileAddressForm() {
         body: JSON.stringify(inputs),
         headers: { 'Content-Type': 'application/json' },
       }).then(async (res: any) => {
-        const data = await res.json()
-        if (res.status == 201) {
-          await mutate(...profile, data, {
+        if (res.status == 200) {
+          await mutate(profile, {
             revalidate: true,
             rollbackOnError: true,
           })
-
-          reset(inputs)
-          toast.success(data)
+          toast.success(res.text())
         } else {
-          toast.error(data)
+          toast.error(res.text())
         }
       })
     } catch (error: any) {
@@ -54,27 +53,192 @@ export default function UpdateProfileAddressForm() {
     }
   }
 
+  const setZipCode = async (event: { target: { value: any } }) => {
+    const zipCode = event.target.value?.replace(/[^0-9]/g, '')
+    try {
+      if (zipCode) {
+        await fetch(`https://viacep.com.br/ws/${zipCode}/json/`, {
+          method: 'GET',
+        })
+          .then(async (res: any) => {
+            const data = await res.json()
+            if (!data?.cep!) {
+              toast.error(`CEP ${zipCode} inválido!`)
+            }
+            setValue('street', data?.logradouro)
+            setValue('complement', data?.complemento)
+            setValue('district', data?.bairro)
+            setValue('city', data?.localidade)
+            setValue('state', data?.uf)
+          })
+          .catch((error: any) => {
+            toast.error(error?.response?.data || error?.message)
+          })
+      }
+    } catch (error: any) {
+      toast.error(error?.response?.data || error?.message)
+      console.error(error)
+    }
+  }
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col flex-1 gap-4 m-2"
     >
-      <Controller
-        {...register('zipCode')}
-        control={control}
-        render={({ field: { value, onChange } }) => (
-          <input
-            name="zipCode"
-            type="number"
-            value={value}
-            onChange={onChange}
+      <div className="flex flex-col md:flex-row items-center gap-2 w-auto">
+        <div className="w-full md:w-auto">
+          <Controller
+            {...register('zipCode')}
+            control={control}
+            render={({ field: { value, onChange, onBlur } }) => (
+              <Input
+                crossOrigin={undefined}
+                color="blue"
+                size="md"
+                label={'cep'}
+                name="zipCode"
+                type="number"
+                value={value}
+                defaultValue={profile?.zipCode}
+                onBlur={setZipCode}
+                onChange={onChange}
+              />
+            )}
           />
+          {errors && (
+            <span className="text-red-400 text-xs font-thin italic lowercase">
+              {errors.zipCode?.message}
+            </span>
+          )}
+        </div>
+        <div className="w-full md:w-4/5">
+          <Controller
+            {...register('street')}
+            control={control}
+            render={({ field: { value, onChange } }) => (
+              <Input
+                crossOrigin={undefined}
+                color="blue"
+                size="md"
+                label={'logradouro'}
+                name="street"
+                type="text"
+                value={value}
+                defaultValue={profile?.street}
+                onChange={onChange}
+              />
+            )}
+          />
+          {errors && (
+            <span className="text-red-400 text-xs font-thin italic lowercase">
+              {errors.street?.message}
+            </span>
+          )}
+        </div>
+      </div>
+      <div className="flex flex-col items-center gap-2">
+        <Controller
+          {...register('complement')}
+          control={control}
+          render={({ field: { value, onChange } }) => (
+            <Input
+              crossOrigin={undefined}
+              color="blue"
+              size="md"
+              label={'complemento'}
+              name="complement"
+              type="text"
+              value={value}
+              defaultValue={profile?.complement}
+              onChange={onChange}
+            />
+          )}
+        />
+        {errors && (
+          <span className="text-red-400 text-xs font-thin italic lowercase">
+            {errors.complement?.message}
+          </span>
         )}
-      />
+      </div>
+      <div className="flex flex-col md:flex-row items-center gap-2 w-auto">
+        <div className="w-full">
+          <Controller
+            {...register('district')}
+            control={control}
+            render={({ field: { value, onChange } }) => (
+              <Input
+                crossOrigin={undefined}
+                color="blue"
+                size="md"
+                label={'bairro'}
+                name="district"
+                type="text"
+                value={value}
+                defaultValue={profile?.district}
+                onChange={onChange}
+              />
+            )}
+          />
+          {errors && (
+            <span className="text-red-400 text-xs font-thin italic lowercase">
+              {errors.district?.message}
+            </span>
+          )}
+        </div>
+        <div className="w-full">
+          <Controller
+            {...register('city')}
+            control={control}
+            render={({ field: { value, onChange } }) => (
+              <Input
+                crossOrigin={undefined}
+                color="blue"
+                size="md"
+                label={'cidade'}
+                name="city"
+                type="text"
+                value={value}
+                defaultValue={profile?.city}
+                onChange={onChange}
+              />
+            )}
+          />
+          {errors && (
+            <span className="text-red-400 text-xs font-thin italic lowercase">
+              {errors.city?.message}
+            </span>
+          )}
+        </div>
+        <div className="w-full">
+          <Controller
+            {...register('state')}
+            control={control}
+            render={({ field: { value, onChange } }) => (
+              <Input
+                crossOrigin={undefined}
+                color="blue"
+                size="md"
+                label={'estado'}
+                name="state"
+                type="text"
+                value={value}
+                defaultValue={profile?.state}
+                onChange={onChange}
+              />
+            )}
+          />
+          {errors && (
+            <span className="text-red-400 text-xs font-thin italic lowercase">
+              {errors.state?.message}
+            </span>
+          )}
+        </div>
+      </div>
 
-      <button className="w-full uppercase" type="submit">
+      <Button variant="gradient" color="blue" size="sm" fullWidth type="submit">
         Atualizar Endereço
-      </button>
+      </Button>
     </form>
   )
 }

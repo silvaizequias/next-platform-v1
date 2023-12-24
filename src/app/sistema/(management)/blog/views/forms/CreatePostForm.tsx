@@ -4,6 +4,7 @@ import { CreatePostDTO, CreatePostDTOType } from '@/app/api/posts/dto'
 import useFetch from '@/hooks/use-fetch'
 import { PostType } from '@/types/post'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Button, Checkbox, Input, Textarea } from '@material-tailwind/react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -56,13 +57,15 @@ export default function CreatePostForm() {
         {...register('title')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input
-            className="rounded-md"
+          <Input
+            crossOrigin={undefined}
+            color="green"
+            size="md"
+            label={'título'}
             name="title"
             type="text"
             value={value}
             onChange={onChange}
-            placeholder="título da postagem"
           />
         )}
       />
@@ -76,13 +79,57 @@ export default function CreatePostForm() {
         {...register('subject')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <input
-            className="rounded-md"
+          <Input
+            crossOrigin={undefined}
+            color="green"
+            size="md"
+            label={'assunto'}
             name="subject"
             type="text"
             value={value}
             onChange={onChange}
-            placeholder="assunto da postagem"
+          />
+        )}
+      />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.subject?.message}
+        </span>
+      )}
+
+      <Controller
+        {...register('resume')}
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <Textarea
+            color="green"
+            label={'resumo'}
+            name="resume"
+            rows={2}
+            value={value}
+            onChange={onChange}
+          />
+        )}
+      />
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.content?.message}
+        </span>
+      )}
+
+      <Controller
+        {...register('video')}
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <Input
+            crossOrigin={undefined}
+            color="green"
+            size="md"
+            label={'url de video'}
+            name="video"
+            type="text"
+            value={value}
+            onChange={onChange}
           />
         )}
       />
@@ -96,13 +143,13 @@ export default function CreatePostForm() {
         {...register('content')}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <textarea
-            className="rounded-md"
+          <Textarea
+            color="green"
+            label={'conteúdo'}
             name="content"
             rows={10}
             value={value}
             onChange={onChange}
-            placeholder="conteúdo da postagem"
           />
         )}
       />
@@ -112,12 +159,65 @@ export default function CreatePostForm() {
         </span>
       )}
 
-      <button
-        className="mt-2 w-full uppercase rounded-md bg-sky-600 hover:opacity-75 py-2 text-white text-base hover:font-medium"
+      <div className='flex flex-1 items-center gap-2'>
+        <Controller
+          {...register('private')}
+          control={control}
+          render={({ field: { value, onChange } }) => (
+            <Checkbox
+              crossOrigin={undefined}
+              color="green"
+              label={'conteúdo privado'}
+              defaultChecked={false}
+              name="private"
+              type="boolean"
+              onChange={onChange}
+            />
+          )}
+        />
+
+        <Controller
+          {...register('draft')}
+          control={control}
+          render={({ field: { value, onChange } }) => (
+            <Checkbox
+              crossOrigin={undefined}
+              color="green"
+              label={'rascunho'}
+              defaultChecked={false}
+              name="draft"
+              type="boolean"
+              onChange={onChange}
+            />
+          )}
+        />
+
+        <Controller
+          {...register('spotlight')}
+          control={control}
+          render={({ field: { value, onChange } }) => (
+            <Checkbox
+              crossOrigin={undefined}
+              color="green"
+              label={'destaque'}
+              defaultChecked={false}
+              name="spotlight"
+              type="boolean"
+              onChange={onChange}
+            />
+          )}
+        />
+      </div>
+
+      <Button
+        variant="gradient"
+        color="green"
+        size="sm"
+        fullWidth
         type="submit"
       >
         Criar Postagem
-      </button>
+      </Button>
     </form>
   )
 }
