@@ -16,7 +16,7 @@ import { authOptions } from '@/libraries/next-auth'
 export default async function OrganizationDetailPage({
   params,
 }: {
-  params: { cnpj: string }
+  params: { document: string }
 }) {
   const session = await getServerSession(authOptions)
 
@@ -28,7 +28,7 @@ export default async function OrganizationDetailPage({
             Detalhes da Organização
           </h4>
           <OrganizationDetailScreen
-            documentCode={params?.cnpj}
+            document={params?.document}
             session={session!}
           />
         </div>

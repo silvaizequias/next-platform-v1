@@ -4,17 +4,19 @@ import useFetch from '@/hooks/use-fetch'
 import CreateOrganizationUserForm from '../views/forms/CreateOrganizationUserForm'
 import { OrganizationType } from '@/types/platform-management/organization'
 import { Session } from 'next-auth'
+import OrganizationDetailView from './views/OrganizationDetailView'
 
 interface Props {
-  documentCode: string
+  document: string
   session: Session
 }
 
 export default function OrganizationDetailScreen(props: Props) {
-  const { documentCode, session } = props
+  const { document, session } = props
   const { data: organization } = useFetch<OrganizationType>(
-    `/api/platform-management/organizations/${documentCode}`,
+    `/api/platform-management/organizations/document/${document}`,
   )
+  console.log(organization)
 
   return organization ? (
     <div className="flex flex-col md:flex-row gap-4">
@@ -22,7 +24,7 @@ export default function OrganizationDetailScreen(props: Props) {
         <CreateOrganizationUserForm organizationId={organization?.id!} />
       </div>
       <div className="w-full flex flex-1 bg-slate-50 rounded-md p-4 shadow-md">
-        <div className="flex flex-col">{organization?.name}</div>
+        <OrganizationDetailView organization={organization} />
       </div>
     </div>
   ) : (
