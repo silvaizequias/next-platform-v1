@@ -21,6 +21,7 @@
     "crisp-sdk-web": "^1.0.21",
     "next": "14.0.4",
     "next-auth": "^4.24.5",
+    "novel": "^0.1.22",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.48.2",
