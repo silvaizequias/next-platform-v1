@@ -1,6 +1,7 @@
 'use client'
 
 import { CreatePostDTO, CreatePostDTOType } from '@/app/api/posts/dto'
+import Tiptap from '@/components/tiptap'
 import useFetch from '@/hooks/use-fetch'
 import { PostType } from '@/types/post'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -113,7 +114,7 @@ export default function CreatePostForm() {
       />
       {errors && (
         <span className="text-red-400 text-xs font-thin italic lowercase">
-          {errors.content?.message}
+          {errors.resume?.message}
         </span>
       )}
 
@@ -135,31 +136,26 @@ export default function CreatePostForm() {
       />
       {errors && (
         <span className="text-red-400 text-xs font-thin italic lowercase">
-          {errors.subject?.message}
+          {errors.video?.message}
         </span>
       )}
 
-      <Controller
-        {...register('content')}
-        control={control}
-        render={({ field: { value, onChange } }) => (
-          <Textarea
-            color="green"
-            label={'conteúdo'}
-            name="content"
-            rows={10}
-            value={value}
-            onChange={onChange}
-          />
+      <div className="bg-gray-50 border border-spacing-2 rounded-md shadow-md">
+        <Controller
+          {...register('content')}
+          control={control}
+          render={({ field: { value, onChange } }) => (
+            <Tiptap value={value} onChange={onChange} />
+          )}
+        />
+        {errors && (
+          <span className="text-red-400 text-xs font-thin italic lowercase">
+            {errors.content?.message}
+          </span>
         )}
-      />
-      {errors && (
-        <span className="text-red-400 text-xs font-thin italic lowercase">
-          {errors.content?.message}
-        </span>
-      )}
+      </div>
 
-      <div className='flex flex-1 items-center gap-2'>
+      <div className="flex flex-1 items-center gap-2">
         <Controller
           {...register('private')}
           control={control}
