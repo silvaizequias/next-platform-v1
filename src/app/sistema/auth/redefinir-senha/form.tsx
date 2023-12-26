@@ -29,13 +29,12 @@ export default function PasswordResetForm() {
         body: JSON.stringify(inputs),
         headers: { 'Content-Type': 'application/json' },
       }).then(async (res: any) => {
-        const data = await res.json()
-        if (res.status == 201) {
+        if (res.status == 200) {
           reset(inputs)
-          toast.success(data)
+          toast.success(res.text())
           router.push('/auth')
         } else {
-          toast.error(data)
+          toast.error(res.text())
         }
       })
     } catch (error: any) {
