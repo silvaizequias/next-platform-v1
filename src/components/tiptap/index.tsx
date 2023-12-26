@@ -20,7 +20,7 @@ export default function Tiptap({
   const editor = useEditor({
     extensions: [
       Color,
-      Document,
+      Document.extend({ content: 'heading block*' }),
       Heading.configure({
         HTMLAttributes: {
           class: 'text-xl font bold',
