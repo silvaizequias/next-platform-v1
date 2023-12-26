@@ -1,7 +1,6 @@
 'use client'
 
 import { CreatePostDTO, CreatePostDTOType } from '@/app/api/posts/dto'
-import Tiptap from '@/components/tiptap'
 import useFetch from '@/hooks/use-fetch'
 import { PostType } from '@/types/post'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -145,7 +144,7 @@ export default function CreatePostForm() {
           {...register('content')}
           control={control}
           render={({ field: { value, onChange } }) => (
-            <Tiptap value={value} onChange={onChange} />
+            <Textarea />
           )}
         />
         {errors && (

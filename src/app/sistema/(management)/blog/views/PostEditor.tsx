@@ -1,6 +1,5 @@
 'use client'
 
-import TiptapEditorContent from '@/components/tiptap'
 import { Button } from '@material-tailwind/react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 
