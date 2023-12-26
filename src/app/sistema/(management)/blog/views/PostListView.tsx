@@ -2,9 +2,58 @@
 
 import useFetch from '@/hooks/use-fetch'
 import { PostType } from '@/types/post'
+import { MdEditSquare } from 'react-icons/md'
 
 export default function PostListView() {
   const { data: posts } = useFetch<PostType[] | any>('/api/posts')
 
-  return ''
+  const TABLE_HEAD = [
+    'criada em',
+    'titulo',
+    'privado',
+    'rascunho',
+    'destaque',
+    '',
+  ]
+
+  return (
+    <div className="relative">
+      <table className="w-full table-auto text-left lowercase">
+        <thead>
+          <tr>
+            {TABLE_HEAD.map((head: any) => (
+              <th
+                key={head}
+                className="p-4 border-b border-blue-gray-100 bg-blue-gray-200"
+              >
+                {head}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {posts?.map((post: PostType) => {
+            const classes = 'p-4 border-b border-blue-gray-200'
+
+            return (
+              <tr key={post?.id}>
+                <td className={classes}>
+                  {new Date(post?.createdAt).toLocaleString()}
+                </td>
+                <td className={classes}>{post?.title}</td>
+                <td className={classes}>{post?.private ? 'SIM' : 'Não'}</td>
+                <td className={classes}>{post?.draft ? 'SIM' : 'Não'}</td>
+                <td className={classes}>{post?.spotlight ? 'SIM' : 'Não'}</td>
+                <td className={classes}>
+                  <div className="text-green-400 opacity-50 hover:opacity-100 cursor-pointer">
+                    <MdEditSquare />
+                  </div>
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+    </div>
+  )
 }
