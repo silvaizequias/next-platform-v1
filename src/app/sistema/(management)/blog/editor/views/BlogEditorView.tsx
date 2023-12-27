@@ -1,15 +1,35 @@
 'use client'
 
-import { CreatePostDTO, CreatePostDTOType } from '@/app/api/posts/dto'
-import useFetch from '@/hooks/use-fetch'
-import { PostType } from '@/types/post'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Checkbox, Input, Textarea } from '@material-tailwind/react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Editor } from 'novel'
+import { useCallback, useState } from 'react'
+import { CreatePostDTO, CreatePostDTOType } from '@/app/api/posts/dto'
+import { PostType } from '@/types/post'
+import useFetch from '@/hooks/use-fetch'
 import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 
-export default function CreatePostForm() {
+interface Props {
+  method: 'POST' | 'PATCH'
+  post?: PostType
+}
+
+export default function BlogEditoView(props: Props) {
+  const { method, post } = props
   const { data: posts, mutate } = useFetch<PostType[] | any>('/api/posts')
+
+  const [content, setContent] = useState<string | undefined>(
+    method == 'PATCH' ? post?.content : '',
+  )
+
+  const handleContent = useCallback((content: any) => {
+    content && setContent(content)
+    return null
+  }, [])
+
+  const router = useRouter()
 
   const {
     control,
@@ -20,24 +40,41 @@ export default function CreatePostForm() {
   } = useForm<CreatePostDTOType>({
     mode: 'all',
     resolver: zodResolver(CreatePostDTO),
+    resetOptions: { keepIsSubmitSuccessful: true },
+    defaultValues: {
+      title: post?.title || undefined,
+      subject: post?.subject || undefined,
+      resume: post?.resume || undefined,
+      draft: post?.draft || false,
+      private: post?.private || false,
+      spotlight: post?.spotlight || false,
+      image: post?.image || undefined,
+      video: post?.video || undefined,
+      content: post?.content || content || undefined,
+    },
   })
 
   const onSubmit: SubmitHandler<CreatePostDTOType> = async (inputs) => {
     try {
-      await fetch(`/api/posts`, {
-        method: 'POST',
-        body: JSON.stringify(inputs),
+      const data: CreatePostDTOType = {
+        ...inputs,
+        content: content!,
+      }
+
+      await fetch(`/api/posts${method == 'PATCH' && '/' + post?.id}`, {
+        method: method,
+        body: JSON.stringify(data),
         headers: { 'Content-Type': 'application/json' },
       }).then(async (res: any) => {
-        const data = await res.json()
         if (res.status == 201) {
-          await mutate(...posts, data, {
+          await mutate(posts, {
             revalidate: true,
             rollbackOnError: true,
           })
-          toast.success(data)
+          toast.success(res.text())
+          router.push('/blog')
         } else {
-          toast.error(data)
+          toast.error(res.text())
         }
       })
     } catch (error: any) {
@@ -51,7 +88,7 @@ export default function CreatePostForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col flex-1 gap-4 m-2 sm:min-w-[400px]"
+      className="flex flex-col justify-center gap-4 m-2 w-full"
     >
       <Controller
         {...register('title')}
@@ -125,7 +162,7 @@ export default function CreatePostForm() {
             crossOrigin={undefined}
             color="green"
             size="md"
-            label={'url de video'}
+            label={'url do video'}
             name="video"
             type="text"
             value={value}
@@ -139,19 +176,51 @@ export default function CreatePostForm() {
         </span>
       )}
 
-      <div className="bg-gray-50 border border-spacing-2 rounded-md shadow-md">
+      <div className="relative flex w-full">
         <Controller
-          {...register('content')}
+          {...register('image')}
           control={control}
           render={({ field: { value, onChange } }) => (
-            <Textarea />
+            <Input
+              crossOrigin={undefined}
+              color="green"
+              size="md"
+              label={'url da imagem'}
+              name="image"
+              type="text"
+              value={value}
+              onChange={onChange}
+              className="pr-20"
+              containerProps={{
+                className: 'min-w-0',
+              }}
+            />
           )}
         />
-        {errors && (
-          <span className="text-red-400 text-xs font-thin italic lowercase">
-            {errors.content?.message}
-          </span>
-        )}
+        <div className="bg-green-400 rounded-sm">
+          <Button
+            color="green"
+            size="sm"
+            className="!absolute right-1 top-1 rounded  text-green-600"
+          >
+            Carregar imagem
+          </Button>
+        </div>
+      </div>
+      {errors && (
+        <span className="text-red-400 text-xs font-thin italic lowercase">
+          {errors.image?.message}
+        </span>
+      )}
+
+      <div className="relative block">
+        <Editor
+          className="w-full"
+          defaultValue={content}
+          onUpdate={(editor) => {
+            handleContent(editor?.getHTML())
+          }}
+        />
       </div>
 
       <div className="flex flex-1 items-center gap-2">
@@ -203,16 +272,17 @@ export default function CreatePostForm() {
           )}
         />
       </div>
-
-      <Button
-        variant="gradient"
-        color="green"
-        size="sm"
-        fullWidth
-        type="submit"
-      >
-        Criar Postagem
-      </Button>
+      <div className="relative bg-green-400 rounded-md">
+        <Button
+          variant="gradient"
+          color="green"
+          size="sm"
+          fullWidth
+          type="submit"
+        >
+          Criar Postagem
+        </Button>
+      </div>
     </form>
   )
 }
