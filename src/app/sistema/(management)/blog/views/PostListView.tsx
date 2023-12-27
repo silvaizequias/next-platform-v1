@@ -5,7 +5,7 @@ import { PostType } from '@/types/post'
 import { MdEditSquare } from 'react-icons/md'
 
 export default function PostListView() {
-  const { data: posts } = useFetch<PostType[] | any>('/api/posts')
+  const { data: posts } = useFetch<PostType[] | undefined>('/api/posts')
 
   const TABLE_HEAD = [
     'criada em',
