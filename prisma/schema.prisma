@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgres"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model Post {
@@ -20,10 +21,10 @@ model Post {
   draft     Boolean? @default(false)
   private   Boolean? @default(false)
   spotlight Boolean? @default(false)
-  resume    String?
+  resume    String?  @db.Text
   image     String?
   video     String?
-  content   String   @db.Text
+  content   String   @db.LongText
   keywords  String?
   author    String
 
