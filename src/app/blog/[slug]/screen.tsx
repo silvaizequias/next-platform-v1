@@ -1,37 +1,35 @@
-'use client'
-
-import useFetch from '@/hooks/use-fetch'
+import parse from 'html-react-parser'
 import { PostType } from '@/types/post'
-import { useParams } from 'next/navigation'
 
-export default function PostDetailScreen() {
-  const params: any = useParams()
-  const { data: post } = useFetch<PostType | any>(
-    `/api/posts/slug/${params?.slug}`,
-  )
+interface Props {
+  post: PostType
+}
+
+export default function PostDetailScreen(props: Props) {
+  const { post } = props
 
   return (
-    <section className="flex flex-col justify-center">
-      <div className="py-14">
-        <div className="mx-2 sm:mx-8 text-center">
-          <div className="my-2 sm:my-4 mx-auto md:mx-40">
-            <h1 className="text-4xl sm:text-6xl tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-light-blue-200 font-semibold lowercase">
-              {post?.title}
-            </h1>
+    <div className="max-w-full py-10">
+      <div className="flex flex-1 flex-col justify-center gap-4">
+        <div className="w-full flex justify-center">
+          <div className="px-8 sm:px-20 text-center">
+            <span className="italic text-xs">{post?.resume}</span>
           </div>
-          <div className="my-2 sm:my-4 mx-auto md:mx-40">
-            <h4 className="text-lg sm:text-xl font-normal uppercase">
-              {post?.subject}
-            </h4>
+        </div>
+        <div className="mx-2 sm:mx-8">
+          <div className="w-full p-4 bg-blue-gray-50 rounded-md shadow-md">
+            {parse(post?.content)}
           </div>
-          <div className="my-6 mx-24 sm:mx-40 md:mx-60">
-            <div className="my-2 bg-slate-400 px-14"></div>
-          </div>
-          <div className="my-2 sm:my-4 mx-auto md:mx-60">
-            <p className="italic">{post?.resume}</p>
+          <div className="m-4 text-center text-xs lowercase text-blue-gray-400">
+            esta publicação foi criada em{' '}
+            <span className="font-semibold">
+              {new Date(post?.createdAt).toLocaleDateString()}
+            </span>{' '}
+            por <span className="font-semibold">{post?.author}</span> usando
+            inteligência artificial
           </div>
         </div>
       </div>
-    </section>
+    </div>
   )
 }
