@@ -23,7 +23,7 @@ model Post {
   resume    String?
   image     String?
   video     String?
-  content   String
+  content   String   @db.Text
   keywords  String?
   author    String
 
