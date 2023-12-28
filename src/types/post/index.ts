@@ -15,4 +15,5 @@ export type PostType = {
   video: string
   content: string
   keywords: string
+  author: string
 }

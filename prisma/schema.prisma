@@ -3,41 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgres"
-  url      = env("DATABASE_URL")
-}
-
-model Authorization {
-  id          String    @id @default(cuid())
-  createdAt   DateTime  @default(now()) @map("created_at")
-  updatedAt   DateTime  @updatedAt @map("updated_at")
-  deletedAt   DateTime? @map("deleted_at") @db.Date
-  softDeleted Boolean?  @default(false) @map("soft_deleted")
-
-  solutionId String   @map("solution_id")
-  solution   Solution @relation(fields: [solutionId], references: [id], onUpdate: Cascade)
-
-  organization String
-  apiKey       String    @unique @map("api_key")
-  expireIn     DateTime? @map("expire_in")
-  isActive     Boolean?  @default(false) @map("is_active")
-
-  @@map("authorizations")
-}
-
-model Solution {
-  id          String    @id @default(cuid())
-  createdAt   DateTime  @default(now()) @map("created_at")
-  updatedAt   DateTime  @updatedAt @map("updated_at")
-  deletedAt   DateTime? @map("deleted_at") @db.Date
-  softDeleted Boolean?  @default(false) @map("soft_deleted")
-
-  name           String
-  description    String?
-  apiUrl         String          @unique @map("api_url")
-  authorizations Authorization[]
-
-  @@map("solutions")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model Post {
@@ -53,10 +21,10 @@ model Post {
   draft     Boolean? @default(false)
   private   Boolean? @default(false)
   spotlight Boolean? @default(false)
-  resume    String?
+  resume    String?  @db.Text
   image     String?
   video     String?
-  content   String
+  content   String   @db.LongText
   keywords  String?
   author    String
 

@@ -37,10 +37,7 @@ export default function SignUpForm() {
         body: JSON.stringify(data),
         headers: { 'Content-Type': 'application/json' },
       }).then(async (res: any) => {
-        const data = await res.json()
-        if (res.status == 201) {
-          reset(inputs)
-
+        if (res.status == 200) {
           await signIn('credentials', {
             redirect: false,
             email: inputs.email,
@@ -54,7 +51,7 @@ export default function SignUpForm() {
             }
           })
         } else {
-          toast.error(data)
+          toast.error(res.text())
         }
       })
     } catch (error: any) {

@@ -29,7 +29,7 @@ export async function POST(request: Request) {
           password: inputs?.password || randomCode,
           phoneTo: `+55${inputs.phone}`,
         })
-        return new Response(JSON.stringify(await data.json()), {
+        return new Response(data.body, {
           status: data.status,
         })
       }

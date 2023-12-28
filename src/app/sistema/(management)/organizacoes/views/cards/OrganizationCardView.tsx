@@ -2,6 +2,8 @@
 
 import useFetch from '@/hooks/use-fetch'
 import { OrganizationType } from '@/types/platform-management/organization'
+import { useRouter } from 'next/navigation'
+import { useCallback } from 'react'
 
 interface Props {
   id: string
@@ -14,9 +16,21 @@ export default function OrganizationCardView(props: Props) {
     `/api/platform-management/organizations/${id}`,
   )
 
+  const router = useRouter()
+
+  const handleClick = useCallback(
+    (document: string) => {
+      document && router.push(`/organizacoes/${document}`)
+    },
+    [router],
+  )
+
   return (
     <div className="rounded-md shadow-md w-full sm:w-[280px] md:w-[340px] lg:w-[400px]">
-      <div className="min-w-[220px] cursor-pointer">
+      <div
+        className="min-w-[220px] cursor-pointer"
+        onClick={() => handleClick(organization?.documentCode)}
+      >
         <div className="w-auto flex flex-col gap-2">
           <div className="flex justify-end">
             <span
