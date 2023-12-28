@@ -19,7 +19,7 @@ export default function LandingScreen() {
         </div>
         <div className="mx-2 sm:mx-8 text-center">
           <div className="my-2 sm:my-4 mx-auto md:mx-40">
-            <h1 className="text-4xl sm:text-6xl tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-sky-400 font-semibold lowercase">
+            <h1 className="text-4xl sm:text-6xl tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-light-blue-200 font-semibold lowercase">
               Dedicado
             </h1>
           </div>
