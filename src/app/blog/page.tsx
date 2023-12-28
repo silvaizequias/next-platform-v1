@@ -18,8 +18,12 @@ export default async function BlogPage() {
           </div>
         </header>
       </div>
-      <div className="mt-10">
-        <BlogScreen />
+      <div className="flex flex-col justify-center">
+        <div className="max-w-full py-10">
+          <div className="mx-2 sm:mx-8">
+            <BlogScreen />
+          </div>
+        </div>
       </div>
     </div>
   )

@@ -11,6 +11,7 @@ export async function GET(request: Request) {
       JSON.stringify(
         await prisma.post.findMany({
           where: { softDeleted: false },
+          orderBy: { createdAt: 'desc' },
         }),
       ),
     )
