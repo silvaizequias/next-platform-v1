@@ -11,22 +11,13 @@ import useFetch from '@/hooks/use-fetch'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 
-interface Props {
-  method: 'POST' | 'PATCH'
-  post?: PostType
-}
-
-export default function BlogEditoView(props: Props) {
-  const { method, post } = props
+export default function BlogEditoView() {
   const { data: posts, mutate } = useFetch<PostType[] | any>('/api/posts')
 
-  const [content, setContent] = useState<string | undefined>(
-    method == 'PATCH' ? post?.content : '',
-  )
+  const [content, setContent] = useState<string | any>('')
 
   const handleContent = useCallback((content: any) => {
     content && setContent(content)
-    return null
   }, [])
 
   const router = useRouter()
@@ -40,17 +31,9 @@ export default function BlogEditoView(props: Props) {
   } = useForm<CreatePostDTOType>({
     mode: 'all',
     resolver: zodResolver(CreatePostDTO),
-    resetOptions: { keepIsSubmitSuccessful: true },
+    //resetOptions: { keepIsSubmitSuccessful: true },
     defaultValues: {
-      title: post?.title || undefined,
-      subject: post?.subject || undefined,
-      resume: post?.resume || undefined,
-      draft: post?.draft || false,
-      private: post?.private || false,
-      spotlight: post?.spotlight || false,
-      image: post?.image || undefined,
-      video: post?.video || undefined,
-      content: post?.content || content || undefined,
+      content: content,
     },
   })
 
@@ -58,11 +41,11 @@ export default function BlogEditoView(props: Props) {
     try {
       const data: CreatePostDTOType = {
         ...inputs,
-        content: content!,
+        content: content,
       }
 
-      await fetch(`/api/posts${method == 'PATCH' && '/' + post?.id}`, {
-        method: method,
+      await fetch(`/api/posts`, {
+        method: 'POST',
         body: JSON.stringify(data),
         headers: { 'Content-Type': 'application/json' },
       }).then(async (res: any) => {
