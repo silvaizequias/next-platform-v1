@@ -21,7 +21,7 @@ export async function generateMetadata({
         openGraph: {
           title: post?.title,
           description: post?.resume,
-          images: '/logotipo.png',
+          images: post?.image || '/logotipo.png',
         },
         robots: {
           index: true,
