@@ -24,7 +24,7 @@ const NEXT_PUBLIC_URL = process.env.NEXT_PUBLIC_URL
 export const metadata: Metadata = {
   applicationName: 'dedicado',
   generator: 'dedicado',
-  category: 'landing page',
+  category: 'website',
   title: {
     default: 'Suporte e Desenvolvimento Dedicado',
     template: `%s | Dedicado`,
@@ -32,8 +32,18 @@ export const metadata: Metadata = {
   description:
     'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
   icons: './favicon.ico',
+  keywords: [
+    'software de serviços em nuvem',
+    'software saas',
+    'tecnologia da informação',
+    'ferramenta de gestão empresarial',
+    'soluções de tecnologia',
+  ],
   openGraph: {
-    title: 'Suporte e Desenvolvimento Dedicado',
+    title: {
+      default: 'Suporte e Desenvolvimento Dedicado',
+      template: `%s | Dedicado`,
+    },
     description:
       'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
     images: ['/logotipo.png'],

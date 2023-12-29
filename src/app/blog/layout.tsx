@@ -15,6 +15,13 @@ export const metadata: Metadata = {
   description:
     'Conteúdo inteligente do universo da tecnologia',
   icons: './favicon.ico',
+  keywords: [
+    'software de serviços em nuvem',
+    'software saas',
+    'tecnologia da informação',
+    'ferramenta de gestão empresarial',
+    'soluções de tecnologia',
+  ],
   openGraph: {
     title: {
     default: 'Blog',
