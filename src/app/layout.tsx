@@ -19,7 +19,7 @@ const comfortaa = Comfortaa({
   weight: ['300', '400', '500', '600'],
 })
 
-const NEXT_PUBLIC_URL = process.env.NEXT_PUBLIC_URL!
+const NEXT_PUBLIC_URL = process.env.NEXT_PUBLIC_URL
 
 export const metadata: Metadata = {
   title: {
