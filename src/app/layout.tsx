@@ -46,7 +46,11 @@ export default async function RootLayout({
   const session = await getServerSession(authOptions)
 
   return (
-    <html lang="en" className={`${comfortaa.variable} font-default`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${comfortaa.variable} font-default`}
+    >
       <body className="min-h-screen bg-blue-gray-50 text-blue-gray-800 dark:bg-blue-gray-800 dark:text-blue-gray-50 text-base font-light">
         <Providers>
           <TopBar session={session!} />
