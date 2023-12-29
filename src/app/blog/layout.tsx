@@ -12,26 +12,27 @@ export const metadata: Metadata = {
     default: 'Blog',
     template: `%s | Dedicado`,
   },
-  description:
-    'Conteúdo inteligente do universo da tecnologia',
+  description: 'Conteúdo inteligente do universo da tecnologia',
   icons: './favicon.ico',
   keywords: [
-    'software de serviços em nuvem',
-    'software saas',
-    'tecnologia da informação',
-    'ferramenta de gestão empresarial',
-    'soluções de tecnologia',
+    'conteudo inteligente',
+    'blog de conteúdo de tecnologia',
+    'conteúdo de inteligencia artificial',
+    'blog ia',
+    'blog inteligente',
   ],
   openGraph: {
     title: {
-    default: 'Blog',
-    template: `%s | Dedicado`,
-  },
-    description:
-      'Conteúdo inteligente do unierso da tecnologia',
+      default: 'Blog',
+      template: `%s | Dedicado`,
+    },
+    description: 'Conteúdo inteligente do unierso da tecnologia',
     images: ['/logotipo.png'],
   },
-  metadataBase: new URL('https://blog.' + NEXT_PUBLIC_URL),
+  metadataBase: new URL(`https://blog.${NEXT_PUBLIC_URL}`),
+  alternates: {
+    canonical: new URL(`https://blog.${NEXT_PUBLIC_URL}`),
+  },
 }
 
 export default function BlogLayout({ children }: { children: ReactNode }) {

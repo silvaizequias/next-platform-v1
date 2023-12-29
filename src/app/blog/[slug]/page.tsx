@@ -12,6 +12,8 @@ export async function generateMetadata({
 }): Promise<Metadata | null> {
   const post: PostType = await getPostByParams(params?.slug)
 
+  const NEXT_PUBLIC_URL = process.env.NEXT_PUBLIC_URL
+
   return post
     ? {
         title: post?.title,
@@ -22,6 +24,10 @@ export async function generateMetadata({
           title: post?.title,
           description: post?.resume,
           images: post?.image || '/logotipo.png',
+        },
+        metadataBase: new URL(`https://blog.${NEXT_PUBLIC_URL}/${post?.slug}`),
+        alternates: {
+          canonical: new URL(`https://blog.${NEXT_PUBLIC_URL}/${post?.slug}`),
         },
         robots: {
           index: true,

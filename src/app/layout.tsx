@@ -48,7 +48,10 @@ export const metadata: Metadata = {
       'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
     images: ['/logotipo.png'],
   },
-  metadataBase: new URL('https://' + NEXT_PUBLIC_URL),
+  metadataBase: new URL(`https://www.${NEXT_PUBLIC_URL}`),
+  alternates: {
+    canonical: new URL(`https://www.${NEXT_PUBLIC_URL}`),
+  },
 }
 
 export default async function RootLayout({
