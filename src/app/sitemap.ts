@@ -1,17 +1,16 @@
 import { getPosts } from '@/utils/get-data'
 
 export default async function Sitemap() {
-  const NEXT_PUBLIC_URL = process.env.NEXT_PUBLIC_URL!
 
   const posts = await getPosts()
 
   return [
     {
-      url: `https://${NEXT_PUBLIC_URL}`,
+      url: `https://dedicado.digital`,
       lastModified: new Date(),
     },
     ...posts?.map(({ slug }: any) => ({
-      url: `https://blog.${NEXT_PUBLIC_URL}/${slug}`,
+      url: `https://blog.dedicado.digital/${slug}`,
       lastModified: new Date(),
     })),
   ]
