@@ -5,12 +5,15 @@ import { ReactNode } from 'react'
 const NEXT_PUBLIC_URL = process.env.NEXT_PUBLIC_URL
 
 export const metadata: Metadata = {
+  applicationName: 'dedicado',
+  generator: 'dedicado',
+  category: 'blog',
   title: {
     default: 'Blog',
     template: `%s | Dedicado`,
   },
   description:
-    'Conteúdo inteligente do unierso da tecnologia',
+    'Conteúdo inteligente do universo da tecnologia',
   icons: './favicon.ico',
   openGraph: {
     title: {

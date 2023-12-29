@@ -22,6 +22,9 @@ const comfortaa = Comfortaa({
 const NEXT_PUBLIC_URL = process.env.NEXT_PUBLIC_URL
 
 export const metadata: Metadata = {
+  applicationName: 'dedicado',
+  generator: 'dedicado',
+  category: 'landing page',
   title: {
     default: 'Suporte e Desenvolvimento Dedicado',
     template: `%s | Dedicado`,
