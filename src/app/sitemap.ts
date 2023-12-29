@@ -1,16 +1,21 @@
+import { headers } from 'next/headers'
 import { getPosts } from '@/utils/get-data'
 
 export default async function Sitemap() {
+  const headersList = headers()
+  const domain = headersList
+    .get('host')
+    ?.replace('.localhost:3000', `.${process.env.NEXT_PUBLIC_URL}`)
 
   const posts = await getPosts()
 
   return [
     {
-      url: `https://dedicado.digital`,
+      url: `https://${domain}`,
       lastModified: new Date(),
     },
     ...posts?.map(({ slug }: any) => ({
-      url: `https://blog.dedicado.digital/${slug}`,
+      url: `https://blog.${domain}/${slug}`,
       lastModified: new Date(),
     })),
   ]
