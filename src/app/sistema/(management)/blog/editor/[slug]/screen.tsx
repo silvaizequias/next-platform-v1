@@ -4,6 +4,7 @@ import { useParams } from 'next/navigation'
 import useFetch from '@/hooks/use-fetch'
 import { PostType } from '@/types/post'
 import NotFound from '@/app/not-found'
+import BlogEditoSlugView from './views/BlogEditorSlugView'
 
 export default function BlogEditorSlugScreen() {
   const params: any = useParams()
@@ -15,7 +16,7 @@ export default function BlogEditorSlugScreen() {
   return post ? (
     <div className="flex flex-col gap-4">
       <div className="flex justify-center bg-slate-100 rounded-md p-4 shadow-md">
-        ...
+        <BlogEditoSlugView post={post} />
       </div>
     </div>
   ) : (

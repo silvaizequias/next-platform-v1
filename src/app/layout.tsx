@@ -19,9 +19,12 @@ const comfortaa = Comfortaa({
   weight: ['300', '400', '500', '600'],
 })
 
-const NEXT_PUBLIC_URL = process.env.NEXT_PUBLIC_URL!
+const NEXT_PUBLIC_URL = process.env.NEXT_PUBLIC_URL
 
 export const metadata: Metadata = {
+  applicationName: 'dedicado',
+  generator: 'dedicado',
+  category: 'website',
   title: {
     default: 'Suporte e Desenvolvimento Dedicado',
     template: `%s | Dedicado`,
@@ -29,8 +32,18 @@ export const metadata: Metadata = {
   description:
     'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
   icons: './favicon.ico',
+  keywords: [
+    'software de serviços em nuvem',
+    'software saas',
+    'tecnologia da informação',
+    'ferramenta de gestão empresarial',
+    'soluções de tecnologia',
+  ],
   openGraph: {
-    title: 'Suporte e Desenvolvimento Dedicado',
+    title: {
+      default: 'Suporte e Desenvolvimento Dedicado',
+      template: `%s | Dedicado`,
+    },
     description:
       'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
     images: ['/logotipo.png'],
@@ -46,7 +59,11 @@ export default async function RootLayout({
   const session = await getServerSession(authOptions)
 
   return (
-    <html lang="en" className={`${comfortaa.variable} font-default`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${comfortaa.variable} font-default`}
+    >
       <body className="min-h-screen bg-blue-gray-50 text-blue-gray-800 dark:bg-blue-gray-800 dark:text-blue-gray-50 text-base font-light">
         <Providers>
           <TopBar session={session!} />
