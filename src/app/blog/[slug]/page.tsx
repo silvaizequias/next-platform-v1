@@ -12,6 +12,8 @@ export async function generateMetadata({
 }): Promise<Metadata | null> {
   const post: PostType = await getPostByParams(params?.slug)
 
+  const NEXT_PUBLIC_URL = process.env.NEXT_PUBLIC_URL
+
   return post
     ? {
         title: post?.title,
@@ -22,6 +24,10 @@ export async function generateMetadata({
           title: post?.title,
           description: post?.resume,
           images: post?.image || '/logotipo.png',
+        },
+        metadataBase: new URL(`https://blog.${NEXT_PUBLIC_URL}/${post?.slug}`),
+        alternates: {
+          canonical: new URL(`https://blog.${NEXT_PUBLIC_URL}/${post?.slug}`),
         },
         robots: {
           index: true,
@@ -38,10 +44,15 @@ export default async function PostDetailPage({
   params: { slug: string }
 }) {
   const post = await getPostByParams(params?.slug)
+  const image = '/logotipo.svg'
 
   return post ? (
     <div className="flex flex-col justify-center">
-      <BlogHeader title={post?.title} subject={post?.subject} />
+      <BlogHeader
+        title={post?.title}
+        subject={post?.subject}
+        image={post?.image || image}
+      />
       <PostDetailScreen post={post} />
     </div>
   ) : (
