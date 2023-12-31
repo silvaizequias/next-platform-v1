@@ -28,7 +28,7 @@ export default function PostCardView(props: Props) {
           >
             <Image
               className="w-full h-full object-cover"
-              src={image}
+              src={post?.image || image}
               alt={post?.title}
               priority
               width={180}
