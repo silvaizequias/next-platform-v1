@@ -1,5 +1,5 @@
 interface Props {
-  image?: string
+  image: string
   subject: string
   title: string
 }
@@ -7,11 +7,13 @@ interface Props {
 export default function BlogHeader(props: Props) {
   const { image, subject, title } = props
 
+  let style = {
+    backgroundImage: 'url(' + image + ')',
+  }
+
   return (
     <header className="z-auto overflow-hidden w-full">
-      <div
-        className="m-0 w-full bg-[url('/logotipo.svg')] bg-cover bg-center"
-      >
+      <div style={style} className="m-0 w-full bg-cover bg-center">
         <div className="z-auto pt-16 h-80 mx-auto relative block backdrop-brightness-50 backdrop-blur-sm">
           <div className="min-h-full px-10 flex flex-col justify-center items-center">
             <div className="mx-auto text-center">
