@@ -44,10 +44,15 @@ export default async function PostDetailPage({
   params: { slug: string }
 }) {
   const post = await getPostByParams(params?.slug)
+  const image = '/logotipo.svg'
 
   return post ? (
     <div className="flex flex-col justify-center">
-      <BlogHeader title={post?.title} subject={post?.subject} />
+      <BlogHeader
+        title={post?.title}
+        subject={post?.subject}
+        image={post?.image || image}
+      />
       <PostDetailScreen post={post} />
     </div>
   ) : (
