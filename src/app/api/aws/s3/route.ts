@@ -16,8 +16,8 @@ const s3Client = new S3Client({
 export async function POST(request: Request) {
   try {
     const inputs: FormData = await request.formData()
-    const file: any = inputs.get('file')
-    const folder: any = inputs.get('folder')
+    const file: File | null  = inputs.get('file') as File
+    const folder: string | null = inputs.get('folder') as string
 
     if (file) {
       const buffer = Buffer.from(await file.arrayBuffer())
