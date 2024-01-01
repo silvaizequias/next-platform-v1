@@ -16,11 +16,12 @@ const s3Client = new S3Client({
 export async function POST(request: Request) {
   try {
     const inputs: FormData = await request.formData()
-    const file: File | null  = inputs.get('file') as File
+    const file: File | null = inputs.get('file') as File
     const folder: string | null = inputs.get('folder') as string
 
     if (file) {
-      const buffer = Buffer.from(await file.arrayBuffer())
+      const bytes = await file.arrayBuffer()
+      const buffer = Buffer.from(bytes)
       const name = file.name.replace(/[^0-9]/g, '')
       const type = file.type
 
