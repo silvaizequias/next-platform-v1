@@ -2,9 +2,9 @@
 
 import { Button, Input } from '@material-tailwind/react'
 import { useRouter } from 'next/navigation'
-import { useCallback, useState } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { FormEvent, useCallback, useState } from 'react'
 import toast from 'react-hot-toast'
+import { uploadFileAction } from './actions'
 
 interface Props {
   folder?: string
@@ -26,35 +26,22 @@ export default function UploadFile(props: Props) {
 
   const router = useRouter()
 
-  const {
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<FormData>({
-    mode: 'all',
-    resetOptions: { keepIsSubmitSuccessful: true },
-  })
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (!file) return
 
-  const onSubmit: SubmitHandler<FormData> = async () => {
     try {
-      if (!file) return
       setUploading(true)
 
       const formData = new FormData()
       formData.append('file', file)
       formData.append('folder', folder!)
 
-      await fetch(`/api/aws/s3`, {
-        method: 'POST',
-        body: formData,
-      })
-        .then(async (res: any) => {
-          console.log(await res.text())
-          if (res.status == 201) return toast.success('o arquivo foi salvo')
+      await uploadFileAction(formData)
+        .then((res: any) => {
+          toast.success('o arquivo foi salvo')
         })
-        .catch((error: any) => {
-          toast.error(error?.message)
-        })
+        .catch((error: any) => toast.error(error))
 
       router.refresh()
     } catch (error: any) {
@@ -62,13 +49,12 @@ export default function UploadFile(props: Props) {
       console.error(error?.message || error)
     } finally {
       setUploading(false)
-      reset()
     }
   }
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={onSubmit}
       className="flex flex-col justify-center gap-4 m-2 w-full max-w-md"
     >
       <Input
