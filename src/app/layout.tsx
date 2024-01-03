@@ -6,7 +6,7 @@ import { Comfortaa, Poppins } from 'next/font/google'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/libraries/next-auth'
 import TopBar from '@/components/top-bar'
-import { getProfileBySession } from '@/utils/get-data-by-params'
+import { getProfile } from '@/utils/get-data'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -61,7 +61,7 @@ export default async function RootLayout({
   children: ReactNode
 }) {
   const session = await getServerSession(authOptions)
-  const profile = await getProfileBySession(session!)
+  const profile = await getProfile()
 
   return (
     <html

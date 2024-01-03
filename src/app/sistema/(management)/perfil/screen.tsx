@@ -1,18 +1,17 @@
 'use client'
 
-import useFetch from '@/hooks/use-fetch'
 import { UserType } from '@/types/platform-management/user'
 import ProfileRightView from './views/ProfileRightView'
 import ProfileAvatarView from './views/ProfileAvatarView'
 import { Session } from 'next-auth'
 
 interface Props {
+  profile: UserType
   session: Session
 }
 
 export default function ProfileScreen(props: Props) {
-  const { session } = props
-  const { data: profile, mutate } = useFetch<UserType | any>('/api/profile')
+  const { profile, session } = props
 
   const avatar = '/avatar.svg'
 
