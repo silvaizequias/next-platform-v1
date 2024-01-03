@@ -1,10 +1,15 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
+import {
+  S3Client,
+  PutObjectCommand,
+  ServerSideEncryption,
+} from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import crypto from 'crypto'
 import { computeSHA256 } from '@/helpers'
+import { Session } from 'next-auth'
 
 const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID!
 const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY!
@@ -22,10 +27,11 @@ const s3Client = new S3Client({
 interface Props {
   data: FormData
   path?: string
+  session?: Session
 }
 
 export async function uploadFileS3(props: Props): Promise<any> {
-  const { data, path } = props
+  const { data, path, session } = props
 
   const file: File | null = (data.get('file') as File) || null
   const size = file?.size
@@ -39,10 +45,14 @@ export async function uploadFileS3(props: Props): Promise<any> {
   try {
     const params = {
       Bucket: AWS_S3_NAME!,
-      Key: `${path || 'tmp'}/${generateFileName()}`,
+      Key: `${path || 'temp'}/${generateFileName()}`,
       ContentType: type,
       ContentLength: size,
       Body: buffer,
+      Metadata: {
+        profile: session?.user?.profile || 'USER',
+        userId: session?.user?.id || 'undefined'
+      },
       //ChecksumSHA256: await computeSHA256(file),
     }
 

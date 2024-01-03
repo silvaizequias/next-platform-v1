@@ -12,6 +12,7 @@ export default function UploadScreen() {
   const [changed, setChanged] = useState<boolean>(false)
   const [fileType, setFileType] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
+  const [path, setPath] = useState<string>('blog')
 
   const handleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -51,7 +52,6 @@ export default function UploadScreen() {
     e.preventDefault()
     setLoading(true)
     try {
-      const path = 'temp'
       const data = new FormData()
       changeFile && data.append('file', changeFile)
 
