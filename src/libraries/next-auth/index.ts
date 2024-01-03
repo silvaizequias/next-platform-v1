@@ -1,4 +1,5 @@
-import { NextAuthOptions } from 'next-auth'
+import { NextAuthOptions, User } from 'next-auth'
+import { JWT } from 'next-auth/jwt'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
 const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET
@@ -37,7 +38,7 @@ export const authOptions: NextAuthOptions = {
     updateAge: 24 * 60 * 60,
   },
   callbacks: {
-    jwt: async ({ token, user }) => {
+    jwt: async ({ token, user }: { token: JWT; user: User }) => {
       if (!user) {
         return {
           id: token.id,
