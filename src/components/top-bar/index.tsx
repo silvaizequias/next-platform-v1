@@ -1,26 +1,24 @@
 'use client'
 
-import { Session } from 'next-auth'
 import Image from 'next/image'
 import AppBar from '../app-bar'
 import Link from 'next/link'
-import {
-  List,
-  ListItem,
-  Tooltip,
-} from '@material-tailwind/react'
+import { List, ListItem, Tooltip } from '@material-tailwind/react'
 import { MdOutlineReorder } from 'react-icons/md'
 import { Fragment, useCallback, useState } from 'react'
 import DrawerContent from '../drawer-content'
 import { NavigationType, userNavigation } from '@/navigation'
 import { useRouter } from 'next/navigation'
+import { UserType } from '@/types/platform-management/user'
+import { Session } from 'next-auth'
 
 interface Props {
   session: Session
+  profile: UserType
 }
 
 export default function TopBar(props: Props) {
-  const { session } = props
+  const { profile, session } = props
   const logotipo = '/logotipo.svg'
 
   const [openDrawer, setOpenDrawer] = useState<boolean>(false)
@@ -45,7 +43,7 @@ export default function TopBar(props: Props) {
         <div className="h-14 mx-auto py-1">
           <div className="min-h-full flex justify-between items-center sm:mx-8 mx-2">
             <div className="flex items-center justify-start gap-2">
-              {session && (
+              {profile && (
                 <Tooltip content={'navegação'}>
                   <div className="rounded-full p-2 hover:bg-gray-50 cursor-pointer">
                     <div
@@ -72,7 +70,7 @@ export default function TopBar(props: Props) {
               </Link>
             </div>
             <div className="flex flex-1 items-center justify-end">
-              <AppBar session={session} />
+              <AppBar profile={profile} />
             </div>
           </div>
         </div>
