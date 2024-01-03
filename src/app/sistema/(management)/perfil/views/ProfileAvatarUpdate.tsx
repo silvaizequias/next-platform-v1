@@ -5,16 +5,16 @@ import { Button } from '@material-tailwind/react'
 import { ChangeEvent, FormEvent, useCallback, useState } from 'react'
 import toast from 'react-hot-toast'
 import { profileAvatarUpdateAction } from '../actions'
-import { Session } from 'next-auth'
+import { useSession } from 'next-auth/react'
 
 interface Props {
   image: string
   onClose: () => void
-  session: Session
 }
 
 export default function ProfileAvatarUpdate(props: Props) {
-  const { image, onClose, session } = props
+  const { data: session } = useSession()
+  const { image, onClose } = props
   const [changeFile, setChangeFile] = useState<File | null>(null)
   const [previewUrl, setPreviewUrl] = useState<string | null>(image)
   const [changed, setChanged] = useState<boolean>(false)
@@ -62,7 +62,10 @@ export default function ProfileAvatarUpdate(props: Props) {
       const data = new FormData()
       changeFile && data.append('file', changeFile)
 
-      await profileAvatarUpdateAction({ data: data, session: session })
+      await profileAvatarUpdateAction({
+        data: data,
+        session: session!,
+      })
         .then(async (res: any) => {
           if (res.status !== 200) toast.error(res.message)
           toast.success(res.message)

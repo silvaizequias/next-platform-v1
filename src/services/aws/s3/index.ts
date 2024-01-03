@@ -51,7 +51,7 @@ export async function uploadFileS3(props: Props): Promise<any> {
       Body: buffer,
       Metadata: {
         profile: session?.user?.profile || 'USER',
-        userId: session?.user?.id || 'undefined'
+        userId: session?.user?.id || 'undefined',
       },
       //ChecksumSHA256: await computeSHA256(file),
     }

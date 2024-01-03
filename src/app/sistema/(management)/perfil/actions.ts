@@ -1,5 +1,3 @@
-'server client'
-
 import { uploadFileS3 } from '@/services/aws/s3'
 import { Session } from 'next-auth'
 
@@ -21,19 +19,18 @@ export async function profileAvatarUpdateAction(props: Props) {
     if (!url) return { status: status, message: message }
 
     const response = await fetch(
-      `${PLATFORM_API_URL}/users/${session.user.id}`,
+      `${PLATFORM_API_URL}/users/${session?.user?.id}`,
       {
         method: 'PATCH',
         body: JSON.stringify({ image: url }),
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${session.user.authorization}`,
+          Authorization: `Bearer ${session?.user?.authorization}`,
         },
       },
     )
     return { status: response.status, message: response.text() }
   } catch (error: any) {
-    console.log(error)
     return { status: error?.status, message: error?.message }
   }
 }

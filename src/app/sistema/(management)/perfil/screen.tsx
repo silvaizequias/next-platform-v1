@@ -1,17 +1,13 @@
-'use client'
-
 import { UserType } from '@/types/platform-management/user'
 import ProfileRightView from './views/ProfileRightView'
 import ProfileAvatarView from './views/ProfileAvatarView'
-import { Session } from 'next-auth'
 
 interface Props {
   profile: UserType
-  session: Session
 }
 
 export default function ProfileScreen(props: Props) {
-  const { profile, session } = props
+  const { profile } = props
 
   const avatar = '/avatar.svg'
 
@@ -20,10 +16,7 @@ export default function ProfileScreen(props: Props) {
       <div className="min-w-220 sm:max-w-260 md:max-w-[320px] w-full p-4">
         <div className="flex justify-center">
           <div className="flex flex-col justify-center items-center gap-4">
-            <ProfileAvatarView
-              image={profile?.image || avatar}
-              session={session}
-            />
+            <ProfileAvatarView image={profile?.image || avatar} />
             <h6 className="text-xl sm:text-2xl text-slate-400 font-medium">
               {profile?.name.split(' ')[0]}
             </h6>

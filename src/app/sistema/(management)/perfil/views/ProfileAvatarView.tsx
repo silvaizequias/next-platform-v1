@@ -4,15 +4,13 @@ import DialogContent from '@/components/dialog-content'
 import { Avatar, Tooltip } from '@material-tailwind/react'
 import { Fragment, useCallback, useState } from 'react'
 import ProfileAvatarUpdate from './ProfileAvatarUpdate'
-import { Session } from 'next-auth'
 
 interface Props {
   image: string
-  session: Session
 }
 
 export default function ProfileAvatarView(props: Props) {
-  const { image, session } = props
+  const { image } = props
 
   const [openDialog, setOpenDialog] = useState<boolean>(false)
 
@@ -33,11 +31,7 @@ export default function ProfileAvatarView(props: Props) {
         </Tooltip>
       </div>
       <DialogContent open={openDialog} onClose={handleDialog}>
-        <ProfileAvatarUpdate
-          image={image}
-          onClose={handleDialog}
-          session={session}
-        />
+        <ProfileAvatarUpdate image={image} onClose={handleDialog} />
       </DialogContent>
     </Fragment>
   )
