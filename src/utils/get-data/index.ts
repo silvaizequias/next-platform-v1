@@ -25,7 +25,6 @@ export const getProfile = async () => {
       Accept: 'application/json',
       Authorization: `Bearer ${session.user.authorization}`,
     },
-    next: { revalidate: 3600 },
   })
   return data && data.json()
 }

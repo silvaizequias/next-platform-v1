@@ -28,7 +28,7 @@ export default function ProfileScreen(props: Props) {
       </div>
       <div className="w-full flex bg-slate-50 rounded-md p-4 shadow-md">
         <div className="flex flex-1 flex-col justify-center">
-          <ProfileRightView />
+          <ProfileRightView profile={profile} />
         </div>
       </div>
     </div>
