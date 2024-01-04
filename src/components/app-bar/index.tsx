@@ -1,16 +1,16 @@
 'use client'
 
-import { Session } from 'next-auth'
 import { MdDashboard, MdOutlineArticle } from 'react-icons/md'
 import { Avatar, Tooltip } from '@material-tailwind/react'
 import Link from 'next/link'
+import { UserType } from '@/types/platform-management/user'
 
 interface Props {
-  session: Session
+  profile: UserType
 }
 
 export default function AppBar(props: Props) {
-  const { session } = props
+  const { profile } = props
 
   const avatar = '/avatar.svg'
 
@@ -49,13 +49,13 @@ export default function AppBar(props: Props) {
         </Link>
       </Tooltip>
 
-      {session && (
+      {profile && (
         <Tooltip content={'detalhes do perfil'}>
           <Link
             href={'/perfil'}
             className="rounded-full p-2 opacity-25 hover:opacity-95 hover:bg-gray-50   cursor-pointer"
           >
-            <Avatar size="xs" src={session?.user?.image || avatar} />
+            <Avatar size="xs" src={profile?.image || avatar} />
           </Link>
         </Tooltip>
       )}

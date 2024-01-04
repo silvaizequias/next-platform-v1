@@ -6,13 +6,14 @@ export const config = {
 
 export default async function middleware(req: NextRequest) {
   const url = req.nextUrl
+  const NEXT_PUBLIC_URL = process.env.NEXT_PUBLIC_URL!
 
   let hostname = req.headers
     .get('host')!
-    .replace('.localhost:3000', `.${process.env.NEXT_PUBLIC_URL}`)
+    .replace('.localhost:3000', `.${NEXT_PUBLIC_URL}`)
 
   if (hostname.includes('---')) {
-    hostname = `${hostname.split('---')[0]}.${process.env.NEXT_PUBLIC_URL}`
+    hostname = `${hostname.split('---')[0]}.${NEXT_PUBLIC_URL}`
   }
 
   const searchParams = req.nextUrl.searchParams.toString()
@@ -20,27 +21,27 @@ export default async function middleware(req: NextRequest) {
     searchParams.length > 0 ? `?${searchParams}` : ''
   }`
 
-  if (hostname == `blog.${process.env.NEXT_PUBLIC_URL}`) {
+  if (hostname == `blog.${NEXT_PUBLIC_URL}`) {
     return NextResponse.rewrite(
       new URL(`/blog${path === '/' ? '' : path}`, req.url),
     )
   }
 
-  if (hostname == `sistema.${process.env.NEXT_PUBLIC_URL}`) {
+  if (hostname == `sistema.${NEXT_PUBLIC_URL}`) {
     return NextResponse.rewrite(
       new URL(`/sistema${path === '/' ? '' : path}`, req.url),
     )
   }
 
-  if (hostname == `www.${process.env.NEXT_PUBLIC_URL}`) {
+  if (hostname == `www.${NEXT_PUBLIC_URL}`) {
     return NextResponse.rewrite(
-      new URL(`/landing/${path === '/' ? '' : path}`, req.url),
+      new URL(`/landing${path === '/' ? '' : path}`, req.url),
     )
   }
 
-  if (hostname === 'localhost:3000' || hostname === process.env.NEXT_PUBLIC_URL) {
+  if (hostname == `${NEXT_PUBLIC_URL}`) {
     return NextResponse.rewrite(
-      new URL(`/landing/${path === '/' ? '' : path}`, req.url),
+      new URL(`/landing${path === '/' ? '' : path}`, req.url),
     )
   }
 

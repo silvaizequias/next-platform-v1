@@ -4,15 +4,23 @@ import {
   UpdateProfileAddressDTO,
   UpdateProfileAddressDTOType,
 } from '@/app/api/profile/dto'
-import useFetch from '@/hooks/use-fetch'
 import { UserType } from '@/types/platform-management/user'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Input } from '@material-tailwind/react'
+import { useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
+import { profileUpdateAction } from '../actions'
+import { useSession } from 'next-auth/react'
 
-export default function UpdateProfileAddressForm() {
-  const { data: profile, mutate } = useFetch<UserType | any>('/api/profile')
+interface Props {
+  profile: UserType
+}
+
+export default function ProfileAddressUpdate(props: Props) {
+  const { profile } = props
+  const { data: session } = useSession()
+  const [loading, setLoading] = useState<boolean>(false)
 
   const {
     control,
@@ -24,31 +32,32 @@ export default function UpdateProfileAddressForm() {
   } = useForm<UpdateProfileAddressDTOType>({
     mode: 'all',
     resolver: zodResolver(UpdateProfileAddressDTO),
+    defaultValues: {
+      zipCode: profile?.zipCode,
+      street: profile?.street,
+      district: profile?.district,
+      city: profile?.city,
+      state: profile?.state,
+    },
   })
 
   const onSubmit: SubmitHandler<UpdateProfileAddressDTOType> = async (
     inputs,
   ) => {
+    setLoading(true)
     try {
-      await fetch(`/api/profile/update-address`, {
-        method: 'POST',
-        body: JSON.stringify(inputs),
-        headers: { 'Content-Type': 'application/json' },
-      }).then(async (res: any) => {
-        if (res.status == 200) {
-          await mutate(profile, {
-            revalidate: true,
-            rollbackOnError: true,
-          })
-          toast.success(res.text())
-        } else {
-          toast.error(res.text())
-        }
-      })
+      await profileUpdateAction({ data: inputs, session: session! })
+        .then((res: any) => {
+          if (res.status !== 200) toast.error(res.message)
+          toast.success(res.message)
+        })
+        .catch((error: any) => {
+          toast.error(error?.message)
+        })
     } catch (error: any) {
       toast.error(error?.message)
-      console.error(error)
     } finally {
+      setLoading(false)
       reset(inputs)
     }
   }
@@ -77,7 +86,6 @@ export default function UpdateProfileAddressForm() {
       }
     } catch (error: any) {
       toast.error(error?.response?.data || error?.message)
-      console.error(error)
     }
   }
 
@@ -100,7 +108,6 @@ export default function UpdateProfileAddressForm() {
                 name="zipCode"
                 type="number"
                 value={value}
-                defaultValue={profile?.zipCode}
                 onBlur={setZipCode}
                 onChange={onChange}
               />
@@ -125,7 +132,6 @@ export default function UpdateProfileAddressForm() {
                 name="street"
                 type="text"
                 value={value}
-                defaultValue={profile?.street}
                 onChange={onChange}
               />
             )}
@@ -150,7 +156,6 @@ export default function UpdateProfileAddressForm() {
               name="complement"
               type="text"
               value={value}
-              defaultValue={profile?.complement}
               onChange={onChange}
             />
           )}
@@ -175,7 +180,6 @@ export default function UpdateProfileAddressForm() {
                 name="district"
                 type="text"
                 value={value}
-                defaultValue={profile?.district}
                 onChange={onChange}
               />
             )}
@@ -199,7 +203,6 @@ export default function UpdateProfileAddressForm() {
                 name="city"
                 type="text"
                 value={value}
-                defaultValue={profile?.city}
                 onChange={onChange}
               />
             )}
@@ -223,7 +226,6 @@ export default function UpdateProfileAddressForm() {
                 name="state"
                 type="text"
                 value={value}
-                defaultValue={profile?.state}
                 onChange={onChange}
               />
             )}
@@ -236,8 +238,15 @@ export default function UpdateProfileAddressForm() {
         </div>
       </div>
 
-      <Button variant="gradient" color="blue" size="sm" fullWidth type="submit">
-        Atualizar Endereço
+      <Button
+        variant="gradient"
+        color="blue"
+        size="sm"
+        fullWidth
+        type="submit"
+        disabled={loading}
+      >
+        {loading ? 'Atualizando Endereço...' : 'Atualizar Endereço'}
       </Button>
     </form>
   )

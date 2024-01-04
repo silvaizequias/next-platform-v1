@@ -6,6 +6,7 @@ import { Comfortaa, Poppins } from 'next/font/google'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/libraries/next-auth'
 import TopBar from '@/components/top-bar'
+import { getProfile } from '@/utils/get-data'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -60,6 +61,7 @@ export default async function RootLayout({
   children: ReactNode
 }) {
   const session = await getServerSession(authOptions)
+  const profile = await getProfile()
 
   return (
     <html
@@ -69,7 +71,7 @@ export default async function RootLayout({
     >
       <body className="min-h-screen bg-blue-gray-50 text-blue-gray-800 dark:bg-blue-gray-800 dark:text-blue-gray-50 text-base font-light">
         <Providers>
-          <TopBar session={session!} />
+          <TopBar session={session!} profile={profile} />
           {children}
         </Providers>
       </body>

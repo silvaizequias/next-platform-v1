@@ -1,4 +1,4 @@
-import { OrganizationUserType } from "../organization"
+import { OrganizationUserType } from '../organization'
 
 export type UserType = {
   id: string

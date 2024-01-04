@@ -26,7 +26,8 @@ export default function DrawerContent(props: Props) {
 
   const handleClick = useCallback(() => {
     signOut()
-  }, [])
+    onClose()
+  }, [onClose])
 
   return (
     <Drawer
@@ -57,12 +58,9 @@ export default function DrawerContent(props: Props) {
           <div className="flex flex-col w-full">
             {session && (
               <List>
-                <ListItem>
+                <ListItem onClick={handleClick}>
                   <ListItemPrefix>
-                    <div
-                      className="text-light-blue-200 hover:text-light-blue-400 text-xl cursor-pointer"
-                      onClick={handleClick}
-                    >
+                    <div className="text-light-blue-200 hover:text-light-blue-400 text-xl cursor-pointer">
                       <MdLogout />
                     </div>
                   </ListItemPrefix>
