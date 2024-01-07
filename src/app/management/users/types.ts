@@ -6,6 +6,7 @@ export type UserType = {
   softDeleted: boolean
   active: boolean
   subscriber: boolean
+  suspended: boolean
   api: string
   profile: 'guest' | 'customer' | 'member' | 'master'
   name: string

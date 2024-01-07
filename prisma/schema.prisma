@@ -3,12 +3,12 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id String @id @default(cuid())
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
@@ -17,6 +17,7 @@ model User {
   softDeleted Boolean? @default(false) @map("soft_deleted")
   active      Boolean? @default(true)
   subscriber  Boolean? @default(false)
+  suspended   Boolean? @default(false)
 
   api          String? @unique
   profile      String?
@@ -32,8 +33,8 @@ model User {
   street       String?
   complement   String?
 
-  latitude  Float? @db.Double
-  longitude Float? @db.Double
+  latitude  Float? @db.DoublePrecision
+  longitude Float? @db.DoublePrecision
 
   @@map("users")
 }

@@ -25,8 +25,9 @@ export const CreateUserDTO = z.object({
 export type CreateUserDTOType = z.infer<typeof CreateUserDTO>
 
 export const UpdateUserDTO = z.object({
-  active: z.boolean().default(true).optional(),
-  subscriber: z.boolean().default(false).optional(),
+  active: z.boolean().optional(),
+  subscriber: z.boolean().optional(),
+  suspended: z.boolean().optional(),
   api: z.string().optional(),
   profile: z.enum(PROFILE).optional(),
   name: z.string().min(5).max(140).optional(),
