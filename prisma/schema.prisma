@@ -3,30 +3,37 @@ generator client {
 }
 
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
 
-model Post {
-  id          String    @id @default(cuid())
-  createdAt   DateTime  @default(now()) @map("created_at")
-  updatedAt   DateTime  @updatedAt @map("updated_at")
-  deletedAt   DateTime? @map("deleted_at") @db.Date
-  softDeleted Boolean?  @default(false) @map("soft_deleted")
+model User {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  title     String
-  subject   String
-  slug      String   @unique
-  draft     Boolean? @default(false)
-  private   Boolean? @default(false)
-  spotlight Boolean? @default(false)
-  resume    String?  @db.Text
-  image     String?
-  video     String?
-  content   String   @db.LongText
-  keywords  String?
-  author    String
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at") @db.Date
 
-  @@map("posts")
+  softDeleted Boolean? @default(false) @map("soft_deleted")
+  active      Boolean? @default(true)
+  subscriber  Boolean? @default(false)
+
+  api          String? @unique
+  profile      String?
+  name         String?
+  image        String?
+  email        String? @unique
+  phone        String  @unique
+  documentType String?
+  documentCode String? @unique
+  accessCode   String?
+  passHash     String? @unique
+  zipCode      String?
+  street       String?
+  complement   String?
+
+  latitude  Float? @db.Double
+  longitude Float? @db.Double
+
+  @@map("users")
 }

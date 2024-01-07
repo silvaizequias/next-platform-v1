@@ -1,10 +1,10 @@
 import BlogHeader from '@/components/blog-header'
 import BlogScreen from './screen'
-import { PostType } from '@/types/post'
-import { getPosts } from '@/utils/get-data'
+import { PostType } from './types'
+import { actionGetPosts } from './actions'
 
 export default async function BlogPage() {
-  const posts: PostType[] = await getPosts()
+  const posts: PostType[] = await actionGetPosts()
   const image = '/logotipo.svg'
 
   return (

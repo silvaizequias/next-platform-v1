@@ -4,9 +4,7 @@ import { ReactNode } from 'react'
 import { Providers } from './providers'
 import { Comfortaa, Poppins } from 'next/font/google'
 import { getServerSession } from 'next-auth'
-import { authOptions } from '@/libraries/next-auth'
-import TopBar from '@/components/top-bar'
-import { getProfile } from '@/utils/get-data'
+import Topbar from '@/components/topbar'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -27,7 +25,7 @@ export const metadata: Metadata = {
   generator: 'dedicado',
   category: 'website',
   title: {
-    default: 'Suporte e Desenvolvimento Dedicado',
+    default: 'Sua Melhor Plataforma de Serviços',
     template: `%s | Dedicado`,
   },
   description:
@@ -39,10 +37,12 @@ export const metadata: Metadata = {
     'tecnologia da informação',
     'ferramenta de gestão empresarial',
     'soluções de tecnologia',
+    'serviços de tecnologia',
+    'plataforma de serviços',
   ],
   openGraph: {
     title: {
-      default: 'Suporte e Desenvolvimento Dedicado',
+      default: 'Sua Melhor Plataforma de Serviços',
       template: `%s | Dedicado`,
     },
     description:
@@ -60,9 +60,6 @@ export default async function RootLayout({
 }: {
   children: ReactNode
 }) {
-  const session = await getServerSession(authOptions)
-  const profile = await getProfile()
-
   return (
     <html
       lang="en"
@@ -71,7 +68,7 @@ export default async function RootLayout({
     >
       <body className="min-h-screen bg-blue-gray-50 text-blue-gray-800 dark:bg-blue-gray-800 dark:text-blue-gray-50 text-base font-light">
         <Providers>
-          <TopBar session={session!} profile={profile} />
+          <Topbar />
           {children}
         </Providers>
       </body>

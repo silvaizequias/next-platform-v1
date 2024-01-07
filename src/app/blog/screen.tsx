@@ -1,9 +1,8 @@
 'use client'
 
-import useFetch from '@/hooks/use-fetch'
-import { PostType } from '@/types/post'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
+import { PostType } from './types'
 import PostCardView from './views/PostCardView'
 
 interface Props {

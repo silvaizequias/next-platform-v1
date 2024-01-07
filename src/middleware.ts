@@ -1,49 +1,43 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-export const config = {
-  matcher: ['/((?!api/|_next/|_static/|_vercel|[\\w-]+\\.\\w+).*)'],
-}
-
-export default async function middleware(req: NextRequest) {
-  const url = req.nextUrl
+export default async function middleware(request: NextRequest) {
   const NEXT_PUBLIC_URL = process.env.NEXT_PUBLIC_URL!
+  const url = request.nextUrl
 
-  let hostname = req.headers
+  let hostname = request.headers
     .get('host')!
-    .replace('.localhost:3000', `.${NEXT_PUBLIC_URL}`)
+    .replace('.localhost:3210', `.${NEXT_PUBLIC_URL}`)
 
   if (hostname.includes('---')) {
     hostname = `${hostname.split('---')[0]}.${NEXT_PUBLIC_URL}`
   }
 
-  const searchParams = req.nextUrl.searchParams.toString()
+  const searchParams = request.nextUrl.searchParams.toString()
   const path = `${url.pathname}${
     searchParams.length > 0 ? `?${searchParams}` : ''
   }`
 
   if (hostname == `blog.${NEXT_PUBLIC_URL}`) {
     return NextResponse.rewrite(
-      new URL(`/blog${path === '/' ? '' : path}`, req.url),
+      new URL(`/blog${path === '/' ? '' : path}`, request.url),
     )
   }
 
-  if (hostname == `sistema.${NEXT_PUBLIC_URL}`) {
+  if (hostname == `connects.${NEXT_PUBLIC_URL}`) {
     return NextResponse.rewrite(
-      new URL(`/sistema${path === '/' ? '' : path}`, req.url),
-    )
-  }
-
-  if (hostname == `www.${NEXT_PUBLIC_URL}`) {
-    return NextResponse.rewrite(
-      new URL(`/landing${path === '/' ? '' : path}`, req.url),
+      new URL(`/connects${path === '/' ? '' : path}`, request.url),
     )
   }
 
   if (hostname == `${NEXT_PUBLIC_URL}`) {
     return NextResponse.rewrite(
-      new URL(`/landing${path === '/' ? '' : path}`, req.url),
+      new URL(`/management${path === '/' ? '' : path}`, request.url),
     )
   }
 
-  return NextResponse.rewrite(new URL(`/${hostname}${path}`, req.url))
+  return NextResponse.rewrite(new URL(`/${hostname}${path}`, request.url))
+}
+
+export const config = {
+  matcher: ['/((?!api/|_next/|_static/|_vercel|[\\w-]+\\.\\w+).*)'],
 }

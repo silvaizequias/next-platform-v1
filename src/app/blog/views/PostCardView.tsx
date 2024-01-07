@@ -6,7 +6,7 @@ import {
   Typography,
   Tooltip,
 } from '@material-tailwind/react'
-import { PostType } from '@/types/post'
+import { PostType } from '../types'
 
 interface Props {
   post: PostType

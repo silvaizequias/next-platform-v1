@@ -1,4 +1,3 @@
-import CrispChat from '@/components/crisp-chat'
 import { Metadata } from 'next'
 import { ReactNode } from 'react'
 
@@ -36,12 +35,5 @@ export const metadata: Metadata = {
 }
 
 export default function BlogLayout({ children }: { children: ReactNode }) {
-  const isDevelopment = process.env.NODE_ENV === 'development'
-
-  return (
-    <div className="block">
-      {children}
-      {!isDevelopment && <CrispChat />}
-    </div>
-  )
+  return <div className="block">{children}</div>
 }
