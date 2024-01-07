@@ -1,7 +1,10 @@
 import BlogHeader from '@/components/blog-header'
 import BlogScreen from './screen'
+import { PostType } from '@/types/post'
+import { getPosts } from '@/utils/get-data'
 
 export default async function BlogPage() {
+  const posts: PostType[] = await getPosts()
   const image = '/logotipo.svg'
 
   return (
@@ -14,7 +17,7 @@ export default async function BlogPage() {
       <div className="flex flex-col justify-center">
         <div className="max-w-full py-10">
           <div className="mx-2 sm:mx-8">
-            <BlogScreen />
+            <BlogScreen posts={posts!} />
           </div>
         </div>
       </div>

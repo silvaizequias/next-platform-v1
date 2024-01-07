@@ -6,8 +6,11 @@ import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import PostCardView from './views/PostCardView'
 
-export default function BlogScreen() {
-  const { data: posts } = useFetch<PostType[] | any>(`/api/posts`)
+interface Props {
+  posts: PostType[]
+}
+export default function BlogScreen(props: Props) {
+  const { posts } = props
 
   const router = useRouter()
 
