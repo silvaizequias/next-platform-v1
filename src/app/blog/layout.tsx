@@ -1,9 +1,39 @@
+import { Metadata } from 'next'
 import { ReactNode } from 'react'
 
-export default async function BlogLayout({
-  children,
-}: {
-  children: ReactNode
-}) {
-  return <div>{children}</div>
+const NEXT_PUBLIC_URL = process.env.NEXT_PUBLIC_URL
+
+export const metadata: Metadata = {
+  applicationName: 'dedicado',
+  generator: 'dedicado',
+  category: 'blog',
+  title: {
+    default: 'Blog',
+    template: `%s | Dedicado`,
+  },
+  description: 'Conteúdo inteligente do universo da tecnologia',
+  icons: './favicon.ico',
+  keywords: [
+    'conteudo inteligente',
+    'blog de conteúdo de tecnologia',
+    'conteúdo de inteligencia artificial',
+    'blog ia',
+    'blog inteligente',
+  ],
+  openGraph: {
+    title: {
+      default: 'Blog',
+      template: `%s | Dedicado`,
+    },
+    description: 'Conteúdo inteligente do unierso da tecnologia',
+    images: ['/logotipo.png'],
+  },
+  metadataBase: new URL(`https://blog.${NEXT_PUBLIC_URL}`),
+  alternates: {
+    canonical: new URL(`https://blog.${NEXT_PUBLIC_URL}`),
+  },
+}
+
+export default function BlogLayout({ children }: { children: ReactNode }) {
+  return <div className="block">{children}</div>
 }

@@ -1,5 +1,6 @@
 import { Session } from 'next-auth'
 import { Fragment } from 'react'
+import LandingView from './views/LandingView'
 
 interface Props {
   session: Session
@@ -7,9 +8,11 @@ interface Props {
 
 export default function ManagementScreen(props: Props) {
   const { session } = props
-  return (
+  return session ? (
     <Fragment>
       <span>management screen</span>
     </Fragment>
+  ) : (
+    <LandingView />
   )
 }
