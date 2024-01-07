@@ -2,10 +2,11 @@ import { authOptions } from '@/libraries/next-auth'
 import { getServerSession } from 'next-auth'
 
 const NEXTAUTH_URL = process.env.NEXTAUTH_URL!
+const CONTENT_API_URL = process.env.CONTENT_API_URL!
 const PLATFORM_API_URL = process.env.PLATFORM_API_URL!
 
 export const getPosts = async () => {
-  const data = await fetch(`${NEXTAUTH_URL}/api/posts`, {
+  const data = await fetch(`${CONTENT_API_URL}/posts`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
     next: { revalidate: 3600 },
