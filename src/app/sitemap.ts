@@ -1,13 +1,13 @@
 import { headers } from 'next/headers'
-import { getPosts } from '@/utils/get-data'
+import { actionGetPosts } from './blog/actions'
 
 export default async function Sitemap() {
   const headersList = headers()
   const domain = headersList
     .get('host')
-    ?.replace('.localhost:3000', `.${process.env.NEXT_PUBLIC_URL}`)
+    ?.replace('.localhost:3210', `.${process.env.NEXT_PUBLIC_URL}`)
 
-  const posts = await getPosts()
+  const posts = await actionGetPosts()
 
   return [
     {
