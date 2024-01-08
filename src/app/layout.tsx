@@ -5,6 +5,9 @@ import { Providers } from './providers'
 import { Comfortaa, Poppins } from 'next/font/google'
 import { getServerSession } from 'next-auth'
 import Topbar from '@/components/topbar'
+import { nextAuthOptions } from '@/libraries/next-auth'
+import { actionGetProfileByPhone } from './management/profile/actions'
+import { UserType } from './management/users/types'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -60,6 +63,9 @@ export default async function RootLayout({
 }: {
   children: ReactNode
 }) {
+  const session = await getServerSession(nextAuthOptions)
+  const profile: UserType = await actionGetProfileByPhone(session?.user?.phone!)
+
   return (
     <html
       lang="en"
@@ -68,7 +74,7 @@ export default async function RootLayout({
     >
       <body className="min-h-screen bg-blue-gray-50 text-blue-gray-800 dark:bg-blue-gray-800 dark:text-blue-gray-50 text-base font-light">
         <Providers>
-          <Topbar />
+          <Topbar session={session!} profile={profile} />
           {children}
         </Providers>
       </body>
