@@ -7,6 +7,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserProfile {
+  guest
+  customer
+  member
+  master
+}
+
 model User {
   id String @id @default(cuid())
 
@@ -19,16 +26,16 @@ model User {
   subscriber  Boolean? @default(false)
   suspended   Boolean? @default(false)
 
-  api          String? @unique
-  profile      String?
+  api          String?      @unique
+  profile      UserProfile? @default(guest)
   name         String?
   image        String?
-  email        String? @unique
-  phone        String  @unique
+  email        String?      @unique
+  phone        String       @unique
   documentType String?
-  documentCode String? @unique
+  documentCode String?      @unique
   accessCode   String?
-  passHash     String? @unique
+  passHash     String?      @unique
   zipCode      String?
   street       String?
   complement   String?
