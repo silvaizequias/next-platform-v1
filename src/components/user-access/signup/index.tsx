@@ -14,7 +14,7 @@ export default function SignUpForm() {
       <Input
         crossOrigin={undefined}
         name="name"
-        id="name"
+        id="signUpName"
         type="text"
         label="nome completo"
         required
@@ -22,7 +22,7 @@ export default function SignUpForm() {
       <Input
         crossOrigin={undefined}
         name="phone"
-        id="phone"
+        id="signUpPhone"
         type="number"
         label="celular"
         required
@@ -30,7 +30,7 @@ export default function SignUpForm() {
       <Input
         crossOrigin={undefined}
         name="email"
-        id="email"
+        id="signUpEmail"
         type="email"
         label="e-mail"
         required

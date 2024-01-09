@@ -15,7 +15,7 @@ export default function ResetPasswordForm() {
       <Input
         crossOrigin={undefined}
         name="phone"
-        id="phone"
+        id="resetPasswordPhone"
         type="number"
         label="celular"
         required
