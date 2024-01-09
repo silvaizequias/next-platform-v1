@@ -16,7 +16,7 @@ export async function POST(request: Request) {
 
       if (!user)
         return new Response(
-          JSON.stringify(`o número ${phone} não existe na plataforma`),
+          JSON.stringify(`o número ${phone} não possui registro ativo na plataforma`),
           { status: 404 },
         )
 
