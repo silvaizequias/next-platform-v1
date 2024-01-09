@@ -2,21 +2,18 @@
 
 import { Button, Input, Typography } from '@material-tailwind/react'
 import { useRouter } from 'next/navigation'
-import { FormEvent } from 'react'
 import { actionSubmitSignIn } from './actions'
+import { useFormState } from 'react-dom'
+
+const initialState = {}
 
 export default function SignInForm() {
   const router = useRouter()
-
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const formData = new FormData(e.currentTarget)
-    await actionSubmitSignIn(formData)
-  }
+  const [state, formAction] = useFormState(actionSubmitSignIn, initialState)
 
   return (
     <form
-      onSubmit={onSubmit}
+      action={formAction}
       className="flex flex-col justify-center items-center gap-2"
     >
       <Typography variant="small" className="text-center lowercase p-2">
