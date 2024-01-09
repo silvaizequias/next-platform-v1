@@ -2,6 +2,7 @@
 
 import { prisma } from '@/libraries/prisma'
 import { UserType } from '../users/types'
+import { CreateUserDTOType, UpdateUserDTOType } from './dto'
 
 export async function actionGetUserById(id: string): Promise<UserType | any> {
   try {
@@ -33,4 +34,22 @@ export async function actionGetUsers(): Promise<UserType | any> {
   } finally {
     await prisma.$disconnect()
   }
+}
+
+export async function actionSetCreateUser(
+  prevState: any,
+  formData: FormData,
+): Promise<any> {
+  const inputs: CreateUserDTOType | any = Object.fromEntries(formData)
+
+  return { status: 200, message: '', data: inputs }
+}
+
+export async function actionSetUpdateUser(
+  prevState: any,
+  formData: FormData,
+): Promise<any> {
+  const inputs: UpdateUserDTOType | any = Object.fromEntries(formData)
+
+  return { status: 200, message: '', data: inputs }
 }

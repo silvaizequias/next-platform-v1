@@ -2,6 +2,7 @@
 
 import { prisma } from '@/libraries/prisma'
 import { UserType } from '../users/types'
+import { UpdateProfileDTOType, UpdateProfilePasswordDTOType } from './dto'
 
 export async function actionGetProfileByPhone(
   phone: string,
@@ -19,4 +20,23 @@ export async function actionGetProfileByPhone(
   } finally {
     await prisma.$disconnect()
   }
+}
+
+export async function actionSetUpdateProfile(
+  prevState: any,
+  formData: FormData,
+): Promise<any> {
+  const inputs: UpdateProfileDTOType | any = Object.fromEntries(formData)
+
+  return { status: 200, message: '', data: inputs }
+}
+
+export async function actionSetUpdateProfilePassword(
+  prevState: any,
+  formData: FormData,
+): Promise<any> {
+  const inputs: UpdateProfilePasswordDTOType | any =
+    Object.fromEntries(formData)
+
+  return { status: 200, message: '', data: inputs }
 }
