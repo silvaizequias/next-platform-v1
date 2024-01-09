@@ -28,6 +28,11 @@ export async function POST(request: Request) {
           status: 403,
         })
 
+      if (user && user.suspended)
+        return new Response(JSON.stringify('esse acesso está suspenso'), {
+          status: 401,
+        })
+
       const encryptedToken = jwt.sign(
         {
           id: user?.id!,
