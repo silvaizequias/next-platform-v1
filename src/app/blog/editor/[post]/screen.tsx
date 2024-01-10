@@ -3,13 +3,19 @@
 import { Button, Input } from '@material-tailwind/react'
 import { useRouter } from 'next/router'
 import { useFormState } from 'react-dom'
-import { actionSetCreatePost } from './actions'
+import { actionSetUpdatePost } from '../actions'
+import { PostType } from '../../types'
 
 const initialState = {}
 
-export default function EditorScreen() {
+interface Props {
+  post: PostType
+}
+
+export default function UpdateEditorScreen(props: Props) {
+  const { post } = props
   const router = useRouter()
-  const [state, formAction] = useFormState(actionSetCreatePost, initialState)
+  const [state, formAction] = useFormState(actionSetUpdatePost, initialState)
 
   return (
     <form
@@ -24,8 +30,8 @@ export default function EditorScreen() {
         label="título"
         required
       />
-      <Button type="submit" color="light-green" fullWidth>
-        criar postagem
+      <Button type="submit" color="light-blue" fullWidth>
+        atualizar postagem
       </Button>
     </form>
   )
