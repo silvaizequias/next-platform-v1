@@ -9,11 +9,13 @@ export default async function UserPage() {
   const session = await getServerSession(nextAuthOptions)
   const users = await actionGetUsers()
 
-  return session ? (
+  return (
     <Fragment>
-      <UserScreen users={users} />
+      <div className="max-w-full py-10">
+        <div className="flex flex-1 flex-col justify-center gap-4 ">
+          <UserScreen users={users} />
+        </div>
+      </div>
     </Fragment>
-  ) : (
-    redirect('/')
   )
 }

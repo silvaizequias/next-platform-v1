@@ -4,10 +4,16 @@ import { useRouter } from 'next/navigation'
 import { useFormState } from 'react-dom'
 import { actionSetUpdateUser } from '../actions'
 import { Button, Input } from '@material-tailwind/react'
+import { UserType } from '../types'
 
 const initialState = {}
 
+interface Props {
+  user: UserType
+}
+
 export default function UserUpdateFormView() {
+  //const { user } = props
   const router = useRouter()
   const [state, formAction] = useFormState(actionSetUpdateUser, initialState)
 
