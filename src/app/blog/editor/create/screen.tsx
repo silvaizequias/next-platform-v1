@@ -1,21 +1,15 @@
 'use client'
 
 import { Button, Input } from '@material-tailwind/react'
-import { useRouter } from 'next/router'
 import { useFormState } from 'react-dom'
-import { actionSetUpdatePost } from '../actions'
-import { PostType } from '../../types'
+import { actionSetCreatePost } from '../actions'
+import { useRouter } from 'next/navigation'
 
 const initialState = {}
 
-interface Props {
-  post: PostType
-}
-
-export default function EditorPostUpdateScreen(props: Props) {
-  const { post } = props
+export default function EditorPostCreateScreen() {
   const router = useRouter()
-  const [state, formAction] = useFormState(actionSetUpdatePost, initialState)
+  const [state, formAction] = useFormState(actionSetCreatePost, initialState)
 
   return (
     <form
@@ -30,8 +24,16 @@ export default function EditorPostUpdateScreen(props: Props) {
         label="título"
         required
       />
-      <Button type="submit" color="light-blue" fullWidth>
-        atualizar postagem
+      <Input
+        crossOrigin={undefined}
+        name="subject"
+        id="createPostSubject"
+        type="text"
+        label="assunto"
+        required
+      />
+      <Button type="submit" color="light-green" fullWidth>
+        criar postagem
       </Button>
     </form>
   )

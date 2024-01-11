@@ -1,13 +1,13 @@
 import { actionGetPostByParams } from '../../[post]/actions'
 import { PostType } from '../../types'
-import UpdateEditorScreen from './screen'
+import EditorPostUpdateScreen from './screen'
 
-export default async function UpdateEditorPage({
+export default async function EditorPostUpdatePage({
   params,
 }: {
   params: { post: string }
 }) {
   const post: PostType = await actionGetPostByParams(params?.post)
 
-  return <UpdateEditorScreen post={post} />
+  return <EditorPostUpdateScreen post={post} />
 }
