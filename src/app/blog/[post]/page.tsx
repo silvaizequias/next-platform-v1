@@ -10,7 +10,7 @@ export async function generateMetadata({
 }: {
   params: { post: string }
 }): Promise<Metadata | null> {
-  const post: PostType = await actionGetPostByParams(params?.post)
+  const post: PostType | any = await actionGetPostByParams(params?.post)
 
   const NEXT_PUBLIC_URL = process.env.NEXT_PUBLIC_URL
 
@@ -43,7 +43,7 @@ export default async function PostDetailPage({
 }: {
   params: { post: string }
 }) {
-  const post: PostType = await actionGetPostByParams(params?.post)
+  const post: PostType | any  = await actionGetPostByParams(params?.post)
   const image = '/logotipo.svg'
 
   return post ? (

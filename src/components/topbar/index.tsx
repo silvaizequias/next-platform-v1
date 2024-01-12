@@ -4,8 +4,16 @@ import { Tooltip } from '@material-tailwind/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Appbar from '../appbar'
+import { Session } from 'next-auth'
+import { UserType } from '@/app/management/users/types'
 
-export default function Topbar() {
+interface Props {
+  session: Session
+  profile: UserType
+}
+
+export default function Topbar(props: Props) {
+  const { session, profile } = props
   const logotipo = '/logotipo.svg'
 
   return (
@@ -30,7 +38,7 @@ export default function Topbar() {
             </Tooltip>
           </div>
           <div className="flex flex-1 items-center justify-end">
-            <Appbar />
+            <Appbar session={session} profile={profile} />
           </div>
         </div>
       </div>

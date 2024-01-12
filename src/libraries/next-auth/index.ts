@@ -26,6 +26,8 @@ export const nextAuthOptions: NextAuthOptions = {
         const comparePass = compareSync(credentials?.password!, user.passHash!)
         if (!comparePass) throw new Error('a senha está incorreta')
 
+        if (user && user.suspended) throw new Error('esse acesso está suspenso')
+
         return user
       },
     }),

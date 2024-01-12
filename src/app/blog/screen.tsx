@@ -21,8 +21,8 @@ export default function BlogScreen(props: Props) {
   )
 
   return (
-    <div className="w-full flex flex-1 justify-center">
-      <div className="flex flex-wrap justify-center gap-4">
+    <div className="w-full flex flex-1 justify-center items-center">
+      <div className="flex flex-wrap justify-center items-center gap-4">
         {posts &&
           posts?.map(
             (post: PostType) =>

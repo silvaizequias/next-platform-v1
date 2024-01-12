@@ -3,12 +3,19 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
+enum UserProfile {
+  guest
+  customer
+  member
+  master
+}
+
 model User {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id String @id @default(cuid())
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
@@ -17,23 +24,54 @@ model User {
   softDeleted Boolean? @default(false) @map("soft_deleted")
   active      Boolean? @default(true)
   subscriber  Boolean? @default(false)
+  suspended   Boolean? @default(false)
 
-  api          String? @unique
-  profile      String?
+  api          String?      @unique
+  profile      UserProfile? @default(guest)
   name         String?
   image        String?
-  email        String? @unique
-  phone        String  @unique
+  email        String?      @unique
+  phone        String       @unique
   documentType String?
-  documentCode String? @unique
+  documentCode String?      @unique
   accessCode   String?
-  passHash     String? @unique
+  passHash     String?      @unique
   zipCode      String?
   street       String?
   complement   String?
 
-  latitude  Float? @db.Double
-  longitude Float? @db.Double
+  latitude  Float? @db.DoublePrecision
+  longitude Float? @db.DoublePrecision
 
   @@map("users")
+}
+
+enum PostType {
+  blog
+  knowledge
+}
+
+model Publication {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at") @db.Date
+  softDeleted Boolean?  @default(false) @map("soft_deleted")
+
+  type          PostType? @default(blog)
+  title         String
+  subject       String
+  slug          String    @unique
+  draft         Boolean?  @default(false)
+  private       Boolean?  @default(false)
+  spotlight     Boolean?  @default(false)
+  generatedByAi Boolean?  @default(false) @map("generated_by_ai")
+  resume        String?   @db.Text
+  image         String?
+  video         String?
+  content       String    @db.Text
+  keywords      String?
+  author        String
+
+  @@map("publications")
 }

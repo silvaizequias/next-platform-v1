@@ -7,7 +7,7 @@ import { actionGetPostByParams } from './actions'
 export const runtime = 'edge'
 
 export default async function PostOG({ params }: { params: { post: string } }) {
-  const post: PostType = await actionGetPostByParams(params?.post)
+  const post: PostType | any = await actionGetPostByParams(params?.post)
 
   const image = '/logotipo.svg'
 

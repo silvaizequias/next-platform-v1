@@ -1,3 +1,5 @@
+import { UserProfile } from "@prisma/client"
+
 export type UserType = {
   id: string
   createdAt: Date
@@ -6,8 +8,9 @@ export type UserType = {
   softDeleted: boolean
   active: boolean
   subscriber: boolean
+  suspended: boolean
   api: string
-  profile: 'guest' | 'customer' | 'member' | 'master'
+  profile: UserProfile
   name: string
   image: string
   email: string
