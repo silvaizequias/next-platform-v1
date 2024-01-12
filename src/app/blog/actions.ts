@@ -1,12 +1,20 @@
 'use server'
 
-const CONTENT_API_URL = process.env.CONTENT_API_URL!
+import { prisma } from '@/libraries/prisma'
 
 export async function actionGetPosts() {
-  const data = await fetch(`${CONTENT_API_URL}/posts`, {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' },
-    next: { revalidate: 3600 },
-  })
-  return data && data.json()
+  try {
+    const publications = await prisma.publication.findMany({
+      where: { softDeleted: false },
+      orderBy: { updatedAt: 'desc' },
+    })
+    if (!publications) return null
+
+    return publications
+  } catch (error: any) {
+    await prisma.$disconnect()
+    throw new Error(error)
+  } finally {
+    await prisma.$disconnect()
+  }
 }

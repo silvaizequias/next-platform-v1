@@ -4,7 +4,7 @@ import { PostType } from './types'
 import { actionGetPosts } from './actions'
 
 export default async function BlogPage() {
-  const posts: PostType[] = await actionGetPosts()
+  const posts: PostType[] | any = await actionGetPosts()
   const image = '/logotipo.svg'
 
   return (

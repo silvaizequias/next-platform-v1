@@ -1,5 +1,7 @@
 'use server'
 
+import { prisma } from '@/libraries/prisma'
+
 import { CreatePostDTOType, UpdatePostDTOType } from './dto'
 
 export async function actionSetCreatePost(

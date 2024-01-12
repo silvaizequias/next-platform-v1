@@ -7,7 +7,7 @@ export default async function EditorPostUpdatePage({
 }: {
   params: { post: string }
 }) {
-  const post: PostType = await actionGetPostByParams(params?.post)
+  const post: PostType | any = await actionGetPostByParams(params?.post)
 
   return <EditorPostUpdateScreen post={post} />
 }
