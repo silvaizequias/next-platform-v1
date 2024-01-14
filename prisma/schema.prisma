@@ -46,7 +46,7 @@ model User {
   @@map("users")
 }
 
-enum PostType {
+enum PublicationChannel {
   blog
   knowledge
 }
@@ -58,18 +58,18 @@ model Publication {
   deletedAt   DateTime? @map("deleted_at") @db.Date
   softDeleted Boolean?  @default(false) @map("soft_deleted")
 
-  type          PostType? @default(blog)
+  channel       PublicationChannel? @default(blog)
   title         String
   subject       String
-  slug          String    @unique
-  draft         Boolean?  @default(false)
-  private       Boolean?  @default(false)
-  spotlight     Boolean?  @default(false)
-  generatedByAi Boolean?  @default(false) @map("generated_by_ai")
-  resume        String?   @db.Text
+  slug          String              @unique
+  draft         Boolean?            @default(false)
+  private       Boolean?            @default(false)
+  spotlight     Boolean?            @default(false)
+  generatedByAi Boolean?            @default(false) @map("generated_by_ai")
+  resume        String?             @db.Text
   image         String?
   video         String?
-  content       String    @db.Text
+  content       String              @db.Text
   keywords      String?
   author        String
 

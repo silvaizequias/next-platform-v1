@@ -1,10 +1,12 @@
+import { PublicationChannel } from '@prisma/client'
+
 export type PostType = {
   id: string
   createdAt: Date
   updatedAt: Date
   deletedAt: Date
   softDeleted: boolean
-  type: 'blog' | 'knowledge'
+  channel: PublicationChannel
   title: string
   subject: string
   slug: string

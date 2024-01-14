@@ -3,7 +3,7 @@ import * as z from 'zod'
 const TYPES = ['blog', 'knowledge'] as const
 
 export const CreatePostDTO = z.object({
-  type: z.enum(TYPES).default('blog'),
+  channel: z.enum(TYPES).default('blog'),
   title: z.string(),
   subject: z.string(),
   draft: z.boolean().default(false).optional(),
@@ -20,7 +20,7 @@ export const CreatePostDTO = z.object({
 export type CreatePostDTOType = z.infer<typeof CreatePostDTO>
 
 export const UpdatePostDTO = z.object({
-  type: z.enum(TYPES).optional(),
+  channel: z.enum(TYPES).optional(),
   title: z.string().optional(),
   subject: z.string().optional(),
   draft: z.boolean().optional(),

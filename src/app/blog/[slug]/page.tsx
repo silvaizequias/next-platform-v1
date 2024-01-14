@@ -8,9 +8,9 @@ import { PostType } from '../types'
 export async function generateMetadata({
   params,
 }: {
-  params: { post: string }
+  params: { slug: string }
 }): Promise<Metadata | null> {
-  const post: PostType | any = await actionGetPostByParams(params?.post)
+  const post: PostType | any = await actionGetPostByParams(params?.slug)
 
   const NEXT_PUBLIC_URL = process.env.NEXT_PUBLIC_URL
 
@@ -41,9 +41,9 @@ export async function generateMetadata({
 export default async function PostDetailPage({
   params,
 }: {
-  params: { post: string }
+  params: { slug: string }
 }) {
-  const post: PostType | any  = await actionGetPostByParams(params?.post)
+  const post: PostType | any = await actionGetPostByParams(params?.slug)
   const image = '/logotipo.svg'
 
   return post ? (

@@ -97,7 +97,7 @@ export default function EditorScreen(props: Props) {
                             color="blue-gray"
                             className="font-normal opacity-70"
                           >
-                            {post?.type}
+                            {post?.channel}
                           </Typography>
                         </div>
                       </div>
