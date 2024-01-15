@@ -1,21 +1,21 @@
 import PostToolbar from '@/components/post-toolbar'
-import { PostType } from '../types'
+import { PublicationType } from '../types'
 
 interface Props {
-  post: PostType
+  publication: PublicationType
 }
 
-export default function PostDetailScreen(props: Props) {
-  const { post } = props
+export default function PublicationDetailScreen(props: Props) {
+  const { publication } = props
 
-  const content = { __html: post?.content }
+  const content = { __html: publication?.content }
 
-  return post ? (
+  return publication ? (
     <div className="max-w-full py-10 bg-gradient-to-b from-blue-gray-50 to-blue-gray-100">
       <div className="flex flex-1 flex-col justify-center gap-4 ">
         <div className="w-full flex justify-center">
           <div className="px-8 sm:px-20 max-w-4xl text-center">
-            <span className="italic text-xs">{post?.resume}</span>
+            <span className="italic text-xs">{publication?.resume}</span>
           </div>
         </div>
         <PostToolbar />
@@ -30,10 +30,12 @@ export default function PostDetailScreen(props: Props) {
         <div className="m-4 text-center text-xs lowercase text-blue-gray-400">
           esta publicação foi criada em{' '}
           <span className="font-semibold">
-            {new Date(post?.createdAt).toLocaleDateString()}
+            {new Date(publication?.createdAt).toLocaleDateString()}
           </span>{' '}
-          por <span className="font-semibold">{post?.author}</span>{' '}
-          {post?.generatedByAi && <span>usando inteligência artificial</span>}
+          por <span className="font-semibold">{publication?.author}</span>{' '}
+          {publication?.generatedByAi && (
+            <span>usando inteligência artificial</span>
+          )}
         </div>
       </div>
     </div>

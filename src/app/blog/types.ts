@@ -1,12 +1,12 @@
-import { PublicationChannel } from '@prisma/client'
+import { DomainType } from "../management/domains/types"
 
-export type PostType = {
+export type PublicationType = {
   id: string
   createdAt: Date
   updatedAt: Date
   deletedAt: Date
   softDeleted: boolean
-  channel: PublicationChannel
+  channel: 'blog' | 'knowledge'
   title: string
   subject: string
   slug: string
@@ -20,4 +20,5 @@ export type PostType = {
   content: string
   keywords: string
   author: string
+  domain: DomainType
 }

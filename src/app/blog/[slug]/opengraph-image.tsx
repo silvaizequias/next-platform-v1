@@ -1,13 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { ImageResponse } from 'next/og'
-import { PostType } from '../types'
-import { actionGetPostByParams } from './actions'
+import { PublicationType } from '../types'
+import { actionGetPublicationByParams } from './actions'
 
 export const runtime = 'edge'
 
-export default async function PostOG({ params }: { params: { post: string } }) {
-  const post: PostType | any = await actionGetPostByParams(params?.post)
+export default async function PublicationOG({ params }: { params: { post: string } }) {
+  const publication: PublicationType | any = await actionGetPublicationByParams(params?.post)
 
   const image = '/logotipo.svg'
 
@@ -16,23 +16,23 @@ export default async function PostOG({ params }: { params: { post: string } }) {
       <div tw="flex flex-col items-center w-full h-full bg-white">
         <div tw="flex flex-col items-center justify-center mt-8">
           <h1 tw="text-6xl font-bold text-gray-900 leading-none tracking-tight">
-            {post.title}
+            {publication.title}
           </h1>
           <p tw="mt-4 text-xl text-gray-600 max-w-xl text-center line-clamp-3">
-            {post.resume}
+            {publication.resume}
           </p>
           <div tw="flex items-center justify-center">
             <img
               tw="w-12 h-12 rounded-full mr-4"
-              src={post?.image || image}
-              alt={post?.subject}
+              src={publication?.image || image}
+              alt={publication?.subject}
             />
-            <p tw="text-xl font-medium text-gray-900">by {post?.author}</p>
+            <p tw="text-xl font-medium text-gray-900">by {publication?.author}</p>
           </div>
           <img
             tw="mt-4 w-5/6 rounded-2xl border border-gray-200 shadow-md"
-            src={post?.image || image}
-            alt={post?.title}
+            src={publication?.image || image}
+            alt={publication?.title}
           />
         </div>
       </div>

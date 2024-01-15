@@ -1,33 +1,39 @@
-import PostDetailScreen from './screen'
 import NotFound from '@/app/not-found'
 import { Metadata } from 'next'
 import BlogHeader from '@/components/blog-header'
-import { actionGetPostByParams } from './actions'
-import { PostType } from '../types'
+import { actionGetPublicationByParams } from './actions'
+import { PublicationType } from '../types'
+import PublicationDetailScreen from './screen'
 
 export async function generateMetadata({
   params,
 }: {
   params: { slug: string }
 }): Promise<Metadata | null> {
-  const post: PostType | any = await actionGetPostByParams(params?.slug)
+  const publication: PublicationType | any = await actionGetPublicationByParams(
+    params?.slug,
+  )
 
   const NEXT_PUBLIC_URL = process.env.NEXT_PUBLIC_URL
 
-  return post
+  return publication
     ? {
-        title: post?.title,
-        description: post?.resume,
-        authors: { name: post?.author },
-        keywords: [post?.keywords],
+        title: publication?.title,
+        description: publication?.resume,
+        authors: { name: publication?.author },
+        keywords: [publication?.keywords],
         openGraph: {
-          title: post?.title,
-          description: post?.resume,
-          images: post?.image || '/logotipo.png',
+          title: publication?.title,
+          description: publication?.resume,
+          images: publication?.image || '/logotipo.png',
         },
-        metadataBase: new URL(`https://blog.${NEXT_PUBLIC_URL}/${post?.slug}`),
+        metadataBase: new URL(
+          `https://blog.${NEXT_PUBLIC_URL}/${publication?.slug}`,
+        ),
         alternates: {
-          canonical: new URL(`https://blog.${NEXT_PUBLIC_URL}/${post?.slug}`),
+          canonical: new URL(
+            `https://blog.${NEXT_PUBLIC_URL}/${publication?.slug}`,
+          ),
         },
         robots: {
           index: true,
@@ -38,22 +44,24 @@ export async function generateMetadata({
     : null
 }
 
-export default async function PostDetailPage({
+export default async function PublicationDetailPage({
   params,
 }: {
   params: { slug: string }
 }) {
-  const post: PostType | any = await actionGetPostByParams(params?.slug)
+  const publication: PublicationType | any = await actionGetPublicationByParams(
+    params?.slug,
+  )
   const image = '/logotipo.svg'
 
-  return post ? (
+  return publication ? (
     <div className="flex flex-col justify-center">
       <BlogHeader
-        title={post?.title}
-        subject={post?.subject}
-        image={post?.image || image}
+        title={publication?.title}
+        subject={publication?.subject}
+        image={publication?.image || image}
       />
-      <PostDetailScreen post={post} />
+      <PublicationDetailScreen publication={publication} />
     </div>
   ) : (
     <NotFound />

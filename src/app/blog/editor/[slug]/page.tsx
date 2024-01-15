@@ -1,13 +1,13 @@
-import { actionGetPostByParams } from '../../[slug]/actions'
-import { PostType } from '../../types'
-import EditorPostUpdateScreen from './screen'
+import { actionGetPublicationByParams } from '../../[slug]/actions'
+import { PublicationType } from '../../types'
+import EditorPublicationUpdateScreen from './screen'
 
 export default async function EditorPostUpdatePage({
   params,
 }: {
   params: { slug: string }
 }) {
-  const post: PostType | any = await actionGetPostByParams(params?.slug)
+  const publication: PublicationType | any = await actionGetPublicationByParams(params?.slug)
 
-  return <EditorPostUpdateScreen post={post} />
+  return <EditorPublicationUpdateScreen publication={publication} />
 }

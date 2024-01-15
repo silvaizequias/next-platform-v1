@@ -11,20 +11,20 @@ import {
   Tooltip,
   Typography,
 } from '@material-tailwind/react'
-import { PostType } from '../types'
+import { PublicationType } from '../types'
 import { NewspaperIcon, PlusIcon } from '@heroicons/react/24/solid'
 
 interface Props {
-  posts: PostType[]
+  publications: PublicationType[]
 }
 
 export default function EditorScreen(props: Props) {
-  const { posts } = props
+  const { publications } = props
 
   const logotipo = '/logotipo.svg'
 
   const TABLE_HEAD = ['publicação', 'autor', 'status', '']
-  const TABLE_ROWS: PostType[] = Object.create(posts)
+  const TABLE_ROWS: PublicationType[] = Object.create(publications)
 
   return (
     <div className="p-6 mx-2 sm:mx-4">
@@ -69,19 +69,19 @@ export default function EditorScreen(props: Props) {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map((post: PostType, index) => {
+              {TABLE_ROWS.map((publication: PublicationType, index) => {
                 const isLast = index === TABLE_ROWS.length - 1
                 const classes = isLast
                   ? 'p-4'
                   : 'p-4 border-b border-blue-gray-50'
 
                 return (
-                  <tr key={post?.id}>
+                  <tr key={publication?.id}>
                     <td className={classes}>
                       <div className="flex items-center gap-3">
                         <Avatar
-                          src={post?.image || logotipo}
-                          alt={post?.title}
+                          src={publication?.image || logotipo}
+                          alt={publication?.title}
                           size="sm"
                         />
                         <div className="flex flex-col">
@@ -90,14 +90,14 @@ export default function EditorScreen(props: Props) {
                             color="blue-gray"
                             className="font-normal"
                           >
-                            {post?.title}
+                            {publication?.title}
                           </Typography>
                           <Typography
                             variant="small"
                             color="blue-gray"
                             className="font-normal opacity-70"
                           >
-                            {post?.channel}
+                            {publication?.channel}
                           </Typography>
                         </div>
                       </div>
@@ -109,7 +109,7 @@ export default function EditorScreen(props: Props) {
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {post?.author}
+                          {publication?.author}
                         </Typography>
                       </div>
                     </td>
@@ -118,8 +118,8 @@ export default function EditorScreen(props: Props) {
                         <Chip
                           variant="ghost"
                           size="sm"
-                          value={post?.draft ? 'rascunho' : 'publicado'}
-                          color={post?.draft ? 'blue-gray' : 'green'}
+                          value={publication?.draft ? 'rascunho' : 'publicado'}
+                          color={publication?.draft ? 'blue-gray' : 'green'}
                         />
                       </div>
                     </td>
