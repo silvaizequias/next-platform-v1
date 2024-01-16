@@ -2,9 +2,11 @@ import * as z from 'zod'
 
 const TYPES = ['blog', 'knowledge'] as const
 
-export const CreatePostDTO = z.object({
-  type: z.enum(TYPES).default('blog'),
+export const CreatePublicationDTO = z.object({
+  organization: z.string().min(11).max(14).optional(),
+  channel: z.enum(TYPES).default('blog'),
   title: z.string(),
+  slug: z.string().optional(),
   subject: z.string(),
   draft: z.boolean().default(false).optional(),
   private: z.boolean().default(false).optional(),
@@ -17,11 +19,12 @@ export const CreatePostDTO = z.object({
   keywords: z.string().optional(),
   author: z.string(),
 })
-export type CreatePostDTOType = z.infer<typeof CreatePostDTO>
+export type CreatePublicationDTOType = z.infer<typeof CreatePublicationDTO>
 
-export const UpdatePostDTO = z.object({
-  type: z.enum(TYPES).optional(),
+export const UpdatePublicationDTO = z.object({
+  channel: z.enum(TYPES).optional(),
   title: z.string().optional(),
+  slug: z.string().optional(),
   subject: z.string().optional(),
   draft: z.boolean().optional(),
   private: z.boolean().optional(),
@@ -34,4 +37,4 @@ export const UpdatePostDTO = z.object({
   keywords: z.string().optional(),
   author: z.string().optional(),
 })
-export type UpdatePostDTOType = z.infer<typeof UpdatePostDTO>
+export type UpdatePublicationDTOType = z.infer<typeof UpdatePublicationDTO>

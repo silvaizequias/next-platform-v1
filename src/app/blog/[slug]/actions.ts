@@ -5,11 +5,10 @@ import { prisma } from '@/libraries/prisma'
 const PUBLICATION_API_URL = process.env.PUBLICATION_API_URL!
 const PUBLICATION_AUTHORIZATION_KEY = process.env.PUBLICATION_AUTHORIZATION_KEY!
 
-export async function actionGetPublications() {
-  const organization = '52378516000178'
+export async function actionGetPublicationByParams(slug: string) {
   try {
-    const response = await fetch(
-      `${PUBLICATION_API_URL}/domains/organization/${organization}`,
+    const publication = await fetch(
+      `${PUBLICATION_API_URL}/publications/slug/${slug}`,
       {
         method: 'GET',
         headers: {
@@ -18,11 +17,9 @@ export async function actionGetPublications() {
         },
       },
     )
-    if (!response) return null
-    const domain = response && (await response.json())
-    const { publications } = domain
+    if (!publication) return null
 
-    return publications
+    return publication && (await publication.json())
   } catch (error: any) {
     await prisma.$disconnect()
     throw new Error(error)

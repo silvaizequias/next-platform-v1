@@ -4,16 +4,16 @@ import { Button, Input } from '@material-tailwind/react'
 import { useRouter } from 'next/router'
 import { useFormState } from 'react-dom'
 import { actionSetUpdatePost } from '../actions'
-import { PostType } from '../../types'
+import { PublicationType } from '../../types'
 
 const initialState = {}
 
 interface Props {
-  post: PostType
+  publication: PublicationType
 }
 
-export default function EditorPostUpdateScreen(props: Props) {
-  const { post } = props
+export default function EditorPublicationUpdateScreen(props: Props) {
+  const { publication } = props
   const router = useRouter()
   const [state, formAction] = useFormState(actionSetUpdatePost, initialState)
 

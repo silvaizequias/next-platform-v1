@@ -1,6 +1,6 @@
 import * as z from 'zod'
 
-const PROFILE = ['guest', 'customer', 'member', 'master'] as const
+const PROFILE = ['guest', 'consumer', 'member', 'master'] as const
 const DOCUMENT_TYPE = ['cpf', 'cnpj'] as const
 
 export const CreateUserDTO = z.object({

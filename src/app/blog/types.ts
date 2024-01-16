@@ -1,10 +1,12 @@
-export type PostType = {
+import { DomainType } from "../management/domains/types"
+
+export type PublicationType = {
   id: string
   createdAt: Date
   updatedAt: Date
   deletedAt: Date
   softDeleted: boolean
-  type: 'blog' | 'knowledge'
+  channel: 'blog' | 'knowledge'
   title: string
   subject: string
   slug: string
@@ -18,4 +20,5 @@ export type PostType = {
   content: string
   keywords: string
   author: string
+  domain: DomainType
 }

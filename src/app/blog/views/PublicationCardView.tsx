@@ -6,19 +6,19 @@ import {
   Typography,
   Tooltip,
 } from '@material-tailwind/react'
-import { PostType } from '../types'
+import { PublicationType } from '../types'
 
 interface Props {
-  post: PostType
+  publication: PublicationType
 }
 
-export default function PostCardView(props: Props) {
-  const { post } = props
+export default function PublicationCardView(props: Props) {
+  const { publication } = props
 
   const image = '/logotipo.svg'
 
   return (
-    <Tooltip content={`ler tudo sobre ${post?.subject.toLowerCase()}`}>
+    <Tooltip content={`ler tudo sobre ${publication?.subject.toLowerCase()}`}>
       <div className="relative block">
         <Card className="w-full max-w-md flex justify-center flex-row bg-blue-gray-50">
           <CardHeader
@@ -28,8 +28,8 @@ export default function PostCardView(props: Props) {
           >
             <Image
               className="w-full h-full object-cover"
-              src={post?.image || image}
-              alt={post?.title}
+              src={publication?.image || image}
+              alt={publication?.title}
               priority
               width={180}
               height={180}
@@ -37,16 +37,16 @@ export default function PostCardView(props: Props) {
           </CardHeader>
           <CardBody className="gap-2 w-3/5 flex flex-col justify-center">
             <Typography color="blue-gray" className="text-xs font-thin">
-              {new Date(post?.createdAt).toLocaleDateString()}
+              {new Date(publication?.createdAt).toLocaleDateString()}
             </Typography>
             <Typography className="text-xl font-semibold lowercase tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-light-blue-200">
-              {post?.title}
+              {publication?.title}
             </Typography>
             <Typography
               color="gray"
               className="text-base font-normal line-clamp-3"
             >
-              {post?.resume}
+              {publication?.resume}
             </Typography>
           </CardBody>
         </Card>

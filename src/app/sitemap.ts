@@ -1,6 +1,6 @@
 import { headers } from 'next/headers'
-import { actionGetPosts } from './blog/actions'
-import { PostType } from './blog/types'
+import { actionGetPublications } from './blog/actions'
+import { PublicationType } from './blog/types'
 
 export default async function Sitemap() {
   const headersList = headers()
@@ -8,14 +8,14 @@ export default async function Sitemap() {
     .get('host')
     ?.replace('.localhost:3210', `.${process.env.NEXT_PUBLIC_URL}`)
 
-  const posts: PostType | any = await actionGetPosts()
+  const publication: PublicationType | any = await actionGetPublications()
 
   return [
     {
       url: `https://${domain}`,
       lastModified: new Date(),
     },
-    ...posts?.map(({ slug, updatedAt }: any) => ({
+    ...publication?.map(({ slug, updatedAt }: any) => ({
       url: `https://blog.${domain}/${slug}`,
       lastModified: new Date(updatedAt),
     })),
