@@ -1,4 +1,5 @@
-import { UserProfile } from "@prisma/client"
+import { UserProfile } from '@prisma/client'
+import { OrganizationUsersType } from '../organizations/types'
 
 export type UserType = {
   id: string
@@ -24,4 +25,5 @@ export type UserType = {
   complement: string
   latitude: number
   longitude: number
+  organizations: OrganizationUsersType[]
 }
