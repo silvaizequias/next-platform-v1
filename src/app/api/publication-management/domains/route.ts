@@ -1,7 +1,4 @@
-import {
-  CreateDomainDTO,
-  CreateDomainDTOType,
-} from '@/app/management/domains/dto'
+import { CreateDomainDTO, CreateDomainDTOType } from './dto'
 
 export async function GET(request: Request) {
   try {
@@ -15,7 +12,7 @@ export async function GET(request: Request) {
         authorization: PUBLICATION_AUTHORIZATION_KEY,
       },
     })
-    const result = data && await data.json()
+    const result = data && (await data.json())
 
     return new Response(JSON.stringify(result), { status: data.status })
   } catch (error: any) {
@@ -42,7 +39,7 @@ export async function POST(request: Request) {
           authorization: PUBLICATION_AUTHORIZATION_KEY,
         },
       })
-      const result = data && await data.json()
+      const result = data && (await data.json())
 
       return new Response(JSON.stringify(result), {
         status: data.status,

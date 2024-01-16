@@ -1,7 +1,7 @@
-import { UpdateUserDTO, UpdateUserDTOType } from '@/app/management/users/dto'
 import { prisma } from '@/libraries/prisma'
 import { Prisma } from '@prisma/client'
 import { hashSync } from 'bcrypt'
+import { UpdateUserDTOType, UpdateUserDTO } from '../dto'
 
 export async function GET(
   request: Request,

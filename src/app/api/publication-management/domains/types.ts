@@ -1,4 +1,4 @@
-import { PublicationType } from '@/app/blog/types'
+import { PublicationType } from '../publications/types'
 
 export type DomainType = {
   id: string

@@ -1,7 +1,4 @@
-import {
-  UpdatePublicationDTO,
-  UpdatePublicationDTOType,
-} from '@/app/blog/editor/dto'
+import { UpdatePublicationDTO, UpdatePublicationDTOType } from '../dto'
 
 export async function GET(
   request: Request,

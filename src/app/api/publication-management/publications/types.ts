@@ -1,4 +1,4 @@
-import { DomainType } from "../management/domains/types"
+import { DomainType } from "../domains/types"
 
 export type PublicationType = {
   id: string

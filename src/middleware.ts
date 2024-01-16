@@ -23,12 +23,6 @@ export default async function middleware(request: NextRequest) {
     )
   }
 
-  if (hostname == `connects.${NEXT_PUBLIC_URL}`) {
-    return NextResponse.rewrite(
-      new URL(`/connects${path === '/' ? '' : path}`, request.url),
-    )
-  }
-
   if (hostname == `${NEXT_PUBLIC_URL}`) {
     return NextResponse.rewrite(
       new URL(`/management${path === '/' ? '' : path}`, request.url),

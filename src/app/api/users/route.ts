@@ -1,4 +1,4 @@
-import { CreateUserDTO, CreateUserDTOType } from '@/app/management/users/dto'
+import { CreateUserDTO, CreateUserDTOType } from './dto'
 import { prisma } from '@/libraries/prisma'
 import { Prisma } from '@prisma/client'
 import { hashSync } from 'bcrypt'
