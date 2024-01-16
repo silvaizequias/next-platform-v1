@@ -25,7 +25,7 @@ export default async function middleware(request: NextRequest) {
 
   if (hostname == `${NEXT_PUBLIC_URL}`) {
     return NextResponse.rewrite(
-      new URL(`/management${path === '/' ? '' : path}`, request.url),
+      new URL(`/main${path === '/' ? '' : path}`, request.url),
     )
   }
 

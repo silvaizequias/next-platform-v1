@@ -11,7 +11,11 @@ export function Providers({ children }: { children: ReactNode }) {
 
   return (
     <SessionProvider>
-      <BalancerProvider>{children}</BalancerProvider>
+      <BalancerProvider>
+        <main className=" text-sky-800 bg-slate-200 dark:text-sky-600 dark:bg-slate-800">
+          {children}
+        </main>
+      </BalancerProvider>
       <Toaster
         position={'top-center'}
         toastOptions={{ className: 'react-hot-toast' }}
