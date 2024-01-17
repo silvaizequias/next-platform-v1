@@ -39,7 +39,7 @@ export default function BlogScreen() {
                 </h4>
               </div>
               <div className="mx-auto my-6 px-8 sm:px-16 text-center">
-                <h6 className="font-semibold text-sm sm:text-base uppercase">
+                <h6 className="font-semibold text-sm sm:text-base text-slate-200 uppercase">
                   conteúdo inteligente
                 </h6>
               </div>
