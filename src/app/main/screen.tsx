@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { Session } from 'next-auth'
-import OrganizationListView from './(management)/views/organization-list-view'
-import SubscriptionListView from './(management)/views/subscription-list-view'
+import MyOrganizationListView from './(management)/views/my-organization-list-view'
+import MySubscriptionListView from './(management)/views/my-subscription-list-view'
 
 interface Props {
   session: Session
@@ -19,10 +19,10 @@ export default function MainScreen(props: Props) {
         <div className="p-4 bg-slate-200 dark:bg-slate-800 rounded shadow-xl">
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <div className="w-full sm:w-1/2">
-              <SubscriptionListView session={session} />
+              <MySubscriptionListView session={session} />
             </div>
             <div className="w-full sm:w-1/2">
-              <OrganizationListView session={session} />
+              <MyOrganizationListView session={session} />
             </div>
           </div>
         </div>

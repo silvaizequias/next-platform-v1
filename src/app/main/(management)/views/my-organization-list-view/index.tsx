@@ -4,7 +4,7 @@ interface Props {
   session: Session
 }
 
-export default function OrganizationListView(props: Props) {
+export default function MyOrganizationListView(props: Props) {
   const { session } = props
 
   const organizations = [

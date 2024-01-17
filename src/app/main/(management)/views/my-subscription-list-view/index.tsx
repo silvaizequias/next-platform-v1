@@ -4,7 +4,7 @@ interface Props {
   session: Session
 }
 
-export default function SubscriptionListView(props: Props) {
+export default function MySubscriptionListView(props: Props) {
   const { session } = props
 
   const subscriptions = [{}]

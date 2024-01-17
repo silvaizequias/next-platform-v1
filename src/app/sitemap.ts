@@ -1,5 +1,5 @@
 import { headers } from 'next/headers'
-import { PublicationType } from './api/publication-management/publications/types'
+import { PublicationType } from './main/(management)/publications/types'
 
 const PUBLICATION_API_URL = process.env.PUBLICATION_API_URL!
 const PUBLICATION_AUTHORIZATION_KEY = process.env.PUBLICATION_AUTHORIZATION_KEY!
