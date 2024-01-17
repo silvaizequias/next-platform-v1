@@ -1,4 +1,20 @@
+'use client'
+
+import { useState, useCallback } from 'react'
+import { UserType } from '../../../users/types'
+
 export default function ProfilePasswordView() {
+  const [openDialogUpdate, setOpenDialogUpdate] = useState<boolean>(false)
+  const [data, setData] = useState<UserType | any>(null)
+
+  const handleDialogUpdate = useCallback(
+    (data: UserType) => {
+      setData(data)
+      setOpenDialogUpdate(!openDialogUpdate)
+    },
+    [openDialogUpdate],
+  )
+
   return (
     <div className="flex flex-col justify-center gap-2">
       <div className="flex flex-auto justify-between items-center">

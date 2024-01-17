@@ -2,10 +2,26 @@
 
 import useFetch from '@/hooks/use-fetch'
 import { PublicationType } from '../../types'
+import { useCallback, useState } from 'react'
 
 export default function PublicationListView() {
   const { data: publications } = useFetch<PublicationType[] | any>(
     '/api/publication-management/publications',
+  )
+
+  const [openDialogCreate, setOpenDialogCreate] = useState<boolean>(false)
+  const [openDialogUpdate, setOpenDialogUpdate] = useState<boolean>(false)
+  const [data, setData] = useState<PublicationType | any>(null)
+
+  const handleDialogCreate = useCallback(() => {
+    setOpenDialogCreate(!openDialogCreate)
+  }, [openDialogCreate])
+  const handleDialogUpdate = useCallback(
+    (data: PublicationType) => {
+      setData(data)
+      setOpenDialogUpdate(!openDialogUpdate)
+    },
+    [openDialogUpdate],
   )
 
   return (
@@ -15,7 +31,10 @@ export default function PublicationListView() {
           lista de publicações
         </h6>
         <div className="flex flex-shrink">
-          <button className="text-xs bg-green-400 opacity-bg-80 hover:opacity-100 my-2 p-2 rounded shadow hover:shadow-lg hover:text-slate-200">
+          <button
+            className="text-xs bg-green-400 opacity-bg-80 hover:opacity-100 my-2 p-2 rounded shadow hover:shadow-lg hover:text-slate-200"
+            onClick={handleDialogCreate}
+          >
             escrever
           </button>
         </div>
@@ -26,6 +45,7 @@ export default function PublicationListView() {
             <div
               key={publication?.id}
               className="cursor-pointer hover:shadow-lg"
+              onClick={() => handleDialogUpdate(publication)}
             >
               <div className="p-2 my-2 bg-cyan-600 hover:bg-opacity-60 dark:bg-cyan-800 dark:hover:bg-opacity-80 rounded">
                 <div className="flex justify-between items-center gap-2">

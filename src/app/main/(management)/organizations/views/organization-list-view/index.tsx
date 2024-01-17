@@ -2,10 +2,26 @@
 
 import { OrganizationType } from '@/app/main/(management)/organizations/types'
 import useFetch from '@/hooks/use-fetch'
+import { useCallback, useState } from 'react'
 
 export default function OrganizationListView() {
   const { data: organizations } = useFetch<OrganizationType[] | any>(
     '/api/organizations',
+  )
+
+  const [openDialogCreate, setOpenDialogCreate] = useState<boolean>(false)
+  const [openDialogUpdate, setOpenDialogUpdate] = useState<boolean>(false)
+  const [data, setData] = useState<OrganizationType | any>(null)
+
+  const handleDialogCreate = useCallback(() => {
+    setOpenDialogCreate(!openDialogCreate)
+  }, [openDialogCreate])
+  const handleDialogUpdate = useCallback(
+    (data: OrganizationType) => {
+      setData(data)
+      setOpenDialogUpdate(!openDialogUpdate)
+    },
+    [openDialogUpdate],
   )
 
   return (
@@ -15,7 +31,10 @@ export default function OrganizationListView() {
           lista de organizações
         </h6>
         <div className="flex flex-shrink">
-          <button className="text-xs bg-green-400 opacity-bg-80 hover:opacity-100 my-2 p-2 rounded shadow hover:shadow-lg hover:text-slate-200">
+          <button
+            className="text-xs bg-green-400 opacity-bg-80 hover:opacity-100 my-2 p-2 rounded shadow hover:shadow-lg hover:text-slate-200"
+            onClick={handleDialogCreate}
+          >
             criar organização
           </button>
         </div>
@@ -26,6 +45,7 @@ export default function OrganizationListView() {
             <div
               key={organization?.id}
               className="cursor-pointer hover:shadow-lg"
+              onClick={() => handleDialogUpdate(organization)}
             >
               <div className="p-2 my-2 bg-cyan-600 hover:bg-opacity-60 dark:bg-cyan-800 dark:hover:bg-opacity-80 rounded">
                 <div className="flex justify-between items-center gap-2">

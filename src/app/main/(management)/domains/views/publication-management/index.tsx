@@ -2,10 +2,26 @@
 
 import useFetch from '@/hooks/use-fetch'
 import { DomainType } from '../../types'
+import { useCallback, useState } from 'react'
 
 export default function PublicationManagementDomainListView() {
   const { data: domains } = useFetch<DomainType[] | any>(
     '/api/publication-management/domains',
+  )
+
+  const [openDialogCreate, setOpenDialogCreate] = useState<boolean>(false)
+  const [openDialogUpdate, setOpenDialogUpdate] = useState<boolean>(false)
+  const [data, setData] = useState<DomainType | any>(null)
+
+  const handleDialogCreate = useCallback(() => {
+    setOpenDialogCreate(!openDialogCreate)
+  }, [openDialogCreate])
+  const handleDialogUpdate = useCallback(
+    (data: DomainType) => {
+      setData(data)
+      setOpenDialogUpdate(!openDialogUpdate)
+    },
+    [openDialogUpdate],
   )
 
   return (
@@ -15,7 +31,10 @@ export default function PublicationManagementDomainListView() {
           lista de domínios de publicações
         </h6>
         <div className="flex flex-shrink">
-          <button className="text-xs bg-green-400 opacity-bg-80 hover:opacity-100 my-2 p-2 rounded shadow hover:shadow-lg hover:text-slate-200">
+          <button
+            className="text-xs bg-green-400 opacity-bg-80 hover:opacity-100 my-2 p-2 rounded shadow hover:shadow-lg hover:text-slate-200"
+            onClick={handleDialogCreate}
+          >
             adicionar domínio
           </button>
         </div>
@@ -23,7 +42,11 @@ export default function PublicationManagementDomainListView() {
       <div className="py-4">
         {domains &&
           domains?.map((domain: DomainType) => (
-            <div key={domain?.id} className="cursor-pointer hover:shadow-lg">
+            <div
+              key={domain?.id}
+              className="cursor-pointer hover:shadow-lg"
+              onClick={() => handleDialogUpdate(domain)}
+            >
               <div className="p-2 my-2 bg-cyan-600 hover:bg-opacity-60 dark:bg-cyan-800 dark:hover:bg-opacity-80 rounded">
                 <div className="flex justify-between items-center gap-2">
                   <div className="flex flex-col">
