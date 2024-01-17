@@ -19,8 +19,8 @@ export default function PublicationScreen(props: Props) {
   const author = '@' + publication?.author.split('@')[1]
 
   return publication ? (
-    <div className="min-h-screen flex flex-col items-center justify-center">
-      <header className="z-auto overflow-hidden w-full">
+    <div className="min-h-screen flex flex-col items-center">
+      <div className="z-auto overflow-hidden w-full">
         <div style={style} className="m-0 w-full bg-cover bg-center">
           <div className="z-auto pt-16 h-80 mx-auto relative block backdrop-brightness-50 backdrop-blur-sm">
             <div className="min-h-full px-10 flex flex-col justify-center items-center">
@@ -37,7 +37,7 @@ export default function PublicationScreen(props: Props) {
             </div>
           </div>
         </div>
-      </header>
+      </div>
       <div className="flex flex-col max-w-sm sm:max-w-4xl w-full">
         <div className="w-full flex justify-center">
           <div className="p-8 sm:px-20 max-w-4xl text-center">
