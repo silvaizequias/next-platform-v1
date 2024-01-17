@@ -7,9 +7,10 @@ export async function GET(request: Request) {
   try {
     return new Response(
       JSON.stringify(
-        await prisma.user.findFirst({
+        await prisma.user.findMany({
           where: { softDeleted: false },
           select: {
+            createdAt: true,
             id: true,
             active: true,
             subscriber: true,
