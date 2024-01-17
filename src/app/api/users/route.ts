@@ -9,6 +9,9 @@ export async function GET(request: Request) {
       JSON.stringify(
         await prisma.user.findMany({
           where: { softDeleted: false },
+          orderBy: {
+            name: 'asc',
+          },
           select: {
             createdAt: true,
             id: true,
