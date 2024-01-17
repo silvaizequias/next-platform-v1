@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { actionGetPublicationByParams } from './actions'
+import { actionGetPublicationByParams } from '@/app/main/(management)/publications/actions'
 import PublicationScreen from './screen'
 import { PublicationType } from '@/app/main/(management)/publications/types'
 

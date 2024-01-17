@@ -1,27 +1,7 @@
 import { headers } from 'next/headers'
 import { PublicationType } from './main/(management)/publications/types'
+import { actionGetPublications } from './main/(management)/publications/actions'
 
-const PUBLICATION_API_URL = process.env.PUBLICATION_API_URL!
-const PUBLICATION_AUTHORIZATION_KEY = process.env.PUBLICATION_AUTHORIZATION_KEY!
-
-export async function actionGetPublications() {
-  const organization = '52378516000178'
-  const response = await fetch(
-    `${PUBLICATION_API_URL}/domains/organization/${organization}`,
-    {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        authorization: PUBLICATION_AUTHORIZATION_KEY,
-      },
-    },
-  )
-  if (!response) return null
-  const domain = response && (await response.json())
-  const { publications } = domain
-
-  return publications
-}
 
 export default async function Sitemap() {
   const headersList = headers()
