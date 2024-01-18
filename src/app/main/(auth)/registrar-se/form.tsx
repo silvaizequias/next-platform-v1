@@ -1,6 +1,15 @@
+'use client'
+
+import { useFormState } from 'react-dom'
+import { actionSignUp } from './actions'
+
+const initialState = {}
+
 export default function SignUpForm() {
+  const [state, formAction] = useFormState(actionSignUp, initialState)
+
   return (
-    <form className="flex flex-col w-full max-w-lg gap-4">
+    <form className="flex flex-col w-full max-w-lg gap-4" action={formAction}>
       <p className="py-4 text-center italic">
         preencha os campos do formulário para registrar-se na plataforma
       </p>

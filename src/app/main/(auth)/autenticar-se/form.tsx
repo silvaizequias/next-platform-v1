@@ -1,6 +1,15 @@
+'use client'
+
+import { useFormState } from 'react-dom'
+import { actionSignIn } from './actions'
+
+const initialState = {}
+
 export default function SignInForm() {
+  const [state, formAction] = useFormState(actionSignIn, initialState)
+
   return (
-    <form className="flex flex-col w-full max-w-lg gap-4">
+    <form className="flex flex-col w-full max-w-lg gap-4" action={formAction}>
       <p className="py-4 text-center italic">
         informe suas credenciais para autenticar-se na plataforma
       </p>
