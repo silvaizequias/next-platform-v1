@@ -1,11 +1,11 @@
 export default function SignUpForm() {
   return (
-    <form className="flex flex-col w-full max-w-lg gap-2 px-4">
+    <form className="flex flex-col w-full max-w-lg gap-4">
       <p className="py-4 text-center italic">
         preencha os campos do formulário para registrar-se na plataforma
       </p>
       <input
-        className="rounded shadow my-2 border-green-400 focus:shadow-lg"
+        className="rounded shadow border-green-400 focus:shadow-lg"
         type="text"
         name="name"
         id="signUpName"
@@ -13,7 +13,7 @@ export default function SignUpForm() {
         required
       />
       <input
-        className="rounded shadow my-2 border-green-400 focus:shadow-lg"
+        className="rounded shadow border-green-400 focus:shadow-lg"
         type="number"
         name="phone"
         id="signUpPhone"
@@ -21,7 +21,7 @@ export default function SignUpForm() {
         required
       />
       <input
-        className="rounded shadow my-2 border-green-400 focus:shadow-lg"
+        className="rounded shadow border-green-400 focus:shadow-lg"
         type="email"
         name="email"
         id="signUpEmail"

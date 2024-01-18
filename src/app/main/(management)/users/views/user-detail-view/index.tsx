@@ -1,4 +1,5 @@
 import { UserType } from '../../types'
+import UpdateUserForm from './form'
 
 interface Props {
   user: UserType
@@ -7,5 +8,5 @@ interface Props {
 export default function UserUpdateView(props: Props) {
   const { user } = props
 
-  return ''
+  return <UpdateUserForm user={user} />
 }

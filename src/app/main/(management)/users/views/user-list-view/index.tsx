@@ -5,6 +5,7 @@ import { UserType } from '../../types'
 import { useCallback, useState } from 'react'
 import DialogModal from '@/components/dialog-modal'
 import CreateUserForm from './form'
+import UserUpdateView from '../user-detail-view'
 
 export default function UserListView() {
   const { data: users } = useFetch<UserType[] | any>('/api/users')
@@ -65,15 +66,19 @@ export default function UserListView() {
       <DialogModal
         open={openDialogCreate}
         onClose={handleDialogCreate}
-        title="criar usuário"
+        title="dedicado"
+        content='criar usuário na plataforma'
       >
         <CreateUserForm />
       </DialogModal>
       <DialogModal
         open={openDialogUpdate}
         onClose={handleOnCloseDialog}
-        title={data?.name}
-      />
+        title="dedicado"
+        content='atualizar perfil de usuário na plataforma'
+      >
+        <UserUpdateView user={data} />
+      </DialogModal>
     </div>
   )
 }

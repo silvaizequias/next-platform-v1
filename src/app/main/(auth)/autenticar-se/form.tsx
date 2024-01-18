@@ -1,11 +1,11 @@
 export default function SignInForm() {
   return (
-    <form className="flex flex-col w-full max-w-lg gap-2 px-4">
+    <form className="flex flex-col w-full max-w-lg gap-4">
       <p className="py-4 text-center italic">
         informe suas credenciais para autenticar-se na plataforma
       </p>
       <input
-        className="rounded shadow my-2 border-blue-400 focus:shadow-lg"
+        className="rounded shadow border-blue-400 focus:shadow-lg"
         type="number"
         name="phone"
         id="signInPhone"
@@ -13,7 +13,7 @@ export default function SignInForm() {
         required
       />
       <input
-        className="rounded shadow my-2 border-blue-400 focus:shadow"
+        className="rounded shadow border-blue-400 focus:shadow"
         type="password"
         name="password"
         id="signInPassword"

@@ -1,12 +1,12 @@
 export default function ResetPasswordForm() {
   return (
-    <form className="flex flex-col w-full max-w-lg gap-2 px-4">
+    <form className="flex flex-col w-full max-w-lg gap-4">
       <p className="py-4 text-center italic">
         um código de segurança será enviado para o número de telefone registrado
         na plataforma
       </p>
       <input
-        className="rounded shadow my-2 border-orange-400 focus:shadow-lg"
+        className="rounded shadow border-orange-400 focus:shadow-lg"
         type="number"
         name="phone"
         id="resetPasswordPhone"

@@ -16,7 +16,7 @@ export default function SignUpScreen() {
         </div>
         <div className="bg-slate-200 dark:bg-slate-800 mx-8 rounded shadow-xl">
           <div className="p-2"></div>
-          <div className="p-2">
+          <div className="p-8">
             <div className="flex flex-col items-center">
               <SignUpForm />
             </div>
