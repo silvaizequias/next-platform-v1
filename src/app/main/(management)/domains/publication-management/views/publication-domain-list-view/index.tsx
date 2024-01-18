@@ -1,10 +1,13 @@
 'use client'
 
 import useFetch from '@/hooks/use-fetch'
-import { DomainType } from '../../types'
 import { useCallback, useState } from 'react'
+import { DomainType } from '../../../types'
+import DialogModal from '@/components/dialog-modal'
+import CreatePublicationDomainForm from './form'
+import PublicationDomainDetailView from '../publication-domain-detail-view'
 
-export default function PublicationManagementDomainListView() {
+export default function PublicationDomainListView() {
   const { data: domains } = useFetch<DomainType[] | any>(
     '/api/publication-management/domains',
   )
@@ -23,6 +26,9 @@ export default function PublicationManagementDomainListView() {
     },
     [openDialogUpdate],
   )
+  const handleOnCloseDialog = useCallback(() => {
+    setOpenDialogUpdate(!openDialogUpdate)
+  }, [openDialogUpdate])
 
   return (
     <div className="flex flex-col justify-center gap-2">
@@ -65,6 +71,22 @@ export default function PublicationManagementDomainListView() {
             </div>
           ))}
       </div>
+      <DialogModal
+        onClose={handleDialogCreate}
+        open={openDialogCreate}
+        title="dedicado"
+        content=""
+      >
+        <CreatePublicationDomainForm />
+      </DialogModal>
+      <DialogModal
+        onClose={handleOnCloseDialog}
+        open={openDialogUpdate}
+        title="dedicado"
+        content=""
+      >
+        <PublicationDomainDetailView domain={data} />
+      </DialogModal>
     </div>
   )
 }

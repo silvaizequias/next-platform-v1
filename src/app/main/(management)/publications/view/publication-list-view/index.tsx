@@ -3,6 +3,9 @@
 import useFetch from '@/hooks/use-fetch'
 import { PublicationType } from '../../types'
 import { useCallback, useState } from 'react'
+import DialogModal from '@/components/dialog-modal'
+import CreatePublicationForm from './form'
+import PublicationDetailView from '../publication-detail-view'
 
 export default function PublicationListView() {
   const { data: publications } = useFetch<PublicationType[] | any>(
@@ -23,6 +26,9 @@ export default function PublicationListView() {
     },
     [openDialogUpdate],
   )
+  const handleOnCloseDialog = useCallback(() => {
+    setOpenDialogUpdate(!openDialogUpdate)
+  }, [openDialogUpdate])
 
   return (
     <div className="flex flex-col justify-center gap-2">
@@ -66,6 +72,22 @@ export default function PublicationListView() {
             </div>
           ))}
       </div>
+      <DialogModal
+        onClose={handleDialogCreate}
+        open={openDialogCreate}
+        title="dedicado"
+        content=""
+      >
+        <CreatePublicationForm />
+      </DialogModal>
+      <DialogModal
+        onClose={handleOnCloseDialog}
+        open={openDialogUpdate}
+        title="dedicado"
+        content=""
+      >
+        <PublicationDetailView publication={data} />
+      </DialogModal>
     </div>
   )
 }

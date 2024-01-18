@@ -1,13 +1,13 @@
 'use client'
 
 import { useFormState } from 'react-dom'
-import { actionCreatePublication } from './actions'
+import { actionCreatePublicationDomain } from './actions'
 
 const initialState = {}
 
-export default function CreatePublicationForm() {
+export default function CreatePublicationDomainForm() {
   const [state, formAction] = useFormState(
-    actionCreatePublication,
+    actionCreatePublicationDomain,
     initialState,
   )
 
@@ -18,7 +18,7 @@ export default function CreatePublicationForm() {
         className="bg-green-400 opacity-bg-80 hover:opacity-100 my-2 py-2 rounded shadow hover:shadow-lg hover:text-slate-200"
         type="submit"
       >
-        criar publicação
+        adicionar domínio
       </button>
     </form>
   )

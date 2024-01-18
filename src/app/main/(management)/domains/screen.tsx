@@ -1,4 +1,4 @@
-import PublicationManagementDomainListView from './views/publication-management'
+import PublicationDomainListView from './publication-management/views/publication-domain-list-view'
 
 export default function DomainScreen() {
   return (
@@ -7,7 +7,7 @@ export default function DomainScreen() {
         <h4 className="py-4 text-xl lowercase">domínios das organizações</h4>
         <div className="p-4 bg-slate-200 dark:bg-slate-800 rounded shadow-xl">
           <div className="w-full">
-            <PublicationManagementDomainListView />
+            <PublicationDomainListView />
           </div>
         </div>
       </div>

@@ -1,8 +1,11 @@
 'use client'
 
 import { OrganizationType } from '@/app/main/(management)/organizations/types'
+import DialogModal from '@/components/dialog-modal'
 import useFetch from '@/hooks/use-fetch'
 import { useCallback, useState } from 'react'
+import CreateOrganizationForm from './form'
+import OrganizationDetailView from '../organization-detail-view'
 
 export default function OrganizationListView() {
   const { data: organizations } = useFetch<OrganizationType[] | any>(
@@ -23,6 +26,9 @@ export default function OrganizationListView() {
     },
     [openDialogUpdate],
   )
+  const handleOnCloseDialog = useCallback(() => {
+    setOpenDialogUpdate(!openDialogUpdate)
+  }, [openDialogUpdate])
 
   return (
     <div className="flex flex-col justify-center gap-2">
@@ -65,6 +71,22 @@ export default function OrganizationListView() {
             </div>
           ))}
       </div>
+      <DialogModal
+        onClose={handleDialogCreate}
+        open={openDialogCreate}
+        title="dedicado"
+        content="criar organização na plataforma"
+      >
+        <CreateOrganizationForm />
+      </DialogModal>
+      <DialogModal
+        onClose={handleOnCloseDialog}
+        open={openDialogUpdate}
+        title="dedicado"
+        content="atualizar informações da organização"
+      >
+        <OrganizationDetailView organization={data} />
+      </DialogModal>
     </div>
   )
 }
