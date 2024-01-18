@@ -41,7 +41,7 @@ export default function DialogModal(props: Props) {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-lg bg-slate-200 p-4 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-lg bg-slate-200 p-8 text-left align-middle shadow-xl transition-all">
                   <div className="flex flex-auto justify-between items-center gap-2">
                     <Dialog.Title
                       as="h4"
@@ -57,10 +57,10 @@ export default function DialogModal(props: Props) {
                       x
                     </button>
                   </div>
-                  <div className="my-2">
+                  <div className="mt-2">
                     <p className="text-base text-opacity-50">{content}</p>
                   </div>
-                  <div className="my-4">{children}</div>
+                  <div className="my-2">{children}</div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
