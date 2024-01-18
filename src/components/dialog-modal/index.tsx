@@ -42,12 +42,21 @@ export default function DialogModal(props: Props) {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-lg bg-slate-200 p-4 text-left align-middle shadow-xl transition-all">
-                  <Dialog.Title
-                    as="h4"
-                    className="text-xl font-medium leading-6 lowercase"
-                  >
-                    {title}
-                  </Dialog.Title>
+                  <div className="flex flex-auto justify-between items-center gap-2">
+                    <Dialog.Title
+                      as="h4"
+                      className="text-xl tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-sky-400 font-semibold lowercase"
+                    >
+                      {title}
+                    </Dialog.Title>
+                    <button
+                      type="button"
+                      className="px-2 rounded-full text-red-400 hover:text-slate-100 bg-slate-100 hover:bg-red-400 hover:shadow-md"
+                      onClick={onClose}
+                    >
+                      x
+                    </button>
+                  </div>
                   <div className="my-2">
                     <p className="text-base text-opacity-50">{content}</p>
                   </div>
