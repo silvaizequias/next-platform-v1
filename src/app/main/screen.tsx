@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { Session } from 'next-auth'
 import MyOrganizationListView from './(management)/views/my-organization-list-view'
 import MySubscriptionListView from './(management)/views/my-subscription-list-view'
+import AuthDialog from '@/components/auth-dialog'
 
 interface Props {
   session: Session
@@ -50,6 +51,7 @@ export default function MainScreen(props: Props) {
             </h6>
           </div>
         </div>
+        <AuthDialog />
       </div>
     </div>
   )
