@@ -8,10 +8,10 @@ export const metadata: Metadata = {
   generator: 'dedicado',
   category: 'blog',
   title: {
-    default: 'Blog',
-    template: `%s | Dedicado`,
+    default: 'blog',
+    template: `%s | dedicado`,
   },
-  description: 'Conteúdo inteligente do universo da tecnologia',
+  description: 'Conteúdo inteligente de tecnologia',
   icons: './favicon.ico',
   keywords: [
     'conteudo inteligente',
@@ -22,10 +22,10 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: {
-      default: 'Blog',
-      template: `%s | Dedicado`,
+      default: 'blog',
+      template: `%s | dedicado`,
     },
-    description: 'Conteúdo inteligente do unierso da tecnologia',
+    description: 'Conteúdo inteligente de tecnologia',
     images: ['/logotipo.png'],
   },
   metadataBase: new URL(`https://blog.${NEXT_PUBLIC_URL}`),

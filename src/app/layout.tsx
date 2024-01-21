@@ -42,8 +42,8 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: {
-      default: 'Sua Melhor Plataforma de Serviços',
-      template: `%s | Dedicado`,
+      default: 'sua melhor plataforma de serviços',
+      template: `%s | dedicado`,
     },
     description:
       'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
