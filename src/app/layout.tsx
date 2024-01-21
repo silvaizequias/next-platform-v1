@@ -5,6 +5,7 @@ import { Providers } from './providers'
 import { Comfortaa, Poppins } from 'next/font/google'
 import { getServerSession } from 'next-auth'
 import { nextAuthOptions } from '@/libraries/next-auth'
+import { Toaster } from 'react-hot-toast'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -70,6 +71,10 @@ export default async function RootLayout({
     >
       <body className="min-h-screen text-base font-light">
         <Providers>{children}</Providers>
+        <Toaster
+          position={'top-center'}
+          toastOptions={{ className: 'react-hot-toast' }}
+        />
       </body>
     </html>
   )
