@@ -13,7 +13,7 @@ export default function MainScreen(props: Props) {
 
   const logotipo = '/logotipo.svg'
 
-  return session ? (
+  return !session ? (
     <div className="min-h-screen flex justify-center">
       <div className="flex flex-col max-w-sm sm:max-w-4xl w-full">
         <h4 className="py-4 text-xl lowercase">plataforma dedicado</h4>

@@ -1,3 +1,6 @@
+'use client'
+
+import { Button } from '@material-tailwind/react'
 import { Session } from 'next-auth'
 
 interface Props {
@@ -35,9 +38,7 @@ export default function MyOrganizationListView(props: Props) {
             </div>
           </div>
         ))}
-      <button className="bg-blue-400 opacity-bg-80 hover:opacity-100 my-2 py-2 rounded shadow hover:shadow-lg hover:text-slate-200">
-        criar organização
-      </button>
+      <Button color="light-blue">criar organização</Button>
     </div>
   )
 }

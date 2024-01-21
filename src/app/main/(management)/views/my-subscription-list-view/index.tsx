@@ -1,3 +1,6 @@
+'use client'
+
+import { Button } from '@material-tailwind/react'
 import { Session } from 'next-auth'
 
 interface Props {
@@ -17,9 +20,7 @@ export default function MySubscriptionListView(props: Props) {
       <span className="text-center text-xs bg-sky-200 p-2 rounded shadow">
         você ainda não possui contratações
       </span>
-      <button className="bg-green-400 opacity-bg-80 hover:opacity-100 my-2 py-2 rounded shadow hover:shadow-lg hover:text-slate-200">
-        contratar serviço
-      </button>
+      <Button color="green">contratar serviço</Button>
     </div>
   )
 }
