@@ -65,10 +65,12 @@ export default function UsersThisOrganziation(props: Props) {
                         {organizationUser?.role}
                       </span>
                     </div>
-                    <span>
-                      {new Date(
-                        organizationUser?.createdAt,
-                      ).toLocaleDateString()}
+                    <span
+                      className={`rounded-full font-thin text-xs px-1 ${
+                        organizationUser?.active ? 'bg-green-400' : 'bg-red-400'
+                      }`}
+                    >
+                      {organizationUser?.active ? 'ativo' : 'inativo'}
                     </span>
                   </div>
                 </div>
