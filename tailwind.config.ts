@@ -2,6 +2,8 @@ import withMT from '@material-tailwind/react/utils/withMT'
 
 /** @type {import('tailwindcss').Config} */
 
+import colors from 'tailwindcss/colors'
+
 module.exports = withMT({
   content: [
     './src/views/**/*.{js,ts,jsx,tsx,mdx}',
@@ -13,6 +15,15 @@ module.exports = withMT({
       fontFamily: {
         default: ['var(--font-comfortaa)'],
         sans: ['var(--font-poppins)'],
+      },
+      colors: {
+        transparent: 'transparent',
+        current: 'currentColor',
+        slate: colors.slate,
+        gray: colors.gray,
+        zinc: colors.zinc,
+        cyan: colors.cyan,
+        sky: colors.sky,
       },
     },
   },
