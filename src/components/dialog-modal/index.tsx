@@ -40,7 +40,7 @@ export default function DialogModal(props: Props) {
         </DialogHeader>
       </div>
       <DialogBody className="flex flex-col justify-center items-center gap-2">
-        <Typography variant="h6" className="text-center italic">
+        <Typography variant="h6" className="text-center italic lowercase">
           {content}
         </Typography>
         {children}
