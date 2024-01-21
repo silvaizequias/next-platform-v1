@@ -3,6 +3,7 @@
 import { useFormState } from 'react-dom'
 import { PublicationType } from '../../types'
 import { actionUpdatePublication } from './actions'
+import { Button } from '@material-tailwind/react'
 
 interface Props {
   publication: PublicationType
@@ -20,12 +21,9 @@ export default function UpdatePublicationForm(props: Props) {
   return (
     <form className="flex flex-col w-full max-w-lg gap-4" action={formAction}>
       <p className="py-4 text-center italic"></p>
-      <button
-        className="bg-blue-400 opacity-bg-80 hover:opacity-100 my-2 py-2 rounded shadow hover:shadow-lg hover:text-slate-200"
-        type="submit"
-      >
+      <Button color="light-blue" type="submit">
         atualizar publicação
-      </button>
+      </Button>
     </form>
   )
 }

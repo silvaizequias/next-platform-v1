@@ -5,6 +5,7 @@ import { OrganizationType, OrganizationUsersType } from '../../../types'
 import DialogModal from '@/components/dialog-modal'
 import CreateOrganizationUserForm from './form'
 import OrganizationUserDetailView from '../organization-user-detail-view'
+import { Button } from '@material-tailwind/react'
 
 interface Props {
   organization: OrganizationType
@@ -38,12 +39,9 @@ export default function UsersThisOrganziation(props: Props) {
           usuáros na {organization?.name}
         </h6>
         <div className="flex flex-shrink">
-          <button
-            className="text-xs bg-green-400 opacity-bg-80 hover:opacity-100 my-2 p-2 rounded shadow hover:shadow-lg hover:text-slate-200"
-            onClick={handleDialogCreate}
-          >
+          <Button color="green" size="sm" onClick={handleDialogCreate}>
             adicionar usuário
-          </button>
+          </Button>
         </div>
       </div>
       <div className="py-4">

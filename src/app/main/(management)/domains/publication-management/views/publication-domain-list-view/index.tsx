@@ -6,6 +6,7 @@ import { DomainType } from '../../../types'
 import DialogModal from '@/components/dialog-modal'
 import CreatePublicationDomainForm from './form'
 import PublicationDomainDetailView from '../publication-domain-detail-view'
+import { Button } from '@material-tailwind/react'
 
 export default function PublicationDomainListView() {
   const { data: domains } = useFetch<DomainType[] | any>(
@@ -37,12 +38,9 @@ export default function PublicationDomainListView() {
           lista de domínios de publicações
         </h6>
         <div className="flex flex-shrink">
-          <button
-            className="text-xs bg-green-400 opacity-bg-80 hover:opacity-100 my-2 p-2 rounded shadow hover:shadow-lg hover:text-slate-200"
-            onClick={handleDialogCreate}
-          >
+          <Button color="green" size="sm" onClick={handleDialogCreate}>
             adicionar domínio
-          </button>
+          </Button>
         </div>
       </div>
       <div className="py-4">

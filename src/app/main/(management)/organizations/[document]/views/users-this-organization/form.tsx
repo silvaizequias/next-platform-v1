@@ -4,8 +4,7 @@ import { useFormState } from 'react-dom'
 import actionCreateOrganizationUser from './actions'
 import useFetch from '@/hooks/use-fetch'
 import { UserType } from '@/app/main/(management)/users/types'
-import { Fragment, useState } from 'react'
-import { Listbox } from '@headlessui/react'
+import { Button, Input, Option, Select } from '@material-tailwind/react'
 
 const initialState = {}
 
@@ -19,33 +18,32 @@ export default function CreateOrganizationUserForm() {
   return (
     <form className="flex flex-col w-full max-w-lg gap-4" action={formAction}>
       <p className="py-2 text-center italic"></p>
-      <select
-        className="rounded shadow border-green-400 focus:shadow-lg"
+      <Select
+        color="green"
+        label="função"
         name="userRole"
         id="createOrganizationUserRole"
       >
-        <option value="client">client</option>
-        <option value="assistant">assistant</option>
-        <option value="technician">technician</option>
-        <option value="administrator">administrator</option>
-      </select>
+        <Option value="client">client</Option>
+        <Option value="assistant">assistant</Option>
+        <Option value="technician">technician</Option>
+        <Option value="administrator">administrator</Option>
+      </Select>
 
-      <input
-        className="rounded shadow border-green-400 focus:shadow-lg"
+      <Input
+        color="green"
+        label="celular"
         type="number"
         name="userPhone"
         id="createOrganizationUserPhone"
         placeholder="48 98765 4321"
-        required
+        crossOrigin={undefined}
       />
       <span className="text-xs font-thin italic">{}</span>
 
-      <button
-        className="bg-green-400 opacity-bg-80 hover:opacity-100 my-2 py-2 rounded shadow hover:shadow-lg hover:text-slate-200"
-        type="submit"
-      >
+      <Button color="green" type="submit">
         adicionar usuário
-      </button>
+      </Button>
     </form>
   )
 }

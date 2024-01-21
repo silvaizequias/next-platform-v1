@@ -2,6 +2,7 @@
 
 import { useFormState } from 'react-dom'
 import { actionCreateOrganization } from './actions'
+import { Button, Input } from '@material-tailwind/react'
 
 const initialState = {}
 
@@ -14,44 +15,46 @@ export default function CreateOrganizationForm() {
   return (
     <form className="flex flex-col w-full max-w-lg gap-4" action={formAction}>
       <p className="py-4 text-center italic"></p>
-      <input
-        className="rounded shadow border-green-400 focus:shadow-lg"
+      <Input
+        color="green"
+        label="nome"
         type="text"
         name="name"
         id="createOrganizationName"
         placeholder="nome da organização"
-        required
+        crossOrigin={undefined}
       />
-      <input
-        className="rounded shadow border-green-400 focus:shadow-lg"
+      <Input
+        color="green"
+        label="documento"
         type="text"
-        name="name"
+        name="document"
         id="createOrganizationDocument"
         placeholder="documento"
-        required
+        crossOrigin={undefined}
       />
-      <input
-        className="rounded shadow border-green-400 focus:shadow-lg"
+      <Input
+        color="green"
+        label="telefone"
         type="number"
         name="phone"
         id="createOrganizationPhone"
         placeholder="48 98765 4321"
-        required
+        crossOrigin={undefined}
       />
-      <input
-        className="rounded shadow border-green-400 focus:shadow-lg"
+      <Input
+        color="green"
+        label="e-mail"
         type="email"
         name="email"
         id="createOrganizationEmail"
         placeholder="organização@email.com"
-        required
+        crossOrigin={undefined}
       />
-      <button
-        className="bg-green-400 opacity-bg-80 hover:opacity-100 my-2 py-2 rounded shadow hover:shadow-lg hover:text-slate-200"
-        type="submit"
-      >
+
+      <Button color="green" type="submit">
         criar organização
-      </button>
+      </Button>
     </form>
   )
 }

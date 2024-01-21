@@ -2,6 +2,7 @@
 
 import { useFormState } from 'react-dom'
 import { actionCreateUser } from './actions'
+import { Button, Input, Option, Select } from '@material-tailwind/react'
 
 const initialState = {}
 
@@ -11,53 +12,57 @@ export default function CreateUserForm() {
   return (
     <form className="flex flex-col w-full max-w-lg gap-4" action={formAction}>
       <p className="py-4 text-center italic"></p>
-      <select
-        className="rounded shadow border-green-400 focus:shadow-lg"
+      <Select
+        color="green"
+        label="perfil"
         name="profile"
         id="createUserProfile"
       >
-        <option value="guest">guest</option>
-        <option value="consumer">consumer</option>
-        <option value="member">member</option>
-        <option value="master">master</option>
-      </select>
-      <input
-        className="rounded shadow border-green-400 focus:shadow-lg"
+        <Option value="guest">guest</Option>
+        <Option value="consumer">consumer</Option>
+        <Option value="member">member</Option>
+        <Option value="master">master</Option>
+      </Select>
+      <Input
+        color="green"
+        label="nome completo"
         type="text"
         name="name"
         id="createUserName"
         placeholder="nome completo"
-        required
+        crossOrigin={undefined}
       />
-      <input
-        className="rounded shadow border-green-400 focus:shadow-lg"
+      <Input
+        color="green"
+        label="celular"
         type="number"
         name="phone"
         id="createUserPhone"
         placeholder="48 98765 4321"
-        required
+        crossOrigin={undefined}
       />
-      <input
-        className="rounded shadow border-green-400 focus:shadow-lg"
+      <Input
+        color="green"
+        label="e-mail"
         type="email"
         name="email"
         id="createUserEmail"
         placeholder="nome@email.com"
-        required
+        crossOrigin={undefined}
       />
-      <input
-        className="rounded shadow border-green-400 focus:shadow-lg"
+      <Input
+        color="green"
+        label="senha"
         type="password"
         name="password"
         id="createUserPassword"
         placeholder="s*e*n*h*a"
+        crossOrigin={undefined}
       />
-      <button
-        className="bg-green-400 opacity-bg-80 hover:opacity-100 my-2 py-2 rounded shadow hover:shadow-lg hover:text-slate-200"
-        type="submit"
-      >
+
+      <Button color="green" type="submit">
         criar usuário
-      </button>
+      </Button>
     </form>
   )
 }

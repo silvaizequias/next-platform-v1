@@ -3,6 +3,7 @@
 import { useFormState } from 'react-dom'
 import { OrganizationUsersType } from '../../../types'
 import actionUpdateOrganizationUser from './actions'
+import { Button, Option, Select } from '@material-tailwind/react'
 
 interface Props {
   organizationUser: OrganizationUsersType
@@ -20,36 +21,35 @@ export default function UpdateOrganizationUserForm(props: Props) {
   return (
     <form className="flex flex-col w-full max-w-lg gap-4" action={formAction}>
       <p className="py-2 text-center italic"></p>
-      <select
-        className="rounded shadow border-blue-400 focus:shadow-lg"
+      <Select
+        color="light-blue"
+        label="função"
         name="userRole"
         id="updateOrganizationUserRole"
         defaultValue={organizationUser?.role}
       >
-        <option value="client">client</option>
-        <option value="assistant">assistant</option>
-        <option value="technician">technician</option>
-        <option value="administrator">administrator</option>
-        <option value="owner">owner</option>
-      </select>
+        <Option value="client">client</Option>
+        <Option value="assistant">assistant</Option>
+        <Option value="technician">technician</Option>
+        <Option value="administrator">administrator</Option>
+        <Option value="owner">owner</Option>
+      </Select>
 
-      <select
-        className="rounded shadow border-blue-400 focus:shadow-lg"
+      <Select
+        color="light-blue"
+        label="status"
         name="active"
         id="updateOrganizationUserActive"
       >
-        <option value="true">ativo</option>
-        <option value="false">inativo</option>
-      </select>
+        <Option value="true">ativo</Option>
+        <Option value="false">inativo</Option>
+      </Select>
 
       <span className="text-xs font-thin italic">{}</span>
 
-      <button
-        className="bg-blue-400 opacity-bg-80 hover:opacity-100 my-2 py-2 rounded shadow hover:shadow-lg hover:text-slate-200"
-        type="submit"
-      >
+      <Button color="light-blue" type="submit">
         atualizar usuário
-      </button>
+      </Button>
     </form>
   )
 }

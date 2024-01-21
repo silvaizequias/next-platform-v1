@@ -5,6 +5,7 @@ import { OrganizationType } from '../../../types'
 import { useCallback, useState } from 'react'
 import DialogModal from '@/components/dialog-modal'
 import UpdateOrganizationForm from '../../../views/organization-detail-view/form'
+import { Button } from '@material-tailwind/react'
 
 interface Props {
   organization: OrganizationType
@@ -70,17 +71,18 @@ export default function OrganizationOnlyView(props: Props) {
           cep: <span className="font-semibold">{organization?.zipCode}</span>
         </small>
       </div>
-      <button
-        className="text-xs bg-blue-400 opacity-bg-80 hover:opacity-100 my-2 p-2 rounded shadow hover:shadow-lg hover:text-slate-200"
+      <Button
+        color="light-blue"
+        size="sm"
         onClick={() => handleDialogUpdate(organization)}
       >
         atualizar organização
-      </button>
+      </Button>
       <DialogModal
         onClose={handleOnCloseDialog}
         open={openDialogUpdate}
         title="dedicado"
-        content="atualizar informações da organização"
+        content={`atualizar informações da organização ${organization?.name}`}
       >
         <UpdateOrganizationForm organization={data} />
       </DialogModal>

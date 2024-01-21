@@ -2,6 +2,7 @@
 
 import { useFormState } from 'react-dom'
 import { actionResetPassword } from './actions'
+import { Button, Input } from '@material-tailwind/react'
 
 const initialState = {}
 
@@ -14,20 +15,19 @@ export default function ResetPasswordForm() {
         um código de segurança será enviado para o número de telefone registrado
         na plataforma
       </p>
-      <input
-        className="rounded shadow border-orange-400 focus:shadow-lg"
+      <Input
+        color="orange"
+        label="celular"
         type="number"
         name="phone"
         id="resetPasswordPhone"
         placeholder="48 98765 4321"
-        required
+        crossOrigin={undefined}
       />
-      <button
-        className="bg-orange-400 opacity-bg-80 hover:opacity-100 my-2 py-2 rounded shadow hover:shadow-lg hover:text-slate-200"
-        type="submit"
-      >
+
+      <Button color="orange" type="submit">
         redefinir a senha
-      </button>
+      </Button>
     </form>
   )
 }

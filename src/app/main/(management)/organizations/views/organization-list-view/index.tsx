@@ -6,6 +6,7 @@ import useFetch from '@/hooks/use-fetch'
 import { useCallback, useState } from 'react'
 import CreateOrganizationForm from './form'
 import OrganizationDetailView from '../organization-detail-view'
+import { Button } from '@material-tailwind/react'
 
 export default function OrganizationListView() {
   const { data: organizations } = useFetch<OrganizationType[] | any>(
@@ -37,12 +38,9 @@ export default function OrganizationListView() {
           lista de organizações
         </h6>
         <div className="flex flex-shrink">
-          <button
-            className="text-xs bg-green-400 opacity-bg-80 hover:opacity-100 my-2 p-2 rounded shadow hover:shadow-lg hover:text-slate-200"
-            onClick={handleDialogCreate}
-          >
+          <Button color="green" size="sm" onClick={handleDialogCreate}>
             criar organização
-          </button>
+          </Button>
         </div>
       </div>
       <div className="py-4">
@@ -83,7 +81,7 @@ export default function OrganizationListView() {
         onClose={handleOnCloseDialog}
         open={openDialogUpdate}
         title="dedicado"
-        content="atualizar informações da organização"
+        content={`atualizar informações da organização ${data?.name}`}
       >
         <OrganizationDetailView organization={data} />
       </DialogModal>

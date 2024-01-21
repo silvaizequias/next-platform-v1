@@ -3,6 +3,7 @@
 import { useCallback, useState } from 'react'
 import DialogModal from '../dialog-modal'
 import SignInForm from '@/app/main/(auth)/autenticar-se/form'
+import { Button } from '@material-tailwind/react'
 
 export default function AuthDialog() {
   const [openDialogAuth, setOpenDialogAuth] = useState<boolean>(false)
@@ -13,13 +14,9 @@ export default function AuthDialog() {
 
   return (
     <div className="relative block items-center">
-      <button
-        type="button"
-        className="bg-blue-400 opacity-bg-80 hover:opacity-100 my-2 p-2 rounded shadow hover:shadow-lg hover:text-slate-200"
-        onClick={handleDialogAuth}
-      >
+      <Button type="button" color="light-blue" onClick={handleDialogAuth}>
         autenticar-se
-      </button>
+      </Button>
       <DialogModal
         onClose={handleDialogAuth}
         open={openDialogAuth}

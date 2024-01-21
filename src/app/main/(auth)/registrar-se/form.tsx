@@ -2,6 +2,7 @@
 
 import { useFormState } from 'react-dom'
 import { actionSignUp } from './actions'
+import { Button, Input } from '@material-tailwind/react'
 
 const initialState = {}
 
@@ -13,36 +14,37 @@ export default function SignUpForm() {
       <p className="py-4 text-center italic">
         preencha os campos do formulário para registrar-se na plataforma
       </p>
-      <input
-        className="rounded shadow border-green-400 focus:shadow-lg"
+      <Input
+        color="green"
+        label="nome completo"
         type="text"
         name="name"
         id="signUpName"
         placeholder="seu nome completo"
-        required
+        crossOrigin={undefined}
       />
-      <input
-        className="rounded shadow border-green-400 focus:shadow-lg"
+      <Input
+        color="green"
+        label="celular"
         type="number"
         name="phone"
         id="signUpPhone"
         placeholder="48 98765 4321"
-        required
+        crossOrigin={undefined}
       />
-      <input
-        className="rounded shadow border-green-400 focus:shadow-lg"
+      <Input
+        color="green"
+        label="e-mail"
         type="email"
         name="email"
         id="signUpEmail"
         placeholder="seu@email.com"
-        required
+        crossOrigin={undefined}
       />
-      <button
-        className="bg-green-400 opacity-bg-80 hover:opacity-100 my-2 py-2 rounded shadow hover:shadow-lg hover:text-slate-200"
-        type="submit"
-      >
+
+      <Button color="green" type="submit">
         registrar-se
-      </button>
+      </Button>
     </form>
   )
 }

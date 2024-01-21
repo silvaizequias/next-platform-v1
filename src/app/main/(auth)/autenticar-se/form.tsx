@@ -2,6 +2,7 @@
 
 import { useFormState } from 'react-dom'
 import { actionSignIn } from './actions'
+import { Button, Input } from '@material-tailwind/react'
 
 const initialState = {}
 
@@ -13,28 +14,27 @@ export default function SignInForm() {
       <p className="py-4 text-center italic">
         informe suas credenciais para autenticar-se na plataforma
       </p>
-      <input
-        className="rounded shadow border-blue-400 focus:shadow-lg"
+      <Input
+        color="light-blue"
+        label="celular"
         type="number"
         name="phone"
         id="signInPhone"
         placeholder="48 98765 4321"
-        required
+        crossOrigin={undefined}
       />
-      <input
-        className="rounded shadow border-blue-400 focus:shadow"
+      <Input
+        color="light-blue"
+        label="senha"
         type="password"
         name="password"
         id="signInPassword"
         placeholder="s*e*n*h*a"
-        required
+        crossOrigin={undefined}
       />
-      <button
-        className="bg-blue-400 opacity-bg-80 hover:opacity-100 my-2 py-2 rounded shadow hover:shadow-lg hover:text-slate-200"
-        type="submit"
-      >
+      <Button color="light-blue" type="submit">
         autenticar-se
-      </button>
+      </Button>
     </form>
   )
 }

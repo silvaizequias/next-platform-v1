@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from 'react'
 import { UserType } from '../../../users/types'
+import { Button } from '@material-tailwind/react'
 
 export default function ProfileInformationView() {
   const [openDialogUpdate, setOpenDialogUpdate] = useState<boolean>(false)
@@ -22,9 +23,9 @@ export default function ProfileInformationView() {
           informações básicas
         </h6>
         <div className="flex flex-shrink">
-          <button className="text-xs bg-blue-400 opacity-bg-80 hover:opacity-100 my-2 p-2 rounded shadow hover:shadow-lg hover:text-slate-200">
+          <Button color="light-blue" size="sm">
             atualizar informações
-          </button>
+          </Button>
         </div>
       </div>
       <div className="py-4"></div>

@@ -6,6 +6,7 @@ import { useCallback, useState } from 'react'
 import DialogModal from '@/components/dialog-modal'
 import CreatePublicationForm from './form'
 import PublicationDetailView from '../publication-detail-view'
+import { Button } from '@material-tailwind/react'
 
 export default function PublicationListView() {
   const { data: publications } = useFetch<PublicationType[] | any>(
@@ -37,12 +38,9 @@ export default function PublicationListView() {
           lista de publicações
         </h6>
         <div className="flex flex-shrink">
-          <button
-            className="text-xs bg-green-400 opacity-bg-80 hover:opacity-100 my-2 p-2 rounded shadow hover:shadow-lg hover:text-slate-200"
-            onClick={handleDialogCreate}
-          >
+          <Button color="green" size="sm" onClick={handleDialogCreate}>
             escrever
-          </button>
+          </Button>
         </div>
       </div>
       <div className="py-4">

@@ -6,6 +6,7 @@ import { useCallback, useState } from 'react'
 import DialogModal from '@/components/dialog-modal'
 import CreateUserForm from './form'
 import UserUpdateView from '../user-detail-view'
+import { Button } from '@material-tailwind/react'
 
 export default function UserListView() {
   const { data: users } = useFetch<UserType[] | any>('/api/users')
@@ -35,12 +36,9 @@ export default function UserListView() {
           lista de usuários
         </h6>
         <div className="flex flex-shrink">
-          <button
-            className="text-xs bg-green-400 opacity-bg-80 hover:opacity-100 my-2 p-2 rounded shadow hover:shadow-lg hover:text-slate-200"
-            onClick={handleDialogCreate}
-          >
+          <Button color="green" size='sm' onClick={handleDialogCreate}>
             criar usuário
-          </button>
+          </Button>
         </div>
       </div>
       <div className="py-4">
@@ -67,7 +65,7 @@ export default function UserListView() {
         open={openDialogCreate}
         onClose={handleDialogCreate}
         title="dedicado"
-        content='criar usuário na plataforma'
+        content="criar usuário na plataforma"
       >
         <CreateUserForm />
       </DialogModal>
@@ -75,7 +73,7 @@ export default function UserListView() {
         open={openDialogUpdate}
         onClose={handleOnCloseDialog}
         title="dedicado"
-        content='atualizar perfil de usuário na plataforma'
+        content="atualizar perfil de usuário na plataforma"
       >
         <UserUpdateView user={data} />
       </DialogModal>
