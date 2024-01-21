@@ -20,7 +20,9 @@ export default function MySubscriptionListView(props: Props) {
       <span className="text-center text-xs bg-sky-200 p-2 rounded shadow">
         você ainda não possui contratações
       </span>
-      <Button color="green">contratar serviço</Button>
+      <Button color='green'>
+        contratar serviço
+      </Button>
     </div>
   )
 }
