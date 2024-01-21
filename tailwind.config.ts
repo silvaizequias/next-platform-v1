@@ -24,6 +24,7 @@ module.exports = withMT({
         zinc: colors.zinc,
         cyan: colors.cyan,
         sky: colors.sky,
+        orange: colors.orange,
       },
     },
   },
