@@ -1,12 +1,17 @@
 'use server'
 
+import { prisma } from '@/libraries/prisma'
 import { CreateDomainDTOType } from '@/app/api/publication-management/domains/dto'
 
 export async function actionCreatePublicationDomain(
-  prevState: any,
-  formData: FormData,
+  inputs: CreateDomainDTOType,
 ): Promise<any> {
-  const inputs: CreateDomainDTOType | any = Object.fromEntries(formData)
-
-  return { status: 200, message: '', data: inputs }
+  try {
+    return inputs
+  } catch (error: any) {
+    //await prisma.$disconnect()
+    throw new Error(error)
+  } finally {
+    //await prisma.$disconnect()
+  }
 }

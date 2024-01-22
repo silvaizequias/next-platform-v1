@@ -1,12 +1,17 @@
 'use server'
 
+import { prisma } from '@/libraries/prisma'
 import { UpdateDomainDTOType } from '@/app/api/publication-management/domains/dto'
 
 export async function actionUpdatePublicationDomain(
-  prevState: any,
-  formData: FormData,
+  inputs: UpdateDomainDTOType,
 ): Promise<any> {
-  const inputs: UpdateDomainDTOType | any = Object.fromEntries(formData)
-
-  return { status: 200, message: '', data: inputs }
+  try {
+    return inputs
+  } catch (error: any) {
+    //await prisma.$disconnect()
+    throw new Error(error)
+  } finally {
+    //await prisma.$disconnect()
+  }
 }
