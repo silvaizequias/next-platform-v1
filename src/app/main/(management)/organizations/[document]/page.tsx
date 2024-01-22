@@ -4,6 +4,7 @@ import { getServerSession } from 'next-auth'
 import actionGetOrganizationByParams from './actions'
 import { OrganizationType } from '../types'
 import OrganizationOnlyScreen from './screen'
+import { redirect } from 'next/navigation'
 
 export async function generateMetadata({
   params,
@@ -28,5 +29,7 @@ export default async function OrganizationOnlyPage({
     await actionGetOrganizationByParams(document)
   const session = await getServerSession(nextAuthOptions)
 
-  return organization && <OrganizationOnlyScreen organization={organization} />
+  return session
+    ? organization && <OrganizationOnlyScreen organization={organization} />
+    : redirect('/')
 }
