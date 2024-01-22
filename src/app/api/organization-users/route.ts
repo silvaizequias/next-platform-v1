@@ -9,6 +9,18 @@ export async function GET(request: Request) {
       JSON.stringify(
         await prisma.organizationUsers.findMany({
           where: { softDeleted: false },
+          include: {
+            user: {
+              select: {
+                id: true,
+                profile: true,
+                name: true,
+                email: true,
+                phone: true,
+              },
+            },
+            organization: true,
+          },
         }),
       ),
     )

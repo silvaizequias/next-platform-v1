@@ -1,12 +1,22 @@
 'use server'
 
-import { ResetPasswordDTOType } from "@/app/api/reset-password/dto"
+import { ResetPasswordDTOType } from '@/app/api/reset-password/dto'
 
 export async function actionResetPassword(
-  prevState: any,
-  formData: FormData,
+  inputs: ResetPasswordDTOType,
 ): Promise<any> {
-  const inputs: ResetPasswordDTOType | any = Object.fromEntries(formData)
-
-  return { status: 200, message: '', data: inputs }
+  try {
+    const NEXTAUTH_URL = process.env.NEXTAUTH_URL
+    const response = await fetch(`${NEXTAUTH_URL}/api/reset-password`, {
+      method: 'POST',
+      body: JSON.stringify(inputs),
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
+    return { status: response.status, message: response && response.json() }
+  } catch (error: any) {
+    throw new Error(error)
+  }
 }

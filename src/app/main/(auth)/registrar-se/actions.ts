@@ -2,11 +2,10 @@
 
 import { SignUpDTOType } from '@/app/api/signup/dto'
 
-export async function actionSignUp(
-  prevState: any,
-  formData: FormData,
-): Promise<any> {
-  const inputs: SignUpDTOType | any = Object.fromEntries(formData)
-
-  return { status: 200, message: '', data: inputs }
+export async function actionSignUp(inputs: SignUpDTOType): Promise<any> {
+  try {
+    return inputs
+  } catch (error: any) {
+    throw new Error(error)
+  }
 }
