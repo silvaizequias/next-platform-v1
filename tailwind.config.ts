@@ -1,5 +1,8 @@
-/** @type {import('tailwindcss').Config} */
 import withMT from '@material-tailwind/react/utils/withMT'
+
+/** @type {import('tailwindcss').Config} */
+
+import colors from 'tailwindcss/colors'
 
 module.exports = withMT({
   content: [
@@ -13,10 +16,20 @@ module.exports = withMT({
         default: ['var(--font-comfortaa)'],
         sans: ['var(--font-poppins)'],
       },
+      colors: {
+        transparent: 'transparent',
+        current: 'currentColor',
+        slate: colors.slate,
+        gray: colors.gray,
+        zinc: colors.zinc,
+        cyan: colors.cyan,
+        sky: colors.sky,
+        orange: colors.orange,
+      },
     },
   },
+  darkMode: 'class',
   plugins: [
-    require('@tailwindcss/line-clamp'),
     require('@tailwindcss/typography'),
     require('@tailwindcss/forms'),
     require('tailwindcss-animate'),

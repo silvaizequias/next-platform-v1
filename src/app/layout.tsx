@@ -4,10 +4,8 @@ import { ReactNode } from 'react'
 import { Providers } from './providers'
 import { Comfortaa, Poppins } from 'next/font/google'
 import { getServerSession } from 'next-auth'
-import Topbar from '@/components/topbar'
 import { nextAuthOptions } from '@/libraries/next-auth'
-import { actionGetProfileByPhone } from './management/profile/actions'
-import { UserType } from './management/users/types'
+import { Toaster } from 'react-hot-toast'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -28,8 +26,8 @@ export const metadata: Metadata = {
   generator: 'dedicado',
   category: 'website',
   title: {
-    default: 'Sua Melhor Plataforma de Serviços',
-    template: `%s | Dedicado`,
+    default: 'sua melhor plataforma de serviços',
+    template: `%s | dedicado`,
   },
   description:
     'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
@@ -45,8 +43,8 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: {
-      default: 'Sua Melhor Plataforma de Serviços',
-      template: `%s | Dedicado`,
+      default: 'sua melhor plataforma de serviços',
+      template: `%s | dedicado`,
     },
     description:
       'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
@@ -64,7 +62,6 @@ export default async function RootLayout({
   children: ReactNode
 }) {
   const session = await getServerSession(nextAuthOptions)
-  const profile: UserType = await actionGetProfileByPhone(session?.user?.phone!)
 
   return (
     <html
@@ -72,11 +69,12 @@ export default async function RootLayout({
       suppressHydrationWarning
       className={`${comfortaa.variable} font-default`}
     >
-      <body className="min-h-screen bg-blue-gray-50 text-blue-gray-800 dark:bg-blue-gray-800 dark:text-blue-gray-50 text-base font-light">
-        <Providers>
-          <Topbar session={session!} profile={profile} />
-          {children}
-        </Providers>
+      <body className="min-h-screen text-base font-light">
+        <Providers>{children}</Providers>
+        <Toaster
+          position={'top-center'}
+          toastOptions={{ className: 'react-hot-toast' }}
+        />
       </body>
     </html>
   )

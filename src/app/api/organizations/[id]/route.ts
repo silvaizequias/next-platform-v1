@@ -1,9 +1,7 @@
-import {
-  UpdateOrganizationDTO,
-  UpdateOrganizationDTOType,
-} from '@/app/management/organizations/dto'
+
 import { prisma } from '@/libraries/prisma'
 import { Prisma } from '@prisma/client'
+import { UpdateOrganizationDTOType, UpdateOrganizationDTO } from '../dto'
 
 export async function GET(
   request: Request,

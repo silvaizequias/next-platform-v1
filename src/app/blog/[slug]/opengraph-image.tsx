@@ -1,13 +1,20 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { ImageResponse } from 'next/og'
-import { PublicationType } from '../types'
-import { actionGetPublicationByParams } from './actions'
+import { actionGetPublicationByParams } from '@/app/main/(management)/publications/actions'
+import { PublicationType } from '@/app/main/(management)/publications/types'
 
 export const runtime = 'edge'
 
-export default async function PublicationOG({ params }: { params: { post: string } }) {
-  const publication: PublicationType | any = await actionGetPublicationByParams(params?.post)
+export default async function PublicationOG({
+  params,
+}: {
+  params: { slug: string }
+}) {
+  const { slug } = params
+  const publication: PublicationType | any = await actionGetPublicationByParams(
+    slug,
+  )
 
   const image = '/logotipo.svg'
 
@@ -27,7 +34,9 @@ export default async function PublicationOG({ params }: { params: { post: string
               src={publication?.image || image}
               alt={publication?.subject}
             />
-            <p tw="text-xl font-medium text-gray-900">by {publication?.author}</p>
+            <p tw="text-xl font-medium text-gray-900">
+              by {publication?.author}
+            </p>
           </div>
           <img
             tw="mt-4 w-5/6 rounded-2xl border border-gray-200 shadow-md"

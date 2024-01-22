@@ -1,24 +1,24 @@
 'use client'
 
+import FullScreen from '@/components/full-screen'
 import { Button } from '@material-tailwind/react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 export default function NotFound() {
   const router = useRouter()
 
   return (
-    <div className="min-h-screen flex justify-center items-center">
-      <div className="sm:mx-8 mx-2">
-        <div className="flex flex-col justify-center gap-4">
-          <h4 className="font-semibold text-center text-red-400 text-4xl sm:text-6xl">
-            Ops!{' '}
-          </h4>
-          <p className="font-light text-base text-center">
-            O conteúdo não foi encontrado...
-          </p>
+    <FullScreen>
+      <div className="bg-slate-200 dark:bg-slate-800 mx-8 p-4 rounded shadow-xl">
+        <h1 className="text-6xl text-center tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400 font-semibold lowercase">
+          ops!{' '}
+        </h1>
+        <div className="p-2 text-center">o conteúdo não foi encontrado...</div>
+        <div className="flex flex-col items-center">
           <Button
             variant="gradient"
-            color="blue"
+            color="light-blue"
             size="sm"
             fullWidth
             type="button"
@@ -28,6 +28,6 @@ export default function NotFound() {
           </Button>
         </div>
       </div>
-    </div>
+    </FullScreen>
   )
 }

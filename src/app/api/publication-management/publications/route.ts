@@ -1,9 +1,4 @@
-import {
-  CreatePublicationDTO,
-  CreatePublicationDTOType,
-} from '@/app/blog/editor/dto'
-import { slugify } from '@/utils/slugify'
-
+import { CreatePublicationDTO, CreatePublicationDTOType } from './dto'
 export async function GET(request: Request) {
   try {
     const PUBLICATION_API_URL = process.env.PUBLICATION_API_URL!

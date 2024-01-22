@@ -1,9 +1,7 @@
-import NotFound from '@/app/not-found'
 import { Metadata } from 'next'
-import BlogHeader from '@/components/blog-header'
-import { actionGetPublicationByParams } from './actions'
-import { PublicationType } from '../types'
-import PublicationDetailScreen from './screen'
+import { actionGetPublicationByParams } from '@/app/main/(management)/publications/actions'
+import PublicationScreen from './screen'
+import { PublicationType } from '@/app/main/(management)/publications/types'
 
 export async function generateMetadata({
   params,
@@ -52,18 +50,6 @@ export default async function PublicationDetailPage({
   const publication: PublicationType | any = await actionGetPublicationByParams(
     params?.slug,
   )
-  const image = '/logotipo.svg'
 
-  return publication ? (
-    <div className="flex flex-col justify-center">
-      <BlogHeader
-        title={publication?.title}
-        subject={publication?.subject}
-        image={publication?.image || image}
-      />
-      <PublicationDetailScreen publication={publication} />
-    </div>
-  ) : (
-    <NotFound />
-  )
+  return publication ? <PublicationScreen publication={publication} /> : null
 }

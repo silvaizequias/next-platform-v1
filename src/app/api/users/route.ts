@@ -1,4 +1,4 @@
-import { CreateUserDTO, CreateUserDTOType } from '@/app/management/users/dto'
+import { CreateUserDTO, CreateUserDTOType } from './dto'
 import { prisma } from '@/libraries/prisma'
 import { Prisma } from '@prisma/client'
 import { hashSync } from 'bcrypt'
@@ -7,9 +7,13 @@ export async function GET(request: Request) {
   try {
     return new Response(
       JSON.stringify(
-        await prisma.user.findFirst({
+        await prisma.user.findMany({
           where: { softDeleted: false },
+          orderBy: {
+            name: 'asc',
+          },
           select: {
+            createdAt: true,
             id: true,
             active: true,
             subscriber: true,

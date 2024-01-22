@@ -1,9 +1,6 @@
-import {
-  CreateOrganizationDTO,
-  CreateOrganizationDTOType,
-} from '@/app/management/organizations/dto'
 import { prisma } from '@/libraries/prisma'
 import { Prisma } from '@prisma/client'
+import { CreateOrganizationDTOType, CreateOrganizationDTO } from './dto'
 
 export async function GET(request: Request) {
   try {
@@ -24,7 +21,9 @@ export async function GET(request: Request) {
     )
   } catch (error: any) {
     await prisma.$disconnect()
-    return new Response(error?.message || error, { status: error?.status || 400 })
+    return new Response(error?.message || error, {
+      status: error?.status || 400,
+    })
   } finally {
     await prisma.$disconnect()
   }
@@ -60,7 +59,9 @@ export async function POST(request: Request) {
     }
   } catch (error: any) {
     await prisma.$disconnect()
-    return new Response(error?.message || error, { status: error?.status || 400 })
+    return new Response(error?.message || error, {
+      status: error?.status || 400,
+    })
   } finally {
     await prisma.$disconnect()
   }
