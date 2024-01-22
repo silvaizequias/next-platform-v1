@@ -1,12 +1,17 @@
 'use server'
 
 import { CreatePublicationDTOType } from '@/app/api/publication-management/publications/dto'
+import { prisma } from '@/libraries/prisma'
 
 export async function actionCreatePublication(
-  prevState: any,
-  formData: FormData,
+  inputs: CreatePublicationDTOType,
 ): Promise<any> {
-  const inputs: CreatePublicationDTOType | any = Object.fromEntries(formData)
-
-  return { status: 200, message: '', data: inputs }
+  try {
+    return inputs
+  } catch (error: any) {
+    //await prisma.$disconnect()
+    throw new Error(error)
+  } finally {
+    //await prisma.$disconnect()
+  }
 }

@@ -4,14 +4,10 @@ import { UpdateOrganizationUserDTOType } from '@/app/api/organization-users/dto'
 import { prisma } from '@/libraries/prisma'
 
 export default async function actionUpdateOrganizationUser(
-  prevState: any,
-  formData: FormData,
+  inputs: UpdateOrganizationUserDTOType,
 ): Promise<any> {
   try {
-    const inputs: UpdateOrganizationUserDTOType | any =
-      Object.fromEntries(formData)
-
-    return { status: 200, message: '', data: inputs }
+    return inputs
   } catch (error: any) {
     await prisma.$disconnect()
     throw new Error(error)

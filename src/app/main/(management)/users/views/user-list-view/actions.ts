@@ -1,12 +1,17 @@
 'use server'
 
-import { CreateUserDTOType } from "@/app/api/users/dto"
+import { CreateUserDTOType } from '@/app/api/users/dto'
+import { prisma } from '@/libraries/prisma'
 
 export async function actionCreateUser(
-  prevState: any,
-  formData: FormData,
+  inputs: CreateUserDTOType,
 ): Promise<any> {
-  const inputs: CreateUserDTOType | any = Object.fromEntries(formData)
-
-  return { status: 200, message: '', data: inputs }
+  try {
+    return inputs
+  } catch (error: any) {
+    //await prisma.$disconnect()
+    throw new Error(error)
+  } finally {
+    //await prisma.$disconnect()
+  }
 }

@@ -1,25 +1,44 @@
 'use client'
 
-import { useFormState } from 'react-dom'
+import { useRouter } from 'next/navigation'
 import { OrganizationUsersType } from '../../../types'
 import actionUpdateOrganizationUser from './actions'
 import { Button, Option, Select } from '@material-tailwind/react'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import {
+  UpdateOrganizationUserDTO,
+  UpdateOrganizationUserDTOType,
+} from '@/app/api/organization-users/dto'
 
 interface Props {
   organizationUser: OrganizationUsersType
 }
 
-const initialState = {}
-
 export default function UpdateOrganizationUserForm(props: Props) {
   const { organizationUser } = props
-  const [state, formAction] = useFormState(
-    actionUpdateOrganizationUser,
-    initialState,
-  )
+  const router = useRouter()
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UpdateOrganizationUserDTOType>({
+    resolver: zodResolver(UpdateOrganizationUserDTO),
+  })
+
+  const onSubmit: SubmitHandler<UpdateOrganizationUserDTOType> = async (
+    inputs,
+  ) => {
+    const response = await actionUpdateOrganizationUser(inputs)
+    console.log(response)
+  }
 
   return (
-    <form className="flex flex-col w-full max-w-lg gap-4" action={formAction}>
+    <form
+      className="flex flex-col w-full max-w-lg gap-4"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <p className="py-2 text-center italic"></p>
       <Select
         color="light-blue"
@@ -44,8 +63,6 @@ export default function UpdateOrganizationUserForm(props: Props) {
         <Option value="true">ativo</Option>
         <Option value="false">inativo</Option>
       </Select>
-
-      <span className="text-xs font-thin italic">{}</span>
 
       <Button color="light-blue" type="submit">
         atualizar usuário

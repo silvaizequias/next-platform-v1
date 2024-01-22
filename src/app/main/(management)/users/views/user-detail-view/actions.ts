@@ -1,13 +1,17 @@
 'use server'
 
 import { UpdateUserDTOType } from '@/app/api/users/dto'
+import { prisma } from '@/libraries/prisma'
 
 export async function actionUpdateUser(
-  prevState: any,
-  formData: FormData,
+  inputs: UpdateUserDTOType,
 ): Promise<any> {
-
-  const inputs: UpdateUserDTOType | any = Object.fromEntries(formData)
-
-  return { status: 200, message: '', data: inputs }
+  try {
+    return inputs
+  } catch (error: any) {
+    //await prisma.$disconnect()
+    throw new Error(error)
+  } finally {
+    //await prisma.$disconnect()
+  }
 }

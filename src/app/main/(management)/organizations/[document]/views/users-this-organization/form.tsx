@@ -1,29 +1,43 @@
 'use client'
 
-import { useFormState } from 'react-dom'
 import actionCreateOrganizationUser from './actions'
 import useFetch from '@/hooks/use-fetch'
 import { UserType } from '@/app/main/(management)/users/types'
 import { Button, Input, Option, Select } from '@material-tailwind/react'
-
-const initialState = {}
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
+import {
+  CreateOrganizationUserDTO,
+  CreateOrganizationUserDTOType,
+} from '@/app/api/organization-users/dto'
 
 export default function CreateOrganizationUserForm() {
   const { data: users } = useFetch<UserType[] | any>('/api/users')
-  const [state, formAction] = useFormState(
-    actionCreateOrganizationUser,
-    initialState,
-  )
+  const router = useRouter()
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<CreateOrganizationUserDTOType>({
+    resolver: zodResolver(CreateOrganizationUserDTO),
+  })
+
+  const onSubmit: SubmitHandler<CreateOrganizationUserDTOType> = async (
+    inputs,
+  ) => {
+    const response = await actionCreateOrganizationUser(inputs)
+    console.log(response)
+  }
 
   return (
-    <form className="flex flex-col w-full max-w-lg gap-4" action={formAction}>
+    <form
+      className="flex flex-col w-full max-w-lg gap-4"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <p className="py-2 text-center italic"></p>
-      <Select
-        color="green"
-        label="função"
-        name="userRole"
-        id="createOrganizationUserRole"
-      >
+      <Select color="green" label="função" id="createOrganizationUserRole">
         <Option value="client">client</Option>
         <Option value="assistant">assistant</Option>
         <Option value="technician">technician</Option>
@@ -34,12 +48,16 @@ export default function CreateOrganizationUserForm() {
         color="green"
         label="celular"
         type="number"
-        name="userPhone"
         id="createOrganizationUserPhone"
         placeholder="48 98765 4321"
         crossOrigin={undefined}
+        {...register('userPhone')}
       />
-      <span className="text-xs font-thin italic">{}</span>
+      {errors && errors?.userPhone && (
+        <span className="text-xs text-red-400 italic font-thin">
+          {errors?.userPhone?.message}
+        </span>
+      )}
 
       <Button color="green" type="submit">
         adicionar usuário
