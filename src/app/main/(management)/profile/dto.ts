@@ -9,20 +9,14 @@ export const UpdateProfileInformationDTO = z.object({
   phone: z.string().min(10).max(14).optional(),
   documentType: z.enum(DOCUMENT_TYPE).optional(),
   documentCode: z.string().min(11).max(14).optional(),
-})
-export type UpdateProfileInformationDTOType = z.infer<
-  typeof UpdateProfileInformationDTO
->
-
-export const UpdateProfileAddressDTO = z.object({
   zipCode: z.string().length(8).optional(),
   street: z.string().optional(),
   complement: z.string().optional(),
   latitude: z.coerce.number().optional(),
   longitude: z.coerce.number().optional(),
 })
-export type UpdateProfileAddressDTOType = z.infer<
-  typeof UpdateProfileAddressDTO
+export type UpdateProfileInformationDTOType = z.infer<
+  typeof UpdateProfileInformationDTO
 >
 
 export const UpdateProfilePasswordDTO = z

@@ -1,19 +1,17 @@
 import PageScreen from '@/components/page-screen'
-import ProfileAddressView from './views/profile-address-view'
 import ProfileInformationView from './views/profile-information-view'
-import ProfilePasswordView from './views/profile-password-view'
+import { Session } from 'next-auth'
 
-export default function ProfileScreen() {
+interface Props {
+  session: Session
+}
+
+export default function ProfileScreen(props: Props) {
+  const { session } = props
   return (
     <PageScreen title="meu perfil">
       <div className="w-full">
-        <ProfileInformationView />
-      </div>
-      <div className="w-full">
-        <ProfileAddressView />
-      </div>
-      <div className="w-full">
-        <ProfilePasswordView />
+        <ProfileInformationView session={session} />
       </div>
     </PageScreen>
   )

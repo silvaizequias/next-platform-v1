@@ -6,5 +6,5 @@ import { redirect } from 'next/navigation'
 export default async function ProfilePage() {
   const session = await getServerSession(nextAuthOptions)
 
-  return session ? <ProfileScreen /> : redirect('/')
+  return session ? <ProfileScreen session={session!} /> : redirect('/')
 }
