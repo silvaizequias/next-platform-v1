@@ -1,5 +1,8 @@
 import { prisma } from '@/libraries/prisma'
-import { ResetPasswordCodeDTO, ResetPasswordCodeDTOType } from '../dto'
+import {
+  ResetPasswordCodeDTO,
+  ResetPasswordCodeDTOType,
+} from '@/app/main/(auth)/redefinir-senha/dto'
 import { Prisma } from '@prisma/client'
 import { hashSync } from 'bcrypt'
 

@@ -1,7 +1,7 @@
 import { prisma } from '@/libraries/prisma'
 import { compareSync } from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { SignInDTO, SignInDTOType } from './dto'
+import { SignInDTO, SignInDTOType } from '@/app/main/(auth)/autenticar-se/dto'
 
 export async function POST(request: Request) {
   const SECRET = process.env.SECRET!

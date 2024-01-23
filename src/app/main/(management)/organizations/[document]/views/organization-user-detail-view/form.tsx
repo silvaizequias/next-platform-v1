@@ -7,9 +7,9 @@ import { Button, Option, Select } from '@material-tailwind/react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
-  UpdateOrganizationUserDTO,
   UpdateOrganizationUserDTOType,
-} from '@/app/api/organization-users/dto'
+  UpdateOrganizationUserDTO,
+} from '../../../dto'
 
 interface Props {
   organizationUser: OrganizationUsersType

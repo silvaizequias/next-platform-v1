@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation'
 import {
   CreateOrganizationUserDTO,
   CreateOrganizationUserDTOType,
-} from '@/app/api/organization-users/dto'
+} from '../../../dto'
 
 export default function CreateOrganizationUserForm() {
   const { data: users } = useFetch<UserType[] | any>('/api/users')

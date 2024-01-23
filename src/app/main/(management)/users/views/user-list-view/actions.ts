@@ -1,6 +1,6 @@
 'use server'
 
-import { CreateUserDTOType } from '@/app/api/users/dto'
+import { CreateUserDTOType } from '@/app/main/(management)/users/dto'
 import { prisma } from '@/libraries/prisma'
 
 export async function actionCreateUser(

@@ -1,5 +1,5 @@
 import { prisma } from '@/libraries/prisma'
-import { SignUpDTO, SignUpDTOType } from './dto'
+import { SignUpDTO, SignUpDTOType } from '@/app/main/(auth)/registrar-se/dto'
 import { Prisma } from '@prisma/client'
 import { hashSync } from 'bcrypt'
 

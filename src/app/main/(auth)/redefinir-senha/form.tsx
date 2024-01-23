@@ -4,11 +4,8 @@ import { actionResetPassword } from './actions'
 import { Button, Input } from '@material-tailwind/react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import {
-  ResetPasswordDTO,
-  ResetPasswordDTOType,
-} from '@/app/api/reset-password/dto'
 import toast from 'react-hot-toast'
+import { ResetPasswordDTOType, ResetPasswordDTO } from './dto'
 
 export default function ResetPasswordForm() {
   const {

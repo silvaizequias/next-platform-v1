@@ -5,7 +5,7 @@ import { Button, Input, Option, Select } from '@material-tailwind/react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { CreateUserDTO, CreateUserDTOType } from '@/app/api/users/dto'
+import { CreateUserDTO, CreateUserDTOType } from '@/app/main/(management)/users/dto'
 
 export default function CreateUserForm() {
   const router = useRouter()

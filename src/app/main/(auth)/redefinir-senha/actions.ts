@@ -1,6 +1,6 @@
 'use server'
 
-import { ResetPasswordDTOType } from '@/app/api/reset-password/dto'
+import { ResetPasswordDTOType } from './dto'
 
 export async function actionResetPassword(
   inputs: ResetPasswordDTOType,

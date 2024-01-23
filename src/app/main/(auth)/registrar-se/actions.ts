@@ -1,6 +1,6 @@
 'use server'
 
-import { SignUpDTOType } from '@/app/api/signup/dto'
+import { SignUpDTOType } from './dto'
 
 export async function actionSignUp(inputs: SignUpDTOType): Promise<any> {
   try {

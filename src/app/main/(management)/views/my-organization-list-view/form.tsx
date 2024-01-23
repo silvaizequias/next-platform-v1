@@ -4,14 +4,14 @@ import { Button, Input } from '@material-tailwind/react'
 import { actionCreateMyOrganization } from './actions'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import {
-  CreateOrganizationDTO,
-  CreateOrganizationDTOType,
-} from '@/app/api/organizations/dto'
 import { Session } from 'next-auth'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 import useFetch from '@/hooks/use-fetch'
+import {
+  CreateOrganizationDTOType,
+  CreateOrganizationDTO,
+} from '../../organizations/dto'
 
 interface Props {
   session: Session

@@ -1,9 +1,9 @@
 'use server'
 
 import { prisma } from '@/libraries/prisma'
-import { CreateOrganizationDTOType } from '@/app/api/organizations/dto'
 import { Session } from 'next-auth'
 import { Prisma } from '@prisma/client'
+import { CreateOrganizationDTOType } from '../../organizations/dto'
 
 export async function actionCreateMyOrganization(
   inputs: CreateOrganizationDTOType,

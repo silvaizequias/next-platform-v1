@@ -1,5 +1,8 @@
 import { prisma } from '@/libraries/prisma'
-import { ResetPasswordDTO, ResetPasswordDTOType } from './dto'
+import {
+  ResetPasswordDTO,
+  ResetPasswordDTOType,
+} from '@/app/main/(auth)/redefinir-senha/dto'
 import { Prisma } from '@prisma/client'
 
 export async function POST(request: Request) {
@@ -16,7 +19,9 @@ export async function POST(request: Request) {
 
       if (!user)
         return new Response(
-          JSON.stringify(`o número ${phone} não possui registro ativo na plataforma`),
+          JSON.stringify(
+            `o número ${phone} não possui registro ativo na plataforma`,
+          ),
           { status: 404 },
         )
 

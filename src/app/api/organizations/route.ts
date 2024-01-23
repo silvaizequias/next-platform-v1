@@ -1,6 +1,9 @@
 import { prisma } from '@/libraries/prisma'
 import { Prisma } from '@prisma/client'
-import { CreateOrganizationDTOType, CreateOrganizationDTO } from './dto'
+import {
+  CreateOrganizationDTOType,
+  CreateOrganizationDTO,
+} from '@/app/main/(management)/organizations/dto'
 
 export async function GET(request: Request) {
   try {

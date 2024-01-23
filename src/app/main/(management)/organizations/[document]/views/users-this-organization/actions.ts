@@ -1,7 +1,7 @@
 'use server'
 
-import { CreateOrganizationUserDTOType } from '@/app/api/organization-users/dto'
 import { prisma } from '@/libraries/prisma'
+import { CreateOrganizationUserDTOType } from '../../../dto'
 
 export default async function actionCreateOrganizationUser(
   inputs: CreateOrganizationUserDTOType,

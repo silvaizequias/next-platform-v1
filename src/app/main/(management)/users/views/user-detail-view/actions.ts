@@ -1,6 +1,6 @@
 'use server'
 
-import { UpdateUserDTOType } from '@/app/api/users/dto'
+import { UpdateUserDTOType } from '@/app/main/(management)/users/dto'
 import { prisma } from '@/libraries/prisma'
 
 export async function actionUpdateUser(

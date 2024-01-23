@@ -6,10 +6,7 @@ import { Button, Input } from '@material-tailwind/react'
 import { useRouter } from 'next/navigation'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import {
-  UpdateOrganizationDTO,
-  UpdateOrganizationDTOType,
-} from '@/app/api/organizations/dto'
+import { UpdateOrganizationDTOType, UpdateOrganizationDTO } from '../../dto'
 
 interface Props {
   organization: OrganizationType
