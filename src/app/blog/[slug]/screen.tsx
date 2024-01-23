@@ -22,17 +22,17 @@ export default function PublicationScreen(props: Props) {
     <div className="min-h-screen flex flex-col items-center">
       <div className="z-auto overflow-hidden w-full">
         <div style={style} className="m-0 w-full bg-cover bg-center">
-          <div className="z-auto pt-16 h-80 mx-auto relative block backdrop-brightness-50 backdrop-blur-sm">
-            <div className="min-h-full px-10 flex flex-col justify-center items-center">
-              <div className="mx-auto text-center">
-                <h4 className="font-bold text-2xl sm:text-4xl md:text-6xl lowercase tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-blue-400">
-                  {publication?.title}
-                </h4>
-              </div>
-              <div className="mx-auto my-6 px-8 sm:px-16 text-center">
-                <h6 className="font-semibold text-sm sm:text-base text-slate-200 uppercase">
-                  {publication?.subject}
-                </h6>
+          <div className="relative block backdrop-brightness-50 backdrop-blur-sm">
+            <div className="z-auto p-16 min-h-80 h-auto max-w-sm sm:max-w-4xl mx-auto">
+              <div className="w-full flex flex-1 justify-center">
+                <div className="flex flex-col items-center gap-2">
+                  <h2 className="font-bold text-center text-2xl sm:text-4xl md:text-6xl lowercase tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-blue-400">
+                    {publication?.title}
+                  </h2>
+                  <h6 className="font-semibold text-center text-xs sm:text-base text-slate-200 uppercase">
+                    {publication?.subject}
+                  </h6>
+                </div>
               </div>
             </div>
           </div>
