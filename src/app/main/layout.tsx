@@ -1,3 +1,4 @@
+import Appbar from '@/components/app-bar'
 import Topbar from '@/components/top-bar'
 import { nextAuthOptions } from '@/libraries/next-auth'
 import { getServerSession } from 'next-auth'
@@ -9,9 +10,14 @@ export default async function MainLayout({
   children: ReactNode
 }) {
   const session = await getServerSession(nextAuthOptions)
+
   return (
     <Fragment>
-      {session && <Topbar />}
+      {session && (
+        <Topbar>
+          <Appbar session={session!} />
+        </Topbar>
+      )}
       <div className={session ? 'pt-16' : 'pt-0'}>{children}</div>
       <div className="flex justify-center w-full py-8">
         <div className="flex flex-col max-w-sm sm:max-w-4xl w-full border-t-sky-800 dark:border-t-sky-600 border-opacity-20 dark:border-opacity-20  border-t-[0.01rem] border-spacing-4">
