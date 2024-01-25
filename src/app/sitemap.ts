@@ -1,7 +1,6 @@
 import { headers } from 'next/headers'
-import { PublicationType } from './main/(management)/publications/types'
-import { actionGetPublications } from './main/(management)/publications/actions'
-
+import { actionGetPublications } from './blog/actions'
+import { PublicationType } from './blog/types'
 
 export default async function Sitemap() {
   const headersList = headers()

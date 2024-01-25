@@ -1,10 +1,9 @@
 import { NextAuthOptions, User } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { compareSync } from 'bcrypt'
-import { prisma } from '@/libraries/prisma'
 import { JWT } from 'next-auth/jwt'
 
 const SECRET = process.env.SECRET!
+const PLATFORM_MANAGEMENT_URL = process.env.PLATFORM_MANAGEMENT_URL!
 
 export const nextAuthOptions: NextAuthOptions = {
   secret: SECRET,
@@ -15,20 +14,23 @@ export const nextAuthOptions: NextAuthOptions = {
         password: { type: 'password' },
       },
       async authorize(credentials): Promise<any> {
-        const user = await prisma.user.findFirst({
-          where: { softDeleted: false, phone: credentials?.phone },
+        const data = await fetch(`${PLATFORM_MANAGEMENT_URL}/auth/sign-in`, {
+          method: 'POST',
+          body: JSON.stringify({
+            phone: credentials?.phone,
+            password: credentials?.password,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
         })
-        if (!user)
-          throw new Error(
-            `o celular ${credentials?.phone} não existe no sistema`,
-          )
+        const response = await data.json()
+        if (!response?.authorization) throw new Error(response.message)
 
-        const comparePass = compareSync(credentials?.password!, user.passHash!)
-        if (!comparePass) throw new Error('a senha está incorreta')
-
-        if (user && user.suspended) throw new Error('esse acesso está suspenso')
-
-        return user
+        return {
+          ...response,
+          authorization: response?.authorization,
+        }
       },
     }),
   ],
@@ -39,38 +41,18 @@ export const nextAuthOptions: NextAuthOptions = {
     updateAge: 24 * 60 * 60,
   },
   callbacks: {
-    jwt: async ({ token, user }: { token: JWT; user: User }) => {
-      if (!user) {
-        const user = await prisma.user.findFirst({
-          where: { email: token.email! },
-        })
-        if (user) {
-          token.email = user.email
-        }
-        return token
+    jwt: async ({ token, user }: { token: JWT; user: User | any }) => {
+      if (user) {
+        token = user
       }
 
       return {
-        id: user.id,
-        profile: user.profile,
-        active: user.active,
-        subscriber: user.subscriber,
-        picture: user.image,
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
+        ...token,
       }
     },
     session: async ({ session, token }) => {
       if (token) {
-        session.user.id = token.id
-        session.user.profile = token.profile
-        session.user.active = token.active
-        session.user.subscriber = token.subscriber
-        session.user.image = token.picture
-        session.user.name = token.name
-        session.user.email = token.email
-        session.user.phone = token.phone
+        session.user = token
       }
       return session
     },

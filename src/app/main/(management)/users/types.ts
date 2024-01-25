@@ -1,4 +1,3 @@
-import { UserProfile } from '@prisma/client'
 import { OrganizationUsersType } from '../organizations/types'
 
 export type UserType = {
@@ -10,14 +9,12 @@ export type UserType = {
   active: boolean
   subscriber: boolean
   suspended: boolean
-  api: string
-  profile: UserProfile
+  profile: 'guest' | 'consumer' | 'member' | 'master'
   name: string
   image: string
   email: string
   phone: string
-  documentType: 'cpf' | 'cnpj'
-  documentCode: string
+  document: string
   accessCode: string
   passHash: string
   zipCode: string

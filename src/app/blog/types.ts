@@ -1,5 +1,3 @@
-import { DomainType } from "../domains/types"
-
 export type PublicationType = {
   id: string
   createdAt: Date
@@ -20,5 +18,4 @@ export type PublicationType = {
   content: string
   keywords: string
   author: string
-  domain: DomainType
 }

@@ -5,7 +5,6 @@ import {
   DialogBody,
   DialogHeader,
   IconButton,
-  Typography,
 } from '@material-tailwind/react'
 import { ReactNode } from 'react'
 
@@ -40,9 +39,7 @@ export default function DialogModal(props: Props) {
         </DialogHeader>
       </div>
       <DialogBody className="flex flex-col justify-center items-center gap-2">
-        <Typography variant="h6" className="text-center italic lowercase">
-          {content}
-        </Typography>
+        <h6 className="text-center text-md italic lowercase">{content}</h6>
         {children}
       </DialogBody>
     </Dialog>

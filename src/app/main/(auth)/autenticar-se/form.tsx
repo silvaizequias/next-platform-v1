@@ -26,7 +26,7 @@ export default function SignInForm() {
       password: inputs?.password,
     }).then((res: any) => {
       if (!res.ok) {
-        toast.error(res.error)
+        toast.error(res?.error)
       } else {
         toast.success('boas vindas a dedicado')
         router.refresh()

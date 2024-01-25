@@ -1,14 +1,11 @@
 import * as z from 'zod'
 
-const DOCUMENT_TYPE = ['cpf', 'cnpj'] as const
-
 export const UpdateProfileInformationDTO = z.object({
   name: z.string().min(5).max(140).optional(),
   image: z.string().optional(),
   email: z.string().email().optional(),
   phone: z.string().min(10).max(14).optional(),
-  documentType: z.enum(DOCUMENT_TYPE).optional(),
-  documentCode: z.string().min(11).max(14).optional(),
+  document: z.string().min(11).max(14).optional(),
   zipCode: z.string().length(8).optional(),
   street: z.string().optional(),
   complement: z.string().optional(),

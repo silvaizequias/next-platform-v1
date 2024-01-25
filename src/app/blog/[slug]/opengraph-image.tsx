@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { ImageResponse } from 'next/og'
-import { actionGetPublicationByParams } from '@/app/main/(management)/publications/actions'
-import { PublicationType } from '@/app/main/(management)/publications/types'
+import { PublicationType } from '../types'
+import { actionGetPublicationByParams } from './actions'
 
 export const runtime = 'edge'
 
