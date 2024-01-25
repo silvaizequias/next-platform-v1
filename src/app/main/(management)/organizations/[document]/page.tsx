@@ -1,7 +1,7 @@
 import { nextAuthOptions } from '@/libraries/next-auth'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
-import actionGetOrganizationByParams from './actions'
+import actionGetOrganizationByDocument from './actions'
 import { OrganizationType } from '../types'
 import { redirect } from 'next/navigation'
 import PageScreen from '@/components/page-screen'
@@ -14,7 +14,7 @@ export async function generateMetadata({
 }): Promise<Metadata | null> {
   const { document } = params
   const organization: OrganizationType | any =
-    await actionGetOrganizationByParams(document)
+    await actionGetOrganizationByDocument(document)
   return organization
     ? { title: `Detalhes da Organização ${organization?.name}` }
     : null
@@ -27,7 +27,7 @@ export default async function OrganizationOnlyPage({
 }) {
   const { document } = params
   const organization: OrganizationType | any =
-    await actionGetOrganizationByParams(document)
+    await actionGetOrganizationByDocument(document)
   const session = await getServerSession(nextAuthOptions)
 
   return session

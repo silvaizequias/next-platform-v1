@@ -5,6 +5,7 @@ import { Button, Input } from '@material-tailwind/react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SignUpDTOType, SignUpDTO } from './dto'
+import toast from 'react-hot-toast'
 
 export default function SignUpForm() {
   const {
@@ -17,7 +18,11 @@ export default function SignUpForm() {
 
   const onSubmit: SubmitHandler<SignUpDTOType> = async (inputs) => {
     const result = await actionSignUp(inputs)
-    console.log(result)
+    if (result?.response?.error) {
+      toast.error(result?.message)
+    } else {
+      toast.success(result)
+    }
   }
 
   return (

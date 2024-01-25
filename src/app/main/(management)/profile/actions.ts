@@ -1,11 +1,13 @@
-import { prisma } from '@/libraries/prisma'
+'use server'
+
+import { Session } from 'next-auth'
 
 const PLATFORM_MANAGEMENT_URL = process.env.PLATFORM_MANAGEMENT_URL!
 
-export default async function actionGetOrganizationByDocument(document: string) {
+export async function actionGetProfile(session: Session) {
   try {
     const data = await fetch(
-      `${PLATFORM_MANAGEMENT_URL}/organizations/document/${document}`,
+      `${PLATFORM_MANAGEMENT_URL}/users/${session?.user?.id}`,
       {
         method: 'GET',
         headers: {
@@ -16,9 +18,6 @@ export default async function actionGetOrganizationByDocument(document: string) 
 
     return await data.json()
   } catch (error: any) {
-    await prisma.$disconnect()
     throw new Error(error)
-  } finally {
-    await prisma.$disconnect()
   }
 }

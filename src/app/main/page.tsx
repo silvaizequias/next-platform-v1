@@ -5,9 +5,12 @@ import AuthDialog from '@/components/auth-dialog'
 import Box from '@/components/box'
 import FullScreen from '@/components/full-screen'
 import PageScreen from '@/components/page-screen'
+import { actionGetMyOrganizations } from './(management)/organizations/actions'
+import { OrganizationUsersType } from './(management)/organizations/types'
 
 export default async function MainPage() {
   const session = await getServerSession(nextAuthOptions)
+  const myOrganizations: OrganizationUsersType[] = await actionGetMyOrganizations(session!)
 
   const logotipo = '/logotipo.svg'
 
