@@ -1,10 +1,10 @@
 import { nextAuthOptions } from '@/libraries/next-auth'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
-import Box from '@/components/box'
 import PageScreen from '@/components/page-screen'
 import { OrganizationType } from './types'
 import { actionGetOrganizations } from './actions'
+import OrganizationListView from './views/OrganizationListView'
 
 export default async function OrganizationPage() {
   const session = await getServerSession(nextAuthOptions)
@@ -12,9 +12,7 @@ export default async function OrganizationPage() {
 
   return session ? (
     <PageScreen title="organziações da plataforma">
-      <Box>
-        <div className="w-full">...</div>
-      </Box>
+      <OrganizationListView data={organizations} />
     </PageScreen>
   ) : (
     redirect('/')

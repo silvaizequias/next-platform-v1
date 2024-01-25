@@ -33,3 +33,11 @@ export type OrganizationUsersType = {
   organization: OrganizationType
   organizationId: string
 }
+
+export interface OrganizationProps {
+  data: OrganizationType | OrganizationType[] | any
+}
+
+export interface MyOrganizationProps {
+  data: OrganizationUsersType | OrganizationUsersType[] | any
+}
