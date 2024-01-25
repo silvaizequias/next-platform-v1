@@ -1,3 +1,4 @@
+import Topbar from '@/components/top-bar'
 import { Metadata } from 'next'
 import { Fragment, ReactNode } from 'react'
 
@@ -37,7 +38,8 @@ export const metadata: Metadata = {
 export default function BlogLayout({ children }: { children: ReactNode }) {
   return (
     <Fragment>
-      {children}
+      <Topbar />
+      <div className="pt-0">{children}</div>
       <div className="flex justify-center w-full py-8">
         <div className="flex flex-col max-w-sm sm:max-w-4xl w-full border-t-sky-800 dark:border-t-sky-600 border-opacity-20 dark:border-opacity-20  border-t-[0.01rem] border-spacing-4">
           <h6 className="mt-4 text-center font-medium text-base">

@@ -7,14 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum UserProfile {
-  guest
-  consumer
-  member
-  master
-}
-
-model User {
+model Legal {
   id String @id @default(cuid())
 
   createdAt DateTime  @default(now()) @map("created_at")
@@ -22,84 +15,6 @@ model User {
   deletedAt DateTime? @map("deleted_at") @db.Date
 
   softDeleted Boolean? @default(false) @map("soft_deleted")
-  active      Boolean? @default(true)
-  subscriber  Boolean? @default(false)
-  suspended   Boolean? @default(false)
 
-  profile      UserProfile? @default(guest)
-  name         String?
-  image        String?
-  email        String?      @unique
-  phone        String       @unique
-  documentType String?
-  documentCode String?      @unique
-  accessCode   String?
-  passHash     String?      @unique
-  zipCode      String?
-  street       String?
-  complement   String?
-
-  latitude  Float? @db.DoublePrecision
-  longitude Float? @db.DoublePrecision
-
-  organizations OrganizationUsers[]
-
-  @@map("users")
-}
-
-enum UserRole {
-  client
-  assistant
-  technician
-  administrator
-  owner
-}
-
-model OrganizationUsers {
-  id String @id @default(cuid())
-
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @updatedAt @map("updated_at")
-  deletedAt DateTime? @map("deleted_at") @db.Date
-
-  softDeleted Boolean? @default(false) @map("soft_deleted")
-  active      Boolean? @default(true)
-
-  role UserRole? @default(client)
-
-  userId String @map("user_id")
-  user   User   @relation(fields: [userId], references: [id], onUpdate: Cascade)
-
-  organizationId String       @map("organization_id")
-  organization   Organization @relation(fields: [organizationId], references: [id], onUpdate: Cascade)
-
-  @@index([userId, organizationId])
-  @@map("organization_users")
-}
-
-model Organization {
-  id String @id @default(cuid())
-
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @updatedAt @map("updated_at")
-  deletedAt DateTime? @map("deleted_at") @db.Date
-
-  softDeleted Boolean? @default(false) @map("soft_deleted")
-  active      Boolean? @default(true)
-
-  name         String?
-  image        String?
-  email        String? @unique
-  phone        String? @unique
-  documentCode String  @unique
-  zipCode      String?
-  street       String?
-  complement   String?
-
-  latitude  Float? @db.DoublePrecision
-  longitude Float? @db.DoublePrecision
-
-  users OrganizationUsers[]
-
-  @@map("organizations")
+  @@map("legals")
 }

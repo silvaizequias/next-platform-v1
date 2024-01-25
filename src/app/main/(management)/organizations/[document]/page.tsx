@@ -3,7 +3,9 @@ import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import actionGetOrganizationByParams from './actions'
 import { OrganizationType } from '../types'
-import OrganizationOnlyScreen from './screen'
+import { redirect } from 'next/navigation'
+import PageScreen from '@/components/page-screen'
+import Box from '@/components/box'
 
 export async function generateMetadata({
   params,
@@ -28,5 +30,13 @@ export default async function OrganizationOnlyPage({
     await actionGetOrganizationByParams(document)
   const session = await getServerSession(nextAuthOptions)
 
-  return organization && <OrganizationOnlyScreen organization={organization} />
+  return session
+    ? organization && (
+        <PageScreen title={organization?.name}>
+          <Box>
+            <div className="w-full">...</div>
+          </Box>
+        </PageScreen>
+      )
+    : redirect('/')
 }

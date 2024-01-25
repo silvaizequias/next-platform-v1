@@ -1,9 +1,19 @@
 import { nextAuthOptions } from '@/libraries/next-auth'
 import { getServerSession } from 'next-auth'
-import ProfileScreen from './screen'
+import { redirect } from 'next/navigation'
+import Box from '@/components/box'
+import PageScreen from '@/components/page-screen'
 
 export default async function ProfilePage() {
   const session = await getServerSession(nextAuthOptions)
-  
-  return <ProfileScreen />
+
+  return session ? (
+    <PageScreen title="meu perfil">
+      <Box>
+        <div className="w-full">...</div>
+      </Box>
+    </PageScreen>
+  ) : (
+    redirect('/')
+  )
 }

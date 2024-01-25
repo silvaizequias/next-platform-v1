@@ -1,36 +1,20 @@
 import { prisma } from '@/libraries/prisma'
 
+const PLATFORM_MANAGEMENT_URL = process.env.PLATFORM_MANAGEMENT_URL!
+
 export default async function actionGetOrganizationByParams(document: string) {
   try {
-    const organization = await prisma.organization.findFirst({
-      where: { documentCode: document, softDeleted: false },
-      include: {
-        users: {
-          select: {
-            id: true,
-            createdAt: true,
-            role: true,
-            active: true,
-            user: {
-              select: {
-                id: true,
-                active: true,
-                subscriber: true,
-                suspended: true,
-                profile: true,
-                image: true,
-                name: true,
-                phone: true,
-                email: true,
-              },
-            },
-          },
+    const data = await fetch(
+      `${PLATFORM_MANAGEMENT_URL}/organizations/document/${document}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
         },
       },
-    })
-    if (!organization) return 'a organização não existe na plataforma'
+    )
 
-    return organization
+    return await data.json()
   } catch (error: any) {
     await prisma.$disconnect()
     throw new Error(error)

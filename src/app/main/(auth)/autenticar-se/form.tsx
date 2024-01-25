@@ -3,10 +3,10 @@
 import { Button, Input } from '@material-tailwind/react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { SignInDTO, SignInDTOType } from '@/app/api/signin/dto'
 import { signIn } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
+import { SignInDTOType, SignInDTO } from './dto'
 
 export default function SignInForm() {
   const router = useRouter()
@@ -26,7 +26,7 @@ export default function SignInForm() {
       password: inputs?.password,
     }).then((res: any) => {
       if (!res.ok) {
-        toast.error(res.error)
+        toast.error(res?.error)
       } else {
         toast.success('boas vindas a dedicado')
         router.refresh()

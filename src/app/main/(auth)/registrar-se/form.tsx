@@ -4,9 +4,7 @@ import { actionSignUp } from './actions'
 import { Button, Input } from '@material-tailwind/react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { SignUpDTO, SignUpDTOType } from '@/app/api/signup/dto'
-
-const initialState = {}
+import { SignUpDTOType, SignUpDTO } from './dto'
 
 export default function SignUpForm() {
   const {

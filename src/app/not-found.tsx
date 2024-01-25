@@ -2,7 +2,6 @@
 
 import FullScreen from '@/components/full-screen'
 import { Button } from '@material-tailwind/react'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 export default function NotFound() {
