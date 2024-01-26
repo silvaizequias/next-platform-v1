@@ -1,17 +1,18 @@
 import { nextAuthOptions } from '@/libraries/next-auth'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
-import Box from '@/components/box'
 import PageScreen from '@/components/page-screen'
+import { OrganizationType } from './types'
+import { actionGetOrganizations } from './actions'
+import OrganizationListView from './views/OrganizationListView'
 
 export default async function OrganizationPage() {
   const session = await getServerSession(nextAuthOptions)
+  const organizations: OrganizationType[] = await actionGetOrganizations(session!)
 
   return session ? (
-    <PageScreen title="organziações do sistema">
-      <Box>
-        <div className="w-full">...</div>
-      </Box>
+    <PageScreen title="organziações da plataforma">
+      <OrganizationListView data={organizations} />
     </PageScreen>
   ) : (
     redirect('/')

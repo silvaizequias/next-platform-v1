@@ -17,7 +17,7 @@ export type OrganizationType = {
   complement: string
   latitude: number
   longitude: number
-  users: OrganizationUsersType[]
+  users: OrganizationUsersType[] | any
 }
 
 export type OrganizationUsersType = {
@@ -32,4 +32,16 @@ export type OrganizationUsersType = {
   userId: string
   organization: OrganizationType
   organizationId: string
+}
+
+export interface OrganizationProps {
+  data: OrganizationType[] | OrganizationType | any
+}
+
+export interface MyOrganizationProps {
+  data: OrganizationUsersType[] | OrganizationUsersType | any
+}
+
+export interface MyOrganizationUsersProps {
+  data: OrganizationUsersType[] | OrganizationUsersType | any
 }

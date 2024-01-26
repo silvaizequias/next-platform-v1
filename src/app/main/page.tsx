@@ -5,16 +5,27 @@ import AuthDialog from '@/components/auth-dialog'
 import Box from '@/components/box'
 import FullScreen from '@/components/full-screen'
 import PageScreen from '@/components/page-screen'
+import { actionGetMyOrganizations } from './(management)/organizations/actions'
+import { OrganizationUsersType } from './(management)/organizations/types'
+import MyOrganizationListView from './(management)/organizations/views/MyOrganizationListView'
 
 export default async function MainPage() {
   const session = await getServerSession(nextAuthOptions)
+  const myOrganizations: OrganizationUsersType[] =
+    await actionGetMyOrganizations(session!)
 
   const logotipo = '/logotipo.svg'
 
   return session ? (
     <PageScreen title="plataforma dedicado">
       <Box>
-        <div className="w-full">...</div>
+        <div className="w-full">
+          <h6 className="text-lg">organizações</h6>
+          <MyOrganizationListView data={myOrganizations} />
+        </div>
+        <div className="w-full">
+          <h6 className="text-lg">assinaturas de serviços</h6>
+        </div>
       </Box>
     </PageScreen>
   ) : (

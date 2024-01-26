@@ -9,7 +9,7 @@ import {
   Typography,
   IconButton,
 } from '@material-tailwind/react'
-import { BuildingOfficeIcon, Squares2X2Icon } from '@heroicons/react/24/outline'
+import { Bars3Icon, BuildingOfficeIcon } from '@heroicons/react/24/outline'
 import { useCallback, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
@@ -40,7 +40,7 @@ export default function MegaMenu(props: Props) {
       >
         <MenuHandler>
           <IconButton variant="text" color="blue-gray" className="rounded-full">
-            <Squares2X2Icon className="h-6 w-6" />
+            <Bars3Icon className="h-6 w-6" />
           </IconButton>
         </MenuHandler>
         <MenuList>

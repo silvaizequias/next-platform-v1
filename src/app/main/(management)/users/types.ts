@@ -24,3 +24,7 @@ export type UserType = {
   longitude: number
   organizations: OrganizationUsersType[]
 }
+
+export interface UserProps {
+  data: UserType | UserType[] | any
+}

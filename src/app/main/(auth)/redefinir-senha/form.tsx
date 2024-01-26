@@ -18,10 +18,10 @@ export default function ResetPasswordForm() {
 
   const onSubmit: SubmitHandler<ResetPasswordDTOType> = async (inputs) => {
     const result = await actionResetPassword(inputs)
-    if (result.status !== 201) {
+    if (result?.response?.error) {
       toast.error(result.message)
     } else {
-      toast.success(result.message)
+      toast.success(result)
     }
   }
 
@@ -43,7 +43,7 @@ export default function ResetPasswordForm() {
         crossOrigin={undefined}
         {...register('phone')}
       />
-      {errors && errors?.phone && (
+      {errors && (
         <span className="text-xs text-red-400 italic font-thin">
           {errors?.phone?.message}
         </span>

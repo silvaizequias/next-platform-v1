@@ -1,17 +1,18 @@
 import { nextAuthOptions } from '@/libraries/next-auth'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
-import Box from '@/components/box'
 import PageScreen from '@/components/page-screen'
+import { actionGetUsers } from './actions'
+import { UserType } from './types'
+import UserListView from './views/UserListView'
 
 export default async function UserPage() {
   const session = await getServerSession(nextAuthOptions)
+  const users: UserType[] = await actionGetUsers(session!)
 
   return session ? (
-    <PageScreen title="gestão de usuários">
-      <Box>
-        <div className="w-full">...</div>
-      </Box>
+    <PageScreen title="usuários da plataforma">
+      <UserListView data={users} />
     </PageScreen>
   ) : (
     redirect('/')
