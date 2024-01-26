@@ -1,9 +1,11 @@
 'use server'
 
+import { Session } from "next-auth"
+
 const PLATFORM_MANAGEMENT_URL = process.env.PLATFORM_MANAGEMENT_URL!
 
 export default async function actionGetOrganizationByDocument(
-  document: string,
+  document: string, session?: Session
 ) {
   try {
     const data = await fetch(
@@ -12,6 +14,7 @@ export default async function actionGetOrganizationByDocument(
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${session?.user?.authorization}`,
         },
       },
     )

@@ -12,6 +12,7 @@ export async function actionGetMyOrganizations(session: Session) {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${session?.user?.authorization}`,
         },
       },
     )
@@ -24,12 +25,13 @@ export async function actionGetMyOrganizations(session: Session) {
   }
 }
 
-export async function actionGetOrganizations() {
+export async function actionGetOrganizations(session: Session) {
   try {
     const data = await fetch(`${PLATFORM_MANAGEMENT_URL}/organizations`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${session?.user?.authorization}`,
       },
     })
 

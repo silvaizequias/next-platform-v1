@@ -9,7 +9,7 @@ import { actionGetOrganizationKeys } from './actions'
 export default async function AuthorizationPage() {
   const session = await getServerSession(nextAuthOptions)
   const organizationKeys: OrganizationKeyType[] =
-    await actionGetOrganizationKeys()
+    await actionGetOrganizationKeys(session!)
 
   return session ? (
     <PageScreen title="autorizações de acesso da plataforma">

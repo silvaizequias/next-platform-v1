@@ -8,7 +8,7 @@ import UserListView from './views/UserListView'
 
 export default async function UserPage() {
   const session = await getServerSession(nextAuthOptions)
-  const users: UserType[] = await actionGetUsers()
+  const users: UserType[] = await actionGetUsers(session!)
 
   return session ? (
     <PageScreen title="usuários da plataforma">

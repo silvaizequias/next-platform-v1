@@ -1,17 +1,44 @@
 'use server'
 
+import { Session } from 'next-auth'
+import { CreateUserDTO, CreateUserDTOType } from './dto'
+
 const PLATFORM_MANAGEMENT_URL = process.env.PLATFORM_MANAGEMENT_URL!
 
-export async function actionGetUsers() {
+export async function actionGetUsers(session: Session) {
   try {
     const data = await fetch(`${PLATFORM_MANAGEMENT_URL}/users`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${session?.user?.authorization}`,
       },
     })
 
-    return data && await data.json()
+    return data && (await data.json())
+  } catch (error: any) {
+    return new Response(JSON.stringify(error?.message || error), {
+      status: error?.status || 400,
+    })
+  }
+}
+
+export async function actionCreateUser(
+  session: Session,
+  inputs: CreateUserDTOType,
+) {
+  try {
+    if (await CreateUserDTO.parseAsync(inputs)) {
+      const data = await fetch(`${PLATFORM_MANAGEMENT_URL}/users`, {
+        method: 'POST',
+        body: JSON.stringify(inputs),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session?.user?.authorization}`,
+        },
+      })
+      return data && (await data.json())
+    }
   } catch (error: any) {
     return new Response(JSON.stringify(error?.message || error), {
       status: error?.status || 400,

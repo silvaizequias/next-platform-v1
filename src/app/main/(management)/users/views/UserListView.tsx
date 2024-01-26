@@ -14,7 +14,7 @@ import { UserProps, UserType } from '../types'
 import { Fragment, useCallback, useState } from 'react'
 import { PlusIcon } from '@heroicons/react/24/outline'
 import DialogModal from '@/components/dialog-modal'
-import UserFormView from './UserFormView'
+import UserCreateFormView from './UserCreateFormView'
 
 export default function UserListView(props: UserProps) {
   const { data: users } = props
@@ -61,9 +61,9 @@ export default function UserListView(props: UserProps) {
           open={openDialogModal}
           onClose={handleDialogModal}
           title="dedicado"
-          content="criar usuário"
+          content="criar usuário na plataforma"
         >
-          <UserFormView close={openDialogModal} />
+          <UserCreateFormView close={openDialogModal} />
         </DialogModal>
       </div>
       <List className="w-full">

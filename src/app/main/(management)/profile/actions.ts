@@ -12,6 +12,7 @@ export async function actionGetProfile(session: Session) {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${session?.user?.authorization}`,
         },
       },
     )

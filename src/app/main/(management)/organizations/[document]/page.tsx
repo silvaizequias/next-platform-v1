@@ -27,11 +27,12 @@ export default async function OrganizationOnlyPage({
 }: {
   params: { document: string }
 }) {
+  const session = await getServerSession(nextAuthOptions)
   const { document } = params
   const organization: OrganizationType = await actionGetOrganizationByDocument(
     document,
+    session!,
   )
-  const session = await getServerSession(nextAuthOptions)
 
   return session
     ? organization && (
