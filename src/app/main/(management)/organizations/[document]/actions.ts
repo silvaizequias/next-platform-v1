@@ -1,8 +1,10 @@
-import { prisma } from '@/libraries/prisma'
+'use server'
 
 const PLATFORM_MANAGEMENT_URL = process.env.PLATFORM_MANAGEMENT_URL!
 
-export default async function actionGetOrganizationByDocument(document: string) {
+export default async function actionGetOrganizationByDocument(
+  document: string,
+) {
   try {
     const data = await fetch(
       `${PLATFORM_MANAGEMENT_URL}/organizations/document/${document}`,
@@ -14,11 +16,10 @@ export default async function actionGetOrganizationByDocument(document: string) 
       },
     )
 
-    return await data.json()
+    return data && await data.json()
   } catch (error: any) {
-    await prisma.$disconnect()
-    throw new Error(error)
-  } finally {
-    await prisma.$disconnect()
+    return new Response(JSON.stringify(error?.message || error), {
+      status: error?.status || 400,
+    })
   }
 }

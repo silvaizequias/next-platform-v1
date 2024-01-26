@@ -16,8 +16,10 @@ export async function actionGetProfile(session: Session) {
       },
     )
 
-    return await data.json()
+    return data && await data.json()
   } catch (error: any) {
-    throw new Error(error)
+    return new Response(JSON.stringify(error?.message || error), {
+      status: error?.status || 400,
+    })
   }
 }

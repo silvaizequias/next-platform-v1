@@ -20,11 +20,11 @@ export default async function MainPage() {
     <PageScreen title="plataforma dedicado">
       <Box>
         <div className="w-full">
-          <h6 className='text-lg'>organizações</h6>
+          <h6 className="text-lg">organizações</h6>
           <MyOrganizationListView data={myOrganizations} />
         </div>
         <div className="w-full">
-          <h6 className='text-lg'>assinaturas de serviços</h6>
+          <h6 className="text-lg">assinaturas de serviços</h6>
         </div>
       </Box>
     </PageScreen>

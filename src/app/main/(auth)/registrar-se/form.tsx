@@ -6,8 +6,14 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SignUpDTOType, SignUpDTO } from './dto'
 import toast from 'react-hot-toast'
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 export default function SignUpForm() {
+  const randomCode = Math.random().toString(32).substr(2, 16)
+
+  const router = useRouter()
+
   const {
     register,
     handleSubmit,
@@ -17,11 +23,24 @@ export default function SignUpForm() {
   })
 
   const onSubmit: SubmitHandler<SignUpDTOType> = async (inputs) => {
-    const result = await actionSignUp(inputs)
+    console.log(inputs)
+    const result = await actionSignUp({ ...inputs, password: randomCode })
     if (result?.response?.error) {
       toast.error(result?.message)
     } else {
       toast.success(result)
+      await signIn('credentials', {
+        redirect: false,
+        phone: inputs?.phone,
+        password: randomCode,
+      }).then((res: any) => {
+        if (!res.ok) {
+          toast.error(res?.error)
+        } else {
+          toast.success(`boas vindas a dedicado ${inputs?.name}`)
+          router.refresh()
+        }
+      })
     }
   }
 
@@ -42,7 +61,7 @@ export default function SignUpForm() {
         crossOrigin={undefined}
         {...register('name')}
       />
-      {errors && errors?.name && (
+      {errors && (
         <span className="text-xs text-red-400 italic font-thin">
           {errors?.name?.message}
         </span>
@@ -57,7 +76,7 @@ export default function SignUpForm() {
         crossOrigin={undefined}
         {...register('phone')}
       />
-      {errors && errors?.phone && (
+      {errors && (
         <span className="text-xs text-red-400 italic font-thin">
           {errors?.phone?.message}
         </span>
@@ -72,7 +91,7 @@ export default function SignUpForm() {
         crossOrigin={undefined}
         {...register('email')}
       />
-      {errors && errors?.email && (
+      {errors && (
         <span className="text-xs text-red-400 italic font-thin">
           {errors?.email?.message}
         </span>

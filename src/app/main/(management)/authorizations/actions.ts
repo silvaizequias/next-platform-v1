@@ -11,7 +11,7 @@ export async function actionGetOrganizationKeys() {
       },
     })
 
-    return await data.json()
+    return data && (await data.json())
   } catch (error: any) {
     throw new Error(error)
   }

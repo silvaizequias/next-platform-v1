@@ -7,7 +7,6 @@ import { redirect } from 'next/navigation'
 import PageScreen from '@/components/page-screen'
 import Box from '@/components/box'
 import MyOrganizationUserListView from './views/MyOrganizationUserListView'
-import MyOrganizationUserFormView from './views/MyOrganizationUserFormView'
 import MyOrganizationDetailView from '../views/MyOrganizationDetailView'
 
 export async function generateMetadata({
@@ -19,7 +18,7 @@ export async function generateMetadata({
   const organization: OrganizationType | any =
     await actionGetOrganizationByDocument(document)
   return organization
-    ? { title: `Detalhes da Organização ${organization?.name}` }
+    ? { title: `detalhes da organização ${organization?.name}` }
     : null
 }
 
@@ -29,8 +28,9 @@ export default async function OrganizationOnlyPage({
   params: { document: string }
 }) {
   const { document } = params
-  const organization: OrganizationType | any =
-    await actionGetOrganizationByDocument(document)
+  const organization: OrganizationType = await actionGetOrganizationByDocument(
+    document,
+  )
   const session = await getServerSession(nextAuthOptions)
 
   return session
@@ -47,11 +47,9 @@ export default async function OrganizationOnlyPage({
               ...
             </div>
           </Box>
-          <div className="flex flex-auto justify-between items-center gap-2 shadow-md rounded-md bg-opacity-50 p-2">
-            <h6 className="text-lg">usuários da {organization?.name}</h6>
-            <MyOrganizationUserFormView />
+          <div className="py-4">
+            <MyOrganizationUserListView data={organization?.users} />
           </div>
-          <MyOrganizationUserListView data={organization} />
         </PageScreen>
       )
     : redirect('/')

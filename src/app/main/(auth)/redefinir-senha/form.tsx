@@ -43,7 +43,7 @@ export default function ResetPasswordForm() {
         crossOrigin={undefined}
         {...register('phone')}
       />
-      {errors && errors?.phone && (
+      {errors && (
         <span className="text-xs text-red-400 italic font-thin">
           {errors?.phone?.message}
         </span>
