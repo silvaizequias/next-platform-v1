@@ -15,7 +15,7 @@ export default function Topbar(props: Props) {
       <div className="h-14 mx-auto py-1">
         <div className="flex flex-row items-center justify-center min-h-full">
           <div className="flex flex-col max-w-sm sm:max-w-4xl w-full">
-            <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center justify-between gap-2 px-2">
               <Link href={'/'} className="flex items-center gap-2">
                 <Image
                   className="w-[17px] h-[25px]"
