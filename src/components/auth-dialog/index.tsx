@@ -2,7 +2,6 @@
 
 import { createElement, useCallback, useState } from 'react'
 import DialogModal from '../dialog-modal'
-import SignInForm from '@/app/main/(auth)/autenticar-se/form'
 import {
   Button,
   Tab,
@@ -11,9 +10,14 @@ import {
   TabsBody,
   TabsHeader,
 } from '@material-tailwind/react'
-import { ArrowRightEndOnRectangleIcon, IdentificationIcon, KeyIcon } from '@heroicons/react/24/outline'
-import SignUpForm from '@/app/main/(auth)/registrar-se/form'
-import ResetPasswordForm from '@/app/main/(auth)/redefinir-senha/form'
+import {
+  ArrowRightEndOnRectangleIcon,
+  IdentificationIcon,
+  KeyIcon,
+} from '@heroicons/react/24/outline'
+import SignInFormView from '@/app/main/(auth)/autenticar-se/views/SignInFormView'
+import SignUpFormView from '@/app/main/(auth)/registrar-se/views/SignUpFormView'
+import ResetPasswordFormView from '@/app/main/(auth)/redefinir-senha/views/ResetPasswordFormView'
 
 export default function AuthDialog() {
   const [openDialogAuth, setOpenDialogAuth] = useState<boolean>(false)
@@ -58,13 +62,13 @@ export default function AuthDialog() {
           </TabsHeader>
           <TabsBody>
             <TabPanel key={'sign-in'} value={'sign-in'}>
-              <SignInForm />
+              <SignInFormView close={handleDialogAuth} />
             </TabPanel>
             <TabPanel key={'sign-up'} value={'sign-up'}>
-              <SignUpForm />
+              <SignUpFormView close={handleDialogAuth} />
             </TabPanel>
             <TabPanel key={'reset-password'} value={'reset-password'}>
-              <ResetPasswordForm />
+              <ResetPasswordFormView close={handleDialogAuth} />
             </TabPanel>
           </TabsBody>
         </Tabs>

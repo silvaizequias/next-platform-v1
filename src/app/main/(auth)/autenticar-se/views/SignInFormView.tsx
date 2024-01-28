@@ -6,9 +6,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { signIn } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
-import { SignInDTOType, SignInDTO } from './dto'
+import { SignInDTOType, SignInDTO } from '../dto'
 
-export default function SignInForm() {
+export default function SignInFormView({ close }: { close: () => void }) {
   const router = useRouter()
 
   const {
@@ -26,8 +26,10 @@ export default function SignInForm() {
       password: inputs?.password,
     }).then((res: any) => {
       if (!res.ok) {
+        close()
         toast.error(res?.error)
       } else {
+        close()
         toast.success('boas vindas a dedicado')
         router.refresh()
       }

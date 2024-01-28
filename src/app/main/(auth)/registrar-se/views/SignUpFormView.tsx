@@ -1,15 +1,15 @@
 'use client'
 
-import { actionSignUp } from './actions'
+import { actionSignUp } from '../actions'
 import { Button, Input } from '@material-tailwind/react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { SignUpDTOType, SignUpDTO } from './dto'
+import { SignUpDTOType, SignUpDTO } from '../dto'
 import toast from 'react-hot-toast'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 
-export default function SignUpForm() {
+export default function SignUpFormView({ close }: { close: () => void }) {
   const randomCode = Math.random().toString(32).substr(2, 16)
 
   const router = useRouter()
@@ -35,8 +35,10 @@ export default function SignUpForm() {
         password: randomCode,
       }).then((res: any) => {
         if (!res.ok) {
+          close()
           toast.error(res?.error)
         } else {
+          close()
           toast.success(`boas vindas a dedicado ${inputs?.name}`)
           router.refresh()
         }

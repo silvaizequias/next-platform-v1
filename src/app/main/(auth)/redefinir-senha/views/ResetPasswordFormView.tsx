@@ -1,13 +1,17 @@
 'use client'
 
-import { actionResetPassword } from './actions'
+import { actionResetPassword } from '../actions'
 import { Button, Input } from '@material-tailwind/react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import toast from 'react-hot-toast'
-import { ResetPasswordDTOType, ResetPasswordDTO } from './dto'
+import { ResetPasswordDTOType, ResetPasswordDTO } from '../dto'
 
-export default function ResetPasswordForm() {
+export default function ResetPasswordFormView({
+  close,
+}: {
+  close: () => void
+}) {
   const {
     register,
     handleSubmit,
@@ -19,8 +23,10 @@ export default function ResetPasswordForm() {
   const onSubmit: SubmitHandler<ResetPasswordDTOType> = async (inputs) => {
     const result = await actionResetPassword(inputs)
     if (result?.response?.error) {
+      close()
       toast.error(result.message)
     } else {
+      close()
       toast.success(result)
     }
   }
