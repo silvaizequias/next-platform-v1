@@ -62,15 +62,20 @@ export default function MyOrganizationUserListView(
           open={openDialogModal}
           onClose={handleDialogModal}
           title="dedicado"
-          content="criar usuário"
+          content="adicionar usuário"
         >
-          <MyOrganizationUserFormView close={handleDialogModal} />
+          <MyOrganizationUserFormView
+            close={handleDialogModal}
+          />
         </DialogModal>
       </div>
       <List className="w-full">
         {users &&
           users?.map((organizationUser: OrganizationUsersType) => (
-            <ListItem key={organizationUser?.id} className="hover:shadow-sm">
+            <ListItem
+              key={organizationUser?.id}
+              className="hover:shadow-sm"
+            >
               <ListItemPrefix>
                 <Avatar
                   variant="circular"

@@ -1,25 +1,38 @@
 'use client'
 
 import { useSession } from 'next-auth/react'
+import { UserType } from '../types'
+import { UpdateUserDTO, UpdateUserDTOType } from '../dto'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { CreateUserDTO, CreateUserDTOType } from '../dto'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { actionCreateUser } from '../actions'
 import toast from 'react-hot-toast'
+import { actionUpdateUser } from '../actions'
 import { Button, Input } from '@material-tailwind/react'
 
-export default function UserCreateFormView({ close }: { close: () => void }) {
+export default function UserUpdateFormView(props: {
+  data: UserType
+  close: () => void
+}) {
+  const { data: user, close } = props
   const { data: session } = useSession()
 
   const {
     formState: { errors },
     handleSubmit,
     register,
-  } = useForm<CreateUserDTOType>({
-    resolver: zodResolver(CreateUserDTO),
+  } = useForm<UpdateUserDTOType>({
+    resolver: zodResolver(UpdateUserDTO),
+    defaultValues: {
+      //active: user?.active,
+      //suspended: user?.suspended,
+      //profile: user?.profile,
+      name: user?.name,
+      phone: user?.phone,
+      email: user?.email,
+    },
   })
-  const onSubmit: SubmitHandler<CreateUserDTOType> = async (inputs) => {
-    const result = await actionCreateUser(session!, inputs)
+  const onSubmit: SubmitHandler<UpdateUserDTOType> = async (inputs) => {
+    const result = await actionUpdateUser(session!, inputs, user?.id)
     if (result?.response?.error) {
       close()
       toast.error(result?.message)
@@ -34,18 +47,6 @@ export default function UserCreateFormView({ close }: { close: () => void }) {
       className="w-full flex flex-col gap-4 py-4"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <label htmlFor="profile">escolher um perfil</label>
-      <select
-        {...register('profile')}
-        id="profile"
-        className="block peer w-full rounded"
-      >
-        <option value={'guest'}>visitante</option>
-        <option value={'consumer'}>consumidor</option>
-        <option value={'member'}>membro</option>
-        <option value={'master'}>master</option>
-      </select>
-
       <Input
         color="light-blue"
         label="nome completo"
@@ -86,7 +87,7 @@ export default function UserCreateFormView({ close }: { close: () => void }) {
       )}
 
       <Button color="light-blue" type="submit">
-        criar usuário
+        atualizar usuário
       </Button>
     </form>
   )

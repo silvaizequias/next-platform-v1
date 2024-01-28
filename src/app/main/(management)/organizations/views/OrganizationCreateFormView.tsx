@@ -5,8 +5,14 @@ import { CreateOrganizationDTO, CreateOrganizationDTOType } from '../dto'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useSession } from 'next-auth/react'
 import { Button, Input } from '@material-tailwind/react'
+import { actionCreateOrganization } from '../actions'
+import toast from 'react-hot-toast'
 
-export default function MyOrganizationFormView({ close }: { close: boolean }) {
+export default function OrganizationCreateFormView({
+  close,
+}: {
+  close: () => void
+}) {
   const { data: session } = useSession()
   const {
     formState: { errors },
@@ -16,7 +22,14 @@ export default function MyOrganizationFormView({ close }: { close: boolean }) {
     resolver: zodResolver(CreateOrganizationDTO),
   })
   const onSubmit: SubmitHandler<CreateOrganizationDTOType> = async (inputs) => {
-    console.log(inputs)
+    const result = await actionCreateOrganization(session!, inputs)
+    if (result?.response?.error) {
+      close()
+      toast.error(result?.message)
+    } else {
+      toast.success(result)
+      close()
+    }
   }
   return (
     <form
@@ -115,7 +128,7 @@ export default function MyOrganizationFormView({ close }: { close: boolean }) {
       )}
 
       <Button color="light-blue" type="submit">
-        criar minha organização
+        criar organização
       </Button>
     </form>
   )

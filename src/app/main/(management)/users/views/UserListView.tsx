@@ -15,6 +15,7 @@ import { Fragment, useCallback, useState } from 'react'
 import { PlusIcon } from '@heroicons/react/24/outline'
 import DialogModal from '@/components/dialog-modal'
 import UserCreateFormView from './UserCreateFormView'
+import UserUpdateFormView from './UserUpdateFormView'
 
 export default function UserListView(props: UserProps) {
   const { data: users } = props
@@ -22,10 +23,24 @@ export default function UserListView(props: UserProps) {
   const avatar = '/avatar.svg'
 
   const [openDialogModal, setOpenDialogModal] = useState<boolean>(false)
+  const [openDialogUpdate, setOpenDialogUpdate] = useState<boolean>(false)
+  const [data, setData] = useState<any>(null)
 
   const handleDialogModal = useCallback(() => {
     setOpenDialogModal(!openDialogModal)
   }, [openDialogModal])
+
+  const handleDialogUpdate = useCallback(
+    (data: UserType) => {
+      data && setData(data)
+      setOpenDialogUpdate(!openDialogUpdate)
+    },
+    [openDialogUpdate],
+  )
+
+  const handleCloseDialog = useCallback(() => {
+    setOpenDialogUpdate(!openDialogUpdate)
+  }, [openDialogUpdate])
 
   return (
     <Fragment>
@@ -69,7 +84,11 @@ export default function UserListView(props: UserProps) {
       <List className="w-full">
         {users &&
           users?.map((user: UserType) => (
-            <ListItem key={user?.id} className="hover:shadow-sm">
+            <ListItem
+              key={user?.id}
+              className="hover:shadow-sm"
+              onClick={() => handleDialogUpdate(user)}
+            >
               <ListItemPrefix>
                 <Avatar
                   variant="circular"
@@ -88,6 +107,14 @@ export default function UserListView(props: UserProps) {
             </ListItem>
           ))}
       </List>
+      <DialogModal
+        open={openDialogUpdate}
+        onClose={handleCloseDialog}
+        title="dedicado"
+        content={`atualizar ${data?.name.split(' ')[0]} na plataforma`}
+      >
+        <UserUpdateFormView data={data} close={handleCloseDialog} />
+      </DialogModal>
     </Fragment>
   )
 }
