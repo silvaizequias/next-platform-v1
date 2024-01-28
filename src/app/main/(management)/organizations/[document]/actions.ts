@@ -10,8 +10,10 @@ import {
   UpdateOrganizationUserDTOType,
 } from '../dto'
 import { revalidatePath } from 'next/cache'
+import { sendSms } from '@/services/send-sms'
 
 const PLATFORM_MANAGEMENT_URL = process.env.PLATFORM_MANAGEMENT_URL!
+const TWILIO_PHONE_NUMBER = process.env.TWILIO_PHONE_NUMBER!
 
 export default async function actionGetOrganizationByDocument(
   document: string,
@@ -96,6 +98,11 @@ export async function actionCreateMyOrganizationUser(
           },
         },
       )
+      sendSms({
+        to: `+55${inputs?.userPhone}`,
+        from: TWILIO_PHONE_NUMBER,
+        body: `Você foi convidado a participar de uma organização na https://dedicado.digital como ${inputs?.role} `,
+      })
       revalidatePath(`/organziations/${inputs?.organizationDocument}`)
       return data && (await data.json())
     }
