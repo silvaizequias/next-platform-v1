@@ -64,7 +64,7 @@ export default function MyOrganizationUserListView(
           title="dedicado"
           content="criar usuário"
         >
-          <MyOrganizationUserFormView close={openDialogModal} />
+          <MyOrganizationUserFormView close={handleDialogModal} />
         </DialogModal>
       </div>
       <List className="w-full">
