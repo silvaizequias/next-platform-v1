@@ -24,9 +24,7 @@ export async function actionGetProfile(session: Session) {
 
     return data && (await data.json())
   } catch (error: any) {
-    return new Response(JSON.stringify(error?.message || error), {
-      status: error?.status || 400,
-    })
+    console.error(error?.message || error)
   }
 }
 
@@ -51,8 +49,6 @@ export async function actionUpdateProfile(
       return data && (await data.json())
     }
   } catch (error: any) {
-    return new Response(JSON.stringify(error?.message || error), {
-      status: error?.status || 400,
-    })
+    console.error(error?.message || error)
   }
 }

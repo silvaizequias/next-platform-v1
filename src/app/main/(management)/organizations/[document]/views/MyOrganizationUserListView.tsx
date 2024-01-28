@@ -12,9 +12,10 @@ import {
 } from '@material-tailwind/react'
 import { MyOrganizationUsersProps, OrganizationUsersType } from '../../types'
 import { Fragment, useCallback, useState } from 'react'
-import MyOrganizationUserFormView from './MyOrganizationUserFormView'
 import DialogModal from '@/components/dialog-modal'
 import { PlusIcon } from '@heroicons/react/24/outline'
+import CreateOrganizationUserFormView from './CreateOrganizationUserFormView'
+import UpdateOrganizationUserFormView from './UpdateOrganizationUserFormView'
 
 export default function MyOrganizationUserListView(
   props: MyOrganizationUsersProps,
@@ -23,10 +24,25 @@ export default function MyOrganizationUserListView(
   const avatar = '/avatar.svg'
 
   const [openDialogModal, setOpenDialogModal] = useState<boolean>(false)
+  const [openDialogModalUpdate, setOpenDialogModalUpdate] =
+    useState<boolean>(false)
+  const [data, setData] = useState<any>(null)
 
   const handleDialogModal = useCallback(() => {
     setOpenDialogModal(!openDialogModal)
   }, [openDialogModal])
+
+  const handleDialogModalUpdate = useCallback(
+    (data: OrganizationUsersType) => {
+      data && setData(data)
+      setOpenDialogModalUpdate(!openDialogModalUpdate)
+    },
+    [openDialogModalUpdate],
+  )
+
+  const handleCloseDialog = useCallback(() => {
+    setOpenDialogModalUpdate(!openDialogModalUpdate)
+  }, [openDialogModalUpdate])
 
   return (
     <Fragment>
@@ -64,9 +80,7 @@ export default function MyOrganizationUserListView(
           title="dedicado"
           content="adicionar usuário"
         >
-          <MyOrganizationUserFormView
-            close={handleDialogModal}
-          />
+          <CreateOrganizationUserFormView close={handleDialogModal} />
         </DialogModal>
       </div>
       <List className="w-full">
@@ -75,6 +89,7 @@ export default function MyOrganizationUserListView(
             <ListItem
               key={organizationUser?.id}
               className="hover:shadow-sm"
+              onClick={() => handleDialogModalUpdate(organizationUser)}
             >
               <ListItemPrefix>
                 <Avatar
@@ -94,6 +109,14 @@ export default function MyOrganizationUserListView(
             </ListItem>
           ))}
       </List>
+      <DialogModal
+        open={openDialogModalUpdate}
+        onClose={handleCloseDialog}
+        title="dedicado"
+        content={`atualizar ${data?.user?.name} na organização`}
+      >
+        <UpdateOrganizationUserFormView data={data} close={handleCloseDialog} />
+      </DialogModal>
     </Fragment>
   )
 }

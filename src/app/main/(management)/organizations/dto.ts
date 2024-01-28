@@ -44,7 +44,7 @@ export const CreateOrganizationDTO = z.object({
 export type CreateOrganizationDTOType = z.infer<typeof CreateOrganizationDTO>
 
 export const UpdateOrganizationDTO = z.object({
-  active: z.boolean().default(true).optional(),
+  active: z.boolean().optional(),
   name: z.string().min(5).max(140).optional(),
   image: z.string().optional(),
   email: z.string().email().optional(),

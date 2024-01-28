@@ -1,36 +1,50 @@
 'use client'
 
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { CreateOrganizationDTO, CreateOrganizationDTOType } from '../dto'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useSession } from 'next-auth/react'
 import { Button, Input } from '@material-tailwind/react'
-import { actionCreateMyOrganization } from '../actions'
+import { OrganizationType } from '../../types'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { UpdateOrganizationDTO, UpdateOrganizationDTOType } from '../../dto'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { actionUpdateOrganization } from '../../actions'
+import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
 
-export default function MyOrganizationCreateFormView({
-  close,
-}: {
+export default function MyOrganizationUpdateFormView(props: {
+  data: OrganizationType
   close: () => void
 }) {
+  const { data: organization } = props
   const { data: session } = useSession()
   const {
     formState: { errors },
     handleSubmit,
     register,
-  } = useForm<CreateOrganizationDTOType>({
-    resolver: zodResolver(CreateOrganizationDTO),
+  } = useForm<UpdateOrganizationDTOType>({
+    resolver: zodResolver(UpdateOrganizationDTO),
+    defaultValues: {
+      name: organization?.name,
+      email: organization?.email,
+      phone: organization?.phone,
+      zipCode: organization?.zipCode,
+      street: organization?.street,
+      complement: organization?.complement,
+    },
   })
-  const onSubmit: SubmitHandler<CreateOrganizationDTOType> = async (inputs) => {
-    const result = await actionCreateMyOrganization(session!, inputs)
+  const onSubmit: SubmitHandler<UpdateOrganizationDTOType> = async (inputs) => {
+    const result = await actionUpdateOrganization(
+      session!,
+      inputs,
+      organization?.id,
+    )
     if (result?.response?.error) {
       close()
       toast.error(result?.message)
     } else {
-      toast.success(result)
       close()
+      toast.success(result)
     }
   }
+
   return (
     <form
       className="w-full flex flex-col gap-2 py-2"
@@ -44,21 +58,8 @@ export default function MyOrganizationCreateFormView({
         {...register('name')}
       />
       {errors && (
-        <span className="text-xs text-red-400 italic font-thin">
+        <span className="text-xs text-red-400 italic">
           {errors?.name?.message}
-        </span>
-      )}
-
-      <Input
-        color="light-blue"
-        label="documento"
-        type="text"
-        crossOrigin={undefined}
-        {...register('document')}
-      />
-      {errors && (
-        <span className="text-xs text-red-400 italic font-thin">
-          {errors?.document?.message}
         </span>
       )}
 
@@ -70,20 +71,20 @@ export default function MyOrganizationCreateFormView({
         {...register('email')}
       />
       {errors && (
-        <span className="text-xs text-red-400 italic font-thin">
+        <span className="text-xs text-red-400 italic">
           {errors?.email?.message}
         </span>
       )}
 
       <Input
         color="light-blue"
-        label="celular"
+        label="telefone"
         type="number"
         crossOrigin={undefined}
         {...register('phone')}
       />
       {errors && (
-        <span className="text-xs text-red-400 italic font-thin">
+        <span className="text-xs text-red-400 italic">
           {errors?.phone?.message}
         </span>
       )}
@@ -127,8 +128,8 @@ export default function MyOrganizationCreateFormView({
         </span>
       )}
 
-      <Button color="light-blue" type="submit">
-        criar minha organização
+      <Button type="submit" color="light-blue">
+        atualizar informações
       </Button>
     </form>
   )

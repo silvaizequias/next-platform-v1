@@ -23,9 +23,7 @@ export async function actionGetUsers(session: Session) {
 
     return data && (await data.json())
   } catch (error: any) {
-    return new Response(JSON.stringify(error?.message || error), {
-      status: error?.status || 400,
-    })
+    console.error(error?.message || error)
   }
 }
 
@@ -47,21 +45,19 @@ export async function actionCreateUser(
       return data && (await data.json())
     }
   } catch (error: any) {
-    return new Response(JSON.stringify(error?.message || error), {
-      status: error?.status || 400,
-    })
+    console.error(error?.message || error)
   }
 }
 
 export async function actionUpdateUser(
   session: Session,
   inputs: UpdateUserDTOType,
-  id: string,
+  userId: string,
 ) {
   try {
     if (await UpdateUserDTO.parseAsync(inputs)) {
-      const data = await fetch(`${PLATFORM_MANAGEMENT_URL}/users/${id}`, {
-        method: 'PATH',
+      const data = await fetch(`${PLATFORM_MANAGEMENT_URL}/users/${userId}`, {
+        method: 'PATCH',
         body: JSON.stringify(inputs),
         headers: {
           'Content-Type': 'application/json',
@@ -72,8 +68,6 @@ export async function actionUpdateUser(
       return data && (await data.json())
     }
   } catch (error: any) {
-    return new Response(JSON.stringify(error?.message || error), {
-      status: error?.status || 400,
-    })
+    console.error(error?.message || error)
   }
 }

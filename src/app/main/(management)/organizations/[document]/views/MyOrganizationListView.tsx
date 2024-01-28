@@ -10,7 +10,7 @@ import {
   IconButton,
   Input,
 } from '@material-tailwind/react'
-import { MyOrganizationProps, OrganizationUsersType } from '../types'
+import { MyOrganizationProps, OrganizationUsersType } from '../../types'
 import { Fragment, useCallback, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import DialogModal from '@/components/dialog-modal'

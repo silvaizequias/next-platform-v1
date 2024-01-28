@@ -7,7 +7,7 @@ import {
   CardBody,
   IconButton,
 } from '@material-tailwind/react'
-import { OrganizationProps } from '../types'
+import { OrganizationProps } from '../../types'
 import Box from '@/components/box'
 import { PencilSquareIcon } from '@heroicons/react/24/outline'
 import { Fragment, useCallback, useState } from 'react'

@@ -3,19 +3,22 @@
 import { useSession } from 'next-auth/react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import {
-  CreateOrganizationUserDTO,
-  CreateOrganizationUserDTOType,
+  UpdateOrganizationUserDTO,
+  UpdateOrganizationUserDTOType,
 } from '../../dto'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input } from '@material-tailwind/react'
-import { actionCreateMyOrganizationUser } from '../../actions'
+import { Button, Checkbox, Input } from '@material-tailwind/react'
+import { actionUpdateMyOrganizationUser } from '../actions'
 import toast from 'react-hot-toast'
 import { useParams } from 'next/navigation'
+import { OrganizationUsersType } from '../../types'
 
-export default function MyOrganizationUserFormView({
+export default function UpdateOrganizationUserFormView({
   close,
+  data,
 }: {
   close: () => void
+  data: OrganizationUsersType
 }) {
   const { data: session } = useSession()
   const params = useParams()
@@ -25,16 +28,24 @@ export default function MyOrganizationUserFormView({
     formState: { errors },
     handleSubmit,
     register,
-  } = useForm<CreateOrganizationUserDTOType>({
-    resolver: zodResolver(CreateOrganizationUserDTO),
+  } = useForm<UpdateOrganizationUserDTOType>({
+    resolver: zodResolver(UpdateOrganizationUserDTO),
+    defaultValues: {
+      active: data?.active,
+      role: data?.role,
+    },
   })
-  const onSubmit: SubmitHandler<CreateOrganizationUserDTOType> = async (
+  const onSubmit: SubmitHandler<UpdateOrganizationUserDTOType> = async (
     inputs,
   ) => {
-    const result = await actionCreateMyOrganizationUser(session!, {
-      ...inputs,
-      organizationDocument: document,
-    })
+    const result = await actionUpdateMyOrganizationUser(
+      session!,
+      {
+        ...inputs,
+        organizationDocument: document,
+      },
+      data?.id,
+    )
     if (result?.response?.error) {
       close()
       toast.error(result?.message)
@@ -49,6 +60,12 @@ export default function MyOrganizationUserFormView({
       className="w-full flex flex-col gap-4 py-4"
       onSubmit={handleSubmit(onSubmit)}
     >
+      <Checkbox
+        label={`membro ${data?.active ? 'ativo' : 'inativo'} na organização`}
+        crossOrigin={undefined}
+        {...register('active')}
+      />
+
       <label htmlFor="role">escolher uma função</label>
       <select
         {...register('role')}
@@ -61,21 +78,8 @@ export default function MyOrganizationUserFormView({
         <option value={'administrator'}>administrador</option>
       </select>
 
-      <Input
-        color="light-blue"
-        label="celular do usuário"
-        type="number"
-        crossOrigin={undefined}
-        {...register('userPhone')}
-      />
-      {errors && (
-        <span className="text-xs text-red-400 italic font-thin">
-          {errors?.userPhone?.message}
-        </span>
-      )}
-
       <Button color="light-blue" type="submit">
-        adicionar usuário
+        atualizar usuário
       </Button>
     </form>
   )

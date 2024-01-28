@@ -7,7 +7,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import toast from 'react-hot-toast'
 import { actionUpdateUser } from '../actions'
-import { Button, Input } from '@material-tailwind/react'
+import { Button, Checkbox, Radio } from '@material-tailwind/react'
 
 export default function UserUpdateFormView(props: {
   data: UserType
@@ -23,12 +23,10 @@ export default function UserUpdateFormView(props: {
   } = useForm<UpdateUserDTOType>({
     resolver: zodResolver(UpdateUserDTO),
     defaultValues: {
-      //active: user?.active,
-      //suspended: user?.suspended,
-      //profile: user?.profile,
-      name: user?.name,
+      active: user?.active,
+      suspended: user?.suspended,
+      profile: user?.profile,
       phone: user?.phone,
-      email: user?.email,
     },
   })
   const onSubmit: SubmitHandler<UpdateUserDTOType> = async (inputs) => {
@@ -47,42 +45,44 @@ export default function UserUpdateFormView(props: {
       className="w-full flex flex-col gap-4 py-4"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <Input
-        color="light-blue"
-        label="nome completo"
-        type="text"
+      <Checkbox
+        label={`perfil ${user?.active ? 'ativo' : 'inativo'} na plataforma`}
         crossOrigin={undefined}
-        {...register('name')}
+        {...register('active')}
       />
       {errors && (
         <span className="text-xs text-red-400 italic font-thin">
-          {errors?.name?.message}
+          {errors?.active?.message}
         </span>
       )}
 
-      <Input
-        color="light-blue"
-        label="celular"
-        type="number"
+      <Checkbox
+        label={`perfil ${
+          user?.suspended ? 'desabilitado' : 'habilitado'
+        } na plataforma`}
         crossOrigin={undefined}
-        {...register('phone')}
+        {...register('suspended')}
       />
       {errors && (
         <span className="text-xs text-red-400 italic font-thin">
-          {errors?.phone?.message}
+          {errors?.suspended?.message}
         </span>
       )}
 
-      <Input
-        color="light-blue"
-        label="e-mail"
-        type="email"
-        crossOrigin={undefined}
-        {...register('email')}
-      />
+      <label htmlFor="userProfile">escolher um perfil</label>
+      <select
+        {...register('profile')}
+        id="userProfile"
+        className="block peer w-full rounded"
+      >
+        <option value={'guest'}>visitante</option>
+        <option value={'consumer'}>consumidor</option>
+        <option value={'member'}>membro</option>
+        <option value={'master'}>master</option>
+      </select>
       {errors && (
         <span className="text-xs text-red-400 italic font-thin">
-          {errors?.email?.message}
+          {errors?.profile?.message}
         </span>
       )}
 

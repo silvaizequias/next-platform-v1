@@ -5,9 +5,9 @@ import AuthDialog from '@/components/auth-dialog'
 import Box from '@/components/box'
 import FullScreen from '@/components/full-screen'
 import PageScreen from '@/components/page-screen'
-import { actionGetMyOrganizations } from './(management)/organizations/actions'
 import { OrganizationUsersType } from './(management)/organizations/types'
-import MyOrganizationListView from './(management)/organizations/views/MyOrganizationListView'
+import MyOrganizationListView from './(management)/organizations/[document]/views/MyOrganizationListView'
+import { actionGetMyOrganizations } from './(management)/organizations/[document]/actions'
 
 export default async function MainPage() {
   const session = await getServerSession(nextAuthOptions)
