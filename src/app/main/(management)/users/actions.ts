@@ -2,6 +2,7 @@
 
 import { Session } from 'next-auth'
 import { CreateUserDTO, CreateUserDTOType } from './dto'
+import { revalidatePath } from 'next/cache'
 
 const PLATFORM_MANAGEMENT_URL = process.env.PLATFORM_MANAGEMENT_URL!
 
@@ -37,6 +38,7 @@ export async function actionCreateUser(
           Authorization: `Bearer ${session?.user?.authorization}`,
         },
       })
+      revalidatePath('/users')
       return data && (await data.json())
     }
   } catch (error: any) {
