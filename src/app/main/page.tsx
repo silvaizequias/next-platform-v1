@@ -24,7 +24,7 @@ export default async function MainPage() {
           <MyOrganizationListView data={myOrganizations} />
         </div>
         <div className="w-full">
-          <h6 className="text-lg">assinaturas de serviços</h6>
+          <h6 className="text-lg">assinaturas</h6>
         </div>
       </Box>
     </PageScreen>
