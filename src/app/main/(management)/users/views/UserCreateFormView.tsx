@@ -8,7 +8,7 @@ import { actionCreateUser } from '../actions'
 import toast from 'react-hot-toast'
 import { Button, Input } from '@material-tailwind/react'
 
-export default function UserCreateFormView({ close }: { close: boolean }) {
+export default function UserCreateFormView({ close }: { close: () => void }) {
   const { data: session } = useSession()
 
   const {
@@ -21,9 +21,11 @@ export default function UserCreateFormView({ close }: { close: boolean }) {
   const onSubmit: SubmitHandler<CreateUserDTOType> = async (inputs) => {
     const result = await actionCreateUser(session!, inputs)
     if (result?.response?.error) {
+      close()
       toast.error(result?.message)
     } else {
       toast.success(result)
+      close()
     }
   }
 
@@ -80,20 +82,6 @@ export default function UserCreateFormView({ close }: { close: boolean }) {
       {errors && (
         <span className="text-xs text-red-400 italic font-thin">
           {errors?.email?.message}
-        </span>
-      )}
-
-      <Input
-        color="light-blue"
-        label="senha"
-        type="password"
-        defaultValue={undefined}
-        crossOrigin={undefined}
-        {...register('password')}
-      />
-      {errors && (
-        <span className="text-xs text-red-400 italic font-thin">
-          {errors?.password?.message}
         </span>
       )}
 

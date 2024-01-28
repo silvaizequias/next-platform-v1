@@ -1,40 +1,28 @@
 'use client'
 
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { UserProps } from '../../users/types'
-import {
-  UpdateProfileInformationDTO,
-  UpdateProfileInformationDTOType,
-} from '../dto'
+import { CreateOrganizationDTO, CreateOrganizationDTOType } from '../../dto'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input } from '@material-tailwind/react'
-import { actionUpdateProfile } from '../actions'
 import { useSession } from 'next-auth/react'
+import { Button, Input } from '@material-tailwind/react'
+import { actionCreateMyOrganization } from '../actions'
 import toast from 'react-hot-toast'
 
-export default function ProfileInformationUpdateFormView(props: UserProps) {
-  const { data: profile } = props
+export default function MyOrganizationCreateFormView({
+  close,
+}: {
+  close: () => void
+}) {
   const { data: session } = useSession()
   const {
     formState: { errors },
     handleSubmit,
     register,
-  } = useForm<UpdateProfileInformationDTOType>({
-    resolver: zodResolver(UpdateProfileInformationDTO),
-    defaultValues: {
-      name: profile?.name,
-      email: profile?.email,
-      phone: profile?.phone,
-      document: profile?.document,
-      zipCode: profile?.zipCode,
-      street: profile?.street,
-      complement: profile?.complement,
-    },
+  } = useForm<CreateOrganizationDTOType>({
+    resolver: zodResolver(CreateOrganizationDTO),
   })
-  const onSubmit: SubmitHandler<UpdateProfileInformationDTOType> = async (
-    inputs,
-  ) => {
-    const result = await actionUpdateProfile(session!, inputs)
+  const onSubmit: SubmitHandler<CreateOrganizationDTOType> = async (inputs) => {
+    const result = await actionCreateMyOrganization(session!, inputs)
     if (result?.response?.error) {
       close()
       toast.error(result?.message)
@@ -43,15 +31,14 @@ export default function ProfileInformationUpdateFormView(props: UserProps) {
       close()
     }
   }
-
   return (
     <form
-      className="w-full flex flex-col gap-4 py-4"
+      className="w-full flex flex-col gap-2 py-2"
       onSubmit={handleSubmit(onSubmit)}
     >
       <Input
         color="light-blue"
-        label="nome completo"
+        label="nome"
         type="text"
         crossOrigin={undefined}
         {...register('name')}
@@ -59,32 +46,6 @@ export default function ProfileInformationUpdateFormView(props: UserProps) {
       {errors && (
         <span className="text-xs text-red-400 italic font-thin">
           {errors?.name?.message}
-        </span>
-      )}
-
-      <Input
-        color="light-blue"
-        label="celular"
-        type="number"
-        crossOrigin={undefined}
-        {...register('phone')}
-      />
-      {errors && (
-        <span className="text-xs text-red-400 italic font-thin">
-          {errors?.phone?.message}
-        </span>
-      )}
-
-      <Input
-        color="light-blue"
-        label="e-mail"
-        type="email"
-        crossOrigin={undefined}
-        {...register('email')}
-      />
-      {errors && (
-        <span className="text-xs text-red-400 italic font-thin">
-          {errors?.email?.message}
         </span>
       )}
 
@@ -103,13 +64,39 @@ export default function ProfileInformationUpdateFormView(props: UserProps) {
 
       <Input
         color="light-blue"
+        label="e-mail"
+        type="email"
+        crossOrigin={undefined}
+        {...register('email')}
+      />
+      {errors && (
+        <span className="text-xs text-red-400 italic font-thin">
+          {errors?.email?.message}
+        </span>
+      )}
+
+      <Input
+        color="light-blue"
+        label="celular"
+        type="number"
+        crossOrigin={undefined}
+        {...register('phone')}
+      />
+      {errors && (
+        <span className="text-xs text-red-400 italic font-thin">
+          {errors?.phone?.message}
+        </span>
+      )}
+
+      <Input
+        color="light-blue"
         label="cep"
         type="text"
         crossOrigin={undefined}
         {...register('zipCode')}
       />
       {errors && (
-        <span className="text-xs text-red-400 italic font-thin">
+        <span className="text-xs text-red-400 italic">
           {errors?.zipCode?.message}
         </span>
       )}
@@ -122,7 +109,7 @@ export default function ProfileInformationUpdateFormView(props: UserProps) {
         {...register('street')}
       />
       {errors && (
-        <span className="text-xs text-red-400 italic font-thin">
+        <span className="text-xs text-red-400 italic">
           {errors?.street?.message}
         </span>
       )}
@@ -135,13 +122,13 @@ export default function ProfileInformationUpdateFormView(props: UserProps) {
         {...register('complement')}
       />
       {errors && (
-        <span className="text-xs text-red-400 italic font-thin">
+        <span className="text-xs text-red-400 italic">
           {errors?.complement?.message}
         </span>
       )}
 
       <Button color="light-blue" type="submit">
-        atualizar informações
+        criar minha organização
       </Button>
     </form>
   )

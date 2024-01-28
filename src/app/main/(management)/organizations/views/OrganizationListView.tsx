@@ -14,8 +14,8 @@ import { OrganizationProps, OrganizationType } from '../types'
 import { useState, useCallback, Fragment } from 'react'
 import { PlusIcon } from '@heroicons/react/24/outline'
 import DialogModal from '@/components/dialog-modal'
-import OrganizationFormView from './OrganizationFormView'
 import { useRouter } from 'next/navigation'
+import OrganizationCreateFormView from './OrganizationCreateFormView'
 
 export default function OrganizationListView(props: OrganizationProps) {
   const { data: organizations } = props
@@ -72,7 +72,7 @@ export default function OrganizationListView(props: OrganizationProps) {
           title="dedicado"
           content="criar organização"
         >
-          <OrganizationFormView close={openDialogModal} />
+          <OrganizationCreateFormView close={handleDialogModal} />
         </DialogModal>
       </div>
       <List className="w-full">

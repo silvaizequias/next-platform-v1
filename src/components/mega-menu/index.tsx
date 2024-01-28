@@ -9,7 +9,12 @@ import {
   Typography,
   IconButton,
 } from '@material-tailwind/react'
-import { Bars3Icon, BuildingOfficeIcon } from '@heroicons/react/24/outline'
+import {
+  Bars3Icon,
+  BuildingOffice2Icon,
+  BuildingOfficeIcon,
+  UserGroupIcon,
+} from '@heroicons/react/24/outline'
 import { useCallback, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
@@ -44,10 +49,31 @@ export default function MegaMenu(props: Props) {
           </IconButton>
         </MenuHandler>
         <MenuList>
-          <MenuItem className="flex items-center gap-2" onClick={() => handleClick('/')}>
+          <MenuItem
+            className="flex items-center gap-2"
+            onClick={() => handleClick('/')}
+          >
             <BuildingOfficeIcon className="h-6 w-6" />
             <Typography variant="small" className="font-medium">
-              Início
+              início
+            </Typography>
+          </MenuItem>
+          <MenuItem
+            className="flex items-center gap-2"
+            onClick={() => handleClick('/users')}
+          >
+            <UserGroupIcon className="h-6 w-6" />
+            <Typography variant="small" className="font-medium">
+              usuários
+            </Typography>
+          </MenuItem>
+          <MenuItem
+            className="flex items-center gap-2"
+            onClick={() => handleClick('/organizations')}
+          >
+            <BuildingOffice2Icon className="h-6 w-6" />
+            <Typography variant="small" className="font-medium">
+              organizações
             </Typography>
           </MenuItem>
         </MenuList>

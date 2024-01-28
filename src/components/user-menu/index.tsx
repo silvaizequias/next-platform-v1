@@ -62,7 +62,7 @@ export default function UserMenu(props: Props) {
           >
             <IdentificationIcon className="h-6 w-6" />
             <Typography variant="small" className="font-medium">
-              Meu Perfil
+              meu perfil
             </Typography>
           </MenuItem>
           <hr className="my-2 border-blue-gray-50" />
@@ -72,7 +72,7 @@ export default function UserMenu(props: Props) {
           >
             <ArrowRightStartOnRectangleIcon className="h-6 w-6" />
             <Typography variant="small" className="font-medium">
-              Sair
+              sair
             </Typography>
           </MenuItem>
         </MenuList>

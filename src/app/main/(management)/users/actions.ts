@@ -1,7 +1,13 @@
 'use server'
 
 import { Session } from 'next-auth'
-import { CreateUserDTO, CreateUserDTOType } from './dto'
+import {
+  CreateUserDTO,
+  CreateUserDTOType,
+  UpdateUserDTO,
+  UpdateUserDTOType,
+} from './dto'
+import { revalidatePath } from 'next/cache'
 
 const PLATFORM_MANAGEMENT_URL = process.env.PLATFORM_MANAGEMENT_URL!
 
@@ -17,9 +23,7 @@ export async function actionGetUsers(session: Session) {
 
     return data && (await data.json())
   } catch (error: any) {
-    return new Response(JSON.stringify(error?.message || error), {
-      status: error?.status || 400,
-    })
+    console.error(error?.message || error)
   }
 }
 
@@ -37,11 +41,33 @@ export async function actionCreateUser(
           Authorization: `Bearer ${session?.user?.authorization}`,
         },
       })
+      revalidatePath('/users')
       return data && (await data.json())
     }
   } catch (error: any) {
-    return new Response(JSON.stringify(error?.message || error), {
-      status: error?.status || 400,
-    })
+    console.error(error?.message || error)
+  }
+}
+
+export async function actionUpdateUser(
+  session: Session,
+  inputs: UpdateUserDTOType,
+  userId: string,
+) {
+  try {
+    if (await UpdateUserDTO.parseAsync(inputs)) {
+      const data = await fetch(`${PLATFORM_MANAGEMENT_URL}/users/${userId}`, {
+        method: 'PATCH',
+        body: JSON.stringify(inputs),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session?.user?.authorization}`,
+        },
+      })
+      revalidatePath('/users')
+      return data && (await data.json())
+    }
+  } catch (error: any) {
+    console.error(error?.message || error)
   }
 }

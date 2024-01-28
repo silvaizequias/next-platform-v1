@@ -10,12 +10,12 @@ import {
   IconButton,
   Input,
 } from '@material-tailwind/react'
-import { MyOrganizationProps, OrganizationUsersType } from '../types'
+import { MyOrganizationProps, OrganizationUsersType } from '../../types'
 import { Fragment, useCallback, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import MyOrganizationFormView from './MyOrganizationFormView'
 import DialogModal from '@/components/dialog-modal'
 import { PlusIcon } from '@heroicons/react/24/outline'
+import MyOrganizationCreateFormView from './MyOrganizationCreateFormView'
 
 export default function MyOrganizationListView(props: MyOrganizationProps) {
   const { data } = props
@@ -72,7 +72,7 @@ export default function MyOrganizationListView(props: MyOrganizationProps) {
           title="dedicado"
           content="criar minha organização"
         >
-          <MyOrganizationFormView close={openDialogModal} />
+          <MyOrganizationCreateFormView close={handleDialogModal} />
         </DialogModal>
       </div>
       <List className="w-full">

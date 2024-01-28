@@ -7,7 +7,7 @@ import { redirect } from 'next/navigation'
 import PageScreen from '@/components/page-screen'
 import Box from '@/components/box'
 import MyOrganizationUserListView from './views/MyOrganizationUserListView'
-import MyOrganizationDetailView from '../views/MyOrganizationDetailView'
+import MyOrganizationDetailView from './views/MyOrganizationDetailView'
 
 export async function generateMetadata({
   params,

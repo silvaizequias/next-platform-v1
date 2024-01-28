@@ -7,12 +7,12 @@ import {
   CardBody,
   IconButton,
 } from '@material-tailwind/react'
-import { OrganizationProps } from '../types'
+import { OrganizationProps } from '../../types'
 import Box from '@/components/box'
 import { PencilSquareIcon } from '@heroicons/react/24/outline'
 import { Fragment, useCallback, useState } from 'react'
 import DialogModal from '@/components/dialog-modal'
-import MyOrganizationEditFormView from './MyOrganizationEditFormView'
+import MyOrganizationUpdateFormView from './MyOrganizationUpdateFormView'
 
 export default function MyOrganizationDetailView(props: OrganizationProps) {
   const { data: organization } = props
@@ -86,7 +86,10 @@ export default function MyOrganizationDetailView(props: OrganizationProps) {
                   title="dedicado"
                   content={`editar informações da organização ${organization?.name}`}
                 >
-                  <MyOrganizationEditFormView data={organization} />
+                  <MyOrganizationUpdateFormView
+                    data={organization}
+                    close={handleDialogModal}
+                  />
                 </DialogModal>
               </div>
             </div>
