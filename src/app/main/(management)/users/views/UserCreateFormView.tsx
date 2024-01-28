@@ -8,7 +8,7 @@ import { actionCreateUser } from '../actions'
 import toast from 'react-hot-toast'
 import { Button, Input } from '@material-tailwind/react'
 
-export default function UserCreateFormView({ close }: { close: boolean }) {
+export default function UserCreateFormView({ close }: { close: () => void }) {
   const { data: session } = useSession()
 
   const {
@@ -24,6 +24,7 @@ export default function UserCreateFormView({ close }: { close: boolean }) {
       toast.error(result?.message)
     } else {
       toast.success(result)
+      close()
     }
   }
 

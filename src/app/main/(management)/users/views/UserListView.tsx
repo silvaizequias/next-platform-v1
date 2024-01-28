@@ -63,7 +63,7 @@ export default function UserListView(props: UserProps) {
           title="dedicado"
           content="criar usuário na plataforma"
         >
-          <UserCreateFormView close={openDialogModal} />
+          <UserCreateFormView close={handleDialogModal} />
         </DialogModal>
       </div>
       <List className="w-full">
