@@ -16,5 +16,75 @@ model Legal {
 
   softDeleted Boolean? @default(false) @map("soft_deleted")
 
+  code        String @unique
+  term        String @unique
+  description String @db.Text
+
+  items LegalItem[]
+
   @@map("legals")
+}
+
+model LegalItem {
+  id String @id @default(cuid())
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at") @db.Date
+
+  softDeleted Boolean? @default(false) @map("soft_deleted")
+
+  legalId String? @map("legal_id")
+  legal   Legal?  @relation(fields: [legalId], references: [id])
+
+  title   String
+  content String @db.Text
+
+  @@map("legal_items")
+}
+
+model Subscription {
+  id String @id @default(cuid())
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at") @db.Date
+
+  softDeleted Boolean? @default(false) @map("soft_deleted")
+
+  code           String  @unique
+  customerId     String? @map("customer_id")
+  subscriptionId String? @map("subscription_id")
+  document       String
+  status         String?
+  recurrence     String?
+
+  currentPeriodEnd DateTime? @map("current_period_end")
+
+  spendLimit BigInt? @default(5000) @map("spend_limit")
+  spending   BigInt? @default(0)
+
+  spendExceeded Boolean? @default(false) @map("spend_exceeded")
+
+  price Decimal? @default(0) @db.Decimal(5, 2)
+
+  priceId String? @map("price_id")
+
+  @@map("subscriptions")
+}
+
+model ApiSpend {
+  id String @id @default(cuid())
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at") @db.Date
+
+  softDeleted Boolean? @default(false) @map("soft_deleted")
+
+  document String
+
+  spending BigInt? @default(0)
+
+  @@map("api_spends")
 }
