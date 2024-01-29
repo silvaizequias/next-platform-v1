@@ -7,6 +7,7 @@ import {
   CardBody,
   IconButton,
 } from '@material-tailwind/react'
+import { cepMask, cnpjMask, telefoneMask } from 'masks-br'
 import { OrganizationProps } from '../../types'
 import Box from '@/components/box'
 import { PencilSquareIcon } from '@heroicons/react/24/outline'
@@ -44,7 +45,7 @@ export default function MyOrganizationDetailView(props: OrganizationProps) {
               <small className="text-xs font-thin opacity-60 flex gap-2">
                 documento:
                 <span className="opacity-100 font-medium italic">
-                  {organization?.document}
+                  {cnpjMask(organization?.document)}
                 </span>
               </small>
               <small className="text-xs font-thin opacity-60 flex gap-2">
@@ -56,13 +57,13 @@ export default function MyOrganizationDetailView(props: OrganizationProps) {
               <small className="text-xs font-thin opacity-60 flex gap-2">
                 telefone:
                 <span className="opacity-100 font-medium italic">
-                  {organization?.phone}
+                  {telefoneMask(organization?.phone)}
                 </span>
               </small>
               <small className="text-xs font-thin opacity-60 flex gap-2">
                 cep:
                 <span className="opacity-100 font-medium italic">
-                  {organization?.zipCode}
+                  {cepMask(organization?.zipCode)}
                 </span>
               </small>
               <small className="text-xs font-thin opacity-60 flex gap-2">

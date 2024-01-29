@@ -13,6 +13,7 @@ import {
   Bars3Icon,
   BuildingOffice2Icon,
   BuildingOfficeIcon,
+  ShieldCheckIcon,
   UserGroupIcon,
 } from '@heroicons/react/24/outline'
 import { useCallback, useState } from 'react'
@@ -74,6 +75,15 @@ export default function MegaMenu(props: Props) {
             <BuildingOffice2Icon className="h-6 w-6" />
             <Typography variant="small" className="font-medium">
               organizações
+            </Typography>
+          </MenuItem>
+          <MenuItem
+            className="flex items-center gap-2"
+            onClick={() => handleClick('/authorizations')}
+          >
+            <ShieldCheckIcon className="h-6 w-6" />
+            <Typography variant="small" className="font-medium">
+              autorizações
             </Typography>
           </MenuItem>
         </MenuList>
