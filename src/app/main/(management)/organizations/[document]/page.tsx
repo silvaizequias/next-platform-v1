@@ -8,6 +8,9 @@ import PageScreen from '@/components/page-screen'
 import Box from '@/components/box'
 import MyOrganizationUserListView from './views/MyOrganizationUserListView'
 import MyOrganizationDetailView from './views/MyOrganizationDetailView'
+import { SubscriptionType } from '../../subscriptions/types'
+import { actionGetSubscriptionByParam } from './subscriptions/actions'
+import OrganizationSubscriptionListView from './subscriptions/views/OrganizationSubscriptionListView'
 
 export async function generateMetadata({
   params,
@@ -33,6 +36,8 @@ export default async function OrganizationOnlyPage({
     document,
     session!,
   )
+  const subscriptions: SubscriptionType[] | any =
+    await actionGetSubscriptionByParam(session!, document)
 
   return session
     ? organization && (
@@ -42,10 +47,7 @@ export default async function OrganizationOnlyPage({
               <MyOrganizationDetailView data={organization} />
             </div>
             <div className="w-full">
-              <div className="flex flex-auto justify-between items-center gap-2 shadow-md rounded-md bg-opacity-50 p-2">
-                <h6 className="text-lg">soluções da {organization?.name}</h6>
-              </div>
-              ...
+              <OrganizationSubscriptionListView data={subscriptions} />
             </div>
           </Box>
           <div className="py-4">
