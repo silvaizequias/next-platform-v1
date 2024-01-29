@@ -5,6 +5,7 @@ import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import { OrganizationKeyType } from './types'
 import { actionGetOrganizationKeys } from './actions'
+import AuhorizationListView from './views/AuthorizationListView'
 
 export default async function AuthorizationPage() {
   const session = await getServerSession(nextAuthOptions)
@@ -13,9 +14,7 @@ export default async function AuthorizationPage() {
 
   return session ? (
     <PageScreen title="autorizações de acesso da plataforma">
-      <Box>
-        <div className="w-full">...</div>
-      </Box>
+      <AuhorizationListView data={organizationKeys} />
     </PageScreen>
   ) : (
     redirect('/')

@@ -19,6 +19,7 @@ import MyOrganizationCreateFormView from './MyOrganizationCreateFormView'
 
 export default function MyOrganizationListView(props: MyOrganizationProps) {
   const { data } = props
+  const myOrganizations: OrganizationUsersType[] = data
 
   const logotipo = '/logotipo.svg'
 
@@ -75,9 +76,9 @@ export default function MyOrganizationListView(props: MyOrganizationProps) {
           <MyOrganizationCreateFormView close={handleDialogModal} />
         </DialogModal>
       </div>
-      <List className="w-full">
-        {data &&
-          data?.map((myOrganization: OrganizationUsersType) => (
+      {myOrganizations && (
+        <List className="w-full">
+          {data?.map((myOrganization: OrganizationUsersType) => (
             <ListItem
               key={myOrganization?.id}
               className="hover:shadow-sm"
@@ -104,7 +105,8 @@ export default function MyOrganizationListView(props: MyOrganizationProps) {
               </div>
             </ListItem>
           ))}
-      </List>
+        </List>
+      )}
     </Fragment>
   )
 }

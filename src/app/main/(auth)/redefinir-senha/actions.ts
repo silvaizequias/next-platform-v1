@@ -2,14 +2,14 @@
 
 import { ResetPasswordCodeDTOType, ResetPasswordDTOType } from './dto'
 
-const PLATFORM_MANAGEMENT_URL = process.env.PLATFORM_MANAGEMENT_URL!
+const PLATFORM_URL = process.env.PLATFORM_URL!
 
 export async function actionResetPassword(
   inputs: ResetPasswordDTOType,
 ): Promise<any> {
   const randomCode = Math.random().toString(32).substr(2, 6)
   try {
-    const data = await fetch(`${PLATFORM_MANAGEMENT_URL}/auth/password-reset`, {
+    const data = await fetch(`${PLATFORM_URL}/auth/password-reset`, {
       method: 'POST',
       body: JSON.stringify(inputs),
       headers: {

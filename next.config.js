@@ -7,8 +7,8 @@ const nextConfig = {
   },
   env: {
     PUBLICATION_URL: process.env.PUBLICATION_URL,
-    PUBLICATION_KEY: process.env.PUBLICATION_KEY,
-    PLATFORM_MANAGEMENT_URL: process.env.PLATFORM_MANAGEMENT_URL,
+    AUTHORIZATION_KEY: process.env.AUTHORIZATION_KEY,
+    PLATFORM_URL: process.env.PLATFORM_URL,
   },
 }
 

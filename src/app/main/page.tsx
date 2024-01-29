@@ -11,7 +11,7 @@ import { actionGetMyOrganizations } from './(management)/organizations/[document
 
 export default async function MainPage() {
   const session = await getServerSession(nextAuthOptions)
-  const myOrganizations: OrganizationUsersType[] =
+  const myOrganizations: OrganizationUsersType[] | any =
     await actionGetMyOrganizations(session!)
 
   const logotipo = '/logotipo.svg'

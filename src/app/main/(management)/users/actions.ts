@@ -9,11 +9,11 @@ import {
 } from './dto'
 import { revalidatePath } from 'next/cache'
 
-const PLATFORM_MANAGEMENT_URL = process.env.PLATFORM_MANAGEMENT_URL!
+const PLATFORM_URL = process.env.PLATFORM_URL!
 
 export async function actionGetUsers(session: Session) {
   try {
-    const data = await fetch(`${PLATFORM_MANAGEMENT_URL}/users`, {
+    const data = await fetch(`${PLATFORM_URL}/users`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -21,6 +21,7 @@ export async function actionGetUsers(session: Session) {
       },
     })
 
+    if (!data) return null
     return data && (await data.json())
   } catch (error: any) {
     console.error(error?.message || error)
@@ -31,11 +32,13 @@ export async function actionCreateUser(
   session: Session,
   inputs: CreateUserDTOType,
 ) {
+  const randomCode = Math.random().toString(32).substr(2, 16)
   try {
     if (await CreateUserDTO.parseAsync(inputs)) {
-      const data = await fetch(`${PLATFORM_MANAGEMENT_URL}/users`, {
+      const setPassword = inputs?.password || randomCode
+      const data = await fetch(`${PLATFORM_URL}/users`, {
         method: 'POST',
-        body: JSON.stringify(inputs),
+        body: JSON.stringify({ ...inputs, password: setPassword }),
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${session?.user?.authorization}`,
@@ -56,7 +59,7 @@ export async function actionUpdateUser(
 ) {
   try {
     if (await UpdateUserDTO.parseAsync(inputs)) {
-      const data = await fetch(`${PLATFORM_MANAGEMENT_URL}/users/${userId}`, {
+      const data = await fetch(`${PLATFORM_URL}/users/${userId}`, {
         method: 'PATCH',
         body: JSON.stringify(inputs),
         headers: {

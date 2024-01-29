@@ -3,7 +3,7 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import { JWT } from 'next-auth/jwt'
 
 const SECRET = process.env.SECRET!
-const PLATFORM_MANAGEMENT_URL = process.env.PLATFORM_MANAGEMENT_URL!
+const PLATFORM_URL = process.env.PLATFORM_URL!
 
 export const nextAuthOptions: NextAuthOptions = {
   secret: SECRET,
@@ -14,7 +14,7 @@ export const nextAuthOptions: NextAuthOptions = {
         password: { type: 'password' },
       },
       async authorize(credentials): Promise<any> {
-        const data = await fetch(`${PLATFORM_MANAGEMENT_URL}/auth/sign-in`, {
+        const data = await fetch(`${PLATFORM_URL}/auth/sign-in`, {
           method: 'POST',
           body: JSON.stringify({
             phone: credentials?.phone,

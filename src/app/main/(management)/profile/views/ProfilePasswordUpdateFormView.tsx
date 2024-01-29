@@ -1,10 +1,12 @@
 'use client'
 
-import { useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { UpdateProfilePasswordDTO, UpdateProfilePasswordDTOType } from '../dto'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Input } from '@material-tailwind/react'
+import toast from 'react-hot-toast'
+import { actionUpdateProfilePassword } from '../actions'
 
 export default function ProfilePasswordUpdateFormView() {
   const { data: session } = useSession()
@@ -19,7 +21,18 @@ export default function ProfilePasswordUpdateFormView() {
   const onSubmit: SubmitHandler<UpdateProfilePasswordDTOType> = async (
     inputs,
   ) => {
-    console.log(inputs)
+    const result = await actionUpdateProfilePassword(session!, inputs)
+    if (result?.response?.error) {
+      close()
+      toast.error(result?.message)
+    } else {
+      toast.success(result)
+      close()
+      setTimeout(() => {
+        toast.success('autentique-se novamente com a nova senha')
+        signOut()
+      }, 5000)
+    }
   }
   return (
     <form

@@ -1,4 +1,6 @@
 import Image from 'next/image'
+import moment from 'moment'
+import 'moment/locale/pt-br'
 import { PublicationType } from '../../types'
 import { Suspense } from 'react'
 import Loading from '@/app/loading'
@@ -11,6 +13,8 @@ export default function PublicationCardView(props: Props) {
   const { publication } = props
 
   const image = '/logotipo.svg'
+
+  const createdAt = moment(publication?.createdAt).format('LL')
 
   return (
     <Suspense fallback={<Loading />}>
@@ -27,9 +31,7 @@ export default function PublicationCardView(props: Props) {
             />
           </div>
           <div className="gap-2 w-4/5 flex flex-col justify-center p-4 mx-4">
-            <small className="text-xs font-thin opacity-50">
-              {new Date(publication?.createdAt).toLocaleDateString()}
-            </small>
+            <small className="text-xs font-thin opacity-50">{createdAt}</small>
             <h4 className="text-xl sm:text-2xl font-semibold lowercase tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-blue-400">
               {publication?.title}
             </h4>

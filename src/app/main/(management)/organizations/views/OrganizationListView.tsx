@@ -10,6 +10,7 @@ import {
   Button,
   IconButton,
 } from '@material-tailwind/react'
+import { cnpjMask } from 'masks-br'
 import { OrganizationProps, OrganizationType } from '../types'
 import { useState, useCallback, Fragment } from 'react'
 import { PlusIcon } from '@heroicons/react/24/outline'
@@ -97,7 +98,7 @@ export default function OrganizationListView(props: OrganizationProps) {
                   {organization?.name}
                 </Typography>
                 <Typography variant="small" className="font-normal">
-                  {organization?.document}
+                  {cnpjMask(organization?.document)}
                 </Typography>
               </div>
             </ListItem>

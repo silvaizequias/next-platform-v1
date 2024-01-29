@@ -1,4 +1,4 @@
-'ue client'
+'use client'
 
 import FullScreen from '@/components/full-screen'
 import SignInFormView from './SignInFormView'

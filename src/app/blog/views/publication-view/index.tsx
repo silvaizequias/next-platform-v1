@@ -30,17 +30,19 @@ export default function PublicationView(props: Props) {
           <div className="flex flex-col justify-center item-center gap-4">
             <div className="w-full">
               {publications &&
-                publications?.map(
-                  (publication: PublicationType) =>
-                    publication?.channel == 'blog' && (
-                      <div
-                        key={publication?.id}
-                        className="cursor-pointer hover:opacity-80 hover:shadow-lg max-h-fit"
-                        onClick={() => handleClick(publication?.slug)}
-                      >
-                        <PublicationCardView publication={publication} />
-                      </div>
-                    ),
+                publications?.map((publication: PublicationType | any) =>
+                  publication?.id.length >= 1
+                    ? publication?.channel == 'blog' &&
+                      !publication?.draft && (
+                        <div
+                          key={publication?.id}
+                          className="cursor-pointer hover:opacity-80 hover:shadow-lg max-h-fit"
+                          onClick={() => handleClick(publication?.slug)}
+                        >
+                          <PublicationCardView publication={publication} />
+                        </div>
+                      )
+                    : null,
                 )}
             </div>
           </div>

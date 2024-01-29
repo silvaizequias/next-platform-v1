@@ -11,7 +11,7 @@ import {
 } from '../dto'
 import { revalidatePath } from 'next/cache'
 
-const PLATFORM_MANAGEMENT_URL = process.env.PLATFORM_MANAGEMENT_URL!
+const PLATFORM_URL = process.env.PLATFORM_URL!
 
 export default async function actionGetOrganizationByDocument(
   document: string,
@@ -19,7 +19,7 @@ export default async function actionGetOrganizationByDocument(
 ) {
   try {
     const data = await fetch(
-      `${PLATFORM_MANAGEMENT_URL}/organizations/document/${document}`,
+      `${PLATFORM_URL}/organizations/document/${document}`,
       {
         method: 'GET',
         headers: {
@@ -28,7 +28,7 @@ export default async function actionGetOrganizationByDocument(
         },
       },
     )
-
+    if (!data) return null
     return data && (await data.json())
   } catch (error: any) {
     console.error(error?.message || error)
@@ -38,7 +38,7 @@ export default async function actionGetOrganizationByDocument(
 export async function actionGetMyOrganizations(session: Session) {
   try {
     const data = await fetch(
-      `${PLATFORM_MANAGEMENT_URL}/organization-users/user/${session?.user?.id}`,
+      `${PLATFORM_URL}/organization-users/user/${session?.user?.id}`,
       {
         method: 'GET',
         headers: {
@@ -47,7 +47,7 @@ export async function actionGetMyOrganizations(session: Session) {
         },
       },
     )
-
+    if (!data) return null
     return data && (await data.json())
   } catch (error: any) {
     console.error(error?.message || error)
@@ -61,7 +61,7 @@ export async function actionCreateMyOrganization(
   try {
     if (await CreateOrganizationDTO.parseAsync(inputs)) {
       const data = await fetch(
-        `${PLATFORM_MANAGEMENT_URL}/organizations/for-me/${session?.user?.phone}`,
+        `${PLATFORM_URL}/organizations/for-me/${session?.user?.phone}`,
         {
           method: 'POST',
           body: JSON.stringify(inputs),
@@ -85,17 +85,14 @@ export async function actionCreateMyOrganizationUser(
 ) {
   try {
     if (await CreateOrganizationUserDTO.parseAsync(inputs)) {
-      const data = await fetch(
-        `${PLATFORM_MANAGEMENT_URL}/organization-users`,
-        {
-          method: 'POST',
-          body: JSON.stringify(inputs),
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${session?.user?.authorization}`,
-          },
+      const data = await fetch(`${PLATFORM_URL}/organization-users`, {
+        method: 'POST',
+        body: JSON.stringify(inputs),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session?.user?.authorization}`,
         },
-      )
+      })
       revalidatePath(`/organziations/${inputs?.organizationDocument}`)
       return data && (await data.json())
     }
@@ -111,17 +108,14 @@ export async function actionUpdateMyOrganizationUser(
 ) {
   try {
     if (await UpdateOrganizationUserDTO.parseAsync(inputs)) {
-      const data = await fetch(
-        `${PLATFORM_MANAGEMENT_URL}/organization-users/${id}`,
-        {
-          method: 'PATCH',
-          body: JSON.stringify(inputs),
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${session?.user?.authorization}`,
-          },
+      const data = await fetch(`${PLATFORM_URL}/organization-users/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(inputs),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session?.user?.authorization}`,
         },
-      )
+      })
       revalidatePath(`/organziations/${inputs?.organizationDocument}`)
       return data && (await data.json())
     }

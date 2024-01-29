@@ -1,27 +1,26 @@
 'use client'
 
+import DialogModal from '@/components/dialog-modal'
+import { PlusIcon } from '@heroicons/react/24/outline'
 import {
+  Avatar,
+  Button,
+  IconButton,
+  Input,
   List,
   ListItem,
   ListItemPrefix,
-  Avatar,
   Typography,
-  IconButton,
-  Input,
-  Button,
 } from '@material-tailwind/react'
-import { UserProps, UserType } from '../types'
-import { Fragment, useCallback, useState } from 'react'
-import { PlusIcon } from '@heroicons/react/24/outline'
-import DialogModal from '@/components/dialog-modal'
-import UserCreateFormView from './UserCreateFormView'
-import UserUpdateFormView from './UserUpdateFormView'
-import { celularMask } from 'masks-br'
+import { useState, useCallback, Fragment } from 'react'
+import { OrganizationKeyProps, OrganizationKeyType } from '../types'
+import AuthorizationCreateFormView from './AuthorizationCreateFormView'
+import AuthorizationUpdateFormView from './AuthorizationUpdateFormView'
 
-export default function UserListView(props: UserProps) {
-  const { data: users } = props
+export default function AuhorizationListView(props: OrganizationKeyProps) {
+  const { data: authorizations } = props
 
-  const avatar = '/avatar.svg'
+  const logotipo = '/logotipo.svg'
 
   const [openDialogModal, setOpenDialogModal] = useState<boolean>(false)
   const [openDialogUpdate, setOpenDialogUpdate] = useState<boolean>(false)
@@ -32,7 +31,7 @@ export default function UserListView(props: UserProps) {
   }, [openDialogModal])
 
   const handleDialogUpdate = useCallback(
-    (data: UserType) => {
+    (data: OrganizationKeyType) => {
       data && setData(data)
       setOpenDialogUpdate(!openDialogUpdate)
     },
@@ -50,7 +49,7 @@ export default function UserListView(props: UserProps) {
           <Input
             color="green"
             type="text"
-            label="filtrar usuário"
+            label="filtrar organização"
             className="pr-20"
             containerProps={{
               className: 'min-w-0',
@@ -77,32 +76,36 @@ export default function UserListView(props: UserProps) {
           open={openDialogModal}
           onClose={handleDialogModal}
           title="dedicado"
-          content="criar usuário na plataforma"
+          content="criar chave de autorização para a organização"
         >
-          <UserCreateFormView close={handleDialogModal} />
+          <AuthorizationCreateFormView close={handleDialogModal} />
         </DialogModal>
       </div>
       <List className="w-full">
-        {users &&
-          users?.map((user: UserType) => (
+        {authorizations &&
+          authorizations?.map((authorization: OrganizationKeyType) => (
             <ListItem
-              key={user?.id}
+              key={authorization?.id}
               className="hover:shadow-sm"
-              onClick={() => handleDialogUpdate(user)}
+              onClick={() => handleDialogUpdate(authorization)}
             >
               <ListItemPrefix>
                 <Avatar
                   variant="circular"
-                  alt={user?.name}
-                  src={user?.image || avatar}
+                  alt={authorization?.organization?.name}
+                  src={authorization?.organization?.image || logotipo}
                 />
               </ListItemPrefix>
               <div>
                 <Typography variant="h6" className="uppercase">
-                  {user?.name}
+                  {authorization?.organization?.name}
                 </Typography>
-                <Typography variant="small" className="font-normal">
-                  {celularMask(user?.phone)}
+                <Typography
+                  variant="small"
+                  color={`${authorization?.active ? 'green' : 'red'}`}
+                  className="font-normal"
+                >
+                  {authorization?.active ? 'chave ativa' : 'chave inativa'}
                 </Typography>
               </div>
             </ListItem>
@@ -112,9 +115,9 @@ export default function UserListView(props: UserProps) {
         open={openDialogUpdate}
         onClose={handleCloseDialog}
         title="dedicado"
-        content={`atualizar ${data?.name.split(' ')[0]} na plataforma`}
+        content={`atualizar autorização da organização ${data?.organization?.name}`}
       >
-        <UserUpdateFormView data={data} close={handleCloseDialog} />
+        <AuthorizationUpdateFormView data={data} close={handleCloseDialog} />
       </DialogModal>
     </Fragment>
   )
