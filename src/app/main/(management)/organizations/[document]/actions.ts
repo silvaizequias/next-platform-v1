@@ -28,7 +28,7 @@ export default async function actionGetOrganizationByDocument(
         },
       },
     )
-
+    if (!data) return null
     return data && (await data.json())
   } catch (error: any) {
     console.error(error?.message || error)
@@ -47,7 +47,7 @@ export async function actionGetMyOrganizations(session: Session) {
         },
       },
     )
-
+    if (!data) return null
     return data && (await data.json())
   } catch (error: any) {
     console.error(error?.message || error)
@@ -85,17 +85,14 @@ export async function actionCreateMyOrganizationUser(
 ) {
   try {
     if (await CreateOrganizationUserDTO.parseAsync(inputs)) {
-      const data = await fetch(
-        `${PLATFORM_URL}/organization-users`,
-        {
-          method: 'POST',
-          body: JSON.stringify(inputs),
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${session?.user?.authorization}`,
-          },
+      const data = await fetch(`${PLATFORM_URL}/organization-users`, {
+        method: 'POST',
+        body: JSON.stringify(inputs),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session?.user?.authorization}`,
         },
-      )
+      })
       revalidatePath(`/organziations/${inputs?.organizationDocument}`)
       return data && (await data.json())
     }
@@ -111,17 +108,14 @@ export async function actionUpdateMyOrganizationUser(
 ) {
   try {
     if (await UpdateOrganizationUserDTO.parseAsync(inputs)) {
-      const data = await fetch(
-        `${PLATFORM_URL}/organization-users/${id}`,
-        {
-          method: 'PATCH',
-          body: JSON.stringify(inputs),
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${session?.user?.authorization}`,
-          },
+      const data = await fetch(`${PLATFORM_URL}/organization-users/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(inputs),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session?.user?.authorization}`,
         },
-      )
+      })
       revalidatePath(`/organziations/${inputs?.organizationDocument}`)
       return data && (await data.json())
     }

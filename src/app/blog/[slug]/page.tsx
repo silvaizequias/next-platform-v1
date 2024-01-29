@@ -1,4 +1,6 @@
 import { Metadata } from 'next'
+import moment from 'moment'
+import 'moment/locale/pt-br'
 import { PublicationType } from '../types'
 import { actionGetPublicationByParams } from './actions'
 import { Suspense } from 'react'
@@ -59,7 +61,7 @@ export default async function PublicationDetailPage({
   }
 
   const content = { __html: publication?.content }
-  const createdAt = new Date(publication?.createdAt).toLocaleDateString()
+  const createdAt = moment(publication?.createdAt).format('LL')
   const author = '@' + publication?.author.split('@')[1]
 
   return publication ? (

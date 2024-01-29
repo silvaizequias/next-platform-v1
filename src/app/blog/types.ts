@@ -4,18 +4,19 @@ export type PublicationType = {
   updatedAt: Date
   deletedAt: Date
   softDeleted: boolean
-  channel: 'blog' | 'knowledge'
-  title: string
-  subject: string
-  slug: string
+  organization: string
+  author: string
+  channel: string
   draft: boolean
   private: boolean
   spotlight: boolean
   generatedByAi: boolean
+  title: string
+  subject: string
+  slug: string
   resume: string
   image: string
   video: string
   content: string
   keywords: string
-  author: string
 }

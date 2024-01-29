@@ -21,6 +21,7 @@ export async function actionGetUsers(session: Session) {
       },
     })
 
+    if (!data) return null
     return data && (await data.json())
   } catch (error: any) {
     console.error(error?.message || error)

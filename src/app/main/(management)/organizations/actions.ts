@@ -20,7 +20,7 @@ export async function actionGetOrganizations(session: Session) {
         Authorization: `Bearer ${session?.user?.authorization}`,
       },
     })
-
+    if (!data) return null
     return data && (await data.json())
   } catch (error: any) {
     console.error(error?.message || error)

@@ -13,17 +13,14 @@ const PLATFORM_URL = process.env.PLATFORM_URL!
 
 export async function actionGetProfile(session: Session) {
   try {
-    const data = await fetch(
-      `${PLATFORM_URL}/users/${session?.user?.id}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session?.user?.authorization}`,
-        },
+    const data = await fetch(`${PLATFORM_URL}/users/${session?.user?.id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${session?.user?.authorization}`,
       },
-    )
-
+    })
+    if (!data) return null
     return data && (await data.json())
   } catch (error: any) {
     console.error(error?.message || error)
@@ -36,17 +33,14 @@ export async function actionUpdateProfile(
 ) {
   try {
     if (await UpdateProfileInformationDTO.parseAsync(inputs)) {
-      const data = await fetch(
-        `${PLATFORM_URL}/users/${session?.user?.id}`,
-        {
-          method: 'PATCH',
-          body: JSON.stringify(inputs),
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${session?.user?.authorization}`,
-          },
+      const data = await fetch(`${PLATFORM_URL}/users/${session?.user?.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(inputs),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session?.user?.authorization}`,
         },
-      )
+      })
       revalidatePath('/profile')
       return data && (await data.json())
     }
@@ -61,19 +55,16 @@ export async function actionUpdateProfilePassword(
 ) {
   try {
     if (await UpdateProfilePasswordDTO.parseAsync(inputs)) {
-      const data = await fetch(
-        `${PLATFORM_URL}/users/${session?.user?.id}`,
-        {
-          method: 'PATCH',
-          body: JSON.stringify({
-            password: inputs?.newPassword,
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${session?.user?.authorization}`,
-          },
+      const data = await fetch(`${PLATFORM_URL}/users/${session?.user?.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          password: inputs?.newPassword,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session?.user?.authorization}`,
         },
-      )
+      })
       revalidatePath('/profile')
       return data && (await data.json())
     }

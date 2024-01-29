@@ -5,20 +5,17 @@ const AUTHORIZATION_KEY = process.env.AUTHORIZATION_KEY!
 
 export async function actionGetPublicationByParams(slug: string) {
   try {
-    const publication = await fetch(
-      `${PUBLICATION_URL}/publications/slug/${slug}`,
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          authorizationKey: AUTHORIZATION_KEY,
-        },
-        next: { revalidate: 3600 },
+    const data = await fetch(`${PUBLICATION_URL}/publications/slug/${slug}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        authorizationKey: AUTHORIZATION_KEY,
       },
-    )
-    if (!publication) return null
+      //next: { revalidate: 3600 },
+    })
+    if (!data) return null
 
-    return publication && (await publication.json())
+    return data && (await data.json())
   } catch (error: any) {
     throw new Error(error)
   }
