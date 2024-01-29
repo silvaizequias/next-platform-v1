@@ -3,7 +3,7 @@ import { PublicationType } from './types'
 import PublicationView from './views/publication-view'
 
 export default async function BlogPage() {
-  const publications: PublicationType[] | any = await actionGetPublications()
+  const publications: PublicationType[] = await actionGetPublications()
 
   const logotipo = '/logotipo.svg'
 
@@ -31,7 +31,9 @@ export default async function BlogPage() {
           </div>
         </div>
       </div>
-      <PublicationView publications={publications} />
+      {publications && (
+        <PublicationView publications={publications} />
+      )}
     </div>
   )
 }
