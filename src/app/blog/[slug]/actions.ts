@@ -1,7 +1,7 @@
 'use server'
 
 const PUBLICATION_URL = process.env.PUBLICATION_URL!
-const PUBLICATION_KEY = process.env.PUBLICATION_KEY!
+const AUTHORIZATION_KEY = process.env.AUTHORIZATION_KEY!
 
 export async function actionGetPublicationByParams(slug: string) {
   try {
@@ -11,7 +11,7 @@ export async function actionGetPublicationByParams(slug: string) {
         method: 'GET',
         headers: {
           Accept: 'application/json',
-          authorization: PUBLICATION_KEY,
+          authorizationKey: AUTHORIZATION_KEY,
         },
         next: { revalidate: 3600 },
       },

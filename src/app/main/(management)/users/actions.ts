@@ -9,11 +9,11 @@ import {
 } from './dto'
 import { revalidatePath } from 'next/cache'
 
-const PLATFORM_MANAGEMENT_URL = process.env.PLATFORM_MANAGEMENT_URL!
+const PLATFORM_URL = process.env.PLATFORM_URL!
 
 export async function actionGetUsers(session: Session) {
   try {
-    const data = await fetch(`${PLATFORM_MANAGEMENT_URL}/users`, {
+    const data = await fetch(`${PLATFORM_URL}/users`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ export async function actionCreateUser(
   try {
     if (await CreateUserDTO.parseAsync(inputs)) {
       const setPassword = inputs?.password || randomCode
-      const data = await fetch(`${PLATFORM_MANAGEMENT_URL}/users`, {
+      const data = await fetch(`${PLATFORM_URL}/users`, {
         method: 'POST',
         body: JSON.stringify({ ...inputs, password: setPassword }),
         headers: {
@@ -58,7 +58,7 @@ export async function actionUpdateUser(
 ) {
   try {
     if (await UpdateUserDTO.parseAsync(inputs)) {
-      const data = await fetch(`${PLATFORM_MANAGEMENT_URL}/users/${userId}`, {
+      const data = await fetch(`${PLATFORM_URL}/users/${userId}`, {
         method: 'PATCH',
         body: JSON.stringify(inputs),
         headers: {

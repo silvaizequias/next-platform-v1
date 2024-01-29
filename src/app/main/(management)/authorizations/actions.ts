@@ -2,11 +2,11 @@
 
 import { Session } from 'next-auth'
 
-const PLATFORM_MANAGEMENT_URL = process.env.PLATFORM_MANAGEMENT_URL!
+const PLATFORM_URL = process.env.PLATFORM_URL!
 
 export async function actionGetOrganizationKeys(session: Session) {
   try {
-    const data = await fetch(`${PLATFORM_MANAGEMENT_URL}/organization-keys`, {
+    const data = await fetch(`${PLATFORM_URL}/organization-keys`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

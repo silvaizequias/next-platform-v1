@@ -9,11 +9,11 @@ import {
 } from './dto'
 import { revalidatePath } from 'next/cache'
 
-const PLATFORM_MANAGEMENT_URL = process.env.PLATFORM_MANAGEMENT_URL!
+const PLATFORM_URL = process.env.PLATFORM_URL!
 
 export async function actionGetOrganizations(session: Session) {
   try {
-    const data = await fetch(`${PLATFORM_MANAGEMENT_URL}/organizations`, {
+    const data = await fetch(`${PLATFORM_URL}/organizations`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ export async function actionCreateOrganization(
 ) {
   try {
     if (await CreateOrganizationDTO.parseAsync(inputs)) {
-      const data = await fetch(`${PLATFORM_MANAGEMENT_URL}/organizations`, {
+      const data = await fetch(`${PLATFORM_URL}/organizations`, {
         method: 'POST',
         body: JSON.stringify(inputs),
         headers: {
@@ -57,7 +57,7 @@ export async function actionUpdateOrganization(
   try {
     if (await UpdateOrganizationDTO.parseAsync(inputs)) {
       const data = await fetch(
-        `${PLATFORM_MANAGEMENT_URL}/organizations/${organizationId}`,
+        `${PLATFORM_URL}/organizations/${organizationId}`,
         {
           method: 'PATCH',
           body: JSON.stringify(inputs),

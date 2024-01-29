@@ -9,12 +9,12 @@ import {
 } from './dto'
 import { revalidatePath } from 'next/cache'
 
-const PLATFORM_MANAGEMENT_URL = process.env.PLATFORM_MANAGEMENT_URL!
+const PLATFORM_URL = process.env.PLATFORM_URL!
 
 export async function actionGetProfile(session: Session) {
   try {
     const data = await fetch(
-      `${PLATFORM_MANAGEMENT_URL}/users/${session?.user?.id}`,
+      `${PLATFORM_URL}/users/${session?.user?.id}`,
       {
         method: 'GET',
         headers: {
@@ -37,7 +37,7 @@ export async function actionUpdateProfile(
   try {
     if (await UpdateProfileInformationDTO.parseAsync(inputs)) {
       const data = await fetch(
-        `${PLATFORM_MANAGEMENT_URL}/users/${session?.user?.id}`,
+        `${PLATFORM_URL}/users/${session?.user?.id}`,
         {
           method: 'PATCH',
           body: JSON.stringify(inputs),
@@ -62,7 +62,7 @@ export async function actionUpdateProfilePassword(
   try {
     if (await UpdateProfilePasswordDTO.parseAsync(inputs)) {
       const data = await fetch(
-        `${PLATFORM_MANAGEMENT_URL}/users/${session?.user?.id}`,
+        `${PLATFORM_URL}/users/${session?.user?.id}`,
         {
           method: 'PATCH',
           body: JSON.stringify({
