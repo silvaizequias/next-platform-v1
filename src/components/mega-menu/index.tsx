@@ -10,6 +10,7 @@ import {
   IconButton,
 } from '@material-tailwind/react'
 import {
+  BanknotesIcon,
   Bars3Icon,
   BuildingOffice2Icon,
   BuildingOfficeIcon,
@@ -84,6 +85,15 @@ export default function MegaMenu(props: Props) {
             <ShieldCheckIcon className="h-6 w-6" />
             <Typography variant="small" className="font-medium">
               autorizações
+            </Typography>
+          </MenuItem>
+          <MenuItem
+            className="flex items-center gap-2"
+            onClick={() => handleClick('/subscriptions')}
+          >
+            <BanknotesIcon className="h-6 w-6" />
+            <Typography variant="small" className="font-medium">
+              assinaturas
             </Typography>
           </MenuItem>
         </MenuList>

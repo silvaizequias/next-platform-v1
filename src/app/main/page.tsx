@@ -18,15 +18,10 @@ export default async function MainPage() {
 
   return session ? (
     <PageScreen title="plataforma dedicado">
-      <Box>
-        <div className="w-full">
-          <h6 className="text-lg">organizações</h6>
-          <MyOrganizationListView data={myOrganizations} />
-        </div>
-        <div className="w-full">
-          <h6 className="text-lg">assinaturas</h6>
-        </div>
-      </Box>
+      <div className="w-full">
+        <h6 className="text-lg">organizações</h6>
+        <MyOrganizationListView data={myOrganizations} />
+      </div>
     </PageScreen>
   ) : (
     <FullScreen>
