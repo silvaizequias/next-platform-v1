@@ -30,6 +30,8 @@ export const nextAuthOptions: NextAuthOptions = {
         return {
           ...response,
           authorization: response?.authorization,
+          defaultOrganization: response?.defaultOrganization,
+          organziations: response?.organizations,
         }
       },
     }),
