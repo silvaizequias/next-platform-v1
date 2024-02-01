@@ -23,6 +23,12 @@ export default async function middleware(request: NextRequest) {
     )
   }
 
+  if (hostname == `pedidos.${NEXT_PUBLIC_URL}`) {
+    return NextResponse.rewrite(
+      new URL(`/main/orders${path === '/' ? '' : path}`, request.url),
+    )
+  }
+
   if (hostname == `${NEXT_PUBLIC_URL}`) {
     return NextResponse.rewrite(
       new URL(`/main${path === '/' ? '' : path}`, request.url),
