@@ -1,15 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { env } from './environments'
 
 export default async function middleware(request: NextRequest) {
-  const NEXT_PUBLIC_URL = process.env.NEXT_PUBLIC_URL!
   const url = request.nextUrl
 
   let hostname = request.headers
     .get('host')!
-    .replace('.localhost:3210', `.${NEXT_PUBLIC_URL}`)
+    .replace('.localhost:3210', `.${env.BASE_URL}`)
 
   if (hostname.includes('---')) {
-    hostname = `${hostname.split('---')[0]}.${NEXT_PUBLIC_URL}`
+    hostname = `${hostname.split('---')[0]}.${env.BASE_URL}`
   }
 
   const searchParams = request.nextUrl.searchParams.toString()
@@ -17,21 +17,18 @@ export default async function middleware(request: NextRequest) {
     searchParams.length > 0 ? `?${searchParams}` : ''
   }`
 
-  if (hostname == `blog.${NEXT_PUBLIC_URL}`) {
-    return NextResponse.rewrite(
-      new URL(`/blog${path === '/' ? '' : path}`, request.url),
-    )
-  }
-
-  if (hostname == `pedidos.${NEXT_PUBLIC_URL}`) {
-    return NextResponse.rewrite(
-      new URL(`/main/orders${path === '/' ? '' : path}`, request.url),
-    )
-  }
-
-  if (hostname == `${NEXT_PUBLIC_URL}`) {
+  if (hostname == `${env.BASE_URL}`) {
     return NextResponse.rewrite(
       new URL(`/main${path === '/' ? '' : path}`, request.url),
+    )
+  }
+
+  if (hostname == `blog.${env.BASE_URL}`) {
+    return NextResponse.rewrite(
+      new URL(
+        `/main/(publications)/blog${path === '/' ? '' : path}`,
+        request.url,
+      ),
     )
   }
 
