@@ -22,11 +22,13 @@ export default async function OrganizationOrderPage({
     organization?.apiKey?.authorizationKey,
   )
 
-  return organization ? (
+  return (
     <PageScreen title={`gestão de pedidos da ${organization?.name}`}>
-      <div className="w-full">
-        <OrderListView data={orders} organization={organization} />
-      </div>
+      {organization && (
+        <div className="w-full">
+          <OrderListView data={orders} organization={organization} />
+        </div>
+      )}
     </PageScreen>
-  ) : null
+  )
 }
