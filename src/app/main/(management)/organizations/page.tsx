@@ -8,9 +8,11 @@ import OrganizationListView from './views/OrganizationListView'
 
 export default async function OrganizationPage() {
   const session = await getServerSession(nextAuthOptions)
-  const organizations: OrganizationType[] = await actionGetOrganizations(session!)
+  const organizations: OrganizationType[] = await actionGetOrganizations(
+    session!,
+  )
 
-  return session ? (
+  return session && session?.user?.profile == 'master' ? (
     <PageScreen title="organziações da plataforma">
       <OrganizationListView data={organizations} />
     </PageScreen>

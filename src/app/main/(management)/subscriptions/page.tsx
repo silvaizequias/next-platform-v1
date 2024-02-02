@@ -9,7 +9,7 @@ export default async function SubscriptionPage() {
   const session = await getServerSession(nextAuthOptions)
   const subscriptions = await actionGetSubscriptions(session!)
 
-  return session ? (
+  return session && session?.user?.profile == 'master' ? (
     <PageScreen title="assinaturas da plataforma">
       <SubscriptionListView data={subscriptions} />
     </PageScreen>

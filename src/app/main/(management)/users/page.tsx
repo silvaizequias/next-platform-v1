@@ -10,7 +10,7 @@ export default async function UserPage() {
   const session = await getServerSession(nextAuthOptions)
   const users: UserType[] = await actionGetUsers(session!)
 
-  return session ? (
+  return session && session?.user?.profile == 'master' ? (
     <PageScreen title="usuários da plataforma">
       <UserListView data={users} />
     </PageScreen>

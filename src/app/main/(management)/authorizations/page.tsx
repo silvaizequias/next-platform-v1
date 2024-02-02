@@ -12,7 +12,7 @@ export default async function AuthorizationPage() {
   const organizationKeys: OrganizationKeyType[] =
     await actionGetOrganizationKeys(session!)
 
-  return session ? (
+  return session && session?.user?.profile == 'master' ? (
     <PageScreen title="autorizações de acesso da plataforma">
       <AuhorizationListView data={organizationKeys} />
     </PageScreen>
