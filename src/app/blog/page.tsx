@@ -1,3 +1,5 @@
+import actionGetOrganizationByDocument from '../main/(management)/organizations/[document]/actions'
+import { OrganizationType } from '../main/(management)/organizations/types'
 import { actionGetPublications } from './actions'
 import { PublicationType } from './types'
 import PublicationView from './views/publication-view'
@@ -31,9 +33,7 @@ export default async function BlogPage() {
           </div>
         </div>
       </div>
-      {publications && (
-        <PublicationView publications={publications} />
-      )}
+      {publications && <PublicationView publications={publications} />}
     </div>
   )
 }
