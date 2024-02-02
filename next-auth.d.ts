@@ -9,8 +9,6 @@ declare module 'next-auth/jwt' {
     subscriber: boolean
     phone: string
     authorization?: string
-    defaultOrganization?: string
-    organizations?: []
   }
 }
 
@@ -23,8 +21,6 @@ declare module 'next-auth' {
       subscriber: boolean
       phone: string
       authorization?: string
-      defaultOrganization?: string
-      organizations?: []
     } & DefaultSession['user']
   }
 
@@ -35,7 +31,5 @@ declare module 'next-auth' {
     subscriber: boolean
     phone: string
     authorization?: string
-    defaultOrganization?: string
-    organizations?: []
   }
 }

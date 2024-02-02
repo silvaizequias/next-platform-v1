@@ -39,6 +39,7 @@ export default async function OrganizationOnlyPage({
   const subscriptions: SubscriptionType[] | any =
     await actionGetSubscriptionByParam(session!, document)
 
+
   return session
     ? organization && (
         <PageScreen title={organization?.name}>

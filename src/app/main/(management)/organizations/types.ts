@@ -1,3 +1,4 @@
+import { OrganizationKeyType } from './../authorizations/types'
 import { UserType } from '../users/types'
 
 export type OrganizationType = {
@@ -18,6 +19,7 @@ export type OrganizationType = {
   latitude: number
   longitude: number
   users: OrganizationUsersType[] | any
+  apiKey: OrganizationKeyType
 }
 
 export type OrganizationUsersType = {
