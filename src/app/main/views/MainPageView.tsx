@@ -1,7 +1,15 @@
 import { Grid, Paper, Stack, Typography } from '@mui/material'
 import { blue } from '@mui/material/colors'
+import { OrganizationUsersType } from '../(management)/organizations/users/types'
+import MyOrganizationsMainListView from './MyOrganizationsMainListView'
 
-export default function MainPageView() {
+interface Props {
+  data: OrganizationUsersType[] | any
+}
+
+export default function MainPageView(props: Props) {
+  const { data } = props
+
   return (
     <Grid container component="main">
       <Grid
@@ -48,7 +56,11 @@ export default function MainPageView() {
         elevation={6}
         square
         sx={{ height: '100vh' }}
-      ></Grid>
+      >
+        <Stack gap={2} alignContent={'center'} alignItems={'center'}>
+          <MyOrganizationsMainListView data={data} />
+        </Stack>
+      </Grid>
     </Grid>
   )
 }

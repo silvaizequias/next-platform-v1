@@ -1,6 +1,10 @@
+import { OrganizationType } from '@/app/main/(management)/organizations/types'
+import { nextAuthOptions } from '@/libraries/next-auth'
 import { Grid, Stack, Typography, Paper } from '@mui/material'
 import { blue } from '@mui/material/colors'
 import { Metadata } from 'next'
+import { getServerSession } from 'next-auth'
+import { actionGetOrganizationByDocument } from '../actions'
 
 export const metadata: Metadata = {
   title: {
@@ -11,7 +15,18 @@ export const metadata: Metadata = {
     'soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
 }
 
-export default async function MyOrganizationPublicationsPage() {
+export default async function MyOrganizationPublicationsPage({
+  params,
+}: {
+  params: { document: string }
+}) {
+  const session = await getServerSession(nextAuthOptions)
+  const { document } = params
+  const organization: OrganizationType = await actionGetOrganizationByDocument(
+    document,
+    session!,
+  )
+
   return (
     <Grid container component="main">
       <Grid
@@ -39,7 +54,7 @@ export default async function MyOrganizationPublicationsPage() {
             fontWeight={600}
             color={blue[400]}
           >
-            publicações da minha organização
+            {`publicações da organização ${organization?.name}`}
           </Typography>
         </Stack>
       </Grid>

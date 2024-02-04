@@ -4,6 +4,8 @@ import { blue } from '@mui/material/colors'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
+import { UserType } from '../users/types'
+import { actionGetProfile } from './actions'
 
 export const metadata: Metadata = {
   title: {
@@ -16,6 +18,7 @@ export const metadata: Metadata = {
 
 export default async function ProfilePage() {
   const session = await getServerSession(nextAuthOptions)
+  const profile: UserType | any = await actionGetProfile(session!)
 
   return session ? (
     <Grid container component="main">
@@ -45,6 +48,14 @@ export default async function ProfilePage() {
             color={blue[400]}
           >
             meu perfil na plataforma
+          </Typography>
+          <Typography
+            component="small"
+            variant="caption"
+            align="center"
+            fontWeight={200}
+          >
+            {`olá ${profile?.name.split(' ')[0]}`}
           </Typography>
         </Stack>
       </Grid>

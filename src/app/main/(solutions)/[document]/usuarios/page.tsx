@@ -1,6 +1,11 @@
+import { OrganizationType } from '@/app/main/(management)/organizations/types'
+import { nextAuthOptions } from '@/libraries/next-auth'
 import { Grid, Stack, Typography, Paper } from '@mui/material'
 import { blue } from '@mui/material/colors'
 import { Metadata } from 'next'
+import { getServerSession } from 'next-auth'
+import { actionGetOrganizationByDocument } from '../actions'
+import MyOrganizationUsersListView from './views/MyOrganizationUsersListView'
 
 export const metadata: Metadata = {
   title: {
@@ -11,7 +16,18 @@ export const metadata: Metadata = {
     'soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
 }
 
-export default async function MyOrganizationUsersPage() {
+export default async function MyOrganizationUsersPage({
+  params,
+}: {
+  params: { document: string }
+}) {
+  const { document } = params
+  const session = await getServerSession(nextAuthOptions)
+  const organization: OrganizationType = await actionGetOrganizationByDocument(
+    document,
+    session!,
+  )
+
   return (
     <Grid container component="main">
       <Grid
@@ -39,7 +55,7 @@ export default async function MyOrganizationUsersPage() {
             fontWeight={600}
             color={blue[400]}
           >
-            usuários da minha organização
+            {`usuários da organização ${organization?.name}`}
           </Typography>
         </Stack>
       </Grid>
@@ -50,7 +66,13 @@ export default async function MyOrganizationUsersPage() {
         elevation={6}
         square
         sx={{ height: '100vh' }}
-      ></Grid>
+      >
+        <Stack gap={2} alignContent={'center'} alignItems={'center'}>
+          <MyOrganizationUsersListView
+            data={organization?.users}
+          />
+        </Stack>
+      </Grid>
     </Grid>
   )
 }

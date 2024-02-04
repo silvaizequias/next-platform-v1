@@ -2,18 +2,25 @@ import { Metadata } from 'next'
 import { actionGetOrganizationByDocument } from './actions'
 import { Grid, Stack, Typography, Paper } from '@mui/material'
 import { blue } from '@mui/material/colors'
+import { getServerSession } from 'next-auth'
+import { nextAuthOptions } from '@/libraries/next-auth'
+import { OrganizationType } from '../../(management)/organizations/types'
 
 export async function generateMetadata({
   params,
 }: {
   params: { document: string }
 }): Promise<Metadata | null> {
+  const session = await getServerSession(nextAuthOptions)
   const { document } = params
-  const organization = await actionGetOrganizationByDocument(document)
+  const organization: OrganizationType = await actionGetOrganizationByDocument(
+    document,
+    session!,
+  )
 
   return {
     title: {
-      default: `a melhor plataforma de serviços da ${organization}`,
+      default: `a melhor plataforma de serviços da ${organization?.name}`,
       template: `%s | dedicado`,
     },
     description:
@@ -26,8 +33,12 @@ export default async function MyOrganizationsPage({
 }: {
   params: { document: string }
 }) {
+  const session = await getServerSession(nextAuthOptions)
   const { document } = params
-  const organization = await actionGetOrganizationByDocument(document)
+  const organization: OrganizationType = await actionGetOrganizationByDocument(
+    document,
+    session!,
+  )
 
   return (
     <Grid container component="main">
@@ -56,7 +67,15 @@ export default async function MyOrganizationsPage({
             fontWeight={600}
             color={blue[400]}
           >
-            {document}
+            {organization?.name}
+          </Typography>
+          <Typography
+            component="small"
+            variant="caption"
+            align="center"
+            fontWeight={200}
+          >
+            {organization?.document}
           </Typography>
         </Stack>
       </Grid>

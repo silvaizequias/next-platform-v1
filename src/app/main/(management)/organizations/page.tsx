@@ -4,6 +4,8 @@ import { blue } from '@mui/material/colors'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
+import { OrganizationType } from './types'
+import { actionGetOrganizations } from './actions'
 
 export const metadata: Metadata = {
   title: {
@@ -16,6 +18,9 @@ export const metadata: Metadata = {
 
 export default async function OrganizationsManagementPage() {
   const session = await getServerSession(nextAuthOptions)
+  const organizations: OrganizationType[] | any = await actionGetOrganizations(
+    session!,
+  )
 
   return session ? (
     <Grid container component="main">
