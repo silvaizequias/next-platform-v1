@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { env } from './environments'
 
+export const config = {
+  matcher: ['/((?!api/|_next/|_static/|_vercel|[\\w-]+\\.\\w+).*)'],
+}
+
 export default async function middleware(request: NextRequest) {
   const url = request.nextUrl
 
@@ -23,18 +27,20 @@ export default async function middleware(request: NextRequest) {
     )
   }
 
+  if (hostname == `notifications.${env.BASE_URL}`) {
+    return NextResponse.rewrite(
+      new URL(`/notifications${path === '/' ? '' : path}`, request.url),
+    )
+  }
+
   if (hostname == `blog.${env.BASE_URL}`) {
     return NextResponse.rewrite(
       new URL(
-        `/main/(publications)/blog${path === '/' ? '' : path}`,
+        `/main/blog${path === '/' ? '' : path}`,
         request.url,
       ),
     )
   }
 
   return NextResponse.rewrite(new URL(`/${hostname}${path}`, request.url))
-}
-
-export const config = {
-  matcher: ['/((?!api/|_next/|_static/|_vercel|[\\w-]+\\.\\w+).*)'],
 }
