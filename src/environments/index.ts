@@ -6,6 +6,12 @@ const EnvSchema = z.object({
   ORDER_API_URL: z.string().url(),
   PLATFORM_API_URL: z.string().url(),
   PUBLICATION_API_URL: z.string().url(),
+  DATABASE_URL: z.string(),
+  SENDGRID_API_KEY: z.string(),
+  SENDGRID_EMAIL_FROM: z.string().email(),
+  TWILIO_ACCOUNT_SID: z.string(),
+  TWILIO_AUTH_TOKEN: z.string(),
+  TWILIO_PHONE_NUMBER: z.string(),
 })
 
 export const env = EnvSchema.parse(process.env)
