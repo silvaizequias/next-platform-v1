@@ -5,6 +5,7 @@ import { blue } from '@mui/material/colors'
 import { getServerSession } from 'next-auth'
 import { nextAuthOptions } from '@/libraries/next-auth'
 import { OrganizationType } from '../../(management)/organizations/types'
+import OrganizationDetailView from './views/OrganizationDetailView'
 
 export async function generateMetadata({
   params,
@@ -86,7 +87,11 @@ export default async function MyOrganizationsPage({
         elevation={6}
         square
         sx={{ height: '100vh' }}
-      ></Grid>
+      >
+        <Stack gap={2} alignContent={'center'} alignItems={'center'}>
+          <OrganizationDetailView organization={organization} />
+        </Stack>
+      </Grid>
     </Grid>
   )
 }

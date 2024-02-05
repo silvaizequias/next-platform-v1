@@ -4,6 +4,9 @@ import { blue } from '@mui/material/colors'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
+import { SubscriptionType } from './types'
+import { actionGetSubscriptions } from './actions'
+import SubscriptionsListView from './views/SubscriptionsListView'
 
 export const metadata: Metadata = {
   title: {
@@ -16,6 +19,9 @@ export const metadata: Metadata = {
 
 export default async function SubscriptionsManagementPage() {
   const session = await getServerSession(nextAuthOptions)
+  const subscriptions: SubscriptionType[] = await actionGetSubscriptions(
+    session!,
+  )
 
   return session ? (
     <Grid container component="main">
@@ -55,7 +61,11 @@ export default async function SubscriptionsManagementPage() {
         elevation={6}
         square
         sx={{ height: '100vh' }}
-      ></Grid>
+      >
+        <Stack gap={2} alignContent={'center'} alignItems={'center'}>
+          <SubscriptionsListView subscriptions={subscriptions} />
+        </Stack>
+      </Grid>
     </Grid>
   ) : (
     redirect('/')

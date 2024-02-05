@@ -1,3 +1,5 @@
+import { OrganizationKeyType } from '../authorizations/types'
+import { SubscriptionType } from '../subscriptions/types'
 import { OrganizationUsersType } from './users/types'
 
 export type OrganizationType = {
@@ -18,4 +20,6 @@ export type OrganizationType = {
   latitude: number
   longitude: number
   users: OrganizationUsersType[] | any
+  subscriptions: SubscriptionType[] | any
+  authorizationKey: OrganizationKeyType
 }

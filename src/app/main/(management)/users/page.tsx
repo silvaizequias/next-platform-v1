@@ -4,6 +4,9 @@ import { blue } from '@mui/material/colors'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
+import { UserType } from './types'
+import { actionGetUsers } from './actions'
+import UsersListView from './views/UsersListView'
 
 export const metadata: Metadata = {
   title: {
@@ -16,6 +19,7 @@ export const metadata: Metadata = {
 
 export default async function UsersPage() {
   const session = await getServerSession(nextAuthOptions)
+  const users: UserType[] = await actionGetUsers(session!)
 
   return session ? (
     <Grid container component="main">
@@ -55,7 +59,11 @@ export default async function UsersPage() {
         elevation={6}
         square
         sx={{ height: '100vh' }}
-      ></Grid>
+      >
+        <Stack gap={2} alignContent={'center'} alignItems={'center'}>
+          <UsersListView users={users} />
+        </Stack>
+      </Grid>
     </Grid>
   ) : (
     redirect('/')

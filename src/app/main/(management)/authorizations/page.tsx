@@ -4,6 +4,9 @@ import { blue } from '@mui/material/colors'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
+import { actionGetOrganizationKeys } from './actions'
+import { OrganizationKeyType } from './types'
+import AuthorizationsListView from './views/AuthorizationsListView'
 
 export const metadata: Metadata = {
   title: {
@@ -16,6 +19,8 @@ export const metadata: Metadata = {
 
 export default async function AuthorizationsManagementPage() {
   const session = await getServerSession(nextAuthOptions)
+  const authorizations: OrganizationKeyType[] | any =
+    await actionGetOrganizationKeys(session!)
 
   return session ? (
     <Grid container component="main">
@@ -55,7 +60,11 @@ export default async function AuthorizationsManagementPage() {
         elevation={6}
         square
         sx={{ height: '100vh' }}
-      ></Grid>
+      >
+        <Stack gap={2} alignContent={'center'} alignItems={'center'}>
+          <AuthorizationsListView authorizations={authorizations} />
+        </Stack>
+      </Grid>
     </Grid>
   ) : (
     redirect('/')

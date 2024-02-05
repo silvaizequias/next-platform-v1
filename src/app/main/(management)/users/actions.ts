@@ -1,8 +1,22 @@
 'use server'
 
-export async function actionGetUsers() {
+import { Session } from 'next-auth'
+import { UserType } from './types'
+import { env } from '@/environments'
+
+export async function actionGetUsers(
+  session: Session,
+): Promise<UserType | any> {
   try {
-    return
+    const data = await fetch(`${env.PLATFORM_API_URL}/users`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${session?.user?.authorization}`,
+      },
+    })
+    if (!data) return null
+    return data && (await data.json())
   } catch (error: any) {
     console.error(error?.message || error)
   }

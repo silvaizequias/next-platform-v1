@@ -6,6 +6,7 @@ import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import { OrganizationType } from './types'
 import { actionGetOrganizations } from './actions'
+import OrganizationListView from './views/OrganizationsListView'
 
 export const metadata: Metadata = {
   title: {
@@ -60,7 +61,11 @@ export default async function OrganizationsManagementPage() {
         elevation={6}
         square
         sx={{ height: '100vh' }}
-      ></Grid>
+      >
+        <Stack gap={2} alignContent={'center'} alignItems={'center'}>
+          <OrganizationListView organizations={organizations} />
+        </Stack>
+      </Grid>
     </Grid>
   ) : (
     redirect('/')

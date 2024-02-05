@@ -33,7 +33,7 @@ export default function MyOrganizationsMainListView(props: Props) {
   return (
     <List
       dense
-      sx={{ width: '100%', maxWidth: 'sm', bgcolor: 'background.paper' }}
+      sx={{ width: '100%', maxWidth: 'md', bgcolor: 'background.paper' }}
     >
       {data?.map((myOrganization: OrganizationUsersType) => {
         return (

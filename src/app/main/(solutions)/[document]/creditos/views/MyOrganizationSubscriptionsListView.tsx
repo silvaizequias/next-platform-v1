@@ -1,4 +1,7 @@
+'use client'
+
 import { OrganizationUsersType } from '@/app/main/(management)/organizations/users/types'
+import { SubscriptionType } from '@/app/main/(management)/subscriptions/types'
 import {
   List,
   ListItem,
@@ -11,26 +14,25 @@ import {
 } from '@mui/material'
 
 interface Props {
-  data: OrganizationUsersType[] | any
+  subscriptions: SubscriptionType[] | any
 }
 
-export default function MyOrganizationUsersListView(props: Props) {
-  const { data } = props
-  const avatar = '/avatar.svg'
+export default function MyOrganizationSubscriptionsListView(props: Props) {
+  const { subscriptions } = props
 
   return (
     <List
       dense
       sx={{ width: '100%', maxWidth: 'md', bgcolor: 'background.paper' }}
     >
-      {data?.map((myOrganization: OrganizationUsersType) => {
+      {subscriptions?.map((subscription: SubscriptionType) => {
         return (
           <ListItem
-            key={myOrganization?.id}
+            key={subscription?.id}
             secondaryAction={
               <Chip
-                label={myOrganization?.role}
-                color="primary"
+                label={`R$ ${subscription?.price}`}
+                color="success"
                 variant="outlined"
                 size="small"
               />
@@ -38,21 +40,15 @@ export default function MyOrganizationUsersListView(props: Props) {
             disablePadding
           >
             <ListItemButton>
-              <ListItemAvatar>
-                <Avatar
-                  alt={myOrganization?.user?.name}
-                  src={myOrganization?.user?.image || avatar}
-                />
-              </ListItemAvatar>
               <ListItemText
                 primary={
                   <Typography variant="h6" sx={{ textTransform: 'lowercase' }}>
-                    {myOrganization?.user?.name}
+                    {`${subscription?.spendLimit} adquiridos`}
                   </Typography>
                 }
                 secondary={
                   <Typography variant="caption">
-                    {myOrganization?.user?.phone}
+                    {`${subscription?.spending} utilizados`}
                   </Typography>
                 }
               />

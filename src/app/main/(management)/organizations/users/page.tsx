@@ -4,6 +4,9 @@ import { blue } from '@mui/material/colors'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
+import { actionGetOrganizationUsers } from './actions'
+import { OrganizationUsersType } from './types'
+import OrganizationUsersListView from './views/OrganizationUsersListView'
 
 export const metadata: Metadata = {
   title: {
@@ -16,6 +19,8 @@ export const metadata: Metadata = {
 
 export default async function OrganizationUsersManagementPage() {
   const session = await getServerSession(nextAuthOptions)
+  const organizationUsers: OrganizationUsersType[] | any =
+    await actionGetOrganizationUsers(session!)
 
   return session ? (
     <Grid container component="main">
@@ -55,7 +60,11 @@ export default async function OrganizationUsersManagementPage() {
         elevation={6}
         square
         sx={{ height: '100vh' }}
-      ></Grid>
+      >
+        <Stack gap={2} alignContent={'center'} alignItems={'center'}>
+          <OrganizationUsersListView organizationUsers={organizationUsers} />
+        </Stack>
+      </Grid>
     </Grid>
   ) : (
     redirect('/')

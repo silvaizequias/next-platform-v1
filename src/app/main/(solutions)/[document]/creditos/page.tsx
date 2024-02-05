@@ -5,6 +5,7 @@ import { blue } from '@mui/material/colors'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { actionGetOrganizationByDocument } from '../actions'
+import MyOrganizationSubscriptionsListView from './views/MyOrganizationSubscriptionsListView'
 
 export const metadata: Metadata = {
   title: {
@@ -65,7 +66,13 @@ export default async function MyOrganizationSubscriptionsPage({
         elevation={6}
         square
         sx={{ height: '100vh' }}
-      ></Grid>
+      >
+        <Stack gap={2} alignContent={'center'} alignItems={'center'}>
+          <MyOrganizationSubscriptionsListView
+            subscriptions={organization?.subscriptions}
+          />
+        </Stack>
+      </Grid>
     </Grid>
   )
 }
