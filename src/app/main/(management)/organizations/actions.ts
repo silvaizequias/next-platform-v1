@@ -1,19 +1,14 @@
 'use server'
 
+import { env } from '@/environments'
 import { Session } from 'next-auth'
-import {
-  CreateOrganizationDTO,
-  CreateOrganizationDTOType,
-  UpdateOrganizationDTO,
-  UpdateOrganizationDTOType,
-} from './dto'
-import { revalidatePath } from 'next/cache'
+import { OrganizationType } from './types'
 
-const PLATFORM_URL = process.env.PLATFORM_URL!
-
-export async function actionGetOrganizations(session: Session) {
+export async function actionGetOrganizations(
+  session: Session,
+): Promise<OrganizationType[] | any> {
   try {
-    const data = await fetch(`${PLATFORM_URL}/organizations`, {
+    const data = await fetch(`${env.PLATFORM_API_URL}/organizations`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -22,54 +17,6 @@ export async function actionGetOrganizations(session: Session) {
     })
     if (!data) return null
     return data && (await data.json())
-  } catch (error: any) {
-    console.error(error?.message || error)
-  }
-}
-
-export async function actionCreateOrganization(
-  session: Session,
-  inputs: CreateOrganizationDTOType,
-) {
-  try {
-    if (await CreateOrganizationDTO.parseAsync(inputs)) {
-      const data = await fetch(`${PLATFORM_URL}/organizations`, {
-        method: 'POST',
-        body: JSON.stringify(inputs),
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session?.user?.authorization}`,
-        },
-      })
-      revalidatePath('/organizations')
-      return data && (await data.json())
-    }
-  } catch (error: any) {
-    console.error(error?.message || error)
-  }
-}
-
-export async function actionUpdateOrganization(
-  session: Session,
-  inputs: UpdateOrganizationDTOType,
-  organizationId: string,
-) {
-  try {
-    if (await UpdateOrganizationDTO.parseAsync(inputs)) {
-      const data = await fetch(
-        `${PLATFORM_URL}/organizations/${organizationId}`,
-        {
-          method: 'PATCH',
-          body: JSON.stringify(inputs),
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${session?.user?.authorization}`,
-          },
-        },
-      )
-      revalidatePath('/organizations')
-      return data && (await data.json())
-    }
   } catch (error: any) {
     console.error(error?.message || error)
   }

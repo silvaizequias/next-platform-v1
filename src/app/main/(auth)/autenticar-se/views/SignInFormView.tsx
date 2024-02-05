@@ -1,82 +1,90 @@
 'use client'
 
-import { Button, Input } from '@material-tailwind/react'
-import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { signIn } from 'next-auth/react'
-import toast from 'react-hot-toast'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { SignInSchema, SignInSchemaType } from '../schema'
+import {
+  Box,
+  Button,
+  FormHelperText,
+  TextField,
+  Typography,
+} from '@mui/material'
 import { useRouter } from 'next/navigation'
-import { SignInDTOType, SignInDTO } from '../dto'
 
-export default function SignInFormView({ close }: { close: () => void }) {
+export default function SignInFormView() {
   const router = useRouter()
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignInDTOType>({
-    resolver: zodResolver(SignInDTO),
+  } = useForm<SignInSchemaType>({
+    resolver: zodResolver(SignInSchema),
   })
 
-  const onSubmit: SubmitHandler<SignInDTOType> = async (inputs) => {
+  const onSubmit: SubmitHandler<SignInSchemaType> = async (inputs) => {
     return await signIn('credentials', {
       redirect: false,
       phone: inputs?.phone,
       password: inputs?.password,
     }).then((res: any) => {
       if (!res.ok) {
-        close()
-        toast.error(res?.error)
+        alert(res?.error)
       } else {
-        close()
-        toast.success('boas vindas a dedicado')
+        alert('boas vindas a dedicado')
         router.refresh()
       }
     })
   }
 
   return (
-    <form
-      className="flex flex-col w-full max-w-lg gap-4"
+    <Box
+      component="form"
       onSubmit={handleSubmit(onSubmit)}
+      noValidate
+      sx={{ my: 2 }}
     >
-      <p className="py-4 text-center italic">
+      <Typography component="h6" variant="body1" align="center">
         informe suas credenciais para autenticar-se na plataforma
-      </p>
-      <Input
-        color="light-blue"
-        label="celular"
-        type="number"
-        id="signInPhone"
-        placeholder="48 98765 4321"
-        crossOrigin={undefined}
+      </Typography>
+      <TextField
         {...register('phone')}
+        margin="normal"
+        size="small"
+        required
+        fullWidth
+        id="phone"
+        label="celular"
+        autoFocus
       />
-      {errors && errors?.phone && (
-        <span className="text-xs text-red-400 italic font-thin">
-          {errors?.phone?.message}
-        </span>
+      {errors.phone && (
+        <FormHelperText sx={{ color: 'error.main' }}>
+          {errors.phone.message}
+        </FormHelperText>
       )}
 
-      <Input
-        color="light-blue"
-        label="senha"
-        type="password"
-        id="signInPassword"
-        placeholder="s*e*n*h*a"
-        crossOrigin={undefined}
+      <TextField
         {...register('password')}
+        margin="normal"
+        size="small"
+        required
+        fullWidth
+        id="password"
+        type="password"
+        label="senha"
+        autoFocus
       />
-      {errors && errors?.password && (
-        <span className="text-xs text-red-400 italic font-thin">
-          {errors?.password?.message}
-        </span>
+      {errors.password && (
+        <FormHelperText sx={{ color: 'error.main' }}>
+          {errors.password.message}
+        </FormHelperText>
       )}
 
-      <Button color="light-blue" type="submit">
+      <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
         autenticar-se
       </Button>
-    </form>
+    </Box>
   )
 }

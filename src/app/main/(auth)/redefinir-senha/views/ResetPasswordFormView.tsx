@@ -1,63 +1,69 @@
 'use client'
 
-import { actionResetPassword } from '../actions'
-import { Button, Input } from '@material-tailwind/react'
-import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import toast from 'react-hot-toast'
-import { ResetPasswordDTOType, ResetPasswordDTO } from '../dto'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import {
+  Box,
+  Button,
+  FormHelperText,
+  TextField,
+  Typography,
+} from '@mui/material'
+import { actionResetPassword } from '../actions'
+import { useRouter } from 'next/navigation'
+import { ResetPasswordSchema, ResetPasswordSchemaType } from '../schema'
 
-export default function ResetPasswordFormView({
-  close,
-}: {
-  close: () => void
-}) {
+export default function ResetPasswordFormView() {
+  const router = useRouter()
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ResetPasswordDTOType>({
-    resolver: zodResolver(ResetPasswordDTO),
+  } = useForm<ResetPasswordSchemaType>({
+    resolver: zodResolver(ResetPasswordSchema),
   })
 
-  const onSubmit: SubmitHandler<ResetPasswordDTOType> = async (inputs) => {
+  const onSubmit: SubmitHandler<ResetPasswordSchemaType> = async (inputs) => {
     const result = await actionResetPassword(inputs)
     if (result?.response?.error) {
-      close()
-      toast.error(result.message)
+      alert(result?.message)
     } else {
-      close()
-      toast.success(result)
+      alert(result)
     }
   }
 
   return (
-    <form
-      className="flex flex-col w-full max-w-lg gap-4"
+    <Box
+      component="form"
       onSubmit={handleSubmit(onSubmit)}
+      noValidate
+      sx={{ my: 2 }}
     >
-      <p className="py-4 text-center italic">
+      <Typography component="h6" variant="body1" align="center">
         um código de segurança será enviado para o número de telefone registrado
         na plataforma
-      </p>
-      <Input
-        color="orange"
-        label="celular"
-        type="number"
-        id="resetPasswordPhone"
-        placeholder="48 98765 4321"
-        crossOrigin={undefined}
+      </Typography>
+
+      <TextField
         {...register('phone')}
+        margin="normal"
+        size="small"
+        required
+        fullWidth
+        id="phone"
+        label="celular"
+        autoFocus
       />
-      {errors && (
-        <span className="text-xs text-red-400 italic font-thin">
-          {errors?.phone?.message}
-        </span>
+      {errors.phone && (
+        <FormHelperText sx={{ color: 'error.main' }}>
+          {errors.phone.message}
+        </FormHelperText>
       )}
 
-      <Button color="orange" type="submit">
+      <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
         redefinir a senha
       </Button>
-    </form>
+    </Box>
   )
 }

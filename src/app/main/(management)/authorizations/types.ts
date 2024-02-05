@@ -11,7 +11,3 @@ export type OrganizationKeyType = {
   active: boolean
   authorizationKey: string
 }
-
-export interface OrganizationKeyProps {
-  data: OrganizationKeyType[] | OrganizationKeyType | any
-}

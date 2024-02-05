@@ -1,3 +1,5 @@
+import { OrganizationType } from '../organizations/types'
+
 export type SubscriptionType = {
   id: string
   createdAt: Date
@@ -7,7 +9,8 @@ export type SubscriptionType = {
   code: string
   customerId: string
   subscriptionId: string
-  document: string
+  organizationId: string
+  organization: OrganizationType
   status: string
   recurrence: string
   currentPeriodEnd: Date
@@ -16,8 +19,4 @@ export type SubscriptionType = {
   spendExceeded: boolean
   price: number
   priceId: string
-}
-
-export interface SubscriptionProps {
-  data: SubscriptionType[] | SubscriptionType | any
 }

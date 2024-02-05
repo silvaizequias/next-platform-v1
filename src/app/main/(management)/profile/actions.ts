@@ -1,73 +1,25 @@
 'use server'
 
+import { env } from '@/environments'
 import { Session } from 'next-auth'
-import {
-  UpdateProfileInformationDTO,
-  UpdateProfileInformationDTOType,
-  UpdateProfilePasswordDTO,
-  UpdateProfilePasswordDTOType,
-} from './dto'
-import { revalidatePath } from 'next/cache'
+import { UserType } from '../users/types'
 
-const PLATFORM_URL = process.env.PLATFORM_URL!
-
-export async function actionGetProfile(session: Session) {
+export async function actionGetProfile(
+  session: Session,
+): Promise<UserType | any> {
   try {
-    const data = await fetch(`${PLATFORM_URL}/users/${session?.user?.id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session?.user?.authorization}`,
+    const data = await fetch(
+      `${env.PLATFORM_API_URL}/users/${session?.user?.id}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session?.user?.authorization}`,
+        },
       },
-    })
+    )
     if (!data) return null
     return data && (await data.json())
-  } catch (error: any) {
-    console.error(error?.message || error)
-  }
-}
-
-export async function actionUpdateProfile(
-  session: Session,
-  inputs: UpdateProfileInformationDTOType,
-) {
-  try {
-    if (await UpdateProfileInformationDTO.parseAsync(inputs)) {
-      const data = await fetch(`${PLATFORM_URL}/users/${session?.user?.id}`, {
-        method: 'PATCH',
-        body: JSON.stringify(inputs),
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session?.user?.authorization}`,
-        },
-      })
-      revalidatePath('/profile')
-      return data && (await data.json())
-    }
-  } catch (error: any) {
-    console.error(error?.message || error)
-  }
-}
-
-export async function actionUpdateProfilePassword(
-  session: Session,
-  inputs: UpdateProfilePasswordDTOType,
-) {
-  try {
-    if (await UpdateProfilePasswordDTO.parseAsync(inputs)) {
-      const data = await fetch(`${PLATFORM_URL}/users/${session?.user?.id}`, {
-        method: 'PATCH',
-        body: JSON.stringify({
-          password: inputs?.newPassword,
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session?.user?.authorization}`,
-        },
-      })
-      revalidatePath('/profile')
-      return data && (await data.json())
-    }
   } catch (error: any) {
     console.error(error?.message || error)
   }

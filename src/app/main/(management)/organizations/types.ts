@@ -1,4 +1,6 @@
-import { UserType } from '../users/types'
+import { OrganizationKeyType } from '../authorizations/types'
+import { SubscriptionType } from '../subscriptions/types'
+import { OrganizationUsersType } from './users/types'
 
 export type OrganizationType = {
   id: string
@@ -18,30 +20,6 @@ export type OrganizationType = {
   latitude: number
   longitude: number
   users: OrganizationUsersType[] | any
-}
-
-export type OrganizationUsersType = {
-  id: string
-  createdAt: Date
-  updatedAt: Date
-  deletedAt: Date
-  softDeleted: boolean
-  active: boolean
-  role: 'client' | 'assistant' | 'technician' | 'administrator' | 'owner'
-  user: UserType
-  userId: string
-  organization: OrganizationType
-  organizationId: string
-}
-
-export interface OrganizationProps {
-  data: OrganizationType[] | OrganizationType | any
-}
-
-export interface MyOrganizationProps {
-  data: OrganizationUsersType[] | OrganizationUsersType | any
-}
-
-export interface MyOrganizationUsersProps {
-  data: OrganizationUsersType[] | OrganizationUsersType | any
+  subscriptions: SubscriptionType[] | any
+  authorizationKey: OrganizationKeyType
 }

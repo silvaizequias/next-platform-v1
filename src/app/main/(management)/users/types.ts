@@ -1,4 +1,4 @@
-import { OrganizationUsersType } from '../organizations/types'
+import { OrganizationUsersType } from '../organizations/users/types'
 
 export type UserType = {
   id: string
@@ -22,9 +22,5 @@ export type UserType = {
   complement: string
   latitude: number
   longitude: number
-  organizations: OrganizationUsersType[]
-}
-
-export interface UserProps {
-  data: UserType | UserType[] | any
+  organizations: OrganizationUsersType[] | any
 }

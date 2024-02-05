@@ -1,15 +1,20 @@
 'use client'
 
-import { actionSignUp } from '../actions'
-import { Button, Input } from '@material-tailwind/react'
-import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { SignUpDTOType, SignUpDTO } from '../dto'
-import toast from 'react-hot-toast'
 import { signIn } from 'next-auth/react'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import {
+  Box,
+  Button,
+  FormHelperText,
+  TextField,
+  Typography,
+} from '@mui/material'
+import { SignUpSchema, SignUpSchemaType } from '../schema'
+import { actionSignUp } from '../actions'
 import { useRouter } from 'next/navigation'
 
-export default function SignUpFormView({ close }: { close: () => void }) {
+export default function SignUpFormView() {
   const randomCode = Math.random().toString(32).substr(2, 16)
 
   const router = useRouter()
@@ -18,28 +23,25 @@ export default function SignUpFormView({ close }: { close: () => void }) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignUpDTOType>({
-    resolver: zodResolver(SignUpDTO),
+  } = useForm<SignUpSchemaType>({
+    resolver: zodResolver(SignUpSchema),
   })
 
-  const onSubmit: SubmitHandler<SignUpDTOType> = async (inputs) => {
-    console.log(inputs)
+  const onSubmit: SubmitHandler<SignUpSchemaType> = async (inputs) => {
     const result = await actionSignUp({ ...inputs, password: randomCode })
     if (result?.response?.error) {
-      toast.error(result?.message)
+      alert(result?.message)
     } else {
-      toast.success(result)
+      alert(result)
       await signIn('credentials', {
         redirect: false,
         phone: inputs?.phone,
         password: randomCode,
       }).then((res: any) => {
         if (!res.ok) {
-          close()
-          toast.error(res?.error)
+          alert(res?.error)
         } else {
-          close()
-          toast.success(`boas vindas a dedicado ${inputs?.name}`)
+          alert(`boas vindas a dedicado ${inputs?.name}`)
           router.refresh()
         }
       })
@@ -47,61 +49,67 @@ export default function SignUpFormView({ close }: { close: () => void }) {
   }
 
   return (
-    <form
-      className="flex flex-col w-full max-w-lg gap-4"
+    <Box
+      component="form"
       onSubmit={handleSubmit(onSubmit)}
+      noValidate
+      sx={{ my: 2 }}
     >
-      <p className="py-4 text-center italic">
+      <Typography component="h6" variant="body1" align="center">
         preencha os campos do formulário para registrar-se na plataforma
-      </p>
-      <Input
-        color="green"
-        label="nome completo"
-        type="text"
-        id="signUpName"
-        placeholder="seu nome completo"
-        crossOrigin={undefined}
+      </Typography>
+
+      <TextField
         {...register('name')}
+        margin="normal"
+        size="small"
+        required
+        fullWidth
+        id="name"
+        label="nome completo"
+        autoFocus
       />
-      {errors && (
-        <span className="text-xs text-red-400 italic font-thin">
-          {errors?.name?.message}
-        </span>
+      {errors.name && (
+        <FormHelperText sx={{ color: 'error.main' }}>
+          {errors.name.message}
+        </FormHelperText>
       )}
 
-      <Input
-        color="green"
-        label="celular"
-        type="number"
-        id="signUpPhone"
-        placeholder="48 98765 4321"
-        crossOrigin={undefined}
-        {...register('phone')}
-      />
-      {errors && (
-        <span className="text-xs text-red-400 italic font-thin">
-          {errors?.phone?.message}
-        </span>
-      )}
-
-      <Input
-        color="green"
-        label="e-mail"
-        type="email"
-        id="signUpEmail"
-        placeholder="seu@email.com"
-        crossOrigin={undefined}
+      <TextField
         {...register('email')}
+        margin="normal"
+        size="small"
+        required
+        fullWidth
+        id="email"
+        label="e-mail"
+        autoFocus
       />
-      {errors && (
-        <span className="text-xs text-red-400 italic font-thin">
-          {errors?.email?.message}
-        </span>
+      {errors.email && (
+        <FormHelperText sx={{ color: 'error.main' }}>
+          {errors.email.message}
+        </FormHelperText>
       )}
 
-      <Button color="green" type="submit">
+      <TextField
+        {...register('phone')}
+        margin="normal"
+        size="small"
+        required
+        fullWidth
+        id="phone"
+        label="celular"
+        autoFocus
+      />
+      {errors.phone && (
+        <FormHelperText sx={{ color: 'error.main' }}>
+          {errors.phone.message}
+        </FormHelperText>
+      )}
+
+      <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
         registrar-se
       </Button>
-    </form>
+    </Box>
   )
 }
