@@ -1,14 +1,18 @@
 'use client'
 
-import { AppBar, Link, Stack, Toolbar, Typography } from '@mui/material'
+import { AppBar, Link, Stack, Toolbar } from '@mui/material'
+import UserMenu from './UserMenu'
+import { UserType } from '@/app/main/(management)/users/types'
 import { Session } from 'next-auth'
+import UserAuth from './UserAuth'
 
 interface Props {
+  profile: UserType | any
   session: Session
 }
 
 export default function Topbar(props: Props) {
-  const { session } = props
+  const { profile, session } = props
 
   return (
     <AppBar
@@ -48,7 +52,7 @@ export default function Topbar(props: Props) {
             justifyContent: 'flex-end',
           }}
         >
-          {session?.user?.name}
+          {session ? <UserMenu profile={profile} /> : <UserAuth />}
         </Toolbar>
       </Stack>
     </AppBar>

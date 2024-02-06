@@ -11,6 +11,7 @@ import {
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { Fragment, ReactNode } from 'react'
+import { actionGetProfile } from './(management)/profile/actions'
 
 export const metadata: Metadata = {
   title: {
@@ -27,10 +28,11 @@ export default async function MainLayout({
   children: ReactNode
 }) {
   const session = await getServerSession(nextAuthOptions)
+  const profile = await actionGetProfile(session!)
 
   return (
     <Fragment>
-      <Topbar session={session!} />
+      <Topbar profile={profile} session={session!} />
       {children}
     </Fragment>
   )
