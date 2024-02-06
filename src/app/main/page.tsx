@@ -3,8 +3,9 @@ import { actionGetMyOrganizations } from './actions'
 import LandingPageView from './views/LandingPageView'
 import { getServerSession } from 'next-auth'
 import { nextAuthOptions } from '@/libraries/next-auth'
-import MainPageView from './views/MainPageView'
 import { OrganizationUsersType } from './(management)/organizations/users/types'
+import PageDisplay from '@/components/PageDisplay'
+import MyOrganizationsMainListView from './views/MyOrganizationsMainListView'
 
 export const metadata: Metadata = {
   title: {
@@ -20,5 +21,11 @@ export default async function MainPage() {
   const myOrganizations: OrganizationUsersType[] =
     await actionGetMyOrganizations(session!)
 
-  return session ? <MainPageView data={myOrganizations} /> : <LandingPageView />
+  return session ? (
+    <PageDisplay title="dedicado" subtitle="sua melhor plataforma de serviços">
+      <MyOrganizationsMainListView data={myOrganizations} />
+    </PageDisplay>
+  ) : (
+    <LandingPageView />
+  )
 }

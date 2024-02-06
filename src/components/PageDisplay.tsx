@@ -1,14 +1,15 @@
-import { Grid, Paper, Stack, Typography } from '@mui/material'
+import MyOrganizationsMainListView from '@/app/main/views/MyOrganizationsMainListView'
+import { Grid, Stack, Typography, Paper } from '@mui/material'
 import { blue } from '@mui/material/colors'
-import { OrganizationUsersType } from '../(management)/organizations/users/types'
-import MyOrganizationsMainListView from './MyOrganizationsMainListView'
+import { ReactNode } from 'react'
 
 interface Props {
-  data: OrganizationUsersType[] | any
+  children: ReactNode
+  subtitle?: string
+  title: string
 }
-
-export default function MainPageView(props: Props) {
-  const { data } = props
+export default function PageDisplay(props: Props) {
+  const { children, subtitle, title } = props
 
   return (
     <Grid container component="main">
@@ -16,7 +17,7 @@ export default function MainPageView(props: Props) {
         item
         xs={12}
         sx={{
-          minHeight: 200,
+          minHeight: 60,
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -27,25 +28,26 @@ export default function MainPageView(props: Props) {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            paddingY: 4,
+            padding: 4,
+            maxWidth: 'md',
           }}
         >
           <Typography
-            component="h1"
-            variant="h2"
+            component="h2"
+            variant="h4"
             align="center"
             fontWeight={600}
             color={blue[400]}
           >
-            dedicado
+            {title}
           </Typography>
           <Typography
-            component="h4"
-            variant="h6"
+            component="small"
+            variant="caption"
             align="center"
             fontWeight={200}
           >
-            sua melhor plataforma de serviços
+            {subtitle}
           </Typography>
         </Stack>
       </Grid>
@@ -55,10 +57,10 @@ export default function MainPageView(props: Props) {
         component={Paper}
         elevation={6}
         square
-        sx={{ height: '100vh' }}
+        sx={{ height: '100vh', padding: 2 }}
       >
         <Stack gap={2} alignContent={'center'} alignItems={'center'}>
-          <MyOrganizationsMainListView data={data} />
+          {children}
         </Stack>
       </Grid>
     </Grid>

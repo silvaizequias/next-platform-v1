@@ -3,13 +3,11 @@ import {
   actionGetOrganizationApiSpend,
   actionGetOrganizationByDocument,
 } from './actions'
-import { Grid, Stack, Typography, Paper } from '@mui/material'
-import { blue } from '@mui/material/colors'
 import { getServerSession } from 'next-auth'
 import { nextAuthOptions } from '@/libraries/next-auth'
 import { OrganizationType } from '../../(management)/organizations/types'
 import OrganizationDetailView from './views/OrganizationDetailView'
-import MyOrganizationUsersListView from './usuarios/views/MyOrganizationUsersListView'
+import PageDisplay from '@/components/PageDisplay'
 
 export async function generateMetadata({
   params,
@@ -47,59 +45,8 @@ export default async function MyOrganizationsPage({
   const spending: number | any = await actionGetOrganizationApiSpend(document)
 
   return (
-    <Grid container component="main">
-      <Grid
-        item
-        xs={12}
-        sx={{
-          minHeight: 200,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Stack
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            paddingY: 4,
-          }}
-        >
-          <Typography
-            component="h2"
-            variant="h4"
-            align="center"
-            fontWeight={600}
-            color={blue[400]}
-          >
-            {organization?.name}
-          </Typography>
-          <Typography
-            component="small"
-            variant="caption"
-            align="center"
-            fontWeight={200}
-          >
-            {organization?.document}
-          </Typography>
-        </Stack>
-      </Grid>
-      <Grid
-        item
-        xs={12}
-        component={Paper}
-        elevation={6}
-        square
-        sx={{ height: '100vh', paddingY: '10px' }}
-      >
-        <Stack gap={2} alignContent={'center'} alignItems={'center'}>
-          <OrganizationDetailView
-            organization={organization}
-            spending={spending}
-          />
-        </Stack>
-      </Grid>
-    </Grid>
+    <PageDisplay title={organization?.name} subtitle={organization?.document}>
+      <OrganizationDetailView organization={organization} spending={spending} />
+    </PageDisplay>
   )
 }
