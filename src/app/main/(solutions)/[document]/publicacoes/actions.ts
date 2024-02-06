@@ -9,7 +9,7 @@ export async function actionGetMyOrganizationPublications(
 ): Promise<PublicationType[] | any> {
   try {
     const data = await fetch(
-      `${env.PUBLICATION_API_URL}/subscriptions/organization/${organizationDocument}`,
+      `${env.PUBLICATION_API_URL}/publications/organization/${organizationDocument}`,
       {
         method: 'GET',
         headers: {
