@@ -5,6 +5,9 @@ import { blue } from '@mui/material/colors'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { actionGetOrganizationByDocument } from '../actions'
+import { PublicationType } from '@/app/main/(management)/publications/types'
+import { actionGetMyOrganizationPublications } from './actions'
+import MyOrganizationPublicationsListView from './views/MyOrganizationPublicationsListView'
 
 export const metadata: Metadata = {
   title: {
@@ -26,6 +29,11 @@ export default async function MyOrganizationPublicationsPage({
     document,
     session!,
   )
+  const publications: PublicationType[] | any =
+    await actionGetMyOrganizationPublications(
+      organization?.authorizationKey?.authorizationKey,
+      organization?.document,
+    )
 
   return (
     <Grid container component="main">
@@ -65,7 +73,11 @@ export default async function MyOrganizationPublicationsPage({
         elevation={6}
         square
         sx={{ height: '100vh' }}
-      ></Grid>
+      >
+        <Stack gap={2} alignContent={'center'} alignItems={'center'}>
+          <MyOrganizationPublicationsListView publications={publications} />
+        </Stack>
+      </Grid>
     </Grid>
   )
 }

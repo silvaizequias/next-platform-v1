@@ -5,6 +5,9 @@ import { blue } from '@mui/material/colors'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { actionGetOrganizationByDocument } from '../actions'
+import { OrderType } from '@/app/main/(management)/orders/types'
+import { actionGetMyOrganziationOrders } from './actions'
+import MyOrganziationOrdersListView from './views/MyOrganziationOrdersListView'
 
 export const metadata: Metadata = {
   title: {
@@ -25,6 +28,10 @@ export default async function MyOrganziationOrdersPage({
   const organization: OrganizationType = await actionGetOrganizationByDocument(
     document,
     session!,
+  )
+  const orders: OrderType[] | any = await actionGetMyOrganziationOrders(
+    organization?.authorizationKey?.authorizationKey,
+    organization?.document,
   )
 
   return (
@@ -65,7 +72,11 @@ export default async function MyOrganziationOrdersPage({
         elevation={6}
         square
         sx={{ height: '100vh' }}
-      ></Grid>
+      >
+        <Stack gap={2} alignContent={'center'} alignItems={'center'}>
+          <MyOrganziationOrdersListView orders={orders} />
+        </Stack>
+      </Grid>
     </Grid>
   )
 }
