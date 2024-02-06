@@ -1,11 +1,15 @@
 import { Metadata } from 'next'
-import { actionGetOrganizationByDocument } from './actions'
+import {
+  actionGetOrganizationApiSpend,
+  actionGetOrganizationByDocument,
+} from './actions'
 import { Grid, Stack, Typography, Paper } from '@mui/material'
 import { blue } from '@mui/material/colors'
 import { getServerSession } from 'next-auth'
 import { nextAuthOptions } from '@/libraries/next-auth'
 import { OrganizationType } from '../../(management)/organizations/types'
 import OrganizationDetailView from './views/OrganizationDetailView'
+import MyOrganizationUsersListView from './usuarios/views/MyOrganizationUsersListView'
 
 export async function generateMetadata({
   params,
@@ -40,6 +44,7 @@ export default async function MyOrganizationsPage({
     document,
     session!,
   )
+  const spending: number | any = await actionGetOrganizationApiSpend(document)
 
   return (
     <Grid container component="main">
@@ -86,10 +91,13 @@ export default async function MyOrganizationsPage({
         component={Paper}
         elevation={6}
         square
-        sx={{ height: '100vh' }}
+        sx={{ height: '100vh', paddingY: '10px' }}
       >
         <Stack gap={2} alignContent={'center'} alignItems={'center'}>
-          <OrganizationDetailView organization={organization} />
+          <OrganizationDetailView
+            organization={organization}
+            spending={spending}
+          />
         </Stack>
       </Grid>
     </Grid>
