@@ -12,6 +12,7 @@ import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { Fragment, ReactNode } from 'react'
 import { actionGetProfile } from './(management)/profile/actions'
+import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: {
@@ -34,6 +35,7 @@ export default async function MainLayout({
     <Fragment>
       <Topbar profile={profile} session={session!} />
       {children}
+      <Footer />
     </Fragment>
   )
 }
