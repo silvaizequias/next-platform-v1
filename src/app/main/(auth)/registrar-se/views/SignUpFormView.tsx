@@ -50,71 +50,73 @@ export default function SignUpFormView() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate>
-      {' '}
-      <Box sx={{ my: 2, width: '100%' }}>
-        <Typography component="h6" variant="body1" align="center">
-          preencha os campos do formulário para registrar-se na plataforma
-        </Typography>
+    <Box
+      component={'form'}
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+      sx={{ my: 2, width: '100%' }}
+    >
+      <Typography component="h6" variant="body1" align="center">
+        preencha os campos do formulário para registrar-se na plataforma
+      </Typography>
 
-        <TextField
-          {...register('name')}
-          margin="normal"
-          size="small"
-          required
-          fullWidth
-          id="name"
-          label="nome completo"
-          autoFocus
-        />
-        {errors.name && (
-          <FormHelperText
-            sx={{ color: 'error.main', textTransform: 'lowercase' }}
-          >
-            {errors.name.message}
-          </FormHelperText>
-        )}
+      <TextField
+        {...register('name')}
+        margin="normal"
+        size="small"
+        required
+        fullWidth
+        id="name"
+        label="nome completo"
+        autoFocus
+      />
+      {errors.name && (
+        <FormHelperText
+          sx={{ color: 'error.main', textTransform: 'lowercase' }}
+        >
+          {errors.name.message}
+        </FormHelperText>
+      )}
 
-        <TextField
-          {...register('email')}
-          margin="normal"
-          size="small"
-          required
-          fullWidth
-          id="email"
-          label="e-mail"
-          autoFocus
-        />
-        {errors.email && (
-          <FormHelperText
-            sx={{ color: 'error.main', textTransform: 'lowercase' }}
-          >
-            {errors.email.message}
-          </FormHelperText>
-        )}
+      <TextField
+        {...register('email')}
+        margin="normal"
+        size="small"
+        required
+        fullWidth
+        id="email"
+        label="e-mail"
+        autoFocus
+      />
+      {errors.email && (
+        <FormHelperText
+          sx={{ color: 'error.main', textTransform: 'lowercase' }}
+        >
+          {errors.email.message}
+        </FormHelperText>
+      )}
 
-        <TextField
-          {...register('phone')}
-          margin="normal"
-          size="small"
-          required
-          fullWidth
-          id="phone"
-          label="celular"
-          autoFocus
-        />
-        {errors.phone && (
-          <FormHelperText
-            sx={{ color: 'error.main', textTransform: 'lowercase' }}
-          >
-            {errors.phone.message}
-          </FormHelperText>
-        )}
+      <TextField
+        {...register('phone')}
+        margin="normal"
+        size="small"
+        required
+        fullWidth
+        id="phone"
+        label="celular"
+        autoFocus
+      />
+      {errors.phone && (
+        <FormHelperText
+          sx={{ color: 'error.main', textTransform: 'lowercase' }}
+        >
+          {errors.phone.message}
+        </FormHelperText>
+      )}
 
-        <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
-          registrar-se
-        </Button>
-      </Box>
-    </form>
+      <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
+        registrar-se
+      </Button>
+    </Box>
   )
 }
