@@ -1,4 +1,4 @@
 import * as z from 'zod'
 
-export const Schema = z.object({})
-export type SchemaType = z.infer<typeof Schema>
+export const ProfileUpdateSchema = z.object({})
+export type ProfileUpdateSchemaType = z.infer<typeof ProfileUpdateSchema>

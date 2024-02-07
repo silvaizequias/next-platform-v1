@@ -38,6 +38,7 @@ export default function PageDisplay(props: Props) {
             align="center"
             fontWeight={600}
             color={blue[400]}
+            textTransform={'lowercase'}
           >
             {title}
           </Typography>
@@ -46,6 +47,7 @@ export default function PageDisplay(props: Props) {
             variant="caption"
             align="center"
             fontWeight={200}
+            textTransform={'lowercase'}
           >
             {subtitle}
           </Typography>

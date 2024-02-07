@@ -5,6 +5,9 @@ import { redirect } from 'next/navigation'
 import { UserType } from '../users/types'
 import { actionGetProfile } from './actions'
 import PageDisplay from '@/components/PageDisplay'
+import { Box, Grid } from '@mui/material'
+import ProfileRightView from './views/ProfileRightView'
+import ProfileLeftView from './views/ProfileLeftView'
 
 export const metadata: Metadata = {
   title: {
@@ -24,7 +27,25 @@ export default async function ProfilePage() {
       title="meu perfil na plataforma"
       subtitle={`olá ${profile?.name.split(' ')[0]}`}
     >
-      ...
+      <Grid
+        container
+        component="div"
+        sx={{ display: 'flex', maxWidth: 'md', width: '100%' }}
+        rowGap={2} spacing={4}
+      >
+        <Grid item xs={12} sm={2}>
+          <Box
+            sx={{ width: '100%'}}
+          >
+            <ProfileLeftView profile={profile} />
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={10}>
+          <Box sx={{ width: '100%' }}>
+            <ProfileRightView profile={profile} />
+          </Box>
+        </Grid>
+      </Grid>
     </PageDisplay>
   ) : (
     redirect('/')

@@ -18,32 +18,7 @@ import {
   Stack,
 } from '@mui/material'
 import { Fragment, SyntheticEvent, useCallback, useState } from 'react'
-
-interface TabPanelProps {
-  children?: React.ReactNode
-  index: number
-  value: number
-}
-
-function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  )
-}
+import TabPanel from './TabPanel'
 
 export default function UserAuth() {
   const [openDialog, setOpenDialog] = useState<boolean>(false)
@@ -51,7 +26,7 @@ export default function UserAuth() {
     setOpenDialog(!openDialog)
   }, [openDialog])
 
-  const [value, setValue] = useState(0)
+  const [value, setValue] = useState<number>(0)
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue)
@@ -82,15 +57,15 @@ export default function UserAuth() {
                 <Tab icon={<Password />} value={2} />
               </Tabs>
             </Box>
-            <CustomTabPanel value={value} index={0}>
+            <TabPanel value={value} index={0}>
               <SignInFormView />
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={1}>
+            </TabPanel>
+            <TabPanel value={value} index={1}>
               <SignUpFormView />
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={2}>
+            </TabPanel>
+            <TabPanel value={value} index={2}>
               <ResetPasswordFormView />
-            </CustomTabPanel>
+            </TabPanel>
           </Stack>
         </DialogContent>
       </Dialog>
