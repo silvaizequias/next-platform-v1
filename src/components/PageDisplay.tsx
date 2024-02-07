@@ -1,6 +1,5 @@
-import MyOrganizationsMainListView from '@/app/main/views/MyOrganizationsMainListView'
-import { Grid, Stack, Typography, Paper } from '@mui/material'
-import { blue } from '@mui/material/colors'
+import { Grid, Stack, Typography } from '@mui/material'
+import { blue, grey } from '@mui/material/colors'
 import { ReactNode } from 'react'
 
 interface Props {
@@ -56,10 +55,7 @@ export default function PageDisplay(props: Props) {
       <Grid
         item
         xs={12}
-        component={Paper}
-        elevation={6}
-        square
-        sx={{ height: '100vh', padding: 2 }}
+        sx={{ minHeight: '100vh', height: '100%', padding: 2, bgcolor: grey[50] }}
       >
         <Stack gap={2} alignContent={'center'} alignItems={'center'}>
           {children}
