@@ -11,7 +11,7 @@ export default function PageDisplay(props: Props) {
   const { children, subtitle, title } = props
 
   return (
-    <Grid container component="main">
+    <Grid container component="main" height={'100%'}>
       <Grid
         item
         xs={12}
@@ -53,9 +53,10 @@ export default function PageDisplay(props: Props) {
         </Stack>
       </Grid>
       <Grid
+        minHeight="65vh"
         item
         xs={12}
-        sx={{ minHeight: '100vh', height: '100%', padding: 2, bgcolor: grey[50] }}
+        sx={{ padding: 2, bgcolor: grey[50] }}
       >
         <Stack gap={2} alignContent={'center'} alignItems={'center'}>
           {children}
