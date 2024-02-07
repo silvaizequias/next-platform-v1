@@ -49,7 +49,7 @@ export default function Footer() {
           }}
         >
           <Link
-            href="/"
+            href="/termos-e-politicas"
             underline="none"
             variant="caption"
             textTransform={'lowercase'}

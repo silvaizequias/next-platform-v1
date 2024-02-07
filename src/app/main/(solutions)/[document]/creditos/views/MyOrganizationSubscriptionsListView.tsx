@@ -2,6 +2,7 @@
 
 import { OrganizationUsersType } from '@/app/main/(management)/organizations/users/types'
 import { SubscriptionType } from '@/app/main/(management)/subscriptions/types'
+import DialogButton from '@/components/DialogButton'
 import {
   List,
   ListItem,
@@ -24,6 +25,9 @@ export default function MyOrganizationSubscriptionsListView(props: Props) {
 
   return (
     <Card sx={{ width: '100%' }}>
+      <CardContent sx={{ display: 'flex', justifyContent: 'right' }}>
+        <DialogButton>...</DialogButton>
+      </CardContent>
       <CardContent>
         <List dense sx={{ width: '100%' }}>
           {subscriptions?.map((subscription: SubscriptionType) => {

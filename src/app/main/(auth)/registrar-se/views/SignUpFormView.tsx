@@ -68,7 +68,9 @@ export default function SignUpFormView() {
           autoFocus
         />
         {errors.name && (
-          <FormHelperText sx={{ color: 'error.main' }}>
+          <FormHelperText
+            sx={{ color: 'error.main', textTransform: 'lowercase' }}
+          >
             {errors.name.message}
           </FormHelperText>
         )}
@@ -84,7 +86,9 @@ export default function SignUpFormView() {
           autoFocus
         />
         {errors.email && (
-          <FormHelperText sx={{ color: 'error.main' }}>
+          <FormHelperText
+            sx={{ color: 'error.main', textTransform: 'lowercase' }}
+          >
             {errors.email.message}
           </FormHelperText>
         )}
@@ -100,7 +104,9 @@ export default function SignUpFormView() {
           autoFocus
         />
         {errors.phone && (
-          <FormHelperText sx={{ color: 'error.main' }}>
+          <FormHelperText
+            sx={{ color: 'error.main', textTransform: 'lowercase' }}
+          >
             {errors.phone.message}
           </FormHelperText>
         )}

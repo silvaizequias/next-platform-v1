@@ -2,8 +2,11 @@
 
 import { OrderType } from '@/app/main/(management)/orders/types'
 import { MyOrganziationOrdersColumnsView } from './MyOrganziationOrdersColumnsView'
-import { Box } from '@mui/material'
+import { Box, Button, ButtonGroup } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
+import DialogButton from '@/components/DialogButton'
+import { useRouter } from 'next/navigation'
+import { useCallback } from 'react'
 
 interface Props {
   orders: OrderType[] | any
@@ -12,8 +15,32 @@ interface Props {
 export default function MyOrganziationOrdersListView(props: Props) {
   const { orders } = props
 
+  const router = useRouter()
+  const handleClick = useCallback(
+    (path: string) => {
+      path && router.push(path)
+    },
+    [router],
+  )
+
   return (
     <Box sx={{ maxWidth: 'md', width: '100%', padding: '10px' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          paddingY: 2,
+        }}
+      >
+        <ButtonGroup size="small" variant="contained">
+          <Button onClick={() => handleClick(`pedidos/itens`)}>itens</Button>
+          <Button onClick={() => handleClick(`pedidos/evidencias`)}>
+            evidências
+          </Button>
+        </ButtonGroup>
+        <DialogButton>...</DialogButton>
+      </Box>
       <DataGrid
         autoHeight
         getRowId={(order) => order?.id}

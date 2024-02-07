@@ -43,11 +43,10 @@ export default async function MyOrganizationsPage({
     document,
     session!,
   )
-  const spending: number | any = await actionGetOrganizationApiSpend(document)
 
   return (
     <PageDisplay title={organization?.name} subtitle={organization?.document}>
-      <OrganizationDetailView organization={organization} spending={spending} />
+      <OrganizationDetailView organization={organization} />
     </PageDisplay>
   )
 }

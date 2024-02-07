@@ -18,6 +18,7 @@ import {
 import { OrganizationUsersType } from '../(management)/organizations/users/types'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
+import DialogButton from '@/components/DialogButton'
 
 interface Props {
   data: OrganizationUsersType[] | any
@@ -36,6 +37,9 @@ export default function MyOrganizationsMainListView(props: Props) {
 
   return (
     <Card sx={{ width: '100%', maxWidth: 'md' }}>
+      <CardContent sx={{ display: 'flex', justifyContent: 'right' }}>
+        <DialogButton>...</DialogButton>
+      </CardContent>
       <CardContent>
         <List dense sx={{ width: '100%' }}>
           {data?.map((myOrganization: OrganizationUsersType) => {

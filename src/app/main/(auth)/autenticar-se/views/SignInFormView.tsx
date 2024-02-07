@@ -57,7 +57,9 @@ export default function SignInFormView() {
           autoFocus
         />
         {errors.phone && (
-          <FormHelperText sx={{ color: 'error.main' }}>
+          <FormHelperText
+            sx={{ color: 'error.main', textTransform: 'lowercase' }}
+          >
             {errors.phone.message}
           </FormHelperText>
         )}
@@ -74,7 +76,9 @@ export default function SignInFormView() {
           autoFocus
         />
         {errors.password && (
-          <FormHelperText sx={{ color: 'error.main' }}>
+          <FormHelperText
+            sx={{ color: 'error.main', textTransform: 'lowercase' }}
+          >
             {errors.password.message}
           </FormHelperText>
         )}

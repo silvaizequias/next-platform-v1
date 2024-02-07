@@ -1,6 +1,12 @@
 'use client'
 
-import { Box, LinearProgress, Typography } from '@mui/material'
+import {
+  Box,
+  Container,
+  LinearProgress,
+  Stack,
+  Typography,
+} from '@mui/material'
 import { useCallback, useState } from 'react'
 
 interface Props {
@@ -21,11 +27,21 @@ export default function MyOrganizationSubscriptionsSpendingView(props: Props) {
   }, [])
 
   return (
-    <Box sx={{ width: '100%', paddingBottom: '20px' }}>
-      <Typography variant="caption">
-        {`consumo de créditos da organização: ${spending}/100`}
-      </Typography>
-      <LinearProgress variant="determinate" value={progress} />
-    </Box>
+    <Container sx={{ display: 'flex', justifyContent: 'center' }}>
+      <Box
+        sx={{
+          maxWidth: 'md',
+          width: '100%',
+          paddingY: 1,
+        }}
+      >
+        <Stack>
+          <Typography variant="caption">
+            {`consumo de créditos desta organização: ${spending}/100`}
+          </Typography>
+          <LinearProgress variant="determinate" value={progress} />
+        </Stack>
+      </Box>
+    </Container>
   )
 }

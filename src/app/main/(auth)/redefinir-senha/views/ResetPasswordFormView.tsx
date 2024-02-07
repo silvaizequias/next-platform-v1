@@ -53,7 +53,9 @@ export default function ResetPasswordFormView() {
           autoFocus
         />
         {errors.phone && (
-          <FormHelperText sx={{ color: 'error.main' }}>
+          <FormHelperText
+            sx={{ color: 'error.main', textTransform: 'lowercase' }}
+          >
             {errors.phone.message}
           </FormHelperText>
         )}
