@@ -39,6 +39,7 @@ export default function ProfileUpdateFormView(props: Props) {
         gap={1}
         sx={{ display: 'flex', justifyContent: 'center' }}
         container
+        component={'div'}
       >
         <Grid item xs={12} sm={12}>
           <TextField
@@ -154,7 +155,7 @@ export default function ProfileUpdateFormView(props: Props) {
           )}
         </Grid>
       </Grid>
-      <Button type="submit" variant="contained">
+      <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
         atualizar informações
       </Button>
     </Box>

@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Card, CardContent, Stack, Tab, Tabs } from '@mui/material'
+import { Box, Card, CardContent, Tab, Tabs } from '@mui/material'
 import { UserType } from '../../users/types'
 import TabPanel from '@/components/TabPanel'
 import { AssignmentInd, Password } from '@mui/icons-material'
@@ -22,7 +22,7 @@ export default function ProfileRightView(props: Props) {
   }
 
   return (
-    <Stack sx={{ width: '100%' }}>
+    <Box component={'div'} sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange}>
           <Tab icon={<AssignmentInd />} label="informações básicas" value={0} />
@@ -39,6 +39,6 @@ export default function ProfileRightView(props: Props) {
           </TabPanel>
         </CardContent>
       </Card>
-    </Stack>
+    </Box>
   )
 }

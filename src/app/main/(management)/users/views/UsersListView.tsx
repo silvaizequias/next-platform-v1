@@ -5,6 +5,7 @@ import { DataGrid } from '@mui/x-data-grid'
 import { UserType } from '../types'
 import { UsersColumnsView } from './UsersColumnsView'
 import DialogButton from '@/components/DialogButton'
+import CreateUserFormView from './CreateUserFormView'
 
 interface Props {
   users: UserType | any
@@ -23,7 +24,9 @@ export default function UsersListView(props: Props) {
           paddingY: 2,
         }}
       >
-        <DialogButton>...</DialogButton>
+        <DialogButton>
+          <CreateUserFormView />
+        </DialogButton>
       </Box>
       <DataGrid
         autoHeight

@@ -5,6 +5,7 @@ import { DataGrid } from '@mui/x-data-grid'
 import { OrganizationKeyType } from '../types'
 import { AuthorizationsColumnsView } from './AuthorizationsColumnsView'
 import DialogButton from '@/components/DialogButton'
+import CreateAuthorizationFormView from './CreateAuthorizationFormView'
 
 interface Props {
   authorizations: OrganizationKeyType[] | any
@@ -23,7 +24,9 @@ export default function AuthorizationsListView(props: Props) {
           paddingY: 2,
         }}
       >
-        <DialogButton>...</DialogButton>
+        <DialogButton>
+          <CreateAuthorizationFormView />
+        </DialogButton>
       </Box>
       <DataGrid
         autoHeight

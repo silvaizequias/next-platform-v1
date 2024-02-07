@@ -19,11 +19,12 @@ import { OrganizationUsersType } from '../(management)/organizations/users/types
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import DialogButton from '@/components/DialogButton'
+import CreateMyOrganizationFormView from './CreateMyOrganizationFormView'
 
 interface Props {
   data: OrganizationUsersType[] | any
 }
-export default function MyOrganizationsMainListView(props: Props) {
+export default function MyOrganizationsListView(props: Props) {
   const { data } = props
   const logotipo = '/logotipo.svg'
 
@@ -38,7 +39,9 @@ export default function MyOrganizationsMainListView(props: Props) {
   return (
     <Card sx={{ width: '100%', maxWidth: 'md' }}>
       <CardContent sx={{ display: 'flex', justifyContent: 'right' }}>
-        <DialogButton>...</DialogButton>
+        <DialogButton>
+          <CreateMyOrganizationFormView />
+        </DialogButton>
       </CardContent>
       <CardContent>
         <List dense sx={{ width: '100%' }}>
