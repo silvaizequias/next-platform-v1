@@ -23,7 +23,9 @@ export default async function MainPage() {
 
   return session ? (
     <PageDisplay title="dedicado" subtitle="sua melhor plataforma de serviços">
-      <MyOrganizationsMainListView data={myOrganizations} />
+      {session && session?.user?.profile.includes('master' || 'member') ? (
+        <MyOrganizationsMainListView data={myOrganizations} />
+      ) : null}
     </PageDisplay>
   ) : (
     <LandingPageView />

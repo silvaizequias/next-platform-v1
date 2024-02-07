@@ -22,7 +22,7 @@ export default async function OrganizationsManagementPage() {
     session!,
   )
 
-  return session ? (
+  return session && session?.user?.profile == 'master' ? (
     <PageDisplay
       title="gestão de organizações da plataforma"
       subtitle="sua melhor plataforma de serviços"

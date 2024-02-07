@@ -8,6 +8,7 @@ import { nextAuthOptions } from '@/libraries/next-auth'
 import { OrganizationType } from '../../(management)/organizations/types'
 import OrganizationDetailView from './views/OrganizationDetailView'
 import PageDisplay from '@/components/PageDisplay'
+import { Typography } from '@mui/material'
 
 export async function generateMetadata({
   params,

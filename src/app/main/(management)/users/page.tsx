@@ -20,7 +20,7 @@ export default async function UsersPage() {
   const session = await getServerSession(nextAuthOptions)
   const users: UserType[] = await actionGetUsers(session!)
 
-  return session ? (
+  return session && session?.user?.profile == 'master' ? (
     <PageDisplay
       title="gestão de usuários na plataforma"
       subtitle="sua melhor plataforma de serviços"

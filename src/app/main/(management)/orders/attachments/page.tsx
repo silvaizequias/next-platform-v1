@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default async function OrderAttachmentsManagementPage() {
   const session = await getServerSession(nextAuthOptions)
 
-  return session ? (
+  return session && session?.user?.profile == 'master' ? (
     <PageDisplay
       title="gestão de evidências de pedidos da plataforma"
       subtitle="sua melhor plataforma de serviços"

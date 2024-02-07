@@ -22,7 +22,7 @@ export default async function SubscriptionsManagementPage() {
     session!,
   )
 
-  return session ? (
+  return session && session?.user?.profile == 'master' ? (
     <PageDisplay
       title="gestão de assinaturas da plataforma"
       subtitle="sua melhor plataforma de serviços"
