@@ -21,7 +21,7 @@ export default function MyOrganizationSubscriptionsSpendingView(props: Props) {
   }, [])
 
   return (
-    <Box sx={{ width: '100%', paddingBottom: '16px' }}>
+    <Box sx={{ width: '100%', paddingBottom: '20px' }}>
       <Typography variant="caption">
         {`consumo de créditos da organização: ${spending}/100`}
       </Typography>

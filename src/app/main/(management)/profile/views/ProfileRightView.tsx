@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Stack, Tab, Tabs } from '@mui/material'
+import { Box, Card, CardContent, Stack, Tab, Tabs } from '@mui/material'
 import { UserType } from '../../users/types'
 import TabPanel from '@/components/TabPanel'
 import { AssignmentInd, Password } from '@mui/icons-material'
@@ -29,12 +29,16 @@ export default function ProfileRightView(props: Props) {
           <Tab icon={<Password />} label="atualizar a senha" value={1} />
         </Tabs>
       </Box>
-      <TabPanel value={value} index={0}>
-        <ProfileUpdateFormView profile={profile} />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <ProfilePasswordUpdateFormView profile={profile} />
-      </TabPanel>
+      <Card>
+        <CardContent>
+          <TabPanel value={value} index={0}>
+            <ProfileUpdateFormView profile={profile} />
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            <ProfilePasswordUpdateFormView profile={profile} />
+          </TabPanel>
+        </CardContent>
+      </Card>
     </Stack>
   )
 }
