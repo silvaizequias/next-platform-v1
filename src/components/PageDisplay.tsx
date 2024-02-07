@@ -1,22 +1,22 @@
-import { Grid, Paper, Stack, Typography } from '@mui/material'
-import { blue } from '@mui/material/colors'
-import { OrganizationUsersType } from '../(management)/organizations/users/types'
-import MyOrganizationsMainListView from './MyOrganizationsMainListView'
+import { Grid, Stack, Typography } from '@mui/material'
+import { blue, grey } from '@mui/material/colors'
+import { ReactNode } from 'react'
 
 interface Props {
-  data: OrganizationUsersType[] | any
+  children: ReactNode
+  subtitle?: string
+  title: string
 }
-
-export default function MainPageView(props: Props) {
-  const { data } = props
+export default function PageDisplay(props: Props) {
+  const { children, subtitle, title } = props
 
   return (
-    <Grid container component="main">
+    <Grid container component="main" height={'100%'}>
       <Grid
         item
         xs={12}
         sx={{
-          minHeight: 200,
+          minHeight: 60,
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -27,38 +27,39 @@ export default function MainPageView(props: Props) {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            paddingY: 4,
+            padding: 4,
+            maxWidth: 'md',
           }}
         >
           <Typography
-            component="h1"
-            variant="h2"
+            component="h2"
+            variant="h4"
             align="center"
             fontWeight={600}
             color={blue[400]}
+            textTransform={'lowercase'}
           >
-            dedicado
+            {title}
           </Typography>
           <Typography
-            component="h4"
-            variant="h6"
+            component="small"
+            variant="caption"
             align="center"
             fontWeight={200}
+            textTransform={'lowercase'}
           >
-            sua melhor plataforma de serviços
+            {subtitle}
           </Typography>
         </Stack>
       </Grid>
       <Grid
+        minHeight="65vh"
         item
         xs={12}
-        component={Paper}
-        elevation={6}
-        square
-        sx={{ height: '100vh' }}
+        sx={{ padding: 2, bgcolor: grey[50] }}
       >
         <Stack gap={2} alignContent={'center'} alignItems={'center'}>
-          <MyOrganizationsMainListView data={data} />
+          {children}
         </Stack>
       </Grid>
     </Grid>

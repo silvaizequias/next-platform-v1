@@ -12,6 +12,7 @@ import {
 import { actionResetPassword } from '../actions'
 import { useRouter } from 'next/navigation'
 import { ResetPasswordSchema, ResetPasswordSchemaType } from '../schema'
+import toast from 'react-hot-toast'
 
 export default function ResetPasswordFormView() {
   const router = useRouter()
@@ -27,43 +28,42 @@ export default function ResetPasswordFormView() {
   const onSubmit: SubmitHandler<ResetPasswordSchemaType> = async (inputs) => {
     const result = await actionResetPassword(inputs)
     if (result?.response?.error) {
-      alert(result?.message)
+      toast.error(result?.message)
     } else {
-      alert(result)
+      toast.success(result)
     }
   }
 
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit(onSubmit)}
-      noValidate
-      sx={{ my: 2 }}
-    >
-      <Typography component="h6" variant="body1" align="center">
-        um código de segurança será enviado para o número de telefone registrado
-        na plataforma
-      </Typography>
+    <form onSubmit={handleSubmit(onSubmit)} noValidate>
+      <Box sx={{ my: 2, width: '100%' }}>
+        <Typography component="h6" variant="body1" align="center">
+          um código de segurança será enviado para o número de telefone
+          registrado na plataforma
+        </Typography>
 
-      <TextField
-        {...register('phone')}
-        margin="normal"
-        size="small"
-        required
-        fullWidth
-        id="phone"
-        label="celular"
-        autoFocus
-      />
-      {errors.phone && (
-        <FormHelperText sx={{ color: 'error.main' }}>
-          {errors.phone.message}
-        </FormHelperText>
-      )}
+        <TextField
+          {...register('phone')}
+          margin="normal"
+          size="small"
+          required
+          fullWidth
+          id="phone"
+          label="celular"
+          autoFocus
+        />
+        {errors.phone && (
+          <FormHelperText
+            sx={{ color: 'error.main', textTransform: 'lowercase' }}
+          >
+            {errors.phone.message}
+          </FormHelperText>
+        )}
 
-      <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
-        redefinir a senha
-      </Button>
-    </Box>
+        <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
+          redefinir a senha
+        </Button>
+      </Box>
+    </form>
   )
 }

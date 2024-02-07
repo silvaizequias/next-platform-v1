@@ -1,10 +1,12 @@
 import { OrganizationType } from '@/app/main/(management)/organizations/types'
 import { nextAuthOptions } from '@/libraries/next-auth'
-import { Grid, Stack, Typography, Paper } from '@mui/material'
-import { blue } from '@mui/material/colors'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { actionGetOrganizationByDocument } from '../actions'
+import { PublicationType } from '@/app/main/(management)/publications/types'
+import { actionGetMyOrganizationPublications } from './actions'
+import MyOrganizationPublicationsListView from './views/MyOrganizationPublicationsListView'
+import PageDisplay from '@/components/PageDisplay'
 
 export const metadata: Metadata = {
   title: {
@@ -26,46 +28,18 @@ export default async function MyOrganizationPublicationsPage({
     document,
     session!,
   )
+  const publications: PublicationType[] | any =
+    await actionGetMyOrganizationPublications(
+      organization?.authorizationKey?.authorizationKey,
+      organization?.document,
+    )
 
   return (
-    <Grid container component="main">
-      <Grid
-        item
-        xs={12}
-        sx={{
-          minHeight: 200,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Stack
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            paddingY: 4,
-          }}
-        >
-          <Typography
-            component="h2"
-            variant="h4"
-            align="center"
-            fontWeight={600}
-            color={blue[400]}
-          >
-            {`publicações da organização ${organization?.name}`}
-          </Typography>
-        </Stack>
-      </Grid>
-      <Grid
-        item
-        xs={12}
-        component={Paper}
-        elevation={6}
-        square
-        sx={{ height: '100vh' }}
-      ></Grid>
-    </Grid>
+    <PageDisplay
+      title={`publicações da organização ${organization?.name}`}
+      subtitle="sua melhor plataforma de serviços"
+    >
+      <MyOrganizationPublicationsListView publications={publications} />
+    </PageDisplay>
   )
 }

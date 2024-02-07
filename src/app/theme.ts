@@ -13,7 +13,7 @@ const comfortaa = Comfortaa({
 export const theme = createTheme(
   {
     palette: {
-      mode: 'light',
+      //mode: 'light',
       primary: {
         light: '#039be5',
         main: '#0284c7',

@@ -1,8 +1,25 @@
 'use server'
 
-export async function actionGetOrders() {
+import { env } from '@/environments'
+import { OrderType } from './types'
+
+export async function actionGetOrders(
+  authorizationKey: string,
+  organizationDocument: string,
+): Promise<OrderType[] | any> {
   try {
-    return
+    const data = await fetch(
+      `${env.ORDER_API_URL}/orders/organization/${organizationDocument}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          authorizationKey: authorizationKey,
+        },
+      },
+    )
+    if (!data) return null
+    return data && (await data.json())
   } catch (error: any) {
     console.error(error?.message || error)
   }

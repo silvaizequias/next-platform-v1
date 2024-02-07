@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { actionGetSlugPublication } from './actions'
 import { Grid, Stack, Typography, Paper } from '@mui/material'
 import { blue } from '@mui/material/colors'
+import PageDisplay from '@/components/PageDisplay'
 
 export async function generateMetadata({
   params,
@@ -30,44 +31,11 @@ export default async function PublicationSlugPage({
   const publication: any = await actionGetSlugPublication(slug)
 
   return (
-    <Grid container component="main">
-      <Grid
-        item
-        xs={12}
-        sx={{
-          minHeight: 200,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Stack
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            paddingY: 4,
-          }}
-        >
-          <Typography
-            component="h2"
-            variant="h4"
-            align="center"
-            fontWeight={600}
-            color={blue[400]}
-          >
-            {publication}
-          </Typography>
-        </Stack>
-      </Grid>
-      <Grid
-        item
-        xs={12}
-        component={Paper}
-        elevation={6}
-        square
-        sx={{ height: '100vh' }}
-      ></Grid>
-    </Grid>
+    <PageDisplay
+      title={publication}
+      subtitle="conteúdo inteligente do universo da tecnologia"
+    >
+      {publication}
+    </PageDisplay>
   )
 }

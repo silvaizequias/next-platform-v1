@@ -1,8 +1,21 @@
 'use server'
 
-export async function actionGetPublications() {
+import { env } from '@/environments'
+import { PublicationType } from './types'
+
+export async function actionGetPublications(
+  authorizationKey: string,
+): Promise<PublicationType[] | any> {
   try {
-    return
+    const data = await fetch(`${env.PUBLICATION_API_URL}/subscriptions`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        authorizationKey: authorizationKey,
+      },
+    })
+    if (!data) return null
+    return data && (await data.json())
   } catch (error: any) {
     console.error(error?.message || error)
   }

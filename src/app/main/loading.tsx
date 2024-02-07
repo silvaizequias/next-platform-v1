@@ -3,7 +3,6 @@ import {
   Box,
   Stack,
   Typography,
-  LinearProgress,
 } from '@mui/material'
 
 export default function Loading() {
@@ -26,7 +25,6 @@ export default function Loading() {
             alignItems: 'center',
           }}
         >
-          <LinearProgress />
           <Typography
             component="h4"
             variant="h6"
