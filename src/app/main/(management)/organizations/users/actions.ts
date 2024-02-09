@@ -10,7 +10,7 @@ export async function actionGetOrganizationUsers(
   session: Session,
 ): Promise<OrganizationUsersType[] | any> {
   try {
-    const data = await fetch(`${env.PLATFORM_API_URL}/organization-users`, {
+    const data = await fetch(`${env.PLATFORM_API_URL!}/organization-users`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -28,7 +28,7 @@ export default async function actionCreateOrganizationUser(
   session: Session,
   inputs: CreateOrganizationUserSchemaType,
 ): Promise<any> {
-  const data = await fetch(`${env.PLATFORM_API_URL}/organization-users`, {
+  const data = await fetch(`${env.PLATFORM_API_URL!}/organization-users`, {
     method: 'POST',
     body: JSON.stringify(inputs),
     headers: {

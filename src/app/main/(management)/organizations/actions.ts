@@ -10,7 +10,7 @@ export async function actionGetOrganizations(
   session: Session,
 ): Promise<OrganizationType[] | any> {
   try {
-    const data = await fetch(`${env.PLATFORM_API_URL}/organizations`, {
+    const data = await fetch(`${env.PLATFORM_API_URL!}/organizations`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ export async function actionCreateOrganization(
   inputs: CreateOrganizationSchemaType,
 ): Promise<any> {
   try {
-    const data = await fetch(`${env.PLATFORM_API_URL}/organizations`, {
+    const data = await fetch(`${env.PLATFORM_API_URL!}/organizations`, {
       method: 'POST',
       body: JSON.stringify(inputs),
       headers: {

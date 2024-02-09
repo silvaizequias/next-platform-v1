@@ -11,7 +11,7 @@ export async function actionGetMyOrganizations(
 ): Promise<OrganizationUsersType | any> {
   try {
     const data = await fetch(
-      `${env.PLATFORM_API_URL}/organization-users/user/${session?.user?.id}`,
+      `${env.PLATFORM_API_URL!}/organization-users/user/${session?.user?.id}`,
       {
         method: 'GET',
         headers: {
@@ -33,7 +33,7 @@ export async function actionCreateMyOrganization(
 ): Promise<any> {
   try {
     const data = await fetch(
-      `${env.PLATFORM_API_URL}/organizations/for-me/${session?.user?.phone}`,
+      `${env.PLATFORM_API_URL!}/organizations/for-me/${session?.user?.phone}`,
       {
         method: 'POST',
         body: JSON.stringify(inputs),

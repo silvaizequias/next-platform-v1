@@ -10,7 +10,7 @@ export async function actionGetUsers(
   session: Session,
 ): Promise<UserType | any> {
   try {
-    const data = await fetch(`${env.PLATFORM_API_URL}/users`, {
+    const data = await fetch(`${env.PLATFORM_API_URL!}/users`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ export async function actionCreateUser(
   inputs: CreateUserSchemaType,
 ): Promise<any> {
   try {
-    const data = await fetch(`${env.PLATFORM_API_URL}/users`, {
+    const data = await fetch(`${env.PLATFORM_API_URL!}/users`, {
       method: 'POST',
       body: JSON.stringify(inputs),
       headers: {

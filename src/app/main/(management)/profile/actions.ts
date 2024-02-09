@@ -14,7 +14,7 @@ export async function actionGetProfile(
 ): Promise<UserType | any> {
   try {
     const data = await fetch(
-      `${env.PLATFORM_API_URL}/users/${session?.user?.id}`,
+      `${env.PLATFORM_API_URL!}/users/${session?.user?.id}`,
       {
         method: 'GET',
         headers: {
@@ -36,7 +36,7 @@ export async function actionUpdateProfileInformation(
 ): Promise<UserType | any> {
   try {
     const data = await fetch(
-      `${env.PLATFORM_API_URL}/users/${session?.user?.id}`,
+      `${env.PLATFORM_API_URL!}/users/${session?.user?.id}`,
       {
         method: 'PATCH',
         body: JSON.stringify(inputs),
@@ -60,7 +60,7 @@ export async function actionUpdateProfilePassword(
 ): Promise<any> {
   try {
     const data = await fetch(
-      `${env.PLATFORM_API_URL}/users/${session?.user?.id}`,
+      `${env.PLATFORM_API_URL!}/users/${session?.user?.id}`,
       {
         method: 'PATCH',
         body: JSON.stringify({

@@ -6,7 +6,7 @@ import { SignUpSchema, SignUpSchemaType } from './schema'
 export async function actionSignUp(inputs: SignUpSchemaType) {
   try {
     if (await SignUpSchema.parseAsync(inputs)) {
-      const data = await fetch(`${env.PLATFORM_API_URL}/auth/sign-up`, {
+      const data = await fetch(`${env.PLATFORM_API_URL!}/auth/sign-up`, {
         method: 'POST',
         body: JSON.stringify(inputs),
         headers: {

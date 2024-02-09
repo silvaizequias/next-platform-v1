@@ -11,7 +11,7 @@ export async function actionGetOrganizationByDocument(
 ): Promise<OrganizationType | any> {
   try {
     const data = await fetch(
-      `${env.PLATFORM_API_URL}/organizations/document/${document}`,
+      `${env.PLATFORM_API_URL!}/organizations/document/${document}`,
       {
         method: 'GET',
         headers: {

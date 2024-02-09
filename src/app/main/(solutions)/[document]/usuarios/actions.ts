@@ -18,7 +18,7 @@ export async function actionCreateMyOrganizationUser(
   inputs: CreateOrganizationUserSchemaType,
 ): Promise<any> {
   try {
-    const data = await fetch(`${env.PLATFORM_API_URL}/organization-users`, {
+    const data = await fetch(`${env.PLATFORM_API_URL!}/organization-users`, {
       method: 'POST',
       body: JSON.stringify(inputs),
       headers: {

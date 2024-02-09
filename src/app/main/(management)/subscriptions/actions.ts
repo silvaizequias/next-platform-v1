@@ -8,7 +8,7 @@ export async function actionGetSubscriptions(
   session: Session,
 ): Promise<SubscriptionType[] | any> {
   try {
-    const data = await fetch(`${env.PLATFORM_API_URL}/subscriptions`, {
+    const data = await fetch(`${env.PLATFORM_API_URL!}/subscriptions`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

@@ -10,7 +10,7 @@ export async function actionGetOrganizationKeys(
   session: Session,
 ): Promise<OrganizationKeyType[] | any> {
   try {
-    const data = await fetch(`${env.PLATFORM_API_URL}/organization-keys`, {
+    const data = await fetch(`${env.PLATFORM_API_URL!}/organization-keys`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ export async function actionCreateOrganizationKey(
   inputs: CreateAuthorizationSchemaType,
 ): Promise<any> {
   try {
-    const data = await fetch(`${env.PLATFORM_API_URL}/organization-keys`, {
+    const data = await fetch(`${env.PLATFORM_API_URL!}/organization-keys`, {
       method: 'POST',
       body: JSON.stringify(inputs),
       headers: {
