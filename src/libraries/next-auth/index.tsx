@@ -4,7 +4,7 @@ import { JWT } from 'next-auth/jwt'
 import { env } from '@/environments'
 
 export const nextAuthOptions: NextAuthOptions = {
-  secret: env.SECRET,
+  secret: env.SECRET!,
   providers: [
     CredentialsProvider({
       credentials: {
@@ -12,7 +12,7 @@ export const nextAuthOptions: NextAuthOptions = {
         password: { type: 'password' },
       },
       async authorize(credentials): Promise<any> {
-        const data = await fetch(`${env.PLATFORM_API_URL}/auth/sign-in`, {
+        const data = await fetch(`${env.PLATFORM_API_URL!}/auth/sign-in`, {
           method: 'POST',
           body: JSON.stringify({
             phone: credentials?.phone,

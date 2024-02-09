@@ -1,6 +1,6 @@
 import * as z from 'zod'
 
-const EnvSchema = z.object({
+const schema = z.object({
   BASE_URL: z.string(),
   SECRET: z.string(),
   ORDER_API_URL: z.string().url(),
@@ -14,4 +14,4 @@ const EnvSchema = z.object({
   TWILIO_PHONE_NUMBER: z.string(),
 })
 
-export const env = EnvSchema.parse(process.env)
+export const env = schema.parse(process.env)

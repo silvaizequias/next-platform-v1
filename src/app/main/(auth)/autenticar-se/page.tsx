@@ -1,4 +1,4 @@
-import { Box, Container, Stack, Typography } from '@mui/material'
+import { Box, Container, Link, Stack, Typography } from '@mui/material'
 import { Metadata } from 'next'
 import SignInFormView from './views/SignInFormView'
 import { blue } from '@mui/material/colors'
@@ -56,6 +56,31 @@ export default async function SignInPage() {
           </Typography>
         </Stack>
         <SignInFormView />
+        <Stack
+          width={'100%'}
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Link
+            href={'/redefinir-senha'}
+            underline="none"
+            variant="caption"
+            fontWeight={200}
+          >
+            esqueci a senha
+          </Link>
+          <Link
+            href={'/registrar-se'}
+            underline="none"
+            variant="caption"
+            fontWeight={200}
+          >
+            não sou registrado
+          </Link>
+        </Stack>
       </Box>
     </Container>
   ) : (

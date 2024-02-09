@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import ResetPasswordFormView from './views/ResetPasswordFormView'
-import { Container, Box, Stack, Typography } from '@mui/material'
+import { Container, Box, Stack, Typography, Link } from '@mui/material'
 import { blue } from '@mui/material/colors'
 import { nextAuthOptions } from '@/libraries/next-auth'
 import { getServerSession } from 'next-auth'
@@ -56,6 +56,14 @@ export default async function ResetPasswordPage() {
           </Typography>
         </Stack>
         <ResetPasswordFormView />
+        <Link
+          href={'/autenticar-se'}
+          underline="none"
+          variant="caption"
+          fontWeight={200}
+        >
+          mudei de ideia
+        </Link>
       </Box>
     </Container>
   ) : (

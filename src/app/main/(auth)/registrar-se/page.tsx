@@ -1,4 +1,4 @@
-import { Container, Box, Stack, Typography } from '@mui/material'
+import { Container, Box, Stack, Typography, Link } from '@mui/material'
 import { Metadata } from 'next'
 import SignUpFormView from './views/SignUpFormView'
 import { blue } from '@mui/material/colors'
@@ -56,6 +56,14 @@ export default async function SignUpPage() {
           </Typography>
         </Stack>
         <SignUpFormView />
+        <Link
+          href={'/autenticar-se'}
+          underline="none"
+          variant="caption"
+          fontWeight={200}
+        >
+          já sou registrado
+        </Link>
       </Box>
     </Container>
   ) : (

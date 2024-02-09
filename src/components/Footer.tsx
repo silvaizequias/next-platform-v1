@@ -54,7 +54,7 @@ export default function Footer() {
             variant="caption"
             textTransform={'lowercase'}
           >
-            termos de serviço
+            termos e políticas
           </Link>
         </Stack>
       </Box>

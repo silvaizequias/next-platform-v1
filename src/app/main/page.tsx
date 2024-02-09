@@ -5,7 +5,7 @@ import { getServerSession } from 'next-auth'
 import { nextAuthOptions } from '@/libraries/next-auth'
 import { OrganizationUsersType } from './(management)/organizations/users/types'
 import PageDisplay from '@/components/PageDisplay'
-import MyOrganizationsMainListView from './views/MyOrganizationsMainListView'
+import MyOrganizationsListView from './views/MyOrganizationsListView'
 
 export const metadata: Metadata = {
   title: {
@@ -23,8 +23,8 @@ export default async function MainPage() {
 
   return session ? (
     <PageDisplay title="dedicado" subtitle="sua melhor plataforma de serviços">
-      {session && session?.user?.profile.includes('master' || 'member') ? (
-        <MyOrganizationsMainListView data={myOrganizations} />
+      {session ? (
+        <MyOrganizationsListView data={myOrganizations} session={session!} />
       ) : null}
     </PageDisplay>
   ) : (

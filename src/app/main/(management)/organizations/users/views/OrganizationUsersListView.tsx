@@ -5,6 +5,7 @@ import { OrganizationUsersType } from '../types'
 import { DataGrid } from '@mui/x-data-grid'
 import { OrganizationUsersColumnsView } from './OrganizationUsersColumnsView'
 import DialogButton from '@/components/DialogButton'
+import CreateOrganizationUserFormView from './CreateOrganizationUserFormView'
 
 interface Props {
   organizationUsers: OrganizationUsersType[] | any
@@ -23,7 +24,9 @@ export default function OrganizationUsersListView(props: Props) {
           paddingY: 2,
         }}
       >
-        <DialogButton>...</DialogButton>
+        <DialogButton>
+          <CreateOrganizationUserFormView />
+        </DialogButton>
       </Box>
       <DataGrid
         autoHeight

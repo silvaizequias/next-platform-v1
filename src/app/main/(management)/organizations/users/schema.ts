@@ -1,4 +1,26 @@
 import * as z from 'zod'
 
-export const Schema = z.object({})
-export type SchemaType = z.infer<typeof Schema>
+const ROLE = [
+  'client',
+  'assistant',
+  'technician',
+  'administrator',
+  'owner',
+] as const
+
+export const CreateOrganizationUserSchema = z.object({
+  role: z.enum(ROLE),
+  organizationDocument: z.string().length(14),
+  userPhone: z.string().min(10).max(12),
+})
+export type CreateOrganizationUserSchemaType = z.infer<
+  typeof CreateOrganizationUserSchema
+>
+
+export const UpdateOrganizationUserSchema = z.object({
+  role: z.enum(ROLE).optional(),
+  active: z.boolean().optional(),
+})
+export type UpdateOrganizationUserSchemaType = z.infer<
+  typeof UpdateOrganizationUserSchema
+>

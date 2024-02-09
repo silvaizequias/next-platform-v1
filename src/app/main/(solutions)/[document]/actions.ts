@@ -11,14 +11,14 @@ export async function actionGetOrganizationByDocument(
 ): Promise<OrganizationType | any> {
   try {
     const data = await fetch(
-      `${env.PLATFORM_API_URL}/organizations/document/${document}`,
+      `${env.PLATFORM_API_URL!}/organizations/document/${document}`,
       {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${session?.user?.authorization}`,
         },
-        next: { revalidate: 3600 },
+        //next: { revalidate: 3600 },
       },
     )
     if (!data) return null

@@ -1,13 +1,12 @@
 import { Metadata } from 'next'
-import {
-  actionGetOrganizationApiSpend,
-  actionGetOrganizationByDocument,
-} from './actions'
+import { actionGetOrganizationByDocument } from './actions'
 import { getServerSession } from 'next-auth'
 import { nextAuthOptions } from '@/libraries/next-auth'
 import { OrganizationType } from '../../(management)/organizations/types'
 import OrganizationDetailView from './views/OrganizationDetailView'
 import PageDisplay from '@/components/PageDisplay'
+import { cnpjMask } from 'masks-br'
+import { OrganizationUsersType } from '../../(management)/organizations/users/types'
 import { Typography } from '@mui/material'
 
 export async function generateMetadata({
@@ -44,9 +43,36 @@ export default async function MyOrganizationsPage({
     session!,
   )
 
+  const organizationUser =
+    session &&
+    organization?.users?.find(
+      (users: OrganizationUsersType) => users?.user?.id === session?.user?.id,
+    )
+
   return (
-    <PageDisplay title={organization?.name} subtitle={organization?.document}>
-      <OrganizationDetailView organization={organization} />
+    <PageDisplay
+      title={organization?.name}
+      subtitle={cnpjMask(organization?.document)}
+    >
+      {session && session?.user.profile == 'master' ? (
+        <OrganizationDetailView
+          organization={organization}
+          session={session!}
+        />
+      ) : organizationUser ? (
+        <OrganizationDetailView
+          organization={organization}
+          session={session!}
+        />
+      ) : (
+        <Typography
+          component={'h4'}
+          variant="h6"
+          sx={{ textTransform: 'lowercase', textAlign: 'center' }}
+        >
+          você não é membro desta organização
+        </Typography>
+      )}
     </PageDisplay>
   )
 }

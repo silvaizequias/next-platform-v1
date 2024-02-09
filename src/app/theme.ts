@@ -3,6 +3,7 @@
 import { Comfortaa } from 'next/font/google'
 import { createTheme } from '@mui/material/styles'
 import { ptBR } from '@mui/material/locale'
+import { colors } from '@mui/material'
 
 const comfortaa = Comfortaa({
   subsets: ['latin'],
@@ -13,11 +14,11 @@ const comfortaa = Comfortaa({
 export const theme = createTheme(
   {
     palette: {
-      //mode: 'light',
+      mode: 'light',
       primary: {
-        light: '#039be5',
-        main: '#0284c7',
-        dark: '#0f172a',
+        light: colors.lightBlue[200],
+        main: colors.blue[400],
+        dark: colors.lightBlue[800],
         contrastText: '#FFF',
       },
     },

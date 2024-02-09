@@ -1,5 +1,6 @@
 import { Box, Avatar, Typography, Chip } from '@mui/material'
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
+import { cnpjMask } from 'masks-br'
 
 export const SubscriptionsColumnsView: GridColDef[] = [
   {
@@ -25,7 +26,7 @@ export const SubscriptionsColumnsView: GridColDef[] = [
         >
           <Typography variant="h6">{params.row?.organization?.name}</Typography>
           <Typography variant="caption">
-            {params.row?.organization?.document}
+            {cnpjMask(params.row?.organization?.document)}
           </Typography>
         </Box>
       </Box>

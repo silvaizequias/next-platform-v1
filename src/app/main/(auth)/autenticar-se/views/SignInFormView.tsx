@@ -13,6 +13,7 @@ import {
 } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
+import { grey } from '@mui/material/colors'
 
 export default function SignInFormView() {
   const router = useRouter()
@@ -41,52 +42,55 @@ export default function SignInFormView() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate>
-      <Box sx={{ my: 2, width: '100%' }}>
-        <Typography component="h6" variant="body1" align="center">
-          informe suas credenciais para autenticar-se na plataforma
-        </Typography>
-        <TextField
-          {...register('phone')}
-          margin="normal"
-          size="small"
-          required
-          fullWidth
-          id="phone"
-          label="celular"
-          autoFocus
-        />
-        {errors.phone && (
-          <FormHelperText
-            sx={{ color: 'error.main', textTransform: 'lowercase' }}
-          >
-            {errors.phone.message}
-          </FormHelperText>
-        )}
+    <Box
+      component={'form'}
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+      sx={{ my: 2, width: '100%', bgcolor: grey[50], p: 2, borderRadius: 1 }}
+    >
+      <Typography component="h6" variant="body1" align="center">
+        informe suas credenciais para autenticar-se na plataforma
+      </Typography>
+      <TextField
+        {...register('phone')}
+        margin="normal"
+        size="small"
+        required
+        fullWidth
+        id="phone"
+        label="celular"
+        autoFocus
+      />
+      {errors.phone && (
+        <FormHelperText
+          sx={{ color: 'error.main', textTransform: 'lowercase' }}
+        >
+          {errors.phone.message}
+        </FormHelperText>
+      )}
 
-        <TextField
-          {...register('password')}
-          margin="normal"
-          size="small"
-          required
-          fullWidth
-          id="password"
-          type="password"
-          label="senha"
-          autoFocus
-        />
-        {errors.password && (
-          <FormHelperText
-            sx={{ color: 'error.main', textTransform: 'lowercase' }}
-          >
-            {errors.password.message}
-          </FormHelperText>
-        )}
+      <TextField
+        {...register('password')}
+        margin="normal"
+        size="small"
+        required
+        fullWidth
+        id="password"
+        type="password"
+        label="senha"
+        autoFocus
+      />
+      {errors.password && (
+        <FormHelperText
+          sx={{ color: 'error.main', textTransform: 'lowercase' }}
+        >
+          {errors.password.message}
+        </FormHelperText>
+      )}
 
-        <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
-          autenticar-se
-        </Button>
-      </Box>
-    </form>
+      <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
+        autenticar-se
+      </Button>
+    </Box>
   )
 }

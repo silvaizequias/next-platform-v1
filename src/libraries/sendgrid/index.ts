@@ -15,6 +15,6 @@ export type SendEmailType = {
 }
 
 export const sendEmail = async (data: SendEmailType) => {
-  sendgrid.setApiKey(env.SENDGRID_API_KEY)
+  sendgrid.setApiKey(env.SENDGRID_API_KEY!)
   return await sendgrid.send(data)
 }
