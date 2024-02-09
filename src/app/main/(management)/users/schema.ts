@@ -8,6 +8,12 @@ export const CreateUserSchema = z.object({
   email: z.string().email(),
   phone: z.string().min(10).max(12),
   password: z.string().min(8).max(25).optional(),
+  document: z.string().min(11).max(14).optional(),
+  zipCode: z.string().length(8).optional(),
+  street: z.string().optional(),
+  complement: z.string().optional(),
+  latitude: z.coerce.number().optional(),
+  longitude: z.coerce.number().optional(),
 })
 export type CreateUserSchemaType = z.infer<typeof CreateUserSchema>
 

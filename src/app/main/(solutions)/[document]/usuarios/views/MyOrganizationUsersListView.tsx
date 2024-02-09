@@ -11,10 +11,10 @@ import {
   Typography,
   Card,
   CardContent,
-  CardHeader,
-  Box,
 } from '@mui/material'
+import { celularMask } from 'masks-br'
 import { Fragment } from 'react'
+import CreateMyOrganizationUserFormView from './CreateMyOrganizationUserFormView'
 
 interface Props {
   data: OrganizationUsersType[] | any
@@ -28,7 +28,9 @@ export default function MyOrganizationUsersListView(props: Props) {
     <Fragment>
       <Card sx={{ width: '100%' }}>
         <CardContent sx={{ display: 'flex', justifyContent: 'right' }}>
-          <DialogButton>...</DialogButton>
+          <DialogButton>
+            <CreateMyOrganizationUserFormView />
+          </DialogButton>
         </CardContent>
         <CardContent>
           <List dense sx={{ width: '100%' }}>
@@ -64,7 +66,7 @@ export default function MyOrganizationUsersListView(props: Props) {
                       }
                       secondary={
                         <Typography variant="caption">
-                          {myOrganization?.user?.phone}
+                          {celularMask(myOrganization?.user?.phone)}
                         </Typography>
                       }
                     />

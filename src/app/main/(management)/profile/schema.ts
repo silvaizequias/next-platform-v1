@@ -8,6 +8,8 @@ export const ProfileUpdateSchema = z.object({
   zipCode: z.string().length(8).optional(),
   street: z.string().optional(),
   complement: z.string().optional(),
+  latitude: z.coerce.number().optional(),
+  longitude: z.coerce.number().optional(),
 })
 export type ProfileUpdateSchemaType = z.infer<typeof ProfileUpdateSchema>
 

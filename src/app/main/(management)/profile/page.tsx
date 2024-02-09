@@ -31,12 +31,11 @@ export default async function ProfilePage() {
         container
         component="div"
         sx={{ display: 'flex', maxWidth: 'md', width: '100%' }}
-        rowGap={2} spacing={4}
+        rowGap={2}
+        spacing={4}
       >
         <Grid item xs={12} sm={2}>
-          <Box
-            sx={{ width: '100%'}}
-          >
+          <Box sx={{ width: '100%' }}>
             <ProfileLeftView profile={profile} />
           </Box>
         </Grid>

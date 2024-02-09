@@ -9,17 +9,15 @@ import {
   ListItemText,
   Typography,
   Chip,
-  colors,
   Card,
   CardContent,
-  CardHeader,
-  Stack,
 } from '@mui/material'
 import { OrganizationUsersType } from '../(management)/organizations/users/types'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import DialogButton from '@/components/DialogButton'
 import CreateMyOrganizationFormView from './CreateMyOrganizationFormView'
+import { cnpjMask } from 'masks-br'
 
 interface Props {
   data: OrganizationUsersType[] | any
@@ -80,7 +78,7 @@ export default function MyOrganizationsListView(props: Props) {
                     }
                     secondary={
                       <Typography variant="caption">
-                        {myOrganization?.organization?.document}
+                        {cnpjMask(myOrganization?.organization?.document)}
                       </Typography>
                     }
                   />

@@ -7,8 +7,12 @@ import {
   CreateAuthorizationSchemaType,
 } from '../schema'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { actionCreateOrganizationKey } from '../actions'
+import toast from 'react-hot-toast'
+import { useSession } from 'next-auth/react'
 
 export default function CreateAuthorizationFormView() {
+  const { data: session } = useSession()
   const {
     formState: { errors },
     handleSubmit,
@@ -19,7 +23,12 @@ export default function CreateAuthorizationFormView() {
   const onSubmit: SubmitHandler<CreateAuthorizationSchemaType> = async (
     inputs,
   ) => {
-    console.log(inputs)
+    const result = await actionCreateOrganizationKey(session!, { ...inputs })
+    if (result?.response?.error) {
+      toast.error(result?.message)
+    } else {
+      toast.success(result)
+    }
   }
 
   return (

@@ -5,6 +5,11 @@ import { UserType } from '../../users/types'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { ProfileUpdateSchema, ProfileUpdateSchemaType } from '../schema'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { actionUpdateProfileInformation } from '../actions'
+import toast from 'react-hot-toast'
+import { useState } from 'react'
+import getAddress from '@/utils/get-address'
+import { useSession } from 'next-auth/react'
 
 interface Props {
   profile: UserType | any
@@ -12,11 +17,15 @@ interface Props {
 
 export default function ProfileUpdateFormView(props: Props) {
   const { profile } = props
+  const { data: session } = useSession()
+  const [zipCode, setZipCode] = useState<string | undefined>()
+  const [address, setAddress] = useState<any>(null)
 
   const {
     formState: { errors },
     handleSubmit,
     register,
+    setValue,
   } = useForm<ProfileUpdateSchemaType>({
     resolver: zodResolver(ProfileUpdateSchema),
     defaultValues: {
@@ -27,10 +36,40 @@ export default function ProfileUpdateFormView(props: Props) {
       zipCode: profile?.zipCode,
       street: profile?.street,
       complement: profile?.complement,
+      latitude: profile?.latitude,
+      longitude: profile?.longitude,
     },
   })
+
+  const loadZipCode = async (event: { target: { value: any } }) => {
+    const data = event.target.value?.replace(/[^0-9]/g, '')
+
+    if (data?.length !== 8) {
+      toast.error('cep inválido')
+      setZipCode(undefined)
+    } else {
+      setZipCode(data)
+      const address = await getAddress(data)
+      if (address?.code) {
+        toast.error(address?.message)
+      } else {
+        address && setAddress(address)
+        setValue('street', address?.address)
+        setValue('latitude', Number(address?.lat))
+        setValue('longitude', Number(address?.lng))
+      }
+    }
+  }
+
   const onSubmit: SubmitHandler<ProfileUpdateSchemaType> = async (inputs) => {
-    console.log(inputs)
+    const result = await actionUpdateProfileInformation(session!, {
+      ...inputs,
+    })
+    if (result?.response?.error) {
+      toast.error(result?.message)
+    } else {
+      toast.success(result)
+    }
   }
 
   return (
@@ -113,6 +152,8 @@ export default function ProfileUpdateFormView(props: Props) {
             margin="normal"
             size="small"
             label="cep"
+            onBlur={loadZipCode}
+            focused
           />
           {errors.zipCode && (
             <FormHelperText
@@ -129,6 +170,7 @@ export default function ProfileUpdateFormView(props: Props) {
             margin="normal"
             size="small"
             label="logradouro"
+            disabled={!zipCode}
           />
           {errors.street && (
             <FormHelperText
@@ -145,6 +187,7 @@ export default function ProfileUpdateFormView(props: Props) {
             margin="normal"
             size="small"
             label="complemento"
+            disabled={!zipCode}
           />
           {errors.complement && (
             <FormHelperText

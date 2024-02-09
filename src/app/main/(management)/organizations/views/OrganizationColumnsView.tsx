@@ -1,5 +1,6 @@
 import { Box, Avatar, Typography } from '@mui/material'
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
+import { cnpjMask } from 'masks-br'
 
 export const OrganizationColumnsView: GridColDef[] = [
   {
@@ -21,7 +22,9 @@ export const OrganizationColumnsView: GridColDef[] = [
           }}
         >
           <Typography variant="h6">{params.row?.name}</Typography>
-          <Typography variant="caption">{params.row?.document}</Typography>
+          <Typography variant="caption">
+            {cnpjMask(params.row?.document)}
+          </Typography>
         </Box>
       </Box>
     ),

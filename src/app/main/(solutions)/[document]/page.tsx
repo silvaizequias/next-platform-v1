@@ -1,14 +1,11 @@
 import { Metadata } from 'next'
-import {
-  actionGetOrganizationApiSpend,
-  actionGetOrganizationByDocument,
-} from './actions'
+import { actionGetOrganizationByDocument } from './actions'
 import { getServerSession } from 'next-auth'
 import { nextAuthOptions } from '@/libraries/next-auth'
 import { OrganizationType } from '../../(management)/organizations/types'
 import OrganizationDetailView from './views/OrganizationDetailView'
 import PageDisplay from '@/components/PageDisplay'
-import { Typography } from '@mui/material'
+import { cnpjMask } from 'masks-br'
 
 export async function generateMetadata({
   params,
@@ -45,7 +42,10 @@ export default async function MyOrganizationsPage({
   )
 
   return (
-    <PageDisplay title={organization?.name} subtitle={organization?.document}>
+    <PageDisplay
+      title={organization?.name}
+      subtitle={cnpjMask(organization?.document)}
+    >
       <OrganizationDetailView organization={organization} />
     </PageDisplay>
   )

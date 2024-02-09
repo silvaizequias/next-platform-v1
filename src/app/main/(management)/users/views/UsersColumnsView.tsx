@@ -1,5 +1,6 @@
 import { Box, Avatar, Typography, Chip } from '@mui/material'
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
+import { celularMask } from 'masks-br'
 
 export const UsersColumnsView: GridColDef[] = [
   {
@@ -21,7 +22,9 @@ export const UsersColumnsView: GridColDef[] = [
           }}
         >
           <Typography variant="h6">{params.row.name}</Typography>
-          <Typography variant="caption">{params.row?.phone}</Typography>
+          <Typography variant="caption">
+            {celularMask(params.row?.phone)}
+          </Typography>
         </Box>
       </Box>
     ),

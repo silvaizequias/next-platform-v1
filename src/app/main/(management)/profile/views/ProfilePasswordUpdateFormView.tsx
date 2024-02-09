@@ -8,6 +8,9 @@ import {
   ProfilePasswordUpdateSchemaType,
 } from '../schema'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { signOut, useSession } from 'next-auth/react'
+import { actionUpdateProfilePassword } from '../actions'
+import toast from 'react-hot-toast'
 
 interface Props {
   profile: UserType | any
@@ -15,7 +18,7 @@ interface Props {
 
 export default function ProfilePasswordUpdateFormView(props: Props) {
   const { profile } = props
-
+  const { data: session } = useSession()
   const {
     formState: { errors },
     handleSubmit,
@@ -26,7 +29,18 @@ export default function ProfilePasswordUpdateFormView(props: Props) {
   const onSubmit: SubmitHandler<ProfilePasswordUpdateSchemaType> = async (
     inputs,
   ) => {
-    console.log(inputs)
+    const result = await actionUpdateProfilePassword(session!, inputs)
+    if (result?.response?.error) {
+      toast.error(result?.message)
+    } else {
+      toast.success(result)
+      setTimeout(async () => {
+        toast.success(
+          `${profile?.name}, inicie a sessão novamente utilizando a nova senha que você definiu`,
+        )
+        await signOut()
+      }, 5000)
+    }
   }
 
   return (
@@ -45,6 +59,7 @@ export default function ProfilePasswordUpdateFormView(props: Props) {
             size="small"
             required
             label="senha atual"
+            type="password"
           />
           {errors.oldPassword && (
             <FormHelperText
@@ -62,6 +77,7 @@ export default function ProfilePasswordUpdateFormView(props: Props) {
             size="small"
             required
             label="nova senha"
+            type="password"
           />
           {errors.newPassword && (
             <FormHelperText
@@ -79,6 +95,7 @@ export default function ProfilePasswordUpdateFormView(props: Props) {
             size="small"
             required
             label="confirmar nova senha"
+            type="password"
           />
           {errors.confirmNewPassword && (
             <FormHelperText
