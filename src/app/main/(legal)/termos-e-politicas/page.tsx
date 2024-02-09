@@ -1,5 +1,5 @@
 import PageDisplay from '@/components/PageDisplay'
-import TermsOfServices from './views/termos-of-services.mdx'
+import TermsAndPoliciesView from './views/TermsAndPoliciesView'
 
 export default async function TermsAndPoliciesPage() {
   return (
@@ -7,9 +7,7 @@ export default async function TermsAndPoliciesPage() {
       title="termos e políticas de utilização da dedicado"
       subtitle="sua melhor plataforma de serviços"
     >
-      <div className="prose">
-        <TermsOfServices />
-      </div>
+      <TermsAndPoliciesView />
     </PageDisplay>
   )
 }
