@@ -50,8 +50,12 @@ export default function UserMenu(props: Props) {
   return (
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title={profile?.name}>
-        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <Avatar alt={profile?.name} src={profile?.image || avatar} />
+        <IconButton onClick={handleOpenUserMenu} sx={{ p: 1 }}>
+          <Avatar
+            alt={profile?.name}
+            src={profile?.image || avatar}
+            sx={{ width: 28, height: 28 }}
+          />
         </IconButton>
       </Tooltip>
       <Menu
