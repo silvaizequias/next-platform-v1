@@ -14,8 +14,6 @@ import {
   Box,
   Tab,
   Tabs,
-  Typography,
-  Stack,
 } from '@mui/material'
 import { Fragment, SyntheticEvent, useCallback, useState } from 'react'
 import TabPanel from './TabPanel'
@@ -48,25 +46,23 @@ export default function UserAuth() {
         <DialogTitle sx={{ fontWeight: 600, color: colors.blue[400] }}>
           {'dedicado'}
         </DialogTitle>
-        <DialogContent>
-          <Stack sx={{ width: '100%' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <Tabs value={value} onChange={handleChange} centered>
-                <Tab icon={<Login />} value={0} />
-                <Tab icon={<AssignmentInd />} value={1} />
-                <Tab icon={<Password />} value={2} />
-              </Tabs>
-            </Box>
-            <TabPanel value={value} index={0}>
-              <SignInFormView />
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-              <SignUpFormView />
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-              <ResetPasswordFormView />
-            </TabPanel>
-          </Stack>
+        <DialogContent sx={{ width: '100%' }}>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Tabs value={value} onChange={handleChange} centered>
+              <Tab icon={<Login />} value={0} />
+              <Tab icon={<AssignmentInd />} value={1} />
+              <Tab icon={<Password />} value={2} />
+            </Tabs>
+          </Box>
+          <TabPanel value={value} index={0}>
+            <SignInFormView />
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            <SignUpFormView />
+          </TabPanel>
+          <TabPanel value={value} index={2}>
+            <ResetPasswordFormView />
+          </TabPanel>
         </DialogContent>
       </Dialog>
     </Fragment>

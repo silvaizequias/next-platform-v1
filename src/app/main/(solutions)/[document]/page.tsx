@@ -6,6 +6,8 @@ import { OrganizationType } from '../../(management)/organizations/types'
 import OrganizationDetailView from './views/OrganizationDetailView'
 import PageDisplay from '@/components/PageDisplay'
 import { cnpjMask } from 'masks-br'
+import { OrganizationUsersType } from '../../(management)/organizations/users/types'
+import { Typography } from '@mui/material'
 
 export async function generateMetadata({
   params,
@@ -41,12 +43,36 @@ export default async function MyOrganizationsPage({
     session!,
   )
 
+  const organizationUser =
+    session &&
+    organization?.users?.find(
+      (users: OrganizationUsersType) => users?.user?.id === session?.user?.id,
+    )
+
   return (
     <PageDisplay
       title={organization?.name}
       subtitle={cnpjMask(organization?.document)}
     >
-      <OrganizationDetailView organization={organization} />
+      {session && session?.user.profile == 'master' ? (
+        <OrganizationDetailView
+          organization={organization}
+          session={session!}
+        />
+      ) : organizationUser ? (
+        <OrganizationDetailView
+          organization={organization}
+          session={session!}
+        />
+      ) : (
+        <Typography
+          component={'h4'}
+          variant="h6"
+          sx={{ textTransform: 'lowercase', textAlign: 'center' }}
+        >
+          você não é membro desta organização
+        </Typography>
+      )}
     </PageDisplay>
   )
 }

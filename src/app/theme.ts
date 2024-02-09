@@ -14,7 +14,7 @@ const comfortaa = Comfortaa({
 export const theme = createTheme(
   {
     palette: {
-      //mode: 'light',
+      mode: 'light',
       primary: {
         light: colors.lightBlue[200],
         main: colors.blue[400],

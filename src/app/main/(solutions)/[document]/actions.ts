@@ -18,7 +18,7 @@ export async function actionGetOrganizationByDocument(
           'Content-Type': 'application/json',
           Authorization: `Bearer ${session?.user?.authorization}`,
         },
-        next: { revalidate: 3600 },
+        //next: { revalidate: 3600 },
       },
     )
     if (!data) return null

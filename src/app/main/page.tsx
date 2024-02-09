@@ -23,8 +23,8 @@ export default async function MainPage() {
 
   return session ? (
     <PageDisplay title="dedicado" subtitle="sua melhor plataforma de serviços">
-      {session && session?.user?.profile.includes('master' || 'member') ? (
-        <MyOrganizationsListView data={myOrganizations} />
+      {session ? (
+        <MyOrganizationsListView data={myOrganizations} session={session!} />
       ) : null}
     </PageDisplay>
   ) : (

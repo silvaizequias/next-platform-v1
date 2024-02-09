@@ -13,6 +13,7 @@ import { actionResetPassword } from '../actions'
 import { useRouter } from 'next/navigation'
 import { ResetPasswordSchema, ResetPasswordSchemaType } from '../schema'
 import toast from 'react-hot-toast'
+import { grey } from '@mui/material/colors'
 
 export default function ResetPasswordFormView() {
   const router = useRouter()
@@ -39,7 +40,7 @@ export default function ResetPasswordFormView() {
       component={'form'}
       onSubmit={handleSubmit(onSubmit)}
       noValidate
-      sx={{ my: 2, width: '100%' }}
+      sx={{ my: 2, width: '100%', bgcolor: grey[50], p: 2, borderRadius: 1 }}
     >
       <Typography component="h6" variant="body1" align="center">
         um código de segurança será enviado para o número de telefone registrado

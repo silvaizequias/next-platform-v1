@@ -1,3 +1,5 @@
+'use client'
+
 import { OrganizationUsersType } from '@/app/main/(management)/organizations/users/types'
 import DialogButton from '@/components/DialogButton'
 import {
@@ -11,10 +13,15 @@ import {
   Typography,
   Card,
   CardContent,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  colors,
 } from '@mui/material'
 import { celularMask } from 'masks-br'
-import { Fragment } from 'react'
+import { Fragment, useCallback, useState } from 'react'
 import CreateMyOrganizationUserFormView from './CreateMyOrganizationUserFormView'
+import UpdateMyOrganizationUserFormView from './UpdateMyOrganizationUserFormView'
 
 interface Props {
   data: OrganizationUsersType[] | any
@@ -23,6 +30,19 @@ interface Props {
 export default function MyOrganizationUsersListView(props: Props) {
   const { data } = props
   const avatar = '/avatar.svg'
+
+  const [userData, setUserData] = useState<OrganizationUsersType | any>(null)
+  const [updateUser, setUpdateUser] = useState<boolean>(false)
+  const handleUpdateUser = useCallback(
+    (data: OrganizationUsersType) => {
+      data && setUserData(data)
+      setUpdateUser(!updateUser)
+    },
+    [updateUser],
+  )
+  const handleUpdateUserClose = useCallback(() => {
+    setUpdateUser(!updateUser)
+  }, [updateUser])
 
   return (
     <Fragment>
@@ -38,6 +58,7 @@ export default function MyOrganizationUsersListView(props: Props) {
               return (
                 <ListItem
                   key={myOrganization?.id}
+                  onClick={() => handleUpdateUser(myOrganization)}
                   secondaryAction={
                     <Chip
                       label={myOrganization?.role}
@@ -77,6 +98,28 @@ export default function MyOrganizationUsersListView(props: Props) {
           </List>
         </CardContent>
       </Card>
+      <Dialog
+        open={updateUser}
+        keepMounted
+        onClose={handleUpdateUserClose}
+        maxWidth={'xs'}
+      >
+        <DialogTitle
+          sx={{
+            fontWeight: 600,
+            color: colors.blue[400],
+            textTransform: 'lowercase',
+          }}
+        >
+          {`atualizar ${userData?.user?.name}`}
+        </DialogTitle>
+        <DialogContent>
+          <UpdateMyOrganizationUserFormView
+            userData={userData}
+            onClose={handleUpdateUserClose}
+          />
+        </DialogContent>
+      </Dialog>
     </Fragment>
   )
 }

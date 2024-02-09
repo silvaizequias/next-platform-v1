@@ -14,6 +14,7 @@ import { SignUpSchema, SignUpSchemaType } from '../schema'
 import { actionSignUp } from '../actions'
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
+import { grey } from '@mui/material/colors'
 
 export default function SignUpFormView() {
   const randomCode = Math.random().toString(32).substr(2, 16)
@@ -54,7 +55,7 @@ export default function SignUpFormView() {
       component={'form'}
       onSubmit={handleSubmit(onSubmit)}
       noValidate
-      sx={{ my: 2, width: '100%' }}
+      sx={{ my: 2, width: '100%', bgcolor: grey[50], p: 2, borderRadius: 1 }}
     >
       <Typography component="h6" variant="body1" align="center">
         preencha os campos do formulário para registrar-se na plataforma
