@@ -5,9 +5,7 @@ import { redirect } from 'next/navigation'
 import { UserType } from '../users/types'
 import { actionGetProfile } from './actions'
 import PageDisplay from '@/components/PageDisplay'
-import { Box, Grid } from '@mui/material'
-import ProfileRightView from './views/ProfileRightView'
-import ProfileLeftView from './views/ProfileLeftView'
+import dynamic from 'next/dynamic'
 
 export const metadata: Metadata = {
   title: {
@@ -18,6 +16,10 @@ export const metadata: Metadata = {
     'soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
 }
 
+const ProfileView = dynamic(() => import('./views/ProfileView'), {
+  ssr: false,
+})
+
 export default async function ProfilePage() {
   const session = await getServerSession(nextAuthOptions)
   const profile: UserType | any = await actionGetProfile(session!)
@@ -27,24 +29,7 @@ export default async function ProfilePage() {
       title="meu perfil na plataforma"
       subtitle={`olá ${profile?.name.split(' ')[0]}`}
     >
-      <Grid
-        container
-        component="div"
-        sx={{ display: 'flex', maxWidth: 'md', width: '100%' }}
-        rowGap={2}
-        spacing={4}
-      >
-        <Grid item xs={12} sm={2}>
-          <Box sx={{ width: '100%' }}>
-            <ProfileLeftView profile={profile} />
-          </Box>
-        </Grid>
-        <Grid item xs={12} sm={10}>
-          <Box sx={{ width: '100%' }}>
-            <ProfileRightView profile={profile} />
-          </Box>
-        </Grid>
-      </Grid>
+      <ProfileView profile={profile} />
     </PageDisplay>
   ) : (
     redirect('/')

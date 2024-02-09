@@ -1,5 +1,12 @@
 import PageDisplay from '@/components/PageDisplay'
-import TermsAndPoliciesView from './views/TermsAndPoliciesView'
+import dynamic from 'next/dynamic'
+
+const TermsAndPoliciesView = dynamic(
+  () => import('./views/TermsAndPoliciesView'),
+  {
+    ssr: false,
+  },
+)
 
 export default async function TermsAndPoliciesPage() {
   return (
