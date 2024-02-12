@@ -129,7 +129,7 @@ export default function SignUpFormView() {
         control={<Checkbox checked={checked} onChange={handleChange} />}
         label={
           <Link href={'/termos-e-politicas'} variant="caption" underline="none">
-            aceito os termos e políticas da plataaforma
+            aceito os termos e políticas da plataforma
           </Link>
         }
       />
