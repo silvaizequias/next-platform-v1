@@ -96,6 +96,7 @@ export default function CreateMyOrganizationFormView({
         size="small"
         fullWidth
         label="documento"
+        type='number'
       />
       {errors.document && (
         <FormHelperText

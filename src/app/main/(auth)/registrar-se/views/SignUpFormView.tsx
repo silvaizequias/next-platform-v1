@@ -114,6 +114,7 @@ export default function SignUpFormView() {
         fullWidth
         id="phone"
         label="celular"
+        type='number'
         autoFocus
       />
       {errors.phone && (

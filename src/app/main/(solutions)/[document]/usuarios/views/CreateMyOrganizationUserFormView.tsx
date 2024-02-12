@@ -91,6 +91,7 @@ export default function CreateMyOrganizationUserFormView({
         size="small"
         fullWidth
         label="telefone"
+        type='number'
       />
       {errors.userPhone && (
         <FormHelperText
