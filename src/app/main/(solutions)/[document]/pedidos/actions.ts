@@ -16,7 +16,7 @@ export async function actionGetMyOrganziationOrders(
           'Content-Type': 'application/json',
           authorizationKey: authorizationKey,
         },
-        next: { revalidate: 3600 },
+        //next: { revalidate: 3600 },
       },
     )
     if (!data) return null

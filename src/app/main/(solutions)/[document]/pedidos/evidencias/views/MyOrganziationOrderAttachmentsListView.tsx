@@ -17,13 +17,15 @@ import { OrderAttachmentType } from '@/app/main/(management)/orders/attachments/
 import { useParams, useRouter } from 'next/navigation'
 import { Fragment, useCallback, useState } from 'react'
 import { Add } from '@mui/icons-material'
+import CreateOrderAttachmentFromMyOrganization from './CreateOrderAttachmentFromMyOrganization'
 
 interface Props {
   orders: OrderType[] | any
+  authorizationKey: string
 }
 
 export default function MyOrganziationOrderItemsListView(props: Props) {
-  const { orders } = props
+  const { orders, authorizationKey } = props
 
   const [createEvidence, setCreateEvidence] = useState<boolean>(false)
   const handleCreateEvidence = useCallback(() => {
@@ -93,7 +95,12 @@ export default function MyOrganziationOrderItemsListView(props: Props) {
         >
           {'dedicado'}
         </DialogTitle>
-        <DialogContent>...</DialogContent>
+        <DialogContent>
+          <CreateOrderAttachmentFromMyOrganization
+            authorizationKey={authorizationKey}
+            onClose={handleCreateEvidence}
+          />
+        </DialogContent>
       </Dialog>
     </Fragment>
   )

@@ -2,18 +2,30 @@
 
 import { OrderType } from '@/app/main/(management)/orders/types'
 import { MyOrganziationOrdersColumnsView } from './MyOrganziationOrdersColumnsView'
-import { Box, Button, ButtonGroup, Dialog, DialogContent, DialogTitle, Fab, Tooltip, colors } from '@mui/material'
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Fab,
+  Tooltip,
+  colors,
+} from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import { useRouter } from 'next/navigation'
 import { Fragment, useCallback, useState } from 'react'
 import { Add } from '@mui/icons-material'
+import CreateOrderFromMyOrganization from './CreateOrderFromMyOrganization'
 
 interface Props {
   orders: OrderType[] | any
+  authorizationKey: string
 }
 
 export default function MyOrganziationOrdersListView(props: Props) {
-  const { orders } = props
+  const { orders, authorizationKey } = props
 
   const [createOrder, setCreateOrder] = useState<boolean>(false)
   const handleCreateOrder = useCallback(() => {
@@ -74,7 +86,12 @@ export default function MyOrganziationOrdersListView(props: Props) {
         >
           {'dedicado'}
         </DialogTitle>
-        <DialogContent>...</DialogContent>
+        <DialogContent>
+          <CreateOrderFromMyOrganization
+            authorizationKey={authorizationKey}
+            onClose={handleCreateOrder}
+          />
+        </DialogContent>
       </Dialog>
     </Fragment>
   )

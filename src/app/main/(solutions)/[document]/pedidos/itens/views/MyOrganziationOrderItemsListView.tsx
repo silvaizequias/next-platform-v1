@@ -17,13 +17,15 @@ import { OrderItemType } from '@/app/main/(management)/orders/items/types'
 import { useParams, useRouter } from 'next/navigation'
 import { Fragment, useCallback, useState } from 'react'
 import { Add } from '@mui/icons-material'
+import CreateOrderItemFromMyOrganization from './CreateOrderItemFromMyOrganization'
 
 interface Props {
   orders: OrderType[] | any
+  authorizationKey: string
 }
 
 export default function MyOrganziationOrderItemsListView(props: Props) {
-  const { orders } = props
+  const { orders, authorizationKey } = props
 
   const [createItem, setCreateItem] = useState<boolean>(false)
   const handleCreateItem = useCallback(() => {
@@ -91,7 +93,12 @@ export default function MyOrganziationOrderItemsListView(props: Props) {
         >
           {'dedicado'}
         </DialogTitle>
-        <DialogContent>...</DialogContent>
+        <DialogContent>
+          <CreateOrderItemFromMyOrganization
+            authorizationKey={authorizationKey}
+            onClose={handleCreateItem}
+          />
+        </DialogContent>
       </Dialog>
     </Fragment>
   )

@@ -38,7 +38,10 @@ export default async function MyOrganziationOrdersPage({
       title={`gestão de pedidos da organização ${organization?.name}`}
       subtitle="sua melhor plataforma de serviços"
     >
-      <MyOrganziationOrdersListView orders={orders} />
+      <MyOrganziationOrdersListView
+        orders={orders}
+        authorizationKey={organization?.authorizationKey?.authorizationKey}
+      />
     </PageDisplay>
   )
 }
