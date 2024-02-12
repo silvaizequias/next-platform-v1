@@ -28,8 +28,8 @@ export default function Topbar(props: Props) {
         alignItems: 'center',
         bgcolor:
           theme.palette.mode === 'light'
-            ? 'rgba(0, 100, 180, 0.5)'
-            : 'rgba(0, 0, 0, 0.4)',
+            ? 'rgba(255, 255, 255, 0.5)'
+            : 'rgba(255, 255, 255, 0.5)',
         backdropFilter: 'blur(5px)',
       }}
     >
@@ -49,7 +49,7 @@ export default function Topbar(props: Props) {
             underline="none"
             variant="h6"
             fontWeight={600}
-            color={'white'}
+            color={blue[400]}
           >
             dedicado
           </Link>
