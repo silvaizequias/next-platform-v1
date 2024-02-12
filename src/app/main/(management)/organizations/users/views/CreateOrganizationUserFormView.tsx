@@ -13,20 +13,22 @@ import {
   Select,
   TextField,
 } from '@mui/material'
-import { useParams } from 'next/navigation'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import actionCreateOrganizationUser from '../actions'
 
-export default function CreateOrganizationUserFormView() {
+export default function CreateOrganizationUserFormView({
+  onClose,
+}: {
+  onClose: () => void
+}) {
   const { data: session } = useSession()
   const [role, setRole] = useState<string>(
     'client' || 'assistant' || 'technician' || 'administrator' || 'owner',
   )
 
-  const params = useParams()
   const {
     formState: { errors },
     handleSubmit,
@@ -42,6 +44,7 @@ export default function CreateOrganizationUserFormView() {
       toast.error(result?.message)
     } else {
       toast.success(result)
+      onClose()
     }
   }
 

@@ -1,7 +1,6 @@
 'use client'
 
 import { OrganizationUsersType } from '@/app/main/(management)/organizations/users/types'
-import DialogButton from '@/components/DialogButton'
 import {
   List,
   ListItem,
@@ -17,11 +16,14 @@ import {
   DialogTitle,
   DialogContent,
   colors,
+  Fab,
+  Tooltip,
 } from '@mui/material'
 import { celularMask } from 'masks-br'
 import { Fragment, useCallback, useState } from 'react'
 import CreateMyOrganizationUserFormView from './CreateMyOrganizationUserFormView'
 import UpdateMyOrganizationUserFormView from './UpdateMyOrganizationUserFormView'
+import { Add } from '@mui/icons-material'
 
 interface Props {
   data: OrganizationUsersType[] | any
@@ -30,6 +32,11 @@ interface Props {
 export default function MyOrganizationUsersListView(props: Props) {
   const { data } = props
   const avatar = '/avatar.svg'
+
+  const [createUser, setCreateUser] = useState<boolean>(false)
+  const handleCreateUser = useCallback(() => {
+    setCreateUser(!createUser)
+  }, [createUser])
 
   const [userData, setUserData] = useState<OrganizationUsersType | any>(null)
   const [updateUser, setUpdateUser] = useState<boolean>(false)
@@ -48,9 +55,11 @@ export default function MyOrganizationUsersListView(props: Props) {
     <Fragment>
       <Card sx={{ width: '100%' }}>
         <CardContent sx={{ display: 'flex', justifyContent: 'right' }}>
-          <DialogButton>
-            <CreateMyOrganizationUserFormView />
-          </DialogButton>
+          <Tooltip title={'adicionar'} onClick={handleCreateUser}>
+            <Fab variant="circular" size="small" color="primary">
+              <Add sx={{ m: 1 }} />
+            </Fab>
+          </Tooltip>
         </CardContent>
         <CardContent>
           <List dense sx={{ width: '100%' }}>
@@ -98,6 +107,25 @@ export default function MyOrganizationUsersListView(props: Props) {
           </List>
         </CardContent>
       </Card>
+      <Dialog
+        open={createUser}
+        keepMounted
+        onClose={handleCreateUser}
+        maxWidth={'xs'}
+      >
+        <DialogTitle
+          sx={{
+            fontWeight: 600,
+            color: colors.blue[400],
+            textTransform: 'lowercase',
+          }}
+        >
+          {'dedicado'}
+        </DialogTitle>
+        <DialogContent>
+          <CreateMyOrganizationUserFormView onClose={handleCreateUser} />
+        </DialogContent>
+      </Dialog>
       <Dialog
         open={updateUser}
         keepMounted

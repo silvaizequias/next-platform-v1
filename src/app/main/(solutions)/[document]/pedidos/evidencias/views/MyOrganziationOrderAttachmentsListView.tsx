@@ -1,13 +1,22 @@
 'use client'
 
 import { MyOrganziationOrderAttachmentsColumnsView } from './MyOrganziationOrderAttachmentsColumnsView'
-import { Box, Button } from '@mui/material'
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Fab,
+  Tooltip,
+  colors,
+} from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import { OrderType } from '@/app/main/(management)/orders/types'
 import { OrderAttachmentType } from '@/app/main/(management)/orders/attachments/types'
-import DialogButton from '@/components/DialogButton'
 import { useParams, useRouter } from 'next/navigation'
-import { useCallback } from 'react'
+import { Fragment, useCallback, useState } from 'react'
+import { Add } from '@mui/icons-material'
 
 interface Props {
   orders: OrderType[] | any
@@ -15,6 +24,11 @@ interface Props {
 
 export default function MyOrganziationOrderItemsListView(props: Props) {
   const { orders } = props
+
+  const [createEvidence, setCreateEvidence] = useState<boolean>(false)
+  const handleCreateEvidence = useCallback(() => {
+    setCreateEvidence(!createEvidence)
+  }, [createEvidence])
 
   const orderAttachments: any = orders?.filter(
     (attachments: OrderAttachmentType[]) => ({
@@ -33,31 +47,54 @@ export default function MyOrganziationOrderItemsListView(props: Props) {
   )
 
   return (
-    <Box sx={{ maxWidth: 'md', width: '100%', padding: '10px' }}>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          paddingY: 2,
-        }}
-      >
-        <Button
-          size="small"
-          variant="contained"
-          onClick={() => handleClick(`/${document}/pedidos`)}
+    <Fragment>
+      <Box sx={{ maxWidth: 'md', width: '100%', padding: '10px' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            paddingY: 2,
+          }}
         >
-          pedidos
-        </Button>
-        <DialogButton>...</DialogButton>
+          <Button
+            size="small"
+            variant="contained"
+            onClick={() => handleClick(`/${document}/pedidos`)}
+          >
+            pedidos
+          </Button>
+          <Tooltip title={'criar'} onClick={handleCreateEvidence}>
+            <Fab variant="circular" size="small" color="primary">
+              <Add sx={{ m: 1 }} />
+            </Fab>
+          </Tooltip>
+        </Box>
+        <DataGrid
+          autoHeight
+          getRowId={(orderAttachment) => orderAttachment?.id}
+          rows={orderAttachments}
+          columns={MyOrganziationOrderAttachmentsColumnsView}
+          disableColumnSelector
+        />
       </Box>
-      <DataGrid
-        autoHeight
-        getRowId={(orderAttachment) => orderAttachment?.id}
-        rows={orderAttachments}
-        columns={MyOrganziationOrderAttachmentsColumnsView}
-        disableColumnSelector
-      />
-    </Box>
+      <Dialog
+        open={createEvidence}
+        keepMounted
+        onClose={handleCreateEvidence}
+        maxWidth={'xs'}
+      >
+        <DialogTitle
+          sx={{
+            fontWeight: 600,
+            color: colors.blue[400],
+            textTransform: 'lowercase',
+          }}
+        >
+          {'dedicado'}
+        </DialogTitle>
+        <DialogContent>...</DialogContent>
+      </Dialog>
+    </Fragment>
   )
 }

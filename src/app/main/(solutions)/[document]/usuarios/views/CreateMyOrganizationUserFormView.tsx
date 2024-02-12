@@ -20,7 +20,11 @@ import { actionCreateMyOrganizationUser } from '../actions'
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
 
-export default function CreateMyOrganizationUserFormView() {
+export default function CreateMyOrganizationUserFormView({
+  onClose,
+}: {
+  onClose: () => void
+}) {
   const { data: session } = useSession()
   const [role, setRole] = useState<string>(
     'client' || 'assistant' || 'technician' || 'administrator' || 'owner',
@@ -46,6 +50,7 @@ export default function CreateMyOrganizationUserFormView() {
       toast.error(result?.message)
     } else {
       toast.success(result)
+      onClose()
     }
   }
 
