@@ -1,6 +1,7 @@
 import * as z from 'zod'
 
 export const CreateOrderItemSchema = z.object({
+  orderCode: z.string(),
   code: z.string().optional(),
   note: z.string(),
   amount: z.coerce.number().positive().optional(),

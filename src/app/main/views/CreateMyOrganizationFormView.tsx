@@ -26,6 +26,7 @@ export default function CreateMyOrganizationFormView({
     formState: { errors },
     handleSubmit,
     register,
+    reset,
     setValue,
   } = useForm<CreateOrganizationSchemaType>({
     resolver: zodResolver(CreateOrganizationSchema),
@@ -63,6 +64,7 @@ export default function CreateMyOrganizationFormView({
     if (result?.response?.error) {
       toast.error(result?.message)
     } else {
+      reset()
       toast.success(result)
       onClose()
     }

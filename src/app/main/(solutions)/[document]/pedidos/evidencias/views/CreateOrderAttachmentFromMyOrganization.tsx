@@ -5,7 +5,7 @@ import {
   CreateOrderAttachmentSchemaType,
 } from '@/app/main/(management)/orders/attachments/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Box, Button } from '@mui/material'
+import { Box, Button, FormHelperText, TextField } from '@mui/material'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 interface Props {
@@ -20,6 +20,7 @@ export default function CreateOrderAttachmentFromMyOrganization(props: Props) {
     formState: { errors },
     handleSubmit,
     register,
+    reset,
   } = useForm<CreateOrderAttachmentSchemaType>({
     resolver: zodResolver(CreateOrderAttachmentSchema),
   })
@@ -27,6 +28,7 @@ export default function CreateOrderAttachmentFromMyOrganization(props: Props) {
     inputs,
   ) => {
     console.log({ ...inputs }, authorizationKey)
+    reset()
     onClose()
   }
 
@@ -37,6 +39,36 @@ export default function CreateOrderAttachmentFromMyOrganization(props: Props) {
       onSubmit={handleSubmit(onSubmit)}
       noValidate
     >
+      <TextField
+        {...register('orderCode')}
+        margin="normal"
+        size="small"
+        fullWidth
+        label="código do pedido"
+      />
+      {errors.orderCode && (
+        <FormHelperText
+          sx={{ color: 'error.main', textTransform: 'lowercase' }}
+        >
+          {errors.orderCode.message}
+        </FormHelperText>
+      )}
+
+      <TextField
+        {...register('note')}
+        margin="normal"
+        size="small"
+        fullWidth
+        label="observação"
+      />
+      {errors.note && (
+        <FormHelperText
+          sx={{ color: 'error.main', textTransform: 'lowercase' }}
+        >
+          {errors.note.message}
+        </FormHelperText>
+      )}
+
       <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
         adicionar evidência ao pedido
       </Button>

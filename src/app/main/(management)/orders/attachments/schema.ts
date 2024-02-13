@@ -1,6 +1,7 @@
 import * as z from 'zod'
 
 export const CreateOrderAttachmentSchema = z.object({
+  orderCode: z.string(),
   code: z.string().optional(),
   note: z.string(),
   file: z.string().optional(),

@@ -36,6 +36,7 @@ export default function CreateMyOrganizationUserFormView({
     formState: { errors },
     handleSubmit,
     register,
+    reset,
   } = useForm<CreateOrganizationUserSchemaType>({
     resolver: zodResolver(CreateOrganizationUserSchema),
     defaultValues: {
@@ -49,6 +50,7 @@ export default function CreateMyOrganizationUserFormView({
     if (result?.response?.error) {
       toast.error(result?.message)
     } else {
+      reset()
       toast.success(result)
       onClose()
     }
@@ -91,7 +93,7 @@ export default function CreateMyOrganizationUserFormView({
         size="small"
         fullWidth
         label="telefone"
-        type='number'
+        type="number"
       />
       {errors.userPhone && (
         <FormHelperText
