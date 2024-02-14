@@ -73,12 +73,16 @@ export default function MyOrganziationOrdersListView(props: Props) {
                 <ListItemButton sx={{ borderRadius: 1 }}>
                   <ListItemText
                     primary={
-                      <Typography
-                        variant="h6"
-                        sx={{ textTransform: 'lowercase' }}
-                      >
-                        {order?.code}
-                      </Typography>
+                      <Stack spacing={0.5} sx={{ display: 'flex' }}>
+                        <Typography
+                          variant="h6"
+                          color="secondary"
+                          sx={{ textTransform: 'lowercase' }}
+                        >
+                          {order?.code}
+                        </Typography>
+                        
+                      </Stack>
                     }
                     secondary={
                       <Stack
@@ -95,6 +99,12 @@ export default function MyOrganziationOrdersListView(props: Props) {
                           variant="outlined"
                           size="small"
                         />
+                        <Typography
+                          variant="caption"
+                          sx={{ textTransform: 'lowercase' }}
+                        >
+                          {order?.observation}
+                        </Typography>
                       </Stack>
                     }
                   />

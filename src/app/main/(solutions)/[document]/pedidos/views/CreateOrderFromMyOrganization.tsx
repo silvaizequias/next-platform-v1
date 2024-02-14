@@ -87,7 +87,7 @@ export default function CreateOrderFromMyOrganization(props: Props) {
           {'dedicado'}
         </DialogTitle>
         <DialogContent>
-          <Box component={'form'} onSubmit={handleSubmit(onSubmit)} noValidate>
+          <Box sx={{ paddingY: 2 }} component={'form'} onSubmit={handleSubmit(onSubmit)} noValidate>
             <TextField
               {...register('customer')}
               margin="normal"
@@ -106,6 +106,7 @@ export default function CreateOrderFromMyOrganization(props: Props) {
 
             <TextField
               {...register('observation')}
+              margin="normal"
               multiline
               maxRows={4}
               fullWidth
@@ -116,6 +117,22 @@ export default function CreateOrderFromMyOrganization(props: Props) {
                 sx={{ color: 'error.main', textTransform: 'lowercase' }}
               >
                 {errors.observation.message}
+              </FormHelperText>
+            )}
+
+            <TextField
+              {...register('deadline')}
+              margin="normal"
+              size="small"
+              fullWidth
+              label="prazo final"
+              type="date"
+            />
+            {errors.deadline && (
+              <FormHelperText
+                sx={{ color: 'error.main', textTransform: 'lowercase' }}
+              >
+                {errors.deadline.message}
               </FormHelperText>
             )}
 

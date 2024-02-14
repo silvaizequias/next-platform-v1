@@ -43,6 +43,7 @@ export default function UpdateOrderFromMyOrganization(props: Props) {
   } = useForm<UpdateOrderSchemaType>({
     resolver: zodResolver(UpdateOrderSchema),
     defaultValues: {
+      observation: order?.observation,
       member: order?.member,
     },
   })
@@ -76,11 +77,23 @@ export default function UpdateOrderFromMyOrganization(props: Props) {
           {`atualizar pedido ${order?.code}`}
         </DialogTitle>
         <DialogContent>
-          <Box
-            component={'form'}
-            onSubmit={handleSubmit(onSubmit)}
-            noValidate
-          >
+          <Box sx={{ paddingY: 2 }} component={'form'} onSubmit={handleSubmit(onSubmit)} noValidate>
+            <TextField
+              {...register('observation')}
+              margin="normal"
+              multiline
+              maxRows={4}
+              fullWidth
+              label="observação"
+            />
+            {errors.observation && (
+              <FormHelperText
+                sx={{ color: 'error.main', textTransform: 'lowercase' }}
+              >
+                {errors.observation.message}
+              </FormHelperText>
+            )}
+
             <TextField
               {...register('member')}
               margin="normal"
@@ -96,6 +109,23 @@ export default function UpdateOrderFromMyOrganization(props: Props) {
                 {errors.member.message}
               </FormHelperText>
             )}
+
+            <TextField
+              {...register('deadline')}
+              margin="normal"
+              size="small"
+              fullWidth
+              label="prazo final"
+              type="date"
+            />
+            {errors.deadline && (
+              <FormHelperText
+                sx={{ color: 'error.main', textTransform: 'lowercase' }}
+              >
+                {errors.deadline.message}
+              </FormHelperText>
+            )}
+
             <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
               atualizar pedido
             </Button>
