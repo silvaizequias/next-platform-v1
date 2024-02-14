@@ -5,16 +5,34 @@ import {
   CreateOrderItemSchemaType,
 } from '@/app/main/(management)/orders/items/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Box, Button, FormHelperText, TextField } from '@mui/material'
+import { Add } from '@mui/icons-material'
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Fab,
+  FormHelperText,
+  TextField,
+  Tooltip,
+  colors,
+} from '@mui/material'
+import { useState, useCallback, Fragment } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 interface Props {
   authorizationKey: string
-  onClose: () => void
+  orderCode?: string
 }
 
 export default function CreateOrderItemFromMyOrganization(props: Props) {
-  const { authorizationKey, onClose } = props
+  const { authorizationKey } = props
+
+  const [openDialog, setOpenDialog] = useState<boolean>(false)
+  const handleOpenDialog = useCallback(() => {
+    setOpenDialog(!openDialog)
+  }, [openDialog])
 
   const {
     formState: { errors },
@@ -27,65 +45,91 @@ export default function CreateOrderItemFromMyOrganization(props: Props) {
   const onSubmit: SubmitHandler<CreateOrderItemSchemaType> = async (inputs) => {
     console.log({ ...inputs }, authorizationKey)
     reset()
-    onClose()
+    handleOpenDialog()
   }
 
   return (
-    <Box
-      sx={{ my: 2, width: '100%' }}
-      component={'form'}
-      onSubmit={handleSubmit(onSubmit)}
-      noValidate
-    >
-      <TextField
-        {...register('orderCode')}
-        margin="normal"
-        size="small"
+    <Fragment>
+      <Tooltip title={'criar'} onClick={handleOpenDialog}>
+        <Fab variant="circular" size="small" color="primary">
+          <Add sx={{ m: 1 }} />
+        </Fab>
+      </Tooltip>
+      <Dialog
+        open={openDialog}
+        keepMounted
+        onClose={handleOpenDialog}
+        maxWidth={'xs'}
         fullWidth
-        label="código do pedido"
-      />
-      {errors.orderCode && (
-        <FormHelperText
-          sx={{ color: 'error.main', textTransform: 'lowercase' }}
+      >
+        <DialogTitle
+          sx={{
+            fontWeight: 600,
+            color: colors.blue[400],
+            textTransform: 'lowercase',
+          }}
         >
-          {errors.orderCode.message}
-        </FormHelperText>
-      )}
+          {'dedicado'}
+        </DialogTitle>
+        <DialogContent>
+          <Box
+            sx={{ my: 2, width: '100%' }}
+            component={'form'}
+            onSubmit={handleSubmit(onSubmit)}
+            noValidate
+          >
+            <TextField
+              {...register('orderCode')}
+              margin="normal"
+              size="small"
+              fullWidth
+              label="código do pedido"
+            />
+            {errors.orderCode && (
+              <FormHelperText
+                sx={{ color: 'error.main', textTransform: 'lowercase' }}
+              >
+                {errors.orderCode.message}
+              </FormHelperText>
+            )}
 
-      <TextField
-        {...register('note')}
-        margin="normal"
-        size="small"
-        fullWidth
-        label="observação"
-      />
-      {errors.note && (
-        <FormHelperText
-          sx={{ color: 'error.main', textTransform: 'lowercase' }}
-        >
-          {errors.note.message}
-        </FormHelperText>
-      )}
+            <TextField
+              {...register('note')}
+              margin="normal"
+              size="small"
+              fullWidth
+              label="observação"
+            />
+            {errors.note && (
+              <FormHelperText
+                sx={{ color: 'error.main', textTransform: 'lowercase' }}
+              >
+                {errors.note.message}
+              </FormHelperText>
+            )}
 
-      <TextField
-        {...register('amount')}
-        margin="normal"
-        size="small"
-        fullWidth
-        label="quantidade"
-        type="number"
-      />
-      {errors.amount && (
-        <FormHelperText
-          sx={{ color: 'error.main', textTransform: 'lowercase' }}
-        >
-          {errors.amount.message}
-        </FormHelperText>
-      )}
+            <TextField
+              {...register('amount')}
+              margin="normal"
+              size="small"
+              fullWidth
+              label="quantidade"
+              type="number"
+            />
+            {errors.amount && (
+              <FormHelperText
+                sx={{ color: 'error.main', textTransform: 'lowercase' }}
+              >
+                {errors.amount.message}
+              </FormHelperText>
+            )}
 
-      <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
-        adicionar item ao pedido
-      </Button>
-    </Box>
+            <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
+              adicionar item ao pedido
+            </Button>
+          </Box>
+        </DialogContent>
+      </Dialog>
+    </Fragment>
   )
 }

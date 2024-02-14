@@ -6,17 +6,34 @@ import {
 } from '@/app/main/(management)/orders/schema'
 import { OrderType } from '@/app/main/(management)/orders/types'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Box, Button, FormHelperText, TextField } from '@mui/material'
+import { Edit } from '@mui/icons-material'
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Fab,
+  FormHelperText,
+  TextField,
+  Tooltip,
+  colors,
+} from '@mui/material'
+import { Fragment, useCallback, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 interface Props {
   authorizationKey: string
-  onClose: () => void
   order: OrderType
 }
 
 export default function UpdateOrderFromMyOrganization(props: Props) {
-  const { authorizationKey, onClose, order } = props
+  const { authorizationKey, order } = props
+
+  const [openDialog, setOpenDialog] = useState<boolean>(false)
+  const handleOpenDialog = useCallback(() => {
+    setOpenDialog(!openDialog)
+  }, [openDialog])
 
   const {
     formState: { errors },
@@ -32,34 +49,59 @@ export default function UpdateOrderFromMyOrganization(props: Props) {
   const onSubmit: SubmitHandler<UpdateOrderSchemaType> = async (inputs) => {
     console.log(authorizationKey, { ...inputs }, order?.id)
     reset()
-    onClose()
+    handleOpenDialog()
   }
 
   return (
-    <Box
-      sx={{ my: 2, width: '100%' }}
-      component={'form'}
-      onSubmit={handleSubmit(onSubmit)}
-      noValidate
-    >
-      <TextField
-        {...register('member')}
-        margin="normal"
-        size="small"
+    <Fragment>
+      <Tooltip title={'atualizar'} onClick={handleOpenDialog}>
+        <Fab variant="circular" size="small" color="primary">
+          <Edit sx={{ m: 1 }} />
+        </Fab>
+      </Tooltip>
+      <Dialog
+        open={openDialog}
+        keepMounted
+        onClose={handleOpenDialog}
+        maxWidth={'xs'}
         fullWidth
-        label="membro responsável"
-        type="number"
-      />
-      {errors.member && (
-        <FormHelperText
-          sx={{ color: 'error.main', textTransform: 'lowercase' }}
+      >
+        <DialogTitle
+          sx={{
+            fontWeight: 600,
+            color: colors.blue[400],
+            textTransform: 'lowercase',
+          }}
         >
-          {errors.member.message}
-        </FormHelperText>
-      )}
-      <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
-        atualizar pedido
-      </Button>
-    </Box>
+          {`atualizar pedido ${order?.code}`}
+        </DialogTitle>
+        <DialogContent>
+          <Box
+            component={'form'}
+            onSubmit={handleSubmit(onSubmit)}
+            noValidate
+          >
+            <TextField
+              {...register('member')}
+              margin="normal"
+              size="small"
+              fullWidth
+              label="membro responsável"
+              type="number"
+            />
+            {errors.member && (
+              <FormHelperText
+                sx={{ color: 'error.main', textTransform: 'lowercase' }}
+              >
+                {errors.member.message}
+              </FormHelperText>
+            )}
+            <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
+              atualizar pedido
+            </Button>
+          </Box>
+        </DialogContent>
+      </Dialog>
+    </Fragment>
   )
 }
