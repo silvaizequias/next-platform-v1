@@ -1,16 +1,24 @@
 'use client'
 
 import { OrderType } from '@/app/main/(management)/orders/types'
-import { MyOrganziationOrdersColumnsView } from './MyOrganziationOrdersColumnsView'
 import {
   Box,
   Button,
   ButtonGroup,
+  Card,
+  CardContent,
+  Chip,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Stack,
+  Typography,
 } from '@mui/material'
-import { DataGrid } from '@mui/x-data-grid'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import CreateOrderFromMyOrganization from './CreateOrderFromMyOrganization'
+import UpdateOrderFromMyOrganization from './UpdateOrderFromMyOrganization'
 
 interface Props {
   orders: OrderType[] | any
@@ -29,8 +37,8 @@ export default function MyOrganziationOrdersListView(props: Props) {
   )
 
   return (
-    <Box sx={{ maxWidth: 'md', width: '100%', padding: '10px' }}>
-      <Box
+    <Card sx={{ width: '100%', maxWidth: 'md' }} component={'div'}>
+      <CardContent
         sx={{
           display: 'flex',
           justifyContent: 'space-between',
@@ -45,14 +53,57 @@ export default function MyOrganziationOrdersListView(props: Props) {
           </Button>
         </ButtonGroup>
         <CreateOrderFromMyOrganization authorizationKey={authorizationKey} />
-      </Box>
-      <DataGrid
-        autoHeight
-        getRowId={(order) => order?.id}
-        rows={orders}
-        columns={MyOrganziationOrdersColumnsView}
-        disableColumnSelector
-      />
-    </Box>
+      </CardContent>
+      <CardContent>
+        <List dense sx={{ width: '100%' }}>
+          {orders?.map((order: OrderType) => {
+            return (
+              <ListItem
+                key={order?.id}
+                secondaryAction={
+                  <Stack>
+                    <UpdateOrderFromMyOrganization
+                      order={order}
+                      authorizationKey={authorizationKey}
+                    />
+                  </Stack>
+                }
+                disablePadding
+              >
+                <ListItemButton sx={{ borderRadius: 1 }}>
+                  <ListItemText
+                    primary={
+                      <Typography
+                        variant="h6"
+                        sx={{ textTransform: 'lowercase' }}
+                      >
+                        {order?.code}
+                      </Typography>
+                    }
+                    secondary={
+                      <Stack
+                        gap={2}
+                        sx={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                        }}
+                      >
+                        <Chip
+                          label={order?.customer}
+                          color="primary"
+                          variant="outlined"
+                          size="small"
+                        />
+                      </Stack>
+                    }
+                  />
+                </ListItemButton>
+              </ListItem>
+            )
+          })}
+        </List>
+      </CardContent>
+    </Card>
   )
 }
