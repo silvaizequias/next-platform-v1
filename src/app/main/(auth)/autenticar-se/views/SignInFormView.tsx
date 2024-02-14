@@ -59,6 +59,7 @@ export default function SignInFormView() {
         fullWidth
         id="phone"
         label="celular"
+        type='number'
         autoFocus
       />
       {errors.phone && (

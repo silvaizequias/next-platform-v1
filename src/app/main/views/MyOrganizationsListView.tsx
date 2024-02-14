@@ -15,7 +15,6 @@ import {
 import { OrganizationUsersType } from '../(management)/organizations/users/types'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
-import DialogButton from '@/components/DialogButton'
 import CreateMyOrganizationFormView from './CreateMyOrganizationFormView'
 import { cnpjMask } from 'masks-br'
 import { Session } from 'next-auth'
@@ -25,7 +24,7 @@ interface Props {
   session: Session
 }
 export default function MyOrganizationsListView(props: Props) {
-  const { data, session } = props
+  const { data } = props
   const logotipo = '/logotipo.svg'
 
   const router = useRouter()
@@ -39,9 +38,7 @@ export default function MyOrganizationsListView(props: Props) {
   return (
     <Card sx={{ width: '100%', maxWidth: 'md' }}>
       <CardContent sx={{ display: 'flex', justifyContent: 'right' }}>
-        <DialogButton>
-          <CreateMyOrganizationFormView />
-        </DialogButton>
+        <CreateMyOrganizationFormView />
       </CardContent>
       <CardContent>
         <List dense sx={{ width: '100%' }}>

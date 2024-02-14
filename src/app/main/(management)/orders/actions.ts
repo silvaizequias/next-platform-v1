@@ -5,11 +5,10 @@ import { OrderType } from './types'
 
 export async function actionGetOrders(
   authorizationKey: string,
-  organizationDocument: string,
 ): Promise<OrderType[] | any> {
   try {
     const data = await fetch(
-      `${env.ORDER_API_URL}/orders/organization/${organizationDocument}`,
+      `${env.ORDER_API_URL}/orders`,
       {
         method: 'GET',
         headers: {

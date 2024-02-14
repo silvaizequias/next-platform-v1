@@ -7,7 +7,7 @@ export async function actionGetPublications(
   authorizationKey: string,
 ): Promise<PublicationType[] | any> {
   try {
-    const data = await fetch(`${env.PUBLICATION_API_URL}/subscriptions`, {
+    const data = await fetch(`${env.PUBLICATION_API_URL}/publications`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

@@ -6,7 +6,10 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import {
   Box,
   Button,
+  Checkbox,
+  FormControlLabel,
   FormHelperText,
+  Link,
   TextField,
   Typography,
 } from '@mui/material'
@@ -15,8 +18,14 @@ import { actionSignUp } from '../actions'
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 import { grey } from '@mui/material/colors'
+import { ChangeEvent, useState } from 'react'
 
 export default function SignUpFormView() {
+  const [checked, setChecked] = useState<boolean>(false)
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked)
+  }
   const randomCode = Math.random().toString(32).substr(2, 16)
 
   const router = useRouter()
@@ -105,6 +114,7 @@ export default function SignUpFormView() {
         fullWidth
         id="phone"
         label="celular"
+        type='number'
         autoFocus
       />
       {errors.phone && (
@@ -115,7 +125,23 @@ export default function SignUpFormView() {
         </FormHelperText>
       )}
 
-      <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
+      <FormControlLabel
+        required
+        control={<Checkbox checked={checked} onChange={handleChange} />}
+        label={
+          <Link href={'/termos-e-politicas'} variant="caption" underline="none">
+            aceito os termos e políticas da plataforma
+          </Link>
+        }
+      />
+
+      <Button
+        disabled={!checked}
+        type="submit"
+        fullWidth
+        variant="contained"
+        sx={{ my: 2 }}
+      >
         registrar-se
       </Button>
     </Box>

@@ -55,6 +55,7 @@ export default function ResetPasswordFormView() {
         fullWidth
         id="phone"
         label="celular"
+        type='number'
         autoFocus
       />
       {errors.phone && (

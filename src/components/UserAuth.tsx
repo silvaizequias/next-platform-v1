@@ -17,6 +17,7 @@ import {
 } from '@mui/material'
 import { Fragment, SyntheticEvent, useCallback, useState } from 'react'
 import TabPanel from './TabPanel'
+import { blue } from '@mui/material/colors'
 
 export default function UserAuth() {
   const [openDialog, setOpenDialog] = useState<boolean>(false)
@@ -34,7 +35,7 @@ export default function UserAuth() {
     <Fragment>
       <Tooltip title={'autenticar-se'} onClick={handleDialog}>
         <IconButton sx={{ p: 1 }}>
-          <Login fontSize="medium" color="action" sx={{ color: 'white' }} />
+          <Login fontSize="medium" color="action" sx={{ color: blue[400] }} />
         </IconButton>
       </Tooltip>
       <Dialog

@@ -1,11 +1,9 @@
-'use client'
-
 import { OrganizationType } from '@/app/main/(management)/organizations/types'
 import { Box, Stack, Typography } from '@mui/material'
-import MyOrganizationUsersListView from '../usuarios/views/MyOrganizationUsersListView'
 import { OrganizationUsersType } from '@/app/main/(management)/organizations/users/types'
 import { orange } from '@mui/material/colors'
 import { Session } from 'next-auth'
+import MyOrganizationUsersListView from '../usuarios/views/MyOrganizationUsersListView'
 
 interface Props {
   organization: OrganizationType | any

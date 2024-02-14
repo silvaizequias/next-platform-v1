@@ -13,7 +13,11 @@ import { useState } from 'react'
 import { actionCreateOrganization } from '../actions'
 import { useSession } from 'next-auth/react'
 
-export default function CreateOrganizationFormView() {
+export default function CreateOrganizationFormView({
+  onClose,
+}: {
+  onClose: () => void
+}) {
   const { data: session } = useSession()
   const [zipCode, setZipCode] = useState<string | undefined>()
   const [address, setAddress] = useState<any>(null)
@@ -60,6 +64,7 @@ export default function CreateOrganizationFormView() {
       toast.error(result?.message)
     } else {
       toast.success(result)
+      onClose()
     }
   }
 

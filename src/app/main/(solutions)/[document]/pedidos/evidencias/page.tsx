@@ -38,7 +38,10 @@ export default async function OrderAttachmentsPage({
       title={`evidências de pedidos da organização ${organization?.name}`}
       subtitle="sua melhor plataforma de serviços"
     >
-      <MyOrganziationOrderAttachmentsListView orders={orders} />
+      <MyOrganziationOrderAttachmentsListView
+        orders={orders}
+        authorizationKey={organization?.authorizationKey?.authorizationKey}
+      />
     </PageDisplay>
   )
 }

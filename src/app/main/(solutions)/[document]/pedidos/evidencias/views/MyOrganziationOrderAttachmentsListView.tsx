@@ -5,16 +5,17 @@ import { Box, Button } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import { OrderType } from '@/app/main/(management)/orders/types'
 import { OrderAttachmentType } from '@/app/main/(management)/orders/attachments/types'
-import DialogButton from '@/components/DialogButton'
 import { useParams, useRouter } from 'next/navigation'
 import { useCallback } from 'react'
+import CreateOrderAttachmentFromMyOrganization from './CreateOrderAttachmentFromMyOrganization'
 
 interface Props {
   orders: OrderType[] | any
+  authorizationKey: string
 }
 
 export default function MyOrganziationOrderItemsListView(props: Props) {
-  const { orders } = props
+  const { orders, authorizationKey } = props
 
   const orderAttachments: any = orders?.filter(
     (attachments: OrderAttachmentType[]) => ({
@@ -49,7 +50,9 @@ export default function MyOrganziationOrderItemsListView(props: Props) {
         >
           pedidos
         </Button>
-        <DialogButton>...</DialogButton>
+        <CreateOrderAttachmentFromMyOrganization
+          authorizationKey={authorizationKey}
+        />
       </Box>
       <DataGrid
         autoHeight

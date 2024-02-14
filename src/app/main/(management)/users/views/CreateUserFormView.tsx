@@ -17,7 +17,11 @@ import getAddress from '@/utils/get-address'
 import { actionCreateUser } from '../actions'
 import { useSession } from 'next-auth/react'
 
-export default function CreateUserFormView() {
+export default function CreateUserFormView({
+  onClose,
+}: {
+  onClose: () => void
+}) {
   const { data: session } = useSession()
   const [zipCode, setZipCode] = useState<string | undefined>()
   const [address, setAddress] = useState<any>(null)
@@ -65,6 +69,7 @@ export default function CreateUserFormView() {
       toast.error(result?.message)
     } else {
       toast.success(result)
+      onClose()
     }
   }
 

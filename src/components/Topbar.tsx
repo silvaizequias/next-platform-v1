@@ -5,6 +5,8 @@ import UserMenu from './UserMenu'
 import { UserType } from '@/app/main/(management)/users/types'
 import { Session } from 'next-auth'
 import UserAuth from './UserAuth'
+import { blue } from '@mui/material/colors'
+import { theme } from '@/app/theme'
 
 interface Props {
   profile: UserType | any
@@ -17,11 +19,18 @@ export default function Topbar(props: Props) {
   return (
     <AppBar
       position="sticky"
+      enableColorOnDark
+      color="transparent"
       sx={{
         display: 'flex',
         justifyContent: 'center',
         alignContent: 'center',
         alignItems: 'center',
+        bgcolor:
+          theme.palette.mode === 'light'
+            ? 'rgba(255, 255, 255, 0.5)'
+            : 'rgba(255, 255, 255, 0.5)',
+        backdropFilter: 'blur(5px)',
       }}
     >
       <Stack
@@ -40,7 +49,7 @@ export default function Topbar(props: Props) {
             underline="none"
             variant="h6"
             fontWeight={600}
-            color={'white'}
+            color={blue[400]}
           >
             dedicado
           </Link>

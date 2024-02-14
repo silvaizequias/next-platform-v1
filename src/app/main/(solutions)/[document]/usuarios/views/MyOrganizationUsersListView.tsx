@@ -1,7 +1,4 @@
-'use client'
-
 import { OrganizationUsersType } from '@/app/main/(management)/organizations/users/types'
-import DialogButton from '@/components/DialogButton'
 import {
   List,
   ListItem,
@@ -13,113 +10,96 @@ import {
   Typography,
   Card,
   CardContent,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  colors,
+  Stack,
 } from '@mui/material'
 import { celularMask } from 'masks-br'
-import { Fragment, useCallback, useState } from 'react'
-import CreateMyOrganizationUserFormView from './CreateMyOrganizationUserFormView'
-import UpdateMyOrganizationUserFormView from './UpdateMyOrganizationUserFormView'
+import dynamic from 'next/dynamic'
 
 interface Props {
   data: OrganizationUsersType[] | any
 }
 
+const CreateMyOrganizationUserFormView = dynamic(
+  () => import('./CreateMyOrganizationUserFormView'),
+  {
+    ssr: false,
+  },
+)
+
+const UpdateMyOrganizationUserFormView = dynamic(
+  () => import('./UpdateMyOrganizationUserFormView'),
+  {
+    ssr: false,
+  },
+)
+
 export default function MyOrganizationUsersListView(props: Props) {
   const { data } = props
   const avatar = '/avatar.svg'
 
-  const [userData, setUserData] = useState<OrganizationUsersType | any>(null)
-  const [updateUser, setUpdateUser] = useState<boolean>(false)
-  const handleUpdateUser = useCallback(
-    (data: OrganizationUsersType) => {
-      data && setUserData(data)
-      setUpdateUser(!updateUser)
-    },
-    [updateUser],
-  )
-  const handleUpdateUserClose = useCallback(() => {
-    setUpdateUser(!updateUser)
-  }, [updateUser])
-
   return (
-    <Fragment>
-      <Card sx={{ width: '100%' }}>
-        <CardContent sx={{ display: 'flex', justifyContent: 'right' }}>
-          <DialogButton>
-            <CreateMyOrganizationUserFormView />
-          </DialogButton>
-        </CardContent>
-        <CardContent>
-          <List dense sx={{ width: '100%' }}>
-            {data?.map((myOrganization: OrganizationUsersType) => {
-              return (
-                <ListItem
-                  key={myOrganization?.id}
-                  onClick={() => handleUpdateUser(myOrganization)}
-                  secondaryAction={
-                    <Chip
-                      label={myOrganization?.role}
-                      color="primary"
-                      variant="outlined"
-                      size="small"
+    <Card sx={{ width: '100%', maxWidth: 'md' }} component={'div'}>
+      <CardContent sx={{ display: 'flex', justifyContent: 'right' }}>
+        <CreateMyOrganizationUserFormView />
+      </CardContent>
+      <CardContent>
+        <List dense sx={{ width: '100%' }}>
+          {data?.map((myOrganization: OrganizationUsersType) => {
+            return (
+              <ListItem
+                key={myOrganization?.id}
+                secondaryAction={
+                  <Stack>
+                    <UpdateMyOrganizationUserFormView
+                      userData={myOrganization}
                     />
-                  }
-                  disablePadding
-                >
-                  <ListItemButton>
-                    <ListItemAvatar>
-                      <Avatar
-                        alt={myOrganization?.user?.name}
-                        src={myOrganization?.user?.image || avatar}
-                      />
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={
-                        <Typography
-                          variant="h6"
-                          sx={{ textTransform: 'lowercase' }}
-                        >
-                          {myOrganization?.user?.name}
-                        </Typography>
-                      }
-                      secondary={
+                  </Stack>
+                }
+                disablePadding
+              >
+                <ListItemButton sx={{ borderRadius: 1 }}>
+                  <ListItemAvatar>
+                    <Avatar
+                      alt={myOrganization?.user?.name}
+                      src={myOrganization?.user?.image || avatar}
+                    />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={
+                      <Typography
+                        variant="h6"
+                        sx={{ textTransform: 'lowercase' }}
+                      >
+                        {myOrganization?.user?.name}
+                      </Typography>
+                    }
+                    secondary={
+                      <Stack
+                        gap={2}
+                        sx={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                        }}
+                      >
+                        <Chip
+                          label={myOrganization?.role}
+                          color="primary"
+                          variant="outlined"
+                          size="small"
+                        />
                         <Typography variant="caption">
                           {celularMask(myOrganization?.user?.phone)}
                         </Typography>
-                      }
-                    />
-                  </ListItemButton>
-                </ListItem>
-              )
-            })}
-          </List>
-        </CardContent>
-      </Card>
-      <Dialog
-        open={updateUser}
-        keepMounted
-        onClose={handleUpdateUserClose}
-        maxWidth={'xs'}
-      >
-        <DialogTitle
-          sx={{
-            fontWeight: 600,
-            color: colors.blue[400],
-            textTransform: 'lowercase',
-          }}
-        >
-          {`atualizar ${userData?.user?.name}`}
-        </DialogTitle>
-        <DialogContent>
-          <UpdateMyOrganizationUserFormView
-            userData={userData}
-            onClose={handleUpdateUserClose}
-          />
-        </DialogContent>
-      </Dialog>
-    </Fragment>
+                      </Stack>
+                    }
+                  />
+                </ListItemButton>
+              </ListItem>
+            )
+          })}
+        </List>
+      </CardContent>
+    </Card>
   )
 }

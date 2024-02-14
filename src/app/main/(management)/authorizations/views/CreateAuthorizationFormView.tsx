@@ -11,7 +11,11 @@ import { actionCreateOrganizationKey } from '../actions'
 import toast from 'react-hot-toast'
 import { useSession } from 'next-auth/react'
 
-export default function CreateAuthorizationFormView() {
+export default function CreateAuthorizationFormView({
+  onClose,
+}: {
+  onClose: () => void
+}) {
   const { data: session } = useSession()
   const {
     formState: { errors },
@@ -28,6 +32,7 @@ export default function CreateAuthorizationFormView() {
       toast.error(result?.message)
     } else {
       toast.success(result)
+      onClose()
     }
   }
 
