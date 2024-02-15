@@ -73,7 +73,7 @@ export default function UserMenu(props: Props) {
         open={Boolean(anchorElUser)}
         onClose={() => handleClick()}
       >
-        <MenuItem onClick={() => handleClick(`/profile`)}>
+        <MenuItem onClick={() => handleClick(`/perfil`)}>
           <ListItemIcon>
             <AssignmentInd fontSize="small" />
           </ListItemIcon>
