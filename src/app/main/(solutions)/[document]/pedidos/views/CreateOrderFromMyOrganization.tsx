@@ -54,7 +54,7 @@ export default function CreateOrderFromMyOrganization(props: Props) {
     const result = await actionCreaeteMyOrganziationOrder(authorizationKey, {
       ...inputs,
     })
-    if (result?.response?.error) {
+    if (result?.response?.error || result?.error) {
       toast.error(result?.message)
     } else {
       reset()
@@ -126,7 +126,7 @@ export default function CreateOrderFromMyOrganization(props: Props) {
               size="small"
               fullWidth
               label="prazo final"
-              type="date"
+              type="datetime-local"
             />
             {errors.deadline && (
               <FormHelperText

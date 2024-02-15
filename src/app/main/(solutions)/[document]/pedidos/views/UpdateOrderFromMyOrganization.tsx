@@ -21,6 +21,8 @@ import {
 } from '@mui/material'
 import { Fragment, useCallback, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { actionUpdateMyOrganziationOrder } from '../actions'
+import toast from 'react-hot-toast'
 
 interface Props {
   authorizationKey: string
@@ -45,12 +47,22 @@ export default function UpdateOrderFromMyOrganization(props: Props) {
     defaultValues: {
       observation: order?.observation,
       member: order?.member,
+      deadline: order?.deadline,
     },
   })
   const onSubmit: SubmitHandler<UpdateOrderSchemaType> = async (inputs) => {
-    console.log(authorizationKey, { ...inputs }, order?.id)
-    reset()
-    handleOpenDialog()
+    const result = await actionUpdateMyOrganziationOrder(
+      authorizationKey,
+      { ...inputs },
+      order?.id,
+    )
+    if (result?.response?.error || result?.error) {
+      toast.error(result?.message)
+    } else {
+      reset()
+      toast.success(result)
+      handleOpenDialog()
+    }
   }
 
   return (
@@ -77,7 +89,12 @@ export default function UpdateOrderFromMyOrganization(props: Props) {
           {`atualizar pedido ${order?.code}`}
         </DialogTitle>
         <DialogContent>
-          <Box sx={{ paddingY: 2 }} component={'form'} onSubmit={handleSubmit(onSubmit)} noValidate>
+          <Box
+            sx={{ paddingY: 2 }}
+            component={'form'}
+            onSubmit={handleSubmit(onSubmit)}
+            noValidate
+          >
             <TextField
               {...register('observation')}
               margin="normal"

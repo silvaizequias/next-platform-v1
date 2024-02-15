@@ -1,17 +1,9 @@
 import Topbar from '@/components/Topbar'
 import { nextAuthOptions } from '@/libraries/next-auth'
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Typography,
-  Button,
-  Stack,
-} from '@mui/material'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { Fragment, ReactNode } from 'react'
-import { actionGetProfile } from './(management)/profile/actions'
+import { actionGetProfile } from './(management)/perfil/actions'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
