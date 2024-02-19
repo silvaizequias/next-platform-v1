@@ -1,5 +1,5 @@
-import { getOrganizationKeys } from '@/actions/organization-keys/GET'
-import { postOrganizationKey } from '@/actions/organization-keys/POST'
+import { getOrganizationKeys } from '@/repositories/organization-keys/GET'
+import { postOrganizationKey } from '@/repositories/organization-keys/POST'
 import { CreateOrganizationKeySchemaType } from '@/schemas/organization-key.schema'
 
 export async function GET(request: Request) {

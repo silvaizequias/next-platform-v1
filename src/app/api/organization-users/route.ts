@@ -1,5 +1,5 @@
-import { getOrganizationUsers } from '@/actions/organization-users/GET'
-import { postOrganizationUser } from '@/actions/organization-users/POST'
+import { getOrganizationUsers } from '@/repositories/organization-users/GET'
+import { postOrganizationUser } from '@/repositories/organization-users/POST'
 import { CreateOrganizationUserSchemaType } from '@/schemas/organization-user.schema'
 
 export async function GET(request: Request) {

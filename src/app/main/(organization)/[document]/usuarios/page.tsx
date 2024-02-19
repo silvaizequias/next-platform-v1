@@ -1,4 +1,4 @@
-import { getOrganizationByDocument } from '@/actions/organizations/GET'
+import { getOrganizationByDocument } from '@/repositories/organizations/GET'
 import PageDisplay from '@/components/PageDisplay'
 import { nextAuthOptions } from '@/libraries/next-auth'
 import { OrganizationType } from '@/types/organization.type'

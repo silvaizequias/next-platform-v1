@@ -1,4 +1,4 @@
-import { getUserByEmail } from '@/actions/users/GET'
+import { getUserByEmail } from '@/repositories/users/GET'
 
 export async function GET(
   request: Request,

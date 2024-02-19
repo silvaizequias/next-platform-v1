@@ -1,6 +1,6 @@
 'use server'
 
-import { updateOrganization } from '@/actions/organizations/PATCH'
+import { updateOrganization } from '@/repositories/organizations/PATCH'
 import {
   UpdateOrganizationSchema,
   UpdateOrganizationSchemaType,

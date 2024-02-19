@@ -1,6 +1,6 @@
-import { softDeleteOrganizationKey } from '@/actions/organization-keys/DELETE'
-import { getOrganizationKeyById } from '@/actions/organization-keys/GET'
-import { updateOrganizationKey } from '@/actions/organization-keys/PATCH'
+import { softDeleteOrganizationKey } from '@/repositories/organization-keys/DELETE'
+import { getOrganizationKeyById } from '@/repositories/organization-keys/GET'
+import { updateOrganizationKey } from '@/repositories/organization-keys/PATCH'
 import { UpdateOrganizationKeySchemaType } from '@/schemas/organization-key.schema'
 
 export async function GET(

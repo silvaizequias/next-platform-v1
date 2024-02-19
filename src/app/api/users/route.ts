@@ -1,5 +1,5 @@
-import { getUsers } from '@/actions/users/GET'
-import { postUser } from '@/actions/users/POST'
+import { getUsers } from '@/repositories/users/GET'
+import { postUser } from '@/repositories/users/POST'
 import { CreateUserSchemaType } from '@/schemas/user.schema'
 
 export async function GET(request: Request) {

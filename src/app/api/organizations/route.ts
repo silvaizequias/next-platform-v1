@@ -1,5 +1,5 @@
-import { getOrganizations } from '@/actions/organizations/GET'
-import { postOrganization } from '@/actions/organizations/POST'
+import { getOrganizations } from '@/repositories/organizations/GET'
+import { postOrganization } from '@/repositories/organizations/POST'
 
 export async function GET(request: Request) {
   try {

@@ -1,6 +1,6 @@
-import { softDeleteUser } from '@/actions/users/DELETE'
-import { getUserById } from '@/actions/users/GET'
-import { updateUser } from '@/actions/users/PATCH'
+import { softDeleteUser } from '@/repositories/users/DELETE'
+import { getUserById } from '@/repositories/users/GET'
+import { updateUser } from '@/repositories/users/PATCH'
 import { UpdateUserSchemaType } from '@/schemas/user.schema'
 
 export async function GET(

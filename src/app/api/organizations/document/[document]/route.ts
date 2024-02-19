@@ -1,4 +1,4 @@
-import { getOrganizationByDocument } from '@/actions/organizations/GET'
+import { getOrganizationByDocument } from '@/repositories/organizations/GET'
 
 export async function GET(
   request: Request,

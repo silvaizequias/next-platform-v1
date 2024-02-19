@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth'
 import LandingPageView from './views/LandingPageView'
 import PageDisplay from '@/components/PageDisplay'
 import OrganizationListView from './(organization)/[document]/views/OrganizationListView'
-import { getOrganizationUserByUserId } from '@/actions/organization-users/GET'
+import { getOrganizationUserByUserId } from '@/repositories/organization-users/GET'
 import { OrganizationUserType } from '@/types/organization-user.type'
 
 export default async function MainPage() {

@@ -1,4 +1,4 @@
-import { getOrganizationKeyByKey } from '@/actions/organization-keys/GET'
+import { getOrganizationKeyByKey } from '@/repositories/organization-keys/GET'
 
 export async function GET(
   request: Request,

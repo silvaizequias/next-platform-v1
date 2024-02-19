@@ -1,7 +1,7 @@
 'use server'
 
-import { updateOrganizationUser } from '@/actions/organization-users/PATCH'
-import { postOrganizationUser } from '@/actions/organization-users/POST'
+import { updateOrganizationUser } from '@/repositories/organization-users/PATCH'
+import { postOrganizationUser } from '@/repositories/organization-users/POST'
 import {
   CreateOrganizationUserSchema,
   CreateOrganizationUserSchemaType,

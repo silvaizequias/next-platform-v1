@@ -1,6 +1,6 @@
-import { softDeleteOrganization } from '@/actions/organizations/DELETE'
-import { getOrganizationById } from '@/actions/organizations/GET'
-import { updateOrganization } from '@/actions/organizations/PATCH'
+import { softDeleteOrganization } from '@/repositories/organizations/DELETE'
+import { getOrganizationById } from '@/repositories/organizations/GET'
+import { updateOrganization } from '@/repositories/organizations/PATCH'
 import { UpdateOrganizationSchemaType } from '@/schemas/organization.schema'
 
 export async function GET(

@@ -1,4 +1,4 @@
-import { updateOrganizationUser } from '@/actions/organization-users/PATCH'
+import { updateOrganizationUser } from '@/repositories/organization-users/PATCH'
 import {
   UpdateOrganizationUserSchema,
   UpdateOrganizationUserSchemaType,
