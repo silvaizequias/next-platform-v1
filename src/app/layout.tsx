@@ -1,11 +1,14 @@
 import './globals.css'
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter'
-import { ThemeProvider } from '@mui/material/styles'
-import { CssBaseline } from '@mui/material'
+import type { Metadata } from 'next'
+import { Comfortaa } from 'next/font/google'
 import { ReactNode } from 'react'
-import { theme } from './theme'
-import { Metadata } from 'next'
-import Providers from './providers'
+import { Toaster } from 'react-hot-toast'
+
+const comfortaa = Comfortaa({
+  subsets: ['latin'],
+  variable: '--font-comfortaa',
+  weight: ['300', '400', '500', '600'],
+})
 
 export const metadata: Metadata = {
   title: {
@@ -16,18 +19,25 @@ export const metadata: Metadata = {
     'Soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
 }
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({
+  children,
+}: Readonly<{
+  children: ReactNode
+}>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body>
-        <Providers>
-          <AppRouterCacheProvider options={{ enableCssLayer: true }}>
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
-              {children}
-            </ThemeProvider>
-          </AppRouterCacheProvider>
-        </Providers>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${comfortaa.variable} font-default`}
+    >
+      <body className="text-base text-sky-800 bg-slate-200 dark:bg-slate-800">
+        <div className="min-h-screen w-full">
+          {children}
+          <Toaster
+            position={'top-center'}
+            toastOptions={{ className: 'react-hot-toast' }}
+          />
+        </div>
       </body>
     </html>
   )

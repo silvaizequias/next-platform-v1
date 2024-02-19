@@ -1,63 +1,34 @@
-import { Box, Container, Link, Stack, Typography } from '@mui/material'
+import Link from 'next/link'
+import { memo } from 'react'
 
-export default function Footer() {
+function Footer() {
   return (
-    <Container
-      maxWidth={'md'}
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-      }}
-    >
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: { xs: 'column', sm: 'row' },
-          justifyContent: { xs: 'center', sm: 'space-between' },
-          alignItems: 'center',
-          paddingY: { xs: 2, sm: 4 },
-          width: '100%',
-          gap: 2,
-        }}
-      >
-        <Stack sx={{ textAlign: { xs: 'center', sm: 'left' } }}>
+    <div className="w-lg p-8 space-y-2">
+      <div className="flex flex-col justify-center items-center md:flex-row md:justify-between">
+        <div className="flex flex-col gap-1">
           <Link
-            href="https://dedicado.digital"
-            underline="none"
-            variant="h6"
-            textTransform={'lowercase'}
+            href={'/'}
+            className="text-xl text-center md:text-left text-sky-600 font-semibold lowercase"
           >
             dedicado
           </Link>
-          <Typography variant="caption" textTransform={'lowercase'}>
+          <small className="text-xs text-center md:text-left font-thin lowercase">
             {'© '} 2023 - {new Date().getFullYear()} | 52.378.516/0001-78
-          </Typography>
-          <Typography
-            variant="caption"
-            color="text.secondary"
-            textTransform={'lowercase'}
-          >
+          </small>
+          <small className="text-xs text-center md:text-left font-thin lowercase">
             todos os direitos reservados
-          </Typography>
-        </Stack>
-        <Stack
-          spacing={2}
-          sx={{
-            display: 'flex',
-            flexDirection: { xs: 'column', sm: 'row' },
-            justifyContent: 'center',
-          }}
+          </small>
+        </div>
+        <Link
+          href={'/termos-e-politicas'}
+          target="_blank"
+          className="text-xs text-center md:text-left font-thin hover:text-sky-600"
         >
-          <Link
-            href="/termos-e-politicas"
-            underline="none"
-            variant="caption"
-            textTransform={'lowercase'}
-          >
-            termos e políticas
-          </Link>
-        </Stack>
-      </Box>
-    </Container>
+          termos e políticas
+        </Link>
+      </div>
+    </div>
   )
 }
+
+export default memo(Footer)

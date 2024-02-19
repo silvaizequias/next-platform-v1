@@ -27,20 +27,5 @@ export default async function middleware(request: NextRequest) {
     )
   }
 
-  if (hostname == `notifications.${env.BASE_URL}`) {
-    return NextResponse.rewrite(
-      new URL(`/notifications${path === '/' ? '' : path}`, request.url),
-    )
-  }
-
-  if (hostname == `blog.${env.BASE_URL}`) {
-    return NextResponse.rewrite(
-      new URL(
-        `/main/blog${path === '/' ? '' : path}`,
-        request.url,
-      ),
-    )
-  }
-
   return NextResponse.rewrite(new URL(`/${hostname}${path}`, request.url))
 }

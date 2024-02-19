@@ -2,6 +2,8 @@ import { NextAuthOptions, User } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { JWT } from 'next-auth/jwt'
 import { env } from '@/environments'
+import { prisma } from '@/libraries/prisma'
+import { compareSync } from 'bcrypt'
 
 export const nextAuthOptions: NextAuthOptions = {
   secret: env.SECRET!,
@@ -12,22 +14,26 @@ export const nextAuthOptions: NextAuthOptions = {
         password: { type: 'password' },
       },
       async authorize(credentials): Promise<any> {
-        const data = await fetch(`${env.PLATFORM_API_URL!}/auth/sign-in`, {
-          method: 'POST',
-          body: JSON.stringify({
-            phone: credentials?.phone,
-            password: credentials?.password,
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
+        const user = await prisma.user.findFirst({
+          where: { phone: credentials?.phone },
         })
-        const response = await data.json()
-        if (!response?.authorization) throw new Error(response.message)
+        if (!user)
+          throw new Error(
+            `número de celular ${credentials?.phone} está incorreto`,
+          )
+
+        const comparePass = compareSync(credentials?.password!, user.passHash!)
+        if (!comparePass) throw new Error('a senha está incorreta')
 
         return {
-          ...response,
-          authorization: response?.authorization,
+          id: user.id,
+          active: user.active,
+          subscribe: user.subscriber,
+          profile: user.profile,
+          image: user.image,
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
         }
       },
     }),

@@ -1,69 +1,39 @@
-'use client'
-
-import { AppBar, Link, Stack, Toolbar } from '@mui/material'
-import UserMenu from './UserMenu'
-import { UserType } from '@/app/main/(management)/users/types'
 import { Session } from 'next-auth'
-import UserAuth from './UserAuth'
-import { blue } from '@mui/material/colors'
-import { theme } from '@/app/theme'
+import Link from 'next/link'
+import { memo } from 'react'
+import UserMenu from './UserMenu'
+import AuthMenu from './AuthMenu'
+import TopMenu from './TopMenu'
 
 interface Props {
-  profile: UserType | any
   session: Session
 }
 
-export default function Topbar(props: Props) {
-  const { profile, session } = props
+function Topbar(props: Props) {
+  const { session } = props
 
   return (
-    <AppBar
-      position="sticky"
-      enableColorOnDark
-      color="transparent"
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignContent: 'center',
-        alignItems: 'center',
-        bgcolor:
-          theme.palette.mode === 'light'
-            ? 'rgba(255, 255, 255, 0.5)'
-            : 'rgba(255, 255, 255, 0.5)',
-        backdropFilter: 'blur(5px)',
-      }}
-    >
-      <Stack
-        sx={{
-          maxWidth: 'md',
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
-        <Toolbar sx={{ flexGrow: 1 }}>
-          <Link
-            href={'/'}
-            underline="none"
-            variant="h6"
-            fontWeight={600}
-            color={blue[400]}
-          >
-            dedicado
-          </Link>
-        </Toolbar>
-        <Toolbar
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-          }}
-        >
-          {session ? <UserMenu profile={profile} /> : <UserAuth />}
-        </Toolbar>
-      </Stack>
-    </AppBar>
+    <div className="fixed h-16 w-full backdrop-blur-sm bg-slate/30 dark:bg-slate-800/30 shadow-md">
+      <div className="h-full flex flex-col justify-center">
+        <div className="w-lg px-4 sm:px-8">
+          <div className="flex flex-row items-center justify-between">
+            <div className="flex items-center justify-start space-x-2">
+              {session && <TopMenu session={session} />}
+              <Link
+                href={'/'}
+                className="text-xl text-center md:text-left text-sky-600 font-semibold lowercase"
+              >
+                dedicado
+              </Link>
+            </div>
+            <div className="flex flex-1 items-center justify-end space-x-2">
+              {session ? <UserMenu /> : <AuthMenu />}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
+
+export default memo(Topbar)

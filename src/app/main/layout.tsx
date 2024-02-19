@@ -1,10 +1,9 @@
+import Footer from '@/components/Footer'
 import Topbar from '@/components/Topbar'
 import { nextAuthOptions } from '@/libraries/next-auth'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { Fragment, ReactNode } from 'react'
-import { actionGetProfile } from './(management)/perfil/actions'
-import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: {
@@ -17,16 +16,15 @@ export const metadata: Metadata = {
 
 export default async function MainLayout({
   children,
-}: {
+}: Readonly<{
   children: ReactNode
-}) {
+}>) {
   const session = await getServerSession(nextAuthOptions)
-  const profile = await actionGetProfile(session!)
 
   return (
     <Fragment>
-      <Topbar profile={profile} session={session!} />
-      {children}
+      <Topbar session={session!} />
+      <main>{children}</main>
       <Footer />
     </Fragment>
   )

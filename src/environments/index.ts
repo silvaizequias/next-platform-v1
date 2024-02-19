@@ -4,8 +4,6 @@ const schema = z.object({
   BASE_URL: z.string(),
   SECRET: z.string(),
   ORDER_API_URL: z.string().url(),
-  PLATFORM_API_URL: z.string().url(),
-  PUBLICATION_API_URL: z.string().url(),
   DATABASE_URL: z.string(),
   SENDGRID_API_KEY: z.string(),
   SENDGRID_EMAIL_FROM: z.string().email(),

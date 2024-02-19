@@ -1,67 +1,31 @@
-import { Grid, Stack, Typography } from '@mui/material'
-import { blue, grey } from '@mui/material/colors'
-import { ReactNode } from 'react'
+import { ReactNode, memo } from 'react'
 
 interface Props {
   children: ReactNode
   subtitle?: string
   title: string
 }
-export default function PageDisplay(props: Props) {
+
+function PageDisplay(props: Props) {
   const { children, subtitle, title } = props
 
   return (
-    <Grid container component="main" height={'100%'}>
-      <Grid
-        item
-        xs={12}
-        sx={{
-          minHeight: 60,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Stack
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            padding: 4,
-            maxWidth: 'md',
-          }}
-        >
-          <Typography
-            component="h2"
-            variant="h4"
-            align="center"
-            fontWeight={600}
-            color={blue[400]}
-            textTransform={'lowercase'}
-          >
-            {title}
-          </Typography>
-          <Typography
-            component="small"
-            variant="caption"
-            align="center"
-            fontWeight={200}
-            textTransform={'lowercase'}
-          >
-            {subtitle}
-          </Typography>
-        </Stack>
-      </Grid>
-      <Grid
-        minHeight="65vh"
-        item
-        xs={12}
-        sx={{ padding: 2, bgcolor: grey[50] }}
-      >
-        <Stack gap={2} alignContent={'center'} alignItems={'center'}>
-          {children}
-        </Stack>
-      </Grid>
-    </Grid>
+    <div className="flex flex-col">
+      <div className="min-h-[60px] pt-16">
+        <div className="flex justify-center">
+          <div className="px-4 sm:px-8 py-8 space-y-1 text-center">
+            <h4 className="text-4xl font-semibold text-sky-600 lowercase">
+              {title}
+            </h4>
+            <small className="text-sm font-thin lowercase">{subtitle}</small>
+          </div>
+        </div>
+      </div>
+      <div className="min-h-[65vh] bg-slate-100 dark:bg-slate-600 dark:text-slate-800 shadow-md">
+        <div className="w-lg px-4 sm:px-8 py-4 space-y-2">{children}</div>
+      </div>
+    </div>
   )
 }
+
+export default memo(PageDisplay)
