@@ -45,7 +45,9 @@ export default function Login(props: Props) {
       noValidate
       onSubmit={handleSubmit(onSubmit)}
     >
+      <label htmlFor="phone">celular</label>
       <input
+        id="phone"
         className="w-full rounded-md"
         {...register('phone')}
         type="number"
@@ -55,7 +57,10 @@ export default function Login(props: Props) {
           {errors?.phone?.message}
         </span>
       )}
+
+      <label htmlFor="password">senha</label>
       <input
+        id="password"
         className="w-full rounded-md"
         {...register('password')}
         type="password"
@@ -65,6 +70,7 @@ export default function Login(props: Props) {
           {errors?.password?.message}
         </span>
       )}
+
       <button
         className="w-full py-2 my-2 text-slate-50 font-semibold bg-sky-400/75 rounded-md hover:opacity-80 hover:shadow-md"
         type="submit"

@@ -20,15 +20,10 @@ export const updateOrganization = async (
       where: { id: id },
       data: { ...inputs },
     })
-    return new Response(
-      JSON.stringify(`as informações da organização foram atualizadas`),
-      { status: 201 },
-    )
+    return `as informações da organização foram atualizadas`
   } catch (error: any) {
     await prisma.$disconnect()
-    return new Response(error?.message || error, {
-      status: error?.status || 400,
-    })
+    return error?.message || error
   } finally {
     await prisma.$disconnect()
   }

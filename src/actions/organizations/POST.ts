@@ -27,16 +27,11 @@ export const postOrganization = async (
       }
       await prisma.organization.create({ data })
 
-      return new Response(
-        JSON.stringify(`a organização ${name} foi criada no sistema`),
-        { status: 201 },
-      )
+      return `a organização ${name} foi criada no sistema`
     }
   } catch (error: any) {
     await prisma.$disconnect()
-    return new Response(error?.message || error, {
-      status: error?.status || 400,
-    })
+    return error?.message || error
   } finally {
     await prisma.$disconnect()
   }

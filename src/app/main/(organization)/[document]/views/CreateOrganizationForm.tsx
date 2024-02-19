@@ -18,6 +18,7 @@ export default function CreateOrganizationForm(props: Props) {
     formState: { errors },
     handleSubmit,
     register,
+    reset
   } = useForm<CreateOrganizationSchemaType>({
     resolver: zodResolver(CreateOrganizationSchema),
   })
@@ -25,6 +26,7 @@ export default function CreateOrganizationForm(props: Props) {
     inputs,
   ) => {
     console.log(inputs)
+    reset()
     onClose()
   }
 
@@ -128,7 +130,7 @@ export default function CreateOrganizationForm(props: Props) {
         className="w-full py-2 my-2 text-slate-50 font-semibold bg-sky-400/75 rounded-md hover:opacity-80 hover:shadow-md"
         type="submit"
       >
-        criar uma organização
+        criar organização
       </button>
     </form>
   )

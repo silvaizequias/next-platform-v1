@@ -1,5 +1,10 @@
+import { getOrganizationByDocument } from '@/actions/organizations/GET'
 import PageDisplay from '@/components/PageDisplay'
+import { nextAuthOptions } from '@/libraries/next-auth'
+import { OrganizationType } from '@/types/organization.type'
 import { Metadata } from 'next'
+import { getServerSession } from 'next-auth'
+import UserDetailView from './views/UserDetailView'
 
 export const metadata: Metadata = {
   title: {
@@ -15,11 +20,18 @@ export default async function OrganizationUsersPage({
 }: {
   params: { document: string }
 }) {
+  const session = await getServerSession(nextAuthOptions)
   const { document } = params
+  const organization: OrganizationType | any = await getOrganizationByDocument(
+    document,
+  )
 
   return (
-    <PageDisplay title={document}>
-      <div>{document}</div>
+    <PageDisplay
+      title={`usuários da organização ${organization?.name}`}
+      subtitle="sua melhor plataforma de serviços"
+    >
+      <UserDetailView data={organization} session={session!} />
     </PageDisplay>
   )
 }

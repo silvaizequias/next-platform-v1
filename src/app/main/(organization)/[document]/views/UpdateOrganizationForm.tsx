@@ -7,6 +7,8 @@ import {
 import { OrganizationType } from '@/types/organization.type'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { update } from '../actions'
+import toast from 'react-hot-toast'
 
 interface Props {
   data: OrganizationType | any
@@ -23,6 +25,7 @@ export default function UpdateOrganizationForm(props: Props) {
   } = useForm<UpdateOrganizationSchemaType>({
     resolver: zodResolver(UpdateOrganizationSchema),
     defaultValues: {
+      name: data?.name,
       email: data?.email,
       phone: data?.phone,
       zipCode: data?.zipCode,
@@ -33,8 +36,13 @@ export default function UpdateOrganizationForm(props: Props) {
   const onSubmit: SubmitHandler<UpdateOrganizationSchemaType> = async (
     inputs,
   ) => {
-    console.log(inputs)
-    onClose()
+    const result = await update(data?.id, inputs)
+    if (result?.response?.error) {
+      toast.error(result?.message)
+    } else {
+      toast.success(result)
+      onClose()
+    }
   }
 
   return (
@@ -43,12 +51,25 @@ export default function UpdateOrganizationForm(props: Props) {
       noValidate
       onSubmit={handleSubmit(onSubmit)}
     >
+      <label htmlFor="name">nome</label>
+      <input
+        id="name"
+        className="w-full rounded-md"
+        {...register('name')}
+        type="text"
+      />
+      {errors && (
+        <span className="text-xs text-red-400 italic lowercase">
+          {errors?.name?.message}
+        </span>
+      )}
+
       <label htmlFor="email">e-mail</label>
       <input
         id="email"
         className="w-full rounded-md"
         {...register('email')}
-        type="text"
+        type="email"
       />
       {errors && (
         <span className="text-xs text-red-400 italic lowercase">
