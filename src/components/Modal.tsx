@@ -1,11 +1,12 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, ReactNode } from 'react'
+import { MdOutlineClose } from 'react-icons/md'
 
 interface Props {
   children: ReactNode
   open: boolean
   onClose: () => void
-  size?: 'sm' | 'md'
+  size?: 'max-w-sm' | 'max-w-md'
   subtitle?: string
   title?: string
 }
@@ -39,12 +40,26 @@ export default function Modal(props: Props) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className={`w-full max-w-${size || 'sm'} transform overflow-hidden rounded-md bg-slate-200 dark:bg-slate-800 p-6 text-left align-middle shadow-xl transition-all`}>
+              <Dialog.Panel
+                className={`w-full ${
+                  size || 'max-w-sm'
+                } transform overflow-hidden rounded-md bg-slate-200 dark:bg-slate-800 p-6 text-left align-middle shadow-xl transition-all`}
+              >
                 <Dialog.Title
-                  as="h4"
-                  className="text-lg font-semibold leading-6 text-sky-600"
+                  as="div"
+                  className="flex item-center justify-between"
                 >
-                  {title || 'dedicado'}
+                  <h4 className="text-lg font-semibold leading-6 text-sky-600">
+                    {title || 'dedicado'}
+                  </h4>
+                  <div className="flex flex-1 justify-end">
+                    <span
+                      className="flex rounded-full bg-slate-100 hover:bg-slate-200 text-red-200 hover:text-red-400 cursor-pointer"
+                      onClick={onClose}
+                    >
+                      <MdOutlineClose size={24} />
+                    </span>
+                  </div>
                 </Dialog.Title>
                 <div className="my-4 flex flex-col gap-4">
                   <p className="text-xs text-center text-opacity-25">
