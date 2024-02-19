@@ -13,7 +13,7 @@ function Topbar(props: Props) {
   const { session } = props
 
   return (
-    <div className="fixed h-16 w-full backdrop-blur-sm bg-slate/30 dark:bg-slate-800/30 shadow-md">
+    <div className="fixed z-10 h-16 w-full backdrop-blur-sm bg-slate/30 dark:bg-slate-800/30 shadow-md">
       <div className="h-full flex flex-col justify-center">
         <div className="w-lg px-4 sm:px-8">
           <div className="flex flex-row items-center justify-between">
