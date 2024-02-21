@@ -23,7 +23,7 @@ export default function OrganizationListView(props: Props) {
             return (
               <li
                 key={organization?.id}
-                className="p-4 bg-slate-200 dark:bg-slate-800 dark:text-sky-600 rounded-md hover:shadow-md"
+                className="my-2 p-4 bg-slate-200 dark:bg-slate-800 dark:text-sky-600 rounded-md hover:shadow-md"
               >
                 <div className="flex items-center justify-between">
                   <a

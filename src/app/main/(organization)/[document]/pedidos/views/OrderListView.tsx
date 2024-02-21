@@ -1,0 +1,45 @@
+import { OrderType } from '@/types/order.type'
+import CreateOrderView from './CreateOrderView'
+import UpdateOrderView from './UpdateOrderView'
+
+interface Props {
+  data: OrderType[] | any
+}
+
+export default function OrderListView(props: Props) {
+  const { data } = props
+
+  return (
+    <div className="relative">
+      <div className="flex flex-col space-y-2">
+        <div className="flex items-center space-x-2">
+          <CreateOrderView />
+          <h6>criar pedido</h6>
+        </div>
+        <hr className="border-1 border-slate-400" />
+        <ul className="w-full">
+          {data?.map((order: OrderType) => {
+            return (
+              <li
+                key={order?.id}
+                className="my-2 p-4 bg-slate-200 dark:bg-slate-800 dark:text-sky-600 rounded-md hover:shadow-md"
+              >
+                <div className="flex items-center justify-between">
+                  <a className="flex flex-col">
+                    <h6 className="text-xl hover:opacity-50">{order?.code}</h6>
+                    <small className="text-xs font-thin opacity-60">
+                      {order?.subject || order?.customer}
+                    </small>
+                  </a>
+                  <div className="flex flex-1 justify-end space-x-2">
+                    <UpdateOrderView data={order} />
+                  </div>
+                </div>
+              </li>
+            )
+          })}
+        </ul>
+      </div>
+    </div>
+  )
+}
