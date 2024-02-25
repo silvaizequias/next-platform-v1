@@ -2,7 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Comfortaa } from 'next/font/google'
 import { ReactNode } from 'react'
-import { Toaster } from 'react-hot-toast'
+import Providers from './providers'
 
 const comfortaa = Comfortaa({
   subsets: ['latin'],
@@ -31,13 +31,7 @@ export default async function RootLayout({
       className={`${comfortaa.variable} font-default`}
     >
       <body className="text-base text-sky-800 bg-slate-200 dark:bg-slate-800">
-        <div className="min-h-screen w-full">
-          {children}
-          <Toaster
-            position={'top-center'}
-            toastOptions={{ className: 'react-hot-toast' }}
-          />
-        </div>
+        <Providers>{children}</Providers>
       </body>
     </html>
   )

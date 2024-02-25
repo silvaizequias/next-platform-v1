@@ -4,8 +4,10 @@ import Modal from '@/components/Modal'
 import { useState, useCallback } from 'react'
 import { MdOutlineDomainAdd } from 'react-icons/md'
 import CreateOrganizationForm from './CreateOrganizationForm'
+import { useSession } from 'next-auth/react'
 
 export default function CreateOrganizationView() {
+  const { data: session } = useSession()
   const [openModal, setOpenModal] = useState<boolean>(false)
   const handleModal = useCallback(() => {
     setOpenModal(!openModal)
@@ -24,7 +26,7 @@ export default function CreateOrganizationView() {
         onClose={handleModal}
         subtitle={`criar minha organização`}
       >
-        <CreateOrganizationForm onClose={handleModal} />
+        <CreateOrganizationForm onClose={handleModal} session={session!} />
       </Modal>
     </div>
   )

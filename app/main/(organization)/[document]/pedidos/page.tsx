@@ -4,8 +4,9 @@ import { OrderType } from '@/types/order'
 import { OrganizationType } from '@/types/organization'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
-import { findOrdersByOrganization } from './actions'
+import { actionGetOrdersByOrganization } from './actions'
 import OrderListView from './views/OrderListView'
+import { actionGetOrganizationByDocument } from '../actions'
 
 export const metadata: Metadata = {
   title: {
@@ -23,8 +24,9 @@ export default async function OrderPage({
 }) {
   const session = await getServerSession(nextAuthOptions)
   const { document } = params
-  const organization: OrganizationType | any = null
-  const orders: OrderType[] | any = await findOrdersByOrganization(document)
+  const organization: OrganizationType | any =
+    await actionGetOrganizationByDocument(document)
+  const orders: OrderType[] | any = await actionGetOrdersByOrganization(document)
 
   return (
     <PageDisplay

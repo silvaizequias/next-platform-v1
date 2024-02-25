@@ -6,13 +6,17 @@ import {
 } from '@/schemas/organization'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, SubmitHandler } from 'react-hook-form'
+import { actionCreateOrganizationForUser } from '../actions'
+import toast from 'react-hot-toast'
+import { Session } from 'next-auth'
 
 interface Props {
   onClose: () => void
+  session: Session
 }
 
 export default function CreateOrganizationForm(props: Props) {
-  const { onClose } = props
+  const { onClose, session } = props
 
   const {
     formState: { errors },
@@ -25,9 +29,17 @@ export default function CreateOrganizationForm(props: Props) {
   const onSubmit: SubmitHandler<CreateOrganizationSchemaType> = async (
     inputs,
   ) => {
-    console.log(inputs)
-    reset()
-    onClose()
+    const result = await actionCreateOrganizationForUser(
+      inputs,
+      session?.user?.phone,
+    )
+    if (result?.response?.error) {
+      toast.error(result?.message)
+    } else {
+      toast.success(result)
+      reset()
+      onClose()
+    }
   }
 
   return (

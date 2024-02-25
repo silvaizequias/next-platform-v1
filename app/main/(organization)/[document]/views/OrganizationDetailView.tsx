@@ -2,7 +2,6 @@ import { OrganizationType } from '@/types/organization'
 import { OrganizationUserType } from '@/types/organization-user'
 import { Session } from 'next-auth'
 import { MdGppMaybe } from 'react-icons/md'
-import UserListView from '../usuarios/views/UserListView'
 
 interface Props {
   data: OrganizationType | any
@@ -21,9 +20,7 @@ export default function OrganizationDetailView(props: Props) {
     )
 
   return organizationUser ? (
-    <div className="w-full">
-      <UserListView data={data?.users} />
-    </div>
+    <div className="w-full">...</div>
   ) : (
     <div className="w-full flex flex-col justify-center items-center space-y-2">
       <span className="flex rounded-full p-2 text-sky-600 bg-sky-400/25">

@@ -8,7 +8,7 @@ import { OrganizationType } from '@/types/organization'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { update } from '../actions'
+import { actionUpdateOrganization } from '../actions'
 
 interface Props {
   data: OrganizationType | any
@@ -36,7 +36,7 @@ export default function UpdateOrganizationForm(props: Props) {
   const onSubmit: SubmitHandler<UpdateOrganizationSchemaType> = async (
     inputs,
   ) => {
-    const result = await update(data?.id, inputs)
+    const result = await actionUpdateOrganization(data?.id, inputs)
     if (result?.response?.error) {
       toast.error(result?.message)
     } else {

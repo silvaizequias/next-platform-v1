@@ -4,10 +4,12 @@ import { OrganizationUserType } from '@/types/organization-user'
 import { getServerSession } from 'next-auth'
 import OrganizationListView from './(organization)/[document]/views/OrganizationListView'
 import LandingPageView from './views/LandingPageView'
+import { actionGetOrganizationUserByUserId } from './actions'
 
 export default async function MainPage() {
   const session = await getServerSession(nextAuthOptions)
-  const organizations: OrganizationUserType[] | any = null
+  const organizations: OrganizationUserType[] | any =
+    await actionGetOrganizationUserByUserId(session?.user?.id!)
 
   return session ? (
     <PageDisplay title="dedicado" subtitle="sua melhor plataforma de servços">

@@ -6,6 +6,7 @@ import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import { ReactNode, Fragment } from 'react'
 import { MdGroupOff } from 'react-icons/md'
+import { actionGetOrganizationByDocument } from './actions'
 
 export const metadata: Metadata = {
   title: {
@@ -25,7 +26,8 @@ export default async function OrganizationLayout({
 }>) {
   const session = await getServerSession(nextAuthOptions)
   const { document } = params
-  const organization: OrganizationType | any = null
+  const organization: OrganizationType | any =
+    await actionGetOrganizationByDocument(document)
 
   const organizationUser =
     session &&

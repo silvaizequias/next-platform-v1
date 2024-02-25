@@ -1,26 +1,19 @@
 'use server'
 
+import { updateOrganizationUser } from '@/repositories/organization-users/PATCH'
+import { createOrganizationUser } from '@/repositories/organization-users/POST'
 import {
   CreateOrganizationUserSchemaType,
-  CreateOrganizationUserSchema,
   UpdateOrganizationUserSchemaType,
-  UpdateOrganizationUserSchema,
 } from '@/schemas/organization-user'
 import { revalidatePath } from 'next/cache'
 
 export const create = async (
   inputs: CreateOrganizationUserSchemaType,
-  organization: string,
 ): Promise<any> => {
-  try {
-    if (await CreateOrganizationUserSchema.parseAsync(inputs)) {
-      const data = null
-      revalidatePath(`/${organization}/usuarios`)
-      return data
-    }
-  } catch (error: any) {
-    return error?.message || error
-  }
+  const data = await createOrganizationUser(inputs)
+  revalidatePath(`/${inputs?.organizationDocument}/usuarios`)
+  return data
 }
 
 export const update = async (
@@ -28,14 +21,7 @@ export const update = async (
   inputs: UpdateOrganizationUserSchemaType,
   organization: string,
 ): Promise<any> => {
-  try {
-    if (await UpdateOrganizationUserSchema.parseAsync(inputs)) {
-      const data = null
-
-      revalidatePath(`/${organization}/usuarios`)
-      return data
-    }
-  } catch (error: any) {
-    return error?.message || error
-  }
+  const data = await updateOrganizationUser(id, inputs)
+  revalidatePath(`/${organization}/usuarios`)
+  return data
 }

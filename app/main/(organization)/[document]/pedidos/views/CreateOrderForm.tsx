@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation'
 import { useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { createOrder } from '../actions'
+import { actionCreateOrder } from '../actions'
 
 interface Props {
   onClose: () => void
@@ -37,7 +37,7 @@ export default function CreateOrderForm(props: Props) {
     },
   })
   const onSubmit: SubmitHandler<CreateOrderSchemaType> = async (inputs) => {
-    const result = await createOrder(inputs)
+    const result = await actionCreateOrder(inputs)
     if (result?.response?.error) {
       toast.error(result?.message)
     } else {

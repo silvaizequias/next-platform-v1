@@ -42,7 +42,7 @@ export default function CreateUserForm(props: Props) {
   const onSubmit: SubmitHandler<CreateOrganizationUserSchemaType> = async (
     inputs,
   ) => {
-    const result = await create(inputs, document)
+    const result = await create(inputs)
     if (result?.response?.error) {
       toast.error(result?.message)
     } else {

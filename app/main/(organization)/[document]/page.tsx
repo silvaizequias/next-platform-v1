@@ -5,6 +5,7 @@ import { cnpjMask } from 'masks-br'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import OrganizationDetailView from './views/OrganizationDetailView'
+import { actionGetOrganizationByDocument } from './actions'
 
 export async function generateMetadata({
   params,
@@ -12,7 +13,8 @@ export async function generateMetadata({
   params: { document: string }
 }): Promise<Metadata | null> {
   const { document } = params
-  const organization: OrganizationType | any = null
+  const organization: OrganizationType | any =
+    await actionGetOrganizationByDocument(document)
   return {
     title: {
       default: `a melhor plataforma de serviços da ${organization?.name}`,
@@ -30,7 +32,8 @@ export default async function OrganizationsPage({
 }) {
   const session = await getServerSession(nextAuthOptions)
   const { document } = params
-  const organization: OrganizationType | any = null
+  const organization: OrganizationType | any =
+    await actionGetOrganizationByDocument(document)
 
   return (
     <PageDisplay
