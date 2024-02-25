@@ -4,7 +4,7 @@ import { OrganizationType } from '@/types/organization'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import UserDetailView from './views/UserDetailView'
-import { findOrganizationByDocument } from '../actions'
+import { actionGetOrganizationByDocument } from '../actions'
 
 export const metadata: Metadata = {
   title: {
@@ -22,9 +22,8 @@ export default async function OrganizationUsersPage({
 }) {
   const session = await getServerSession(nextAuthOptions)
   const { document } = params
-  const organization: OrganizationType | any = await findOrganizationByDocument(
-    document,
-  )
+  const organization: OrganizationType | any =
+    await actionGetOrganizationByDocument(document)
 
   return (
     <PageDisplay
