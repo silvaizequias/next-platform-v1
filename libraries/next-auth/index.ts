@@ -27,7 +27,7 @@ export const nextAuthOptions: NextAuthOptions = {
         if (user && user.authorization) {
           return { ...user }
         } else {
-          throw new Error(user?.message)
+          throw new Error(user)
         }
       },
     }),
