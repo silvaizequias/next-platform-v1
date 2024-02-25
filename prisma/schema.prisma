@@ -12,10 +12,11 @@ model ApiSpend {
 
   createdAt DateTime @default(now()) @map("created_at")
 
-  organization String
-  method       String
-  path         String
-  origin       String?
+  document  String
+  method    String
+  pathname  String?
+  url       String?
+  userAgent String? @map("user_agent")
 
   @@map("api_spends")
 }
