@@ -1,14 +1,17 @@
 'use server'
 
 import { env } from '@/environments'
+import { nextAuthOptions } from '@/libraries/next-auth'
 import {
   CreateOrganizationSchemaType,
   CreateOrganizationSchema,
 } from '@/schemas/organization'
+import { getServerSession } from 'next-auth'
 
 export const createOrganization = async (
   inputs: CreateOrganizationSchemaType,
 ): Promise<any> => {
+  const session = await getServerSession(nextAuthOptions)
   try {
     if (await CreateOrganizationSchema.parseAsync(inputs)) {
       const data = await fetch(`${env.MANAGEMENT_API_URL}/organizations`, {
@@ -16,6 +19,7 @@ export const createOrganization = async (
         body: JSON.stringify(inputs),
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${session?.user?.authorization}`,
         },
       })
       return data && (await data.json())

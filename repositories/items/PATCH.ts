@@ -6,6 +6,7 @@ import { UpdateItemSchema, UpdateItemSchemaType } from '@/schemas/item'
 export const updateItem = async (
   id: string,
   inputs: UpdateItemSchemaType,
+  authorizationKey: string,
 ): Promise<any> => {
   try {
     if (await UpdateItemSchema.parseAsync(inputs)) {
@@ -14,6 +15,7 @@ export const updateItem = async (
         body: JSON.stringify(inputs),
         headers: {
           'Content-Type': 'application/json',
+          authorizationKey: authorizationKey,
         },
       })
       return data && (await data.json())

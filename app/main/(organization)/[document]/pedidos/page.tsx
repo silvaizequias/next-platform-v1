@@ -7,6 +7,7 @@ import { getServerSession } from 'next-auth'
 import { actionGetOrdersByOrganization } from './actions'
 import OrderListView from './views/OrderListView'
 import { actionGetOrganizationByDocument } from '../actions'
+import Unauthorized from '@/components/Unauthorized'
 
 export const metadata: Metadata = {
   title: {
@@ -26,19 +27,31 @@ export default async function OrderPage({
   const { document } = params
   const organization: OrganizationType | any =
     await actionGetOrganizationByDocument(document)
-  const orders: OrderType[] | any = await actionGetOrdersByOrganization(document)
+  const orders: OrderType[] | any = await actionGetOrdersByOrganization(
+    document,
+    organization?.authorizationKey?.authorizationKey,
+  )
 
   return (
     <PageDisplay
       title={`pedidos da organização ${organization?.name}`}
       subtitle="sua melhor plataforma de serviços"
     >
-      <div className="flex flex-col items-center md:flex-row">
-        <div className="flex flex-col w-full space-y-2"></div>
-        <div className="flex flex-col w-full space-y-2">
-          <OrderListView data={orders} />
+      {orders && orders?.statusCode != 401 ? (
+        <div className="flex flex-col items-center md:flex-row">
+          <div className="flex flex-col w-full space-y-2"></div>
+          <div className="flex flex-col w-full space-y-2">
+            <OrderListView
+              data={orders}
+              authorizationKey={
+                organization?.authorizationKey?.authorizationKey
+              }
+            />
+          </div>
         </div>
-      </div>
+      ) : (
+        <Unauthorized message={`${orders?.message}`} />
+      )}
     </PageDisplay>
   )
 }

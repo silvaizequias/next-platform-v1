@@ -10,10 +10,11 @@ import { actionCreateOrder } from '../actions'
 
 interface Props {
   onClose: () => void
+  authorizationKey: string
 }
 
 export default function CreateOrderForm(props: Props) {
-  const { onClose } = props
+  const { onClose, authorizationKey } = props
 
   const params = useParams()
   const { document }: any = params
@@ -37,7 +38,7 @@ export default function CreateOrderForm(props: Props) {
     },
   })
   const onSubmit: SubmitHandler<CreateOrderSchemaType> = async (inputs) => {
-    const result = await actionCreateOrder(inputs)
+    const result = await actionCreateOrder(inputs, authorizationKey)
     if (result?.response?.error) {
       toast.error(result?.message)
     } else {

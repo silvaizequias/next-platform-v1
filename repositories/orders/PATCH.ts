@@ -6,6 +6,7 @@ import { UpdateOrderSchemaType, UpdateOrderSchema } from '@/schemas/order'
 export const updateOrder = async (
   id: string,
   inputs: UpdateOrderSchemaType,
+  authorizationKey: string,
 ) => {
   try {
     if (await UpdateOrderSchema.parseAsync(inputs)) {
@@ -14,6 +15,7 @@ export const updateOrder = async (
         body: JSON.stringify(inputs),
         headers: {
           'Content-Type': 'application/json',
+          authorizationKey: authorizationKey,
         },
       })
       return data && (await data.json())

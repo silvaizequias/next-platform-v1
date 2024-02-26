@@ -9,6 +9,7 @@ import {
 export const updateAttachment = async (
   id: string,
   inputs: UpdateAttachmentSchemaType,
+  authorizationKey: string,
 ): Promise<any> => {
   try {
     if (await UpdateAttachmentSchema.parseAsync(inputs)) {
@@ -17,6 +18,7 @@ export const updateAttachment = async (
         body: JSON.stringify(inputs),
         headers: {
           'Content-Type': 'application/json',
+          authorizationKey: authorizationKey,
         },
       })
       return data && (await data.json())

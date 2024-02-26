@@ -6,6 +6,7 @@ import { UpdateNoteSchema, UpdateNoteSchemaType } from '@/schemas/note'
 export const updateNote = async (
   id: string,
   inputs: UpdateNoteSchemaType,
+  authorizationKey: string,
 ): Promise<any> => {
   try {
     if (await UpdateNoteSchema.parseAsync(inputs)) {
@@ -14,6 +15,7 @@ export const updateNote = async (
         body: JSON.stringify(inputs),
         headers: {
           'Content-Type': 'application/json',
+          authorizationKey: authorizationKey,
         },
       })
       return data && (await data.json())

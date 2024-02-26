@@ -8,10 +8,11 @@ import UpdateOrderForm from './UpdateOrderForm'
 
 interface Props {
   data: OrderType | any
+  authorizationKey: string
 }
 
 export default function UpdateOrderView(props: Props) {
-  const { data } = props
+  const { authorizationKey, data } = props
 
   const [openModal, setOpenModal] = useState<boolean>(false)
   const handleModal = useCallback(() => {
@@ -31,7 +32,11 @@ export default function UpdateOrderView(props: Props) {
         onClose={handleModal}
         subtitle={`atualizar pedido ${data?.code}`}
       >
-        <UpdateOrderForm data={data} onClose={handleModal} />
+        <UpdateOrderForm
+          data={data}
+          onClose={handleModal}
+          authorizationKey={authorizationKey}
+        />
       </Modal>
     </div>
   )

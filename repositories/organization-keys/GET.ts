@@ -1,16 +1,20 @@
 'use server'
 
 import { env } from '@/environments'
+import { nextAuthOptions } from '@/libraries/next-auth'
 import { OrganizationKeyType } from '@/types/organization-key'
+import { getServerSession } from 'next-auth'
 
 export const getOrganizationKeys = async (): Promise<
   OrganizationKeyType[] | any
 > => {
+  const session = await getServerSession(nextAuthOptions)
   try {
     const data = await fetch(`${env.MANAGEMENT_API_URL}/organization-keys`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${session?.user?.authorization}`,
       },
     })
     return data && (await data.json())
@@ -22,6 +26,7 @@ export const getOrganizationKeys = async (): Promise<
 export const getOrganizationKeyById = async (
   id: string,
 ): Promise<OrganizationKeyType | any> => {
+  const session = await getServerSession(nextAuthOptions)
   try {
     const data = await fetch(
       `${env.MANAGEMENT_API_URL}/organization-keys/${id}`,
@@ -29,6 +34,7 @@ export const getOrganizationKeyById = async (
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${session?.user?.authorization}`,
         },
       },
     )

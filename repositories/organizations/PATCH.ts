@@ -1,15 +1,18 @@
 'use server'
 
 import { env } from '@/environments'
+import { nextAuthOptions } from '@/libraries/next-auth'
 import {
   UpdateOrganizationSchema,
   UpdateOrganizationSchemaType,
 } from '@/schemas/organization'
+import { getServerSession } from 'next-auth'
 
 export const updateOrganization = async (
   id: string,
   inputs: UpdateOrganizationSchemaType,
 ): Promise<any> => {
+  const session = await getServerSession(nextAuthOptions)
   try {
     if (await UpdateOrganizationSchema.parseAsync(inputs)) {
       const data = await fetch(
@@ -19,6 +22,7 @@ export const updateOrganization = async (
           body: JSON.stringify(inputs),
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${session?.user?.authorization}`,
           },
         },
       )

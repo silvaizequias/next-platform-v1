@@ -5,7 +5,12 @@ import { useState, useCallback } from 'react'
 import { MdLibraryAdd } from 'react-icons/md'
 import CreateOrderForm from './CreateOrderForm'
 
-export default function CreateOrderView() {
+interface Props {
+  authorizationKey: string
+}
+
+export default function CreateOrderView(props: Props) {
+  const { authorizationKey } = props
   const [openModal, setOpenModal] = useState<boolean>(false)
   const handleModal = useCallback(() => {
     setOpenModal(!openModal)
@@ -20,7 +25,10 @@ export default function CreateOrderView() {
         <MdLibraryAdd size={24} />
       </span>
       <Modal open={openModal} onClose={handleModal} subtitle={`criar pedido`}>
-        <CreateOrderForm onClose={handleModal} />
+        <CreateOrderForm
+          onClose={handleModal}
+          authorizationKey={authorizationKey}
+        />
       </Modal>
     </div>
   )

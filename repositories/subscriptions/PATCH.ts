@@ -1,10 +1,12 @@
 'use server'
 
 import { env } from '@/environments'
+import { nextAuthOptions } from '@/libraries/next-auth'
 import {
   UpdateSubscriptionSchema,
   UpdateSubscriptionSchemaType,
 } from '@/schemas/subscription'
+import { getServerSession } from 'next-auth'
 
 export const updateSubscription = async (
   id: string,
@@ -12,6 +14,7 @@ export const updateSubscription = async (
 ): Promise<any> => {
   try {
     if (await UpdateSubscriptionSchema.parseAsync(inputs)) {
+      const session = await getServerSession(nextAuthOptions)
       const data = await fetch(
         `${env.MANAGEMENT_API_URL}/subscriptions/${id}`,
         {
@@ -19,6 +22,7 @@ export const updateSubscription = async (
           body: JSON.stringify(inputs),
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${session?.user?.authorization}`,
           },
         },
       )

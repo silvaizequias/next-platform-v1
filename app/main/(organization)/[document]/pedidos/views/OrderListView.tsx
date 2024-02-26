@@ -4,16 +4,17 @@ import UpdateOrderView from './UpdateOrderView'
 
 interface Props {
   data: OrderType[] | any
+  authorizationKey: string
 }
 
 export default function OrderListView(props: Props) {
-  const { data } = props
+  const { data, authorizationKey } = props
 
   return (
     <div className="relative">
       <div className="flex flex-col space-y-2">
         <div className="flex items-center space-x-2">
-          <CreateOrderView />
+          <CreateOrderView authorizationKey={authorizationKey} />
           <h6>criar pedido</h6>
         </div>
         <hr className="border-1 border-slate-400" />
@@ -32,7 +33,10 @@ export default function OrderListView(props: Props) {
                     </small>
                   </a>
                   <div className="flex flex-1 justify-end space-x-2">
-                    <UpdateOrderView data={order} />
+                    <UpdateOrderView
+                      data={order}
+                      authorizationKey={authorizationKey}
+                    />
                   </div>
                 </div>
               </li>

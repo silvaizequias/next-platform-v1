@@ -9,12 +9,13 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import moment from 'moment'
 
 interface Props {
+  authorizationKey: string
   data: OrderType | any
   onClose: () => void
 }
 
 export default function UpdateOrderForm(props: Props) {
-  const { data, onClose } = props
+  const { authorizationKey, data, onClose } = props
 
   const params = useParams()
   const { document }: any = params

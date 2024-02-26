@@ -3,7 +3,9 @@
 import { env } from '@/environments'
 import { OrderType } from '@/types/order'
 
-export const getOrders = async (): Promise<OrderType[] | any> => {
+export const getOrders = async (
+  authorizationKey: string,
+): Promise<OrderType[] | any> => {
   try {
     const data = await fetch(`${env.ORDERS_API_URL}/orders`, {
       method: 'GET',
@@ -17,7 +19,10 @@ export const getOrders = async (): Promise<OrderType[] | any> => {
   }
 }
 
-export const getOrderById = async (id: string): Promise<OrderType | any> => {
+export const getOrderById = async (
+  id: string,
+  authorizationKey: string,
+): Promise<OrderType | any> => {
   try {
     const data = await fetch(`${env.ORDERS_API_URL}/orders/${id}`, {
       method: 'GET',
@@ -33,12 +38,14 @@ export const getOrderById = async (id: string): Promise<OrderType | any> => {
 
 export const getOrderByCode = async (
   code: string,
+  authorizationKey: string,
 ): Promise<OrderType | any> => {
   try {
     const data = await fetch(`${env.ORDERS_API_URL}/orders/code/${code}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        authorizationKey: authorizationKey,
       },
     })
     return data && (await data.json())
@@ -49,6 +56,7 @@ export const getOrderByCode = async (
 
 export const getOrdersByOrganization = async (
   organization: string,
+  authorizationKey: string,
 ): Promise<OrderType[] | any> => {
   try {
     const data = await fetch(
@@ -57,6 +65,7 @@ export const getOrdersByOrganization = async (
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          authorizationKey: authorizationKey,
         },
       },
     )
@@ -68,6 +77,7 @@ export const getOrdersByOrganization = async (
 
 export const getOrdersByCustomer = async (
   customer: string,
+  authorizationKey: string,
 ): Promise<OrderType[] | any> => {
   try {
     const data = await fetch(
@@ -76,6 +86,7 @@ export const getOrdersByCustomer = async (
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          authorizationKey: authorizationKey,
         },
       },
     )
@@ -87,12 +98,14 @@ export const getOrdersByCustomer = async (
 
 export const getOrdersByMember = async (
   member: string,
+  authorizationKey: string,
 ): Promise<OrderType[] | any> => {
   try {
     const data = await fetch(`${env.ORDERS_API_URL}/orders/member/${member}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        authorizationKey: authorizationKey,
       },
     })
     return data && (await data.json())

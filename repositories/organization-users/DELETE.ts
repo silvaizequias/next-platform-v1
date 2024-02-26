@@ -1,8 +1,11 @@
 'use server'
 
 import { env } from '@/environments'
+import { nextAuthOptions } from '@/libraries/next-auth'
+import { getServerSession } from 'next-auth'
 
 export const deleteOrganizationUser = async (id: string): Promise<any> => {
+  const session = await getServerSession(nextAuthOptions)
   try {
     const data = await fetch(
       `${env.MANAGEMENT_API_URL}/organization-users/${id}`,
@@ -10,6 +13,7 @@ export const deleteOrganizationUser = async (id: string): Promise<any> => {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${session?.user?.authorization}`,
         },
       },
     )
@@ -20,6 +24,7 @@ export const deleteOrganizationUser = async (id: string): Promise<any> => {
 }
 
 export const softDeleteOrganizationUser = async (id: string): Promise<any> => {
+  const session = await getServerSession(nextAuthOptions)
   try {
     const data = await fetch(
       `${env.MANAGEMENT_API_URL}/organization-users/${id}`,
@@ -28,6 +33,7 @@ export const softDeleteOrganizationUser = async (id: string): Promise<any> => {
         body: JSON.stringify({ softDeleted: true }),
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${session?.user?.authorization}`,
         },
       },
     )

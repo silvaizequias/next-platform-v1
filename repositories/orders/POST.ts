@@ -5,6 +5,7 @@ import { CreateOrderSchemaType, CreateOrderSchema } from '@/schemas/order'
 
 export const createOrder = async (
   inputs: CreateOrderSchemaType,
+  authorizationKey: string,
 ): Promise<any> => {
   const randomCode = Math.random().toString(32).substr(2, 16)
   try {
@@ -14,6 +15,7 @@ export const createOrder = async (
         body: JSON.stringify(inputs),
         headers: {
           'Content-Type': 'application/json',
+          authorizationKey: authorizationKey,
         },
       })
       return data && (await data.json())
