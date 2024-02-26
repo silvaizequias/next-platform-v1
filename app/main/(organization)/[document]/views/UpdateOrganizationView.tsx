@@ -30,6 +30,7 @@ export default function UpdateOrganizationView(props: Props) {
         open={openModal}
         onClose={handleModal}
         subtitle={`atualizar informações da organização ${data?.name}`}
+        size='max-w-xl'
       >
         <UpdateOrganizationForm data={data} onClose={handleModal} />
       </Modal>

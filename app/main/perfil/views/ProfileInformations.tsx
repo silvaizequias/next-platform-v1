@@ -1,47 +1,41 @@
 'use client'
 
-import {
-  UpdateOrganizationSchemaType,
-  UpdateOrganizationSchema,
-} from '@/schemas/organization'
-import { OrganizationType } from '@/types/organization'
+import { UserType } from '@/types/user'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { actionUpdateOrganization } from '../actions'
+import { ProfileUpdateSchemaType, ProfileUpdateSchema } from '@/schemas/profile'
+import { actionUpdateProfile } from '../actions'
 
 interface Props {
-  data: OrganizationType | any
-  onClose: () => void
+  data: UserType | any
 }
 
-export default function UpdateOrganizationForm(props: Props) {
-  const { data, onClose } = props
+export default function ProfileInformations(props: Props) {
+  const { data } = props
 
   const {
     formState: { errors },
     handleSubmit,
     register,
-  } = useForm<UpdateOrganizationSchemaType>({
-    resolver: zodResolver(UpdateOrganizationSchema),
+  } = useForm<ProfileUpdateSchemaType>({
+    resolver: zodResolver(ProfileUpdateSchema),
     defaultValues: {
       name: data?.name,
-      email: data?.email,
+      document: data?.document,
       phone: data?.phone,
+      email: data?.email,
       zipCode: data?.zipCode,
       street: data?.street,
       complement: data?.complement,
     },
   })
-  const onSubmit: SubmitHandler<UpdateOrganizationSchemaType> = async (
-    inputs,
-  ) => {
-    const result = await actionUpdateOrganization(data?.id, inputs)
+  const onSubmit: SubmitHandler<ProfileUpdateSchemaType> = async (inputs) => {
+    const result = await actionUpdateProfile(data?.id, inputs)
     if (result?.response?.error) {
       toast.error(result?.message)
     } else {
       toast.success(result)
-      onClose()
     }
   }
 
@@ -74,7 +68,7 @@ export default function UpdateOrganizationForm(props: Props) {
             id="email"
             className="w-full rounded-md"
             {...register('email')}
-            type="text"
+            type="email"
           />
           {errors && (
             <span className="text-xs text-red-400 italic lowercase">
@@ -96,9 +90,23 @@ export default function UpdateOrganizationForm(props: Props) {
             </span>
           )}
         </div>
+        <div className="relative w-full sm:w-1/3">
+          <label htmlFor="document">documento</label>
+          <input
+            id="document"
+            className="w-full rounded-md"
+            {...register('document')}
+            type="number"
+          />
+          {errors && (
+            <span className="text-xs text-red-400 italic lowercase">
+              {errors?.document?.message}
+            </span>
+          )}
+        </div>
       </div>
       <div className="flex flex-col sm:flex-row items-center gap-2">
-        <div className="relative w-full sm:w-1/3">
+        <div className="relative w-full sm:w-1/4">
           <label htmlFor="zipCode">cep</label>
           <input
             className="w-full rounded-md"
@@ -111,7 +119,7 @@ export default function UpdateOrganizationForm(props: Props) {
             </span>
           )}
         </div>
-        <div className="relative w-full sm:w-2/3">
+        <div className="relative w-full sm:w-3/4">
           <label htmlFor="street">logradouro</label>
           <input
             id="street"
@@ -142,7 +150,6 @@ export default function UpdateOrganizationForm(props: Props) {
           )}
         </div>
       </div>
-
       <button
         className="w-full py-2 my-2 text-slate-50 font-semibold bg-sky-400/75 rounded-md hover:opacity-80 hover:shadow-md"
         type="submit"

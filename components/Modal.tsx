@@ -6,7 +6,7 @@ interface Props {
   children: ReactNode
   open: boolean
   onClose: () => void
-  size?: 'max-w-sm' | 'max-w-md' | 'max-w-lg'
+  size?: 'max-w-sm' | 'max-w-md' | 'max-w-lg' | 'max-w-xl'
   subtitle?: string
   title?: string
 }

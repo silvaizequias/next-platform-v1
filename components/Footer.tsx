@@ -3,7 +3,7 @@ import { memo } from 'react'
 
 function Footer() {
   return (
-    <div className="w-lg p-8 space-y-2">
+    <div className="max-w-7xl mx-auto w-full p-8 space-y-2">
       <div className="flex flex-col justify-center items-center md:flex-row md:justify-between">
         <div className="flex flex-col gap-1">
           <Link

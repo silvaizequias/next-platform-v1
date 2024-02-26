@@ -25,6 +25,7 @@ export default function CreateOrganizationView() {
         open={openModal}
         onClose={handleModal}
         subtitle={`criar minha organização`}
+        size='max-w-xl'
       >
         <CreateOrganizationForm onClose={handleModal} session={session!} />
       </Modal>

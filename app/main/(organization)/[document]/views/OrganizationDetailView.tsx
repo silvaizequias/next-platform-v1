@@ -1,7 +1,7 @@
 import { OrganizationType } from '@/types/organization'
 import { OrganizationUserType } from '@/types/organization-user'
 import { Session } from 'next-auth'
-import { MdGppMaybe } from 'react-icons/md'
+import { MdGppMaybe, MdGroups, MdListAlt } from 'react-icons/md'
 
 interface Props {
   data: OrganizationType | any
@@ -20,7 +20,22 @@ export default function OrganizationDetailView(props: Props) {
     )
 
   return organizationUser ? (
-    <div className="w-full">...</div>
+    <div className="w-full flex flex-col sm:flex-row justify-center items-center gap-4">
+      <a
+        href={`${data?.document}/usuarios`}
+        className="p-4 max-w-md w-full flex items-center bg-slate-200 rounded-md shadow-md gap-4 hover:opacity-80"
+      >
+        <MdGroups size={32} />
+        <h4 className="text-xl font-semibold ">usuários da organização</h4>
+      </a>
+      <a
+        href={`${data?.document}/pedidos`}
+        className="p-4 max-w-md w-full flex items-center bg-slate-200 rounded-md shadow-md gap-4 hover:opacity-80"
+      >
+        <MdListAlt size={32} />
+        <h4 className="text-xl font-semibold ">pedidos da organização</h4>
+      </a>
+    </div>
   ) : (
     <div className="w-full flex flex-col justify-center items-center space-y-2">
       <span className="flex rounded-full p-2 text-sky-600 bg-sky-400/25">
