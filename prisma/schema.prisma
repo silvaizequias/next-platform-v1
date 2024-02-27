@@ -3,17 +3,20 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model ApiSpend {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id String @id @default(cuid())
 
   createdAt DateTime @default(now()) @map("created_at")
+
   document  String
   method    String
-  url       String
+  pathname  String?
+  url       String?
+  userAgent String? @map("user_agent")
 
   @@map("api_spends")
 }
