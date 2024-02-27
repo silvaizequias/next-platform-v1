@@ -30,7 +30,7 @@ export default function UserListView(props: Props) {
               >
                 <div className="flex items-center justify-between">
                   <a className="flex flex-col">
-                    <h6 className="text-xl hover:opacity-50">
+                    <h6 className="text-xl hover:opacity-50 lowercase">
                       {user?.user?.name}
                     </h6>
                     <small className="text-xs font-thin opacity-60">

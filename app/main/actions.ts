@@ -12,11 +12,13 @@ export const actionGetOrganizationUserByUserId = async (): Promise<
   return await getOrganizationUserByUserId()
 }
 
-export const actionGetOrdersByMember = async (member: string) => {
+export const actionGetOrdersByMember = async (member: string): Promise<any> => {
   const document = '52378516000178'
   const { authorizationKey }: OrganizationType | any =
     await getOrganizationByDocument(document)
   const apiKey = authorizationKey.authorizationKey
+
+  if (!apiKey) return null
 
   return await getOrdersByMember(member, apiKey)
 }

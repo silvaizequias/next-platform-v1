@@ -27,8 +27,8 @@ export default function OrderListView(props: Props) {
               >
                 <div className="flex items-center justify-between">
                   <a className="flex flex-col">
-                    <h6 className="text-xl hover:opacity-50">{order?.code}</h6>
-                    <small className="text-xs font-thin opacity-60">
+                    <h6 className="text-xl hover:opacity-50 lowercase">{order?.code}</h6>
+                    <small className="text-xs font-thin opacity-60 lowercase">
                       {order?.subject || order?.customer}
                     </small>
                   </a>

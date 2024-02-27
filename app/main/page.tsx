@@ -15,10 +15,9 @@ import { OrderType } from '@/types/order'
 export default async function MainPage() {
   const session = await getServerSession(nextAuthOptions)
   const organizations: OrganizationUserType[] | any =
-    await actionGetOrganizationUserByUserId()
-  const orders: OrderType[] | any = await actionGetOrdersByMember(
-    session?.user?.phone!,
-  )
+    session && (await actionGetOrganizationUserByUserId())
+  const orders: OrderType[] | any =
+    session && (await actionGetOrdersByMember(session?.user?.phone!))
 
   return session ? (
     <PageDisplay title="dedicado" subtitle="sua melhor plataforma de servços">

@@ -31,14 +31,14 @@ export default function UserOrderListView(props: Props) {
               !order?.completed && (
                 <li
                   key={order?.id}
-                  className="my-2 p-4 bg-slate-200 dark:bg-slate-800 dark:text-sky-600 rounded-md hover:shadow-md"
+                  className="my-2 p-4 bg-slate-200 dark:bg-slate-800 dark:text-sky-600 rounded-md hover:shadow-md cursor-pointer"
                 >
                   <div className="flex items-center justify-between space-x-2">
                     <a className="flex flex-1  flex-col">
-                      <h6 className="text-xl hover:opacity-50">
+                      <h6 className="text-xl hover:opacity-50 lowercase">
                         {order?.subject}
                       </h6>
-                      <small className="text-xs font-thin opacity-60">
+                      <small className="text-xs font-thin opacity-60 lowercase">
                         {order?.observation}
                       </small>
                     </a>
