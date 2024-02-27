@@ -4,22 +4,32 @@ import { OrganizationUserType } from '@/types/organization-user'
 import { getServerSession } from 'next-auth'
 import OrganizationListView from './(organization)/[document]/views/OrganizationListView'
 import LandingPageView from './views/LandingPageView'
-import { actionGetOrganizationUserByUserId } from './actions'
+import {
+  actionGetOrdersByMember,
+  actionGetOrganizationUserByUserId,
+} from './actions'
 import Unauthorized from '@/components/Unauthorized'
+import UserOrderListView from './(organization)/[document]/usuarios/views/UserOrderListView'
+import { OrderType } from '@/types/order'
 
 export default async function MainPage() {
   const session = await getServerSession(nextAuthOptions)
   const organizations: OrganizationUserType[] | any =
     await actionGetOrganizationUserByUserId()
+  const orders: OrderType[] | any = await actionGetOrdersByMember(
+    session?.user?.phone!,
+  )
 
   return session ? (
     <PageDisplay title="dedicado" subtitle="sua melhor plataforma de servços">
       {organizations && organizations?.statusCode != 401 ? (
-        <div className="flex flex-col items-center md:flex-row">
-          <div className="flex flex-col w-full space-y-2">
+        <div className="flex flex-col md:flex-row gap-4">
+          <div className="flex flex-col w-full space-2">
+            <UserOrderListView data={orders} />
+          </div>
+          <div className="flex flex-col w-full space-2">
             <OrganizationListView data={organizations} />
           </div>
-          <div className="flex flex-col w-full space-y-2"></div>
         </div>
       ) : (
         <Unauthorized message={`${organizations?.message}`} />

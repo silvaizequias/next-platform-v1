@@ -15,10 +15,11 @@ export default function OrganizationListView(props: Props) {
       <div className="flex flex-col space-y-2">
         <div className="flex items-center space-x-2">
           <CreateOrganizationView />
-          <h6>criar nova organização</h6>
+          <h6 className='text-md lowercase'>criar nova organização</h6>
         </div>
         <hr className="border-1 border-slate-400" />
         <ul className="w-full">
+          <small className="text-sm font-extralight lowercase">lista de organizações que faço parte</small>
           {data?.map((organization: OrganizationUserType) => {
             return (
               <li
