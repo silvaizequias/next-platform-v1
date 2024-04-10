@@ -4,7 +4,6 @@ import { nextAuthOptions } from '@/libraries/next-auth'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { memo } from 'react'
-import MainView from './views/MainView'
 
 export const metadata: Metadata = {
   title: {
@@ -20,12 +19,10 @@ const MainPage = async () => {
 
   return session ? (
     <PageDisplay
-      title={`este é o seu espaço dedicado`}
+      title={`controle dedicado`}
       subtitle={`a melhor plataforma de serviços`}
     >
-      <div className="w-full">
-        <MainView />
-      </div>
+      <div className="w-full"></div>
     </PageDisplay>
   ) : (
     <LoginPage />

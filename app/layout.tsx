@@ -1,7 +1,9 @@
+import Footer from '@/components/Footer'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Comfortaa } from 'next/font/google'
 import { ReactNode } from 'react'
+import Providers from './providers'
 
 const comfortaa = Comfortaa({
   subsets: ['latin'],
@@ -30,7 +32,10 @@ export default async function RootLayout({
       className={`${comfortaa.variable} font-default dark`}
     >
       <body className="text-base text-sky-800 bg-slate-200 dark:bg-slate-800">
-        {children}
+        <Providers>
+          <main className='w-full h-full'>{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   )

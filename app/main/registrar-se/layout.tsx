@@ -1,22 +1,23 @@
 import { nextAuthOptions } from '@/libraries/next-auth'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
+import { redirect } from 'next/navigation'
 import { Fragment, ReactNode } from 'react'
 
 export const metadata: Metadata = {
   title: {
-    default: 'você está na melhor plataforma de serviços',
+    default: 'registrar-se na plataforma',
     template: `%s | dedicado`,
   },
   description:
     'soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
 }
 
-export default async function MainLayout({
+export default async function RegisterLayout({
   children,
 }: Readonly<{
   children: ReactNode
 }>) {
   const session = await getServerSession(nextAuthOptions)
-  return <Fragment>{children}</Fragment>
+  return !session ? <Fragment>{children}</Fragment> : redirect('/')
 }

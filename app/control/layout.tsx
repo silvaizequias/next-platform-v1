@@ -1,6 +1,4 @@
-import { nextAuthOptions } from '@/libraries/next-auth'
 import { Metadata } from 'next'
-import { getServerSession } from 'next-auth'
 import { Fragment, ReactNode } from 'react'
 
 export const metadata: Metadata = {
@@ -12,11 +10,8 @@ export const metadata: Metadata = {
     'soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
 }
 
-export default async function MainLayout({
+export default async function ControlLayout({
   children,
-}: Readonly<{
-  children: ReactNode
-}>) {
-  const session = await getServerSession(nextAuthOptions)
+}: Readonly<{ children: ReactNode }>) {
   return <Fragment>{children}</Fragment>
 }
