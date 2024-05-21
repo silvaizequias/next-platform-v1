@@ -1,10 +1,12 @@
-import LoginPage from '@/components/LoginPage'
 import PageDisplay from '@/components/PageDisplay'
-import { nextAuthOptions } from '@/libraries/next-auth'
 import { Metadata } from 'next'
+import { memo, Suspense } from 'react'
+import LandingView from './views/LandingView'
 import { getServerSession } from 'next-auth'
-import { memo } from 'react'
-import MainView from './views/MainView'
+import { nextAuthOptions } from '@/libraries/next-auth'
+import ManView from './views/MainView'
+import PlatformMenu from '@/components/PlatformMenu'
+import LandingPage from '@/components/LandingPage'
 
 export const metadata: Metadata = {
   title: {
@@ -20,15 +22,20 @@ const MainPage = async () => {
 
   return session ? (
     <PageDisplay
-      title={`este é o seu espaço dedicado`}
-      subtitle={`a melhor plataforma de serviços`}
+      title="este é o seu espaço dedicado"
+      subtitle="a melhor plataforma de serviços"
     >
       <div className="w-full">
-        <MainView />
+        <Suspense>
+          <PlatformMenu />
+          <ManView />
+        </Suspense>
       </div>
     </PageDisplay>
   ) : (
-    <LoginPage />
+    <LandingPage>
+      <LandingView />
+    </LandingPage>
   )
 }
 

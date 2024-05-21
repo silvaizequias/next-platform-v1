@@ -1,28 +1,23 @@
+'use client'
+
 import PageDisplay from '@/components/PageDisplay'
-import { nextAuthOptions } from '@/libraries/next-auth'
-import { Metadata } from 'next'
-import { getServerSession } from 'next-auth'
+import ProfileView from './views/ProfileView'
 import { memo } from 'react'
+import { usePlatform } from '@/contexts/PlatformContext'
+import PlatformMenu from '@/components/PlatformMenu'
 
-export const metadata: Metadata = {
-  title: {
-    default: 'meu perfil na plataforma',
-    template: `%s | dedicado`,
-  },
-  description:
-    'soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
-}
-
-const ProfilePage = async () => {
-  const session = await getServerSession(nextAuthOptions)
-  const name: string = session?.user?.name!
+const ProfilePage = () => {
+  const { user }: any = usePlatform()
 
   return (
     <PageDisplay
-      title={`olá ${name.split(' ')[0] ?? ''}`}
-      subtitle={`a melhor plataforma de serviços`}
+      title={`olá ${user?.name.split(' ')[0] ?? ''}!`}
+      subtitle="este é o seu espaço dedicado"
     >
-      <div className="w-full"></div>
+      <div className="w-full">
+        <PlatformMenu />
+        <ProfileView />
+      </div>
     </PageDisplay>
   )
 }

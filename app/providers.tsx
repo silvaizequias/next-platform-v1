@@ -1,18 +1,19 @@
 'use client'
 
-import { Fragment, ReactNode } from 'react'
+import { ReactNode } from 'react'
+import { SessionProvider } from 'next-auth/react'
 import { Toaster } from 'react-hot-toast'
 
-export default function Providers({
-  children,
-}: Readonly<{ children: ReactNode }>) {
+export default function Providers({ children }: { children: ReactNode }) {
   return (
-    <Fragment>
-      {children}
-      <Toaster
-        position={'top-center'}
-        toastOptions={{ className: 'react-hot-toast' }}
-      />
-    </Fragment>
+    <SessionProvider>
+      <div className="min-h-screen w-full">
+        {children}
+        <Toaster
+          position={'top-center'}
+          toastOptions={{ className: 'react-hot-toast' }}
+        />
+      </div>
+    </SessionProvider>
   )
 }

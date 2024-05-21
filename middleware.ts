@@ -25,13 +25,13 @@ export default async function middleware(request: NextRequest) {
 
   if (hostname == `controle.${process.env.BASE_URL}`) {
     return NextResponse.rewrite(
-      new URL(`/control${path === '/' ? '' : path}`, request.url),
+      new URL(`/management${path === '/' ? '' : path}`, request.url),
     )
   }
 
   if (hostname == `pedido.${process.env.BASE_URL}`) {
     return NextResponse.rewrite(
-      new URL(`/order${path === '/' ? '' : path}`, request.url),
+      new URL(`/main/pedido${path === '/' ? '' : path}`, request.url),
     )
   }
 

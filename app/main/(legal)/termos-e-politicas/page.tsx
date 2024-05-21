@@ -1,7 +1,6 @@
 import PageDisplay from '@/components/PageDisplay'
 import { Metadata } from 'next'
 import TermsAndPoliciesView from './views/TermsAndPoliciesView'
-import { memo } from 'react'
 
 export const metadata: Metadata = {
   title: {
@@ -12,7 +11,7 @@ export const metadata: Metadata = {
     'soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
 }
 
-const TermsAndPoliciesPage = () => {
+export default async function TermsAndPoliciesPage() {
   return (
     <PageDisplay
       title="termos e políticas de utilização da dedicado"
@@ -22,5 +21,3 @@ const TermsAndPoliciesPage = () => {
     </PageDisplay>
   )
 }
-
-export default memo(TermsAndPoliciesPage)

@@ -1,48 +1,25 @@
-import RegisterForm from '@/components/RegisterForm'
-import Image from 'next/image'
-import Link from 'next/link'
+import PageDisplay from '@/components/PageDisplay'
+import { Metadata } from 'next'
 import { memo } from 'react'
+import RegisterView from './views/RegisterView'
 
-const RegisterPage = () => {
-  const logotipo = '/logotipo.svg'
-
-  return (
-    <div className="h-screen w-full flex flex-col justify-center items-center">
-      <div className="p-4 flex flex-col sm:flex-row justify-center items-center gap-8">
-        <div className="relative">
-          <Image
-            className="w-[150px] h-[300px] mx-auto"
-            src={logotipo}
-            alt="dedicado"
-            width={150}
-            height={300}
-            priority
-          />
-          <h1 className="text-6xl text-center text-sky-400 font-medium">
-            dedicado
-          </h1>
-          <h6 className="text-md text-center font-thin">
-            a melhor plataforma de serviços
-          </h6>
-        </div>
-        <div className="mb-4 max-w-sm rounded-md shadow-md bg-slate-100 dark:bg-slate-600 dark:text-slate-800">
-          <div className="w-full p-4">
-            <h4 className="text-lg text-center dark:text-slate-200 my-4">
-              preencha os campos abaixo e tenha acesso a todos os recursos da
-              plataforma
-            </h4>
-            <RegisterForm />
-            <Link
-              href={`/`}
-              className="text-sm text-center dark:text-sky-600 cursor-pointer"
-            >
-              já sou registrado
-            </Link>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
+export const metadata: Metadata = {
+  title: {
+    default: 'registrar-se na plataforma',
+    template: `%s | dedicado`,
+  },
+  description:
+    'soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
 }
 
+const RegisterPage = () => {
+  return (
+    <PageDisplay
+      title="registrar-se"
+      subtitle="sua melhor plataforma de serviços"
+    >
+      <RegisterView />
+    </PageDisplay>
+  )
+}
 export default memo(RegisterPage)

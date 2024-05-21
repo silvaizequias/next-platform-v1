@@ -1,3 +1,3 @@
-export default function MainView() {
+export default function ManView() {
   return <div className="relative"></div>
 }

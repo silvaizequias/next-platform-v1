@@ -4,7 +4,7 @@ import { memo } from 'react'
 function Footer() {
   return (
     <div className="max-w-7xl mx-auto w-full p-8 space-y-2">
-      <div className="pt-10 flex flex-col justify-center items-center md:flex-row md:justify-between">
+      <div className="flex flex-col justify-center items-center md:flex-row md:justify-between">
         <div className="flex flex-col gap-1">
           <Link
             href={'/'}
@@ -22,7 +22,7 @@ function Footer() {
         <Link
           href={`${process.env.NEXTAUTH_URL}/termos-e-politicas`}
           target="_blank"
-          className="py-2 text-xs text-center md:text-left font-thin lowercase hover:text-sky-600 cursor-pointer"
+          className="text-xs text-center md:text-left font-thin lowercase hover:text-sky-600 cursor-pointer"
         >
           termos e políticas
         </Link>

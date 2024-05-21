@@ -1,3 +1,4 @@
+//import Topbar from '@/components/Topbar'
 import { nextAuthOptions } from '@/libraries/next-auth'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
@@ -14,9 +15,13 @@ export const metadata: Metadata = {
 
 export default async function MainLayout({
   children,
-}: Readonly<{
-  children: ReactNode
-}>) {
+}: Readonly<{ children: ReactNode }>) {
   const session = await getServerSession(nextAuthOptions)
-  return <Fragment>{children}</Fragment>
+
+  return (
+    <Fragment>
+      {/*<Topbar session={session!} />*/}
+      {children}
+    </Fragment>
+  )
 }
