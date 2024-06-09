@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+    font-optical-sizing: auto;
+  }
+}
+
+body {
+  @apply bg-slate-200 text-slate-800 font-light
+}
+
+@layer base {
+  h1 {
+    @apply text-5xl sm:text-6xl
+  }
+
+  h2 {
+    @apply text-4xl sm:text-5xl
+  }
+
+  h3 {
+    @apply text-3xl sm:text-4xl
+  }
+
+  h4 {
+    @apply text-2xl sm:text-3xl
+  }
+
+  h5 {
+    @apply text-xl sm:text-2xl
+  }
+
+  h6 {
+    @apply text-lg sm:text-xl
+  }
+
+  p {
+    @apply text-sm sm:text-base
+  }
+
+  small {
+    @apply text-xs sm:text-sm
+  }
+}
