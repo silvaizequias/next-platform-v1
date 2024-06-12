@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  db-postgres:
+    image: postgres:16.2
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '65432:5432'
+    volumes:
+      - postgresdb:/var/lib/postgresql/data
+
+  app:
+    depends_on:
+      - db-postgres
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: Dedicado
+    environment:
+      - BASE_URL={{BASE_URL}}
+      - SECRET={{SECRET}}
+      - DATABASE_URL={{DATABASE_URL}}
+      - PLATFORM_AWS_ACCESS_KEY={{PLATFORM_AWS_ACCESS_KEY}}
+      - PLATFORM_AWS_PRIVATE_KEY={{PLATFORM_AWS_PRIVATE_KEY}}
+    ports:
+      - '3210:3210'
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+volumes:
+  postgresdb:
