@@ -60,17 +60,17 @@ export default function MainPage() {
           <div className="w-full sm:w-60 mx-auto text-center text-sky-800">
             <MdAutoMode size={110} className="mx-auto text-cyan-600" />
             <p className="uppercase p-4 font-semibold">{`Integração e Implementação`}</p>
-            <small className="text-balance">{`Integramos seu sistema com nossas soluções de gestão de serviços transacionais, ou desenvolvemos soluções personalizadas para uma implementação em alguma solução já existente.`}</small>
+            <small className="text-balance">{`Integramos sistemas com nossas soluções de gestão de serviços transacionais otimizadas com inteligência artificial, ou desenvolvemos soluções personalizadas para implementação em sistemas já existentes.`}</small>
           </div>
           <div className="w-full sm:w-60  mx-auto text-center text-balance text-sky-800">
             <MdAutoGraph size={110} className="mx-auto text-green-600" />
             <p className="uppercase p-4 font-semibold">{`Otimização de Sistemas`}</p>
-            <small className="">{`Realizamos o mapeamento completo de toto o fluxo do sistema afim de encontrar pontos de melhoria, e desenhamos a melhor estratégia para otimização.`}</small>
+            <small className="">{`Realizamos o mapeamento completo de todo o fluxo do sistema afim de encontrar pontos de melhoria, e desenhamos a melhor estratégia para otimização.`}</small>
           </div>
           <div className="w-full sm:w-60  mx-auto text-center text-balance text-sky-800">
             <MdAutoAwesomeMotion size={110} className="mx-auto text-sky-600" />
             <p className="uppercase p-4 font-semibold">{`Arquitetura Distribuída`}</p>
-            <small className="">{`Nosso foco é a redução de custos e otimização de recursos operacionais, por isso optamos soluções de fácil implementação, visando a melhor manutenabilidade para suas sustentação.`}</small>
+            <small className="">{`Com foco em redução de custos e otimização de recursos operacionais, optamos por soluções de fácil implementação, visando uma melhor manutenabilidade para sua sustentação e escalabilidade.`}</small>
           </div>
         </div>
       </section>
