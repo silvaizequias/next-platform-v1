@@ -35,7 +35,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning={true}
-      className={`${poppins.variable} ${comfortaa.variable}`}
+      className={`${comfortaa.variable} font-default`}
     >
       <body>
         <Providers>{children}</Providers>

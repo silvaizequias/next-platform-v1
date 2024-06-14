@@ -21,10 +21,7 @@ services:
     container_name: Dedicado
     environment:
       - BASE_URL={{BASE_URL}}
-      - SECRET={{SECRET}}
       - DATABASE_URL={{DATABASE_URL}}
-      - PLATFORM_AWS_ACCESS_KEY={{PLATFORM_AWS_ACCESS_KEY}}
-      - PLATFORM_AWS_PRIVATE_KEY={{PLATFORM_AWS_PRIVATE_KEY}}
     ports:
       - '3210:3210'
     volumes:

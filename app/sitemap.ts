@@ -17,12 +17,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
     {
-      url: `${URL}/registrar-se`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.5,
-    },
-    {
       url: `${URL}/termos-e-politicas`,
       lastModified: new Date(),
       changeFrequency: 'monthly',

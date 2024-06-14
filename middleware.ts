@@ -23,21 +23,9 @@ export default async function middleware(request: NextRequest) {
     searchParams.length > 0 ? `?${searchParams}` : ''
   }`
 
-  if (hostname == `api.${process.env.BASE_URL}`) {
-    return NextResponse.rewrite(
-      new URL(`/api${path === '/' ? '' : path}`, request.url),
-    )
-  }
-
   if (hostname == `blog.${process.env.BASE_URL}`) {
     return NextResponse.rewrite(
       new URL(`/blog${path === '/' ? '' : path}`, request.url),
-    )
-  }
-
-  if (hostname == `controle.${process.env.BASE_URL}`) {
-    return NextResponse.rewrite(
-      new URL(`/controle${path === '/' ? '' : path}`, request.url),
     )
   }
 

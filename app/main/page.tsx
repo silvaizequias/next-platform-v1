@@ -16,7 +16,7 @@ export default function MainPage() {
   return (
     <main className="min-h-full h-screen w-full flex justify-center items-center">
       <section className="w-full flex flex-col justify-center items-center gap-2 animate-in">
-        <figure className="mx-auto animate-bounce">
+        <figure className="mx-auto p-2">
           <Image
             src={logotipo}
             alt="dedicado"
@@ -25,10 +25,10 @@ export default function MainPage() {
             priority
           />
         </figure>
-        <h1 className="font-default font-semibold text-balance text-center text-sky-400">
+        <h1 className="font-default font-semibold text-balance text-center text-sky-600/80">
           dedicado
         </h1>
-        <p className="text-balance text-center text-sky-800 animate-pulse">
+        <p className="text-balance text-center text-sky-600">
           sua melhor plataforma de serviços
         </p>
       </section>

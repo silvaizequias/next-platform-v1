@@ -1,12 +1,29 @@
+import createMDX from '@next/mdx'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  compiler: {
+    styledComponents: true,
+  },
+  pageExtensions: ['md', 'mdx', 'ts', 'tsx'],
+  experimental: {
+    mdxRs: true,
+  },
   env: {
     BASE_URL: process.env.BASE_URL ?? '',
-    SECRET: process.env.SECRET ?? '',
     DATABASE_URL: process.env.DATABASE_URL ?? '',
-    PLATFORM_AWS_ACCESS_KEY: process.env.PLATFORM_AWS_ACCESS_KEY ?? '',
-    PLATFORM_AWS_PRIVATE_KEY: process.env.PLATFORM_AWS_PRIVATE_KEY ?? '',
+  },
+  images: {
+    dangerouslyAllowSVG: true,
   },
 }
 
-export default nextConfig
+const withMDX = createMDX({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+  },
+})
+
+export default withMDX(nextConfig)

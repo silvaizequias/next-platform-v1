@@ -1,7 +1,9 @@
 {
-  "name": "platform-management",
-  "version": "0.1.0",
+  "name": "web-portal",
+  "version": "1.0.0",
+  "author": "Izequias Narcizo dos Santos da Silva",
   "private": true,
+  "license": "LGPL-3.0-or-later",
   "scripts": {
     "dev": "next dev --turbo -p 3210",
     "build": "next build",
@@ -9,14 +11,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^2.0.4",
+    "@mdx-js/loader": "^3.0.1",
+    "@mdx-js/react": "^3.0.1",
+    "@next/mdx": "^14.2.4",
     "@prisma/client": "^5.15.0",
+    "@types/mdx": "^2.0.13",
     "bcryptjs": "^2.4.3",
+    "framer-motion": "^11.2.10",
     "jsonwebtoken": "^9.0.2",
     "moment": "^2.30.1",
     "moment-timezone": "^0.5.45",
     "next": "14.2.3",
+    "next-mdx-remote": "^5.0.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-hot-toast": "^2.4.1",
+    "react-icons": "^5.2.1",
     "zod": "^3.23.8"
   },
   "devDependencies": {
