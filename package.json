@@ -11,6 +11,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-sdk/client-bedrock": "^3.598.0",
+    "@aws-sdk/client-bedrock-runtime": "^3.598.0",
+    "@aws-sdk/client-s3": "^3.598.0",
+    "@aws-sdk/client-ses": "^3.598.0",
+    "@aws-sdk/client-sns": "^3.598.0",
     "@headlessui/react": "^2.0.4",
     "@mdx-js/loader": "^3.0.1",
     "@mdx-js/react": "^3.0.1",
