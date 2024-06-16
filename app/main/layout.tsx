@@ -3,11 +3,11 @@ import { Fragment, ReactNode } from 'react'
 
 export const metadata: Metadata = {
   title: {
-    default: 'você está na melhor plataforma de serviços',
-    template: `%s | dedicado`,
+    default: 'Você Está na Melhor Plataforma de Serviços',
+    template: `%s | Dedicado`,
   },
   description:
-    'a dedicado oferece soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
+    'A dedicado oferece soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
 }
 
 export default async function MainLayout({

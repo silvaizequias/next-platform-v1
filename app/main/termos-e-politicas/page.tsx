@@ -5,7 +5,7 @@ import TermsAndPoliciesView from './views/TermsAndPoliciesView'
 export const metadata: Metadata = {
   title: {
     default: 'termos e políticas de utilização da plataforma',
-    template: `%s | dedicado`,
+    template: `%s | Dedicado`,
   },
   description:
     'soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',

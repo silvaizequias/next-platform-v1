@@ -4,10 +4,10 @@ import Image from 'next/image'
 export const metadata: Metadata = {
   title: {
     default: 'você está no blog melhor plataforma de serviços',
-    template: `%s | dedicado`,
+    template: `%s | Dedicado`,
   },
   description:
-    'soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
+    'A dedicado oferece soluções personalizadas de alta performance que aumentam a produtividade de pessoas e organizações',
 }
 
 export default function BlogPage() {

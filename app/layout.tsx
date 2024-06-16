@@ -21,11 +21,11 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: {
-    default: 'sua melhor plataforma de serviços',
+    default: 'Sua Melhor Plataforma de Serviços',
     template: `%s | dedicado`,
   },
   description:
-    'soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
+    'A dedicado oferece soluções personalizadas de alta performance que aumentam a produtividade de pessoas e organizações',
 }
 
 export default function RootLayout({

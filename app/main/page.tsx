@@ -5,10 +5,10 @@ import { MdAutoAwesomeMotion, MdAutoGraph, MdAutoMode } from 'react-icons/md'
 export const metadata: Metadata = {
   title: {
     default: 'Sua Melhor Plataforma de Serviços',
-    template: `%s | dedicado`,
+    template: `%s | Dedicado`,
   },
   description:
-    'a dedicado oferece soluções personalizadas de alta performance que aumentam a produtividade de pessoas e organizações',
+    'A dedicado oferece soluções personalizadas de alta performance que aumentam a produtividade de pessoas e organizações',
 }
 
 export default function MainPage() {
@@ -59,18 +59,18 @@ export default function MainPage() {
         <div className="relative w-full max-w-6xl py-8 flex flex-col sm:flex-row justify-center items-start gap-4">
           <div className="w-full sm:w-60 mx-auto text-center text-sky-800">
             <MdAutoMode size={110} className="mx-auto text-cyan-600" />
-            <p className="uppercase p-4 font-semibold">{`Integração e Implementação`}</p>
-            <small className="text-balance">{`Integramos sistemas com nossas soluções de gestão de serviços transacionais otimizadas com inteligência artificial, ou desenvolvemos soluções personalizadas para implementação em sistemas já existentes.`}</small>
+            <p className="uppercase p-4 font-semibold">{`Integração`}</p>
+            <small className="text-balance">{`Integramos sistemas com nossas soluções de gestão de serviços transacionais otimizada com inteligência artificial, e desenvolvemos soluções personalizadas para sistemas já existentes.`}</small>
           </div>
           <div className="w-full sm:w-60  mx-auto text-center text-balance text-sky-800">
             <MdAutoGraph size={110} className="mx-auto text-green-600" />
-            <p className="uppercase p-4 font-semibold">{`Otimização de Sistemas`}</p>
-            <small className="">{`Realizamos o mapeamento completo de todo o fluxo do sistema afim de encontrar pontos de melhoria, e desenhamos a melhor estratégia para otimização.`}</small>
+            <p className="uppercase p-4 font-semibold">{`Otimização`}</p>
+            <small className="">{`Realizamos o mapeamento completo de todo o fluxo do sistema afim de encontrar pontos de melhoria, desenhando a melhor estratégia para otimização.`}</small>
           </div>
           <div className="w-full sm:w-60  mx-auto text-center text-balance text-sky-800">
             <MdAutoAwesomeMotion size={110} className="mx-auto text-sky-600" />
-            <p className="uppercase p-4 font-semibold">{`Arquitetura Distribuída`}</p>
-            <small className="">{`Com foco em redução de custos e otimização de recursos operacionais, optamos por soluções de fácil implementação, visando uma melhor manutenabilidade para sua sustentação e escalabilidade.`}</small>
+            <p className="uppercase p-4 font-semibold">{`Sustentação`}</p>
+            <small className="">{`Com foco em redução de custos e otimização de recursos, optamos por uma arquitetura de fácil implementação, visando uma melhor manutenabilidade e escalabilidade.`}</small>
           </div>
         </div>
       </section>
