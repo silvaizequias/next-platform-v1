@@ -6,13 +6,13 @@ import { SESClient } from '@aws-sdk/client-ses'
 import { SNSClient } from '@aws-sdk/client-sns'
 
 const credentials = {
-  accessKeyId: process.env.AWS_ACCESS_KEY ?? '',
-  secretAccessKey: process.env.AWS_PRIVATE_KEY ?? '',
+  accessKeyId: process.env.PLATFORM_AWS_ACCESS_KEY ?? '',
+  secretAccessKey: process.env.PLATFORM_AWS_PRIVATE_KEY ?? '',
 }
 
 export function bedrockRuntimeClient() {
   const client = new BedrockRuntimeClient({
-    region: process.env.AWS_BEDROCK_REGION ?? '',
+    region: process.env.PLATFORM_AWS_BEDROCK_REGION ?? '',
     credentials: credentials,
   })
 
@@ -21,7 +21,7 @@ export function bedrockRuntimeClient() {
 
 export function s3Client() {
   const client = new S3Client({
-    region: process.env.AWS_S3_REGION ?? '',
+    region: process.env.PLATFORM_AWS_S3_REGION ?? '',
     credentials: credentials,
   })
 
@@ -30,7 +30,7 @@ export function s3Client() {
 
 export function sesClient() {
   const client = new SESClient({
-    region: process.env.AWS_SES_REGION ?? '',
+    region: process.env.PLATFORM_AWS_SES_REGION ?? '',
     credentials: credentials,
   })
 
@@ -39,7 +39,7 @@ export function sesClient() {
 
 export function snsClient() {
   const client = new SNSClient({
-    region: process.env.AWS_SES_REGION ?? '',
+    region: process.env.PLATFORM_AWS_SES_REGION ?? '',
     credentials: credentials,
   })
 
