@@ -22,7 +22,7 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: {
     default: 'Sua Melhor Plataforma de Serviços',
-    template: `%s | dedicado`,
+    template: `%s | Dedicado`,
   },
   description:
     'A dedicado oferece soluções personalizadas de alta performance que aumentam a produtividade de pessoas e organizações',
