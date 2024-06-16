@@ -4,11 +4,11 @@ import TermsAndPoliciesView from './views/TermsAndPoliciesView'
 
 export const metadata: Metadata = {
   title: {
-    default: 'termos e políticas de utilização da plataforma',
+    default: 'Termos e Políticas de Utilização da Plataforma',
     template: `%s | Dedicado`,
   },
   description:
-    'soluções personalizadas de sistemas de alta performance que aumentam a produtividade de pessoas e organizações',
+    'A dedicado oferece soluções personalizadas de alta performance que aumentam a produtividade de pessoas e organizações',
 }
 
 export default async function TermsAndPoliciesPage() {
