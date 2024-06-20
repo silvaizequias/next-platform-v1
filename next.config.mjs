@@ -21,6 +21,7 @@ const nextConfig = {
     PLATFORM_AWS_SNS_REGION: process.env.PLATFORM_AWS_SNS_REGION ?? '',
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY ?? '',
     STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET ?? '',
+    SENDING_EMAIL_FROM: process.env.SENDING_EMAIL_FROM ?? '',
   },
   images: {
     dangerouslyAllowSVG: true,
