@@ -6,8 +6,8 @@ import AccountsService from './accounts.service'
 import { AuthLoginValidatorType } from '@/validators/auth.validator'
 
 export type AuthCallback = {
-  readonly expiredIn: number
-  readonly token: string
+  expiredIn: number
+  token: string
 }
 
 export default class AuthService {

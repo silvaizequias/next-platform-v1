@@ -12,8 +12,8 @@ import {
 } from '@/validators/accounts.validator'
 
 export type Account = {
-  readonly id?: string
-  readonly createdAt?: Date
+  id: string
+  createdAt: Date
   updatedAt?: Date
   deletedAt?: Date
   softDeleted?: boolean

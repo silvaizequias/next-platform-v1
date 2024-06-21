@@ -12,8 +12,8 @@ import {
 } from '@/validators/organizations.validator'
 
 export type Organization = {
-  readonly id?: string
-  readonly createdAt?: Date
+  id: string
+  createdAt: Date
   updatedAt?: Date
   deletedAt?: Date
   softDeleted?: boolean
