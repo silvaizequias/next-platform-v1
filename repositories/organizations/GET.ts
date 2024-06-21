@@ -1,4 +1,6 @@
-export async function findAllOrganizations() {
+import { Organization } from '@/interfaces/organization.interface'
+
+export async function findAllOrganizations(): Promise<Organization[] | any> {
   try {
     return 'all organizations'
   } catch (error: any) {
@@ -7,7 +9,9 @@ export async function findAllOrganizations() {
   }
 }
 
-export async function findOrganizationById(id: string) {
+export async function findOrganizationById(
+  id: string,
+): Promise<Organization | any> {
   try {
     return 'organization by ' + id
   } catch (error: any) {
@@ -16,7 +20,9 @@ export async function findOrganizationById(id: string) {
   }
 }
 
-export async function findOrganizationByDocument(document: string) {
+export async function findOrganizationByDocument(
+  document: string,
+): Promise<Organization | any> {
   try {
     return 'organization by ' + document
   } catch (error: any) {

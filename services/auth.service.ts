@@ -2,15 +2,15 @@ import { hashSync } from 'bcryptjs'
 import Jwt from 'jsonwebtoken'
 import SendersService from './senders.service'
 import { environment } from '@/environments'
-import { AuthLogin } from '@/interfaces/auth.interface'
 import AccountsService from './accounts.service'
+import { AuthLoginValidatorType } from '@/validators/auth.validator'
 
 export default class AuthService {
   private sendersService = new SendersService()
   private accountsService = new AccountsService()
   private secret = environment.secret
 
-  async login(authLogin: AuthLogin) {
+  async login(authLogin: AuthLoginValidatorType) {
     const { phone, code } = authLogin
 
     const account = this.accountsService.findByPhone(phone)

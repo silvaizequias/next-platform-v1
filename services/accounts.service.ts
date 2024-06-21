@@ -6,10 +6,14 @@ import {
 } from '@/repositories/accounts/GET'
 import { updateAccount } from '@/repositories/accounts/PATCH'
 import { createAccount } from '@/repositories/accounts/POST'
+import {
+  AccountCreateValidatorType,
+  AccountUpdateValidatorType,
+} from '@/validators/accounts.validator'
 
 export default class AccountsService {
-  create() {
-    return createAccount()
+  create(data: AccountCreateValidatorType) {
+    return createAccount(data)
   }
 
   findAll() {
@@ -24,8 +28,8 @@ export default class AccountsService {
     return findAccountByPhone(phone)
   }
 
-  update(id: string) {
-    return updateAccount(id)
+  update(id: string, data: AccountUpdateValidatorType) {
+    return updateAccount(id, data)
   }
 
   remove(id: string, definitely: boolean) {

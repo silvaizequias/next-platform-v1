@@ -2,10 +2,14 @@ import { removeMember } from '@/repositories/members/DELETE'
 import { findAllMembers, findMemberById } from '@/repositories/members/GET'
 import { updateMember } from '@/repositories/members/PATCH'
 import { createMember } from '@/repositories/members/POST'
+import {
+  MemberCreateValidatorType,
+  MemberUpdateValidatorType,
+} from '@/validators/members.validator'
 
 export default class MembersService {
-  create() {
-    return createMember()
+  create(data: MemberCreateValidatorType) {
+    return createMember(data)
   }
 
   findAll() {
@@ -16,8 +20,8 @@ export default class MembersService {
     return findMemberById(id)
   }
 
-  update(id: string) {
-    return updateMember(id)
+  update(id: string, data: MemberUpdateValidatorType) {
+    return updateMember(id, data)
   }
 
   remove(id: string, definitely: boolean) {

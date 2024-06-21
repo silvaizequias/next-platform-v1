@@ -6,10 +6,14 @@ import {
 } from '@/repositories/organizations/GET'
 import { updateOrganization } from '@/repositories/organizations/PATCH'
 import { createOrganization } from '@/repositories/organizations/POST'
+import {
+  OrganizationCreateValidatorType,
+  OrganizationUpdateValidatorType,
+} from '@/validators/organizations.validator'
 
 export default class OrganizationsService {
-  create() {
-    return createOrganization()
+  create(data: OrganizationCreateValidatorType) {
+    return createOrganization(data)
   }
 
   findAll() {
@@ -24,8 +28,8 @@ export default class OrganizationsService {
     return findOrganizationByDocument(document)
   }
 
-  update(id: string) {
-    return updateOrganization(id)
+  update(id: string, data: OrganizationUpdateValidatorType) {
+    return updateOrganization(id, data)
   }
 
   remove(id: string, definitely: boolean) {
