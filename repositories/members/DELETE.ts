@@ -1,4 +1,4 @@
-export async function removeMember(id: string, definitely: boolean): Promise<any> {
+export async function removeMember(id: string, definitely: boolean) {
   try {
     return 'member removed'
   } catch (error: any) {

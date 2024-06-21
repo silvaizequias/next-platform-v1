@@ -1,8 +1,10 @@
 import * as z from 'zod'
 
+export const ACCOUNT_ROLE = ['master', 'user'] as const
+
 export const AccountCreateValidator = z.object({
   active: z.boolean().default(true).optional(),
-  role: z.string(),
+  role: z.enum(ACCOUNT_ROLE),
   name: z.string().min(5),
   image: z.string().optional(),
   email: z.string().email().optional(),
@@ -13,7 +15,7 @@ export type AccountCreateValidatorType = z.infer<typeof AccountCreateValidator>
 
 export const AccountUpdateValidator = z.object({
   active: z.boolean().optional(),
-  role: z.string().optional(),
+  role: z.enum(ACCOUNT_ROLE).optional(),
   name: z.string().min(5).optional(),
   image: z.string().optional(),
   email: z.string().email().optional(),

@@ -3,7 +3,7 @@ import { OrganizationUpdateValidatorType } from '@/validators/organizations.vali
 export async function updateOrganization(
   id: string,
   data: OrganizationUpdateValidatorType,
-): Promise<any> {
+) {
   try {
     return data
   } catch (error: any) {

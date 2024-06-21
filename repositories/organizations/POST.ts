@@ -2,7 +2,7 @@ import { OrganizationCreateValidatorType } from '@/validators/organizations.vali
 
 export async function createOrganization(
   data: OrganizationCreateValidatorType,
-): Promise<any> {
+) {
   try {
     return data
   } catch (error: any) {

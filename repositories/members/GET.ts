@@ -1,6 +1,4 @@
-import { Member } from '@/interfaces/member.interface'
-
-export async function findAllMembers(): Promise<Member[] | any> {
+export async function findAllMembers() {
   try {
     return 'all members'
   } catch (error: any) {
@@ -9,7 +7,7 @@ export async function findAllMembers(): Promise<Member[] | any> {
   }
 }
 
-export async function findMemberById(id: string): Promise<Member | any> {
+export async function findMemberById(id: string) {
   try {
     return 'member by ' + id
   } catch (error: any) {

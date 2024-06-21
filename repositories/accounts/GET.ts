@@ -1,6 +1,4 @@
-import { Account } from '@/interfaces/account.interface'
-
-export async function findAllAccounts(): Promise<Account[] | any> {
+export async function findAllAccounts() {
   try {
     return []
   } catch (error: any) {
@@ -9,7 +7,7 @@ export async function findAllAccounts(): Promise<Account[] | any> {
   }
 }
 
-export async function findAccountById(id: string): Promise<Account | any> {
+export async function findAccountById(id: string) {
   try {
     return 'account by ' + id
   } catch (error: any) {
@@ -18,9 +16,7 @@ export async function findAccountById(id: string): Promise<Account | any> {
   }
 }
 
-export async function findAccountByPhone(
-  phone: string,
-): Promise<Account | any> {
+export async function findAccountByPhone(phone: string) {
   try {
     return 'account by ' + phone
   } catch (error: any) {

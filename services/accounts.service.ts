@@ -11,28 +11,44 @@ import {
   AccountUpdateValidatorType,
 } from '@/validators/accounts.validator'
 
+export type Account = {
+  readonly id?: string
+  readonly createdAt?: Date
+  updatedAt?: Date
+  deletedAt?: Date
+  softDeleted?: boolean
+  active?: boolean
+  role?: string
+  name: string
+  image?: string
+  email: string
+  phone: string
+  secret?: string
+  document?: string
+}
+
 export default class AccountsService {
   create(data: AccountCreateValidatorType) {
     return createAccount(data)
   }
 
-  findAll() {
+  findAll(): Promise<Account[] | any> {
     return findAllAccounts()
   }
 
-  findById(id: string) {
+  findById(id: string): Promise<Account | any> {
     return findAccountById(id)
   }
 
-  findByPhone(phone: string) {
+  findByPhone(phone: string): Promise<Account | any> {
     return findAccountByPhone(phone)
   }
 
-  update(id: string, data: AccountUpdateValidatorType) {
+  update(id: string, data: AccountUpdateValidatorType): Promise<any> {
     return updateAccount(id, data)
   }
 
-  remove(id: string, definitely: boolean) {
+  remove(id: string, definitely: boolean): Promise<any> {
     return removeAccount(id, definitely)
   }
 }

@@ -3,7 +3,7 @@ import { MemberUpdateValidatorType } from '@/validators/members.validator'
 export async function updateMember(
   id: string,
   data: MemberUpdateValidatorType,
-): Promise<any> {
+) {
   try {
     return data
   } catch (error: any) {

@@ -6,25 +6,39 @@ import {
   MemberCreateValidatorType,
   MemberUpdateValidatorType,
 } from '@/validators/members.validator'
+import { Account } from './accounts.service'
+import { Organization } from './organizations.service'
+
+export type Member = {
+  id: string
+  createdAt: Date
+  updatedAt?: Date
+  role: string
+  active: boolean
+  accountId: string
+  account: Account
+  organizationId: string
+  organization: Organization
+}
 
 export default class MembersService {
-  create(data: MemberCreateValidatorType) {
+  create(data: MemberCreateValidatorType): Promise<any> {
     return createMember(data)
   }
 
-  findAll() {
+  findAll(): Promise<Member[] | any> {
     return findAllMembers()
   }
 
-  findById(id: string) {
+  findById(id: string): Promise<Member | any> {
     return findMemberById(id)
   }
 
-  update(id: string, data: MemberUpdateValidatorType) {
+  update(id: string, data: MemberUpdateValidatorType): Promise<any> {
     return updateMember(id, data)
   }
 
-  remove(id: string, definitely: boolean) {
+  remove(id: string, definitely: boolean): Promise<any> {
     return removeMember(id, definitely)
   }
 }

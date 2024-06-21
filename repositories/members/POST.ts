@@ -1,8 +1,6 @@
 import { MemberCreateValidatorType } from '@/validators/members.validator'
 
-export async function createMember(
-  data: MemberCreateValidatorType,
-): Promise<any> {
+export async function createMember(data: MemberCreateValidatorType) {
   try {
     return data
   } catch (error: any) {

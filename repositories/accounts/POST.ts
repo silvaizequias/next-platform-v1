@@ -1,8 +1,6 @@
 import { AccountCreateValidatorType } from '@/validators/accounts.validator'
 
-export async function createAccount(
-  data: AccountCreateValidatorType,
-): Promise<any> {
+export async function createAccount(data: AccountCreateValidatorType) {
   try {
     return data
   } catch (error: any) {

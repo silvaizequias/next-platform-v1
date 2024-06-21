@@ -1,4 +1,9 @@
-import { Contact } from '@/interfaces/contact.interface'
+export interface Contact {
+  name: string
+  email: string
+  phone: string
+  message: string
+}
 
 export default class MessagesService {
   contactFormMessage(data: Contact) {

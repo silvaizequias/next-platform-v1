@@ -5,6 +5,11 @@ import { environment } from '@/environments'
 import AccountsService from './accounts.service'
 import { AuthLoginValidatorType } from '@/validators/auth.validator'
 
+export type AuthCallback = {
+  readonly expiredIn: number
+  readonly token: string
+}
+
 export default class AuthService {
   private sendersService = new SendersService()
   private accountsService = new AccountsService()
@@ -30,7 +35,7 @@ export default class AuthService {
     }
   }
 
-  async code(phone: string) {
+  async code(phone: string): Promise<AuthCallback | any> {
     const code = Math.random().toString(32).substr(2, 6).toUpperCase()
 
     const message = `PLATAFORMA DEDICADO: Utilize o código ${code} para autenticar.`

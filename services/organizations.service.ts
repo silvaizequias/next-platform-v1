@@ -11,28 +11,42 @@ import {
   OrganizationUpdateValidatorType,
 } from '@/validators/organizations.validator'
 
+export type Organization = {
+  readonly id?: string
+  readonly createdAt?: Date
+  updatedAt?: Date
+  deletedAt?: Date
+  softDeleted?: boolean
+  active?: boolean
+  name: string
+  image?: string
+  email?: string
+  phone?: string
+  document: string
+}
+
 export default class OrganizationsService {
-  create(data: OrganizationCreateValidatorType) {
+  create(data: OrganizationCreateValidatorType): Promise<any> {
     return createOrganization(data)
   }
 
-  findAll() {
+  findAll(): Promise<Organization[] | any> {
     return findAllOrganizations()
   }
 
-  findById(id: string) {
+  findById(id: string): Promise<Organization | any> {
     return findOrganizationById(id)
   }
 
-  findByDocument(document: string) {
+  findByDocument(document: string): Promise<Organization | any> {
     return findOrganizationByDocument(document)
   }
 
-  update(id: string, data: OrganizationUpdateValidatorType) {
+  update(id: string, data: OrganizationUpdateValidatorType): Promise<any> {
     return updateOrganization(id, data)
   }
 
-  remove(id: string, definitely: boolean) {
+  remove(id: string, definitely: boolean): Promise<any> {
     return removeOrganization(id, definitely)
   }
 }
