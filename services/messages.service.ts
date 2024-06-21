@@ -1,12 +1,7 @@
-export interface Contact {
-  name: string
-  email: string
-  phone: string
-  message: string
-}
+import { ContactValidatorType } from '@/validators/contact.validator'
 
 export default class MessagesService {
-  contactFormMessage(data: Contact) {
+  contactFormMessage(data: ContactValidatorType) {
     return `
     <div>
     <p><i>${data.message}</i></p>
