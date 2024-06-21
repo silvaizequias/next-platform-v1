@@ -7,6 +7,8 @@ export const AddressCreateValidator = z.object({
   district: z.string().optional(),
   city: z.string().optional(),
   state: z.string().optional(),
+  latitude: z.coerce.number().optional(),
+  longitude: z.coerce.number().optional(),
 })
 export type AddressCreateValidatorType = z.infer<typeof AddressCreateValidator>
 
@@ -17,5 +19,7 @@ export const AddressUpdateValidator = z.object({
   district: z.string().optional(),
   city: z.string().optional(),
   state: z.string().optional(),
+  latitude: z.coerce.number().optional(),
+  longitude: z.coerce.number().optional(),
 })
 export type AddressUpdateValidatorType = z.infer<typeof AddressUpdateValidator>
