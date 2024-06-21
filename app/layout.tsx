@@ -1,23 +1,10 @@
+import './globals.css'
+
 import type { Metadata } from 'next'
-import { Comfortaa, Poppins } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import { ReactNode } from 'react'
-import Providers from './providers'
-import Footer from '@/components/Footer'
-import Nav from '@/components/Nav'
 
-const comfortaa = Comfortaa({
-  subsets: ['latin'],
-  variable: '--font-comfortaa',
-  weight: ['300', '400', '500', '600', '700'],
-  style: 'normal',
-})
-
-const poppins = Poppins({
-  subsets: ['latin'],
-  variable: '--font-lato',
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-  style: 'normal',
-})
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: {
@@ -34,18 +21,8 @@ export default function RootLayout({
   children: ReactNode
 }>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning={true}
-      className={`${comfortaa.variable} font-default`}
-    >
-      <body>
-        <Providers>
-          <Nav />
-          {children}
-          <Footer />
-        </Providers>
-      </body>
+    <html lang="en">
+      <body className={inter.className}>{children}</body>
     </html>
   )
 }
