@@ -10,7 +10,6 @@ import {
   OrganizationCreateValidator,
   OrganizationUpdateValidator,
 } from './validator'
-import { revalidateTag } from 'next/cache'
 
 export type Organization = {
   id: string
@@ -27,7 +26,7 @@ export type Organization = {
 }
 
 export default class OrganizationActions {
-  async create(_: unknown, form: FormData) {
+  async create(_: unknown, form: FormData): Promise<any> {
     const inputs: any = Object.fromEntries(form)
 
     const validator = OrganizationCreateValidator.safeParse(inputs)
@@ -35,7 +34,6 @@ export default class OrganizationActions {
       return { error: validator.error.flatten().fieldErrors }
 
     return createOrganization(inputs).then((data) => {
-      revalidateTag('organizations')
       console.log(data)
       return {}
     })
@@ -53,7 +51,7 @@ export default class OrganizationActions {
     return findOrganizationByDocument(document)
   }
 
-  update(_: unknown, form: FormData, id: string) {
+  async update(_: unknown, form: FormData, id: string): Promise<any> {
     const inputs: any = Object.fromEntries(form)
 
     const validator = OrganizationUpdateValidator.safeParse(inputs)
@@ -61,7 +59,6 @@ export default class OrganizationActions {
       return { error: validator.error.flatten().fieldErrors }
 
     return updateOrganization(id, inputs).then((data) => {
-      revalidateTag('organizations')
       console.log(data)
       return {}
     })

@@ -3,7 +3,6 @@ import { findAllMembers, findMemberById } from '@/repositories/members/GET'
 import { updateMember } from '@/repositories/members/PATCH'
 import { createMember } from '@/repositories/members/POST'
 import { MemberCreateValidator, MemberUpdateValidator } from './validator'
-import { revalidateTag } from 'next/cache'
 import { Account } from '../accounts/actions'
 import { Organization } from '../organizations/actions'
 
@@ -20,7 +19,7 @@ export type Member = {
 }
 
 export default class MemberActions {
-  async create(_: unknown, form: FormData) {
+  async create(_: unknown, form: FormData): Promise<any> {
     const inputs: any = Object.fromEntries(form)
 
     const validator = MemberCreateValidator.safeParse(inputs)
@@ -28,7 +27,6 @@ export default class MemberActions {
       return { error: validator.error.flatten().fieldErrors }
 
     return createMember(inputs).then((data) => {
-      revalidateTag('members')
       console.log(data)
       return {}
     })
@@ -42,7 +40,7 @@ export default class MemberActions {
     return findMemberById(id)
   }
 
-  update(_: unknown, form: FormData, id: string) {
+  async update(_: unknown, form: FormData, id: string): Promise<any> {
     const inputs: any = Object.fromEntries(form)
 
     const validator = MemberUpdateValidator.safeParse(inputs)
@@ -50,7 +48,6 @@ export default class MemberActions {
       return { error: validator.error.flatten().fieldErrors }
 
     return updateMember(id, inputs).then((data) => {
-      revalidateTag('members')
       console.log(data)
       return {}
     })

@@ -7,7 +7,6 @@ import {
 import { updateAccount } from '@/repositories/accounts/PATCH'
 import { createAccount } from '@/repositories/accounts/POST'
 import { AccountCreateValidator, AccountUpdateValidator } from './validator'
-import { revalidateTag } from 'next/cache'
 
 export type Account = {
   id: string
@@ -26,18 +25,17 @@ export type Account = {
 }
 
 export default class AccountActions {
-  async create(_: unknown, form: FormData) {
+  async create(_: unknown, form: FormData): Promise<any> {
     const inputs: any = Object.fromEntries(form)
 
     const validator = AccountCreateValidator.safeParse(inputs)
     if (!validator.success)
       return { error: validator.error.flatten().fieldErrors }
 
-    await createAccount(inputs).then((data) => {
-      revalidateTag('accounts')
+    return await createAccount(inputs).then((data) => {
       console.log(data)
+      return {}
     })
-    return {}
   }
 
   findAll(): Promise<Account[] | any> {
@@ -60,11 +58,10 @@ export default class AccountActions {
     if (!validator.success)
       return { error: validator.error.flatten().fieldErrors }
 
-    await updateAccount(id, inputs).then((data) => {
-      revalidateTag('accounts')
+    return await updateAccount(id, inputs).then((data) => {
       console.log(data)
+      return {}
     })
-    return {}
   }
 
   remove(id: string, definitely: boolean): Promise<any> {
