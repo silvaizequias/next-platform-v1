@@ -1,4 +1,4 @@
-import { AccountUpdateValidatorType } from '@/validators/accounts.validator'
+import { AccountUpdateValidatorType } from '@/components/accounts/validator'
 
 export async function updateAccount(
   id: string,

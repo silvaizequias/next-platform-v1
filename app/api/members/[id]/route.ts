@@ -1,6 +1,6 @@
-import MembersService from '@/services/members.service'
+import MemberActions from '@/components/members/actions'
 
-const membersService = new MembersService()
+const memberActions = new MemberActions()
 
 export async function GET(
   request: Request,
@@ -8,7 +8,7 @@ export async function GET(
 ) {
   const { id } = params
   try {
-    return new Response(JSON.stringify(await membersService.findById(id)))
+    return new Response(JSON.stringify(await memberActions.findById(id)))
   } catch (error: any) {
     return new Response(error?.message, { status: error?.status })
   }

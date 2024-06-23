@@ -1,4 +1,4 @@
-import { AddressUpdateValidatorType } from '@/validators/addresses.validator'
+import { AddressUpdateValidatorType } from '@/components/addresses/validator'
 
 export async function updateAddress(
   id: string,

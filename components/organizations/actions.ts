@@ -8,10 +8,8 @@ import { updateOrganization } from '@/repositories/organizations/PATCH'
 import { createOrganization } from '@/repositories/organizations/POST'
 import {
   OrganizationCreateValidator,
-  OrganizationCreateValidatorType,
   OrganizationUpdateValidator,
-  OrganizationUpdateValidatorType,
-} from '@/validators/organizations.validator'
+} from './validator'
 import { revalidateTag } from 'next/cache'
 
 export type Organization = {
@@ -28,7 +26,7 @@ export type Organization = {
   document: string
 }
 
-export default class OrganizationsService {
+export default class OrganizationActions {
   async create(_: unknown, form: FormData) {
     const inputs: any = Object.fromEntries(form)
 

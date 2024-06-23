@@ -1,4 +1,4 @@
-import { MemberUpdateValidatorType } from '@/validators/members.validator'
+import { MemberUpdateValidatorType } from '@/components/members/validator'
 
 export async function updateMember(
   id: string,

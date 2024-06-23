@@ -1,6 +1,6 @@
-import AddressesService from '@/services/addresses.service'
+import AddressActions from '@/components/addresses/actions'
 
-const addressesService = new AddressesService()
+const addressActions = new AddressActions()
 
 export async function GET(
   request: Request,
@@ -8,7 +8,7 @@ export async function GET(
 ) {
   const { id } = params
   try {
-    return new Response(JSON.stringify(await addressesService.findById(id)))
+    return new Response(JSON.stringify(await addressActions.findById(id)))
   } catch (error: any) {
     return new Response(error?.message, { status: error?.status })
   }

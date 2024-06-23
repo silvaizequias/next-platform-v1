@@ -1,4 +1,4 @@
-import { OrganizationUpdateValidatorType } from '@/validators/organizations.validator'
+import { OrganizationUpdateValidatorType } from '@/components/organizations/validator'
 
 export async function updateOrganization(
   id: string,

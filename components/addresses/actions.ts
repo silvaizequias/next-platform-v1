@@ -6,10 +6,7 @@ import {
 } from '@/repositories/addresses/GET'
 import { updateAddress } from '@/repositories/addresses/PATCH'
 import { createAddress } from '@/repositories/addresses/POST'
-import {
-  AddressCreateValidator,
-  AddressUpdateValidator,
-} from '@/validators/addresses.validator'
+import { AddressCreateValidator, AddressUpdateValidator } from './validator'
 import { revalidateTag } from 'next/cache'
 
 export type Address = {
@@ -29,7 +26,7 @@ export type Address = {
   longitude?: number
 }
 
-export default class AddressesService {
+export default class AddressActions {
   async create(_: unknown, form: FormData) {
     const inputs: any = Object.fromEntries(form)
 

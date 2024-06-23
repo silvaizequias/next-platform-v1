@@ -2,15 +2,10 @@ import { removeMember } from '@/repositories/members/DELETE'
 import { findAllMembers, findMemberById } from '@/repositories/members/GET'
 import { updateMember } from '@/repositories/members/PATCH'
 import { createMember } from '@/repositories/members/POST'
-import {
-  MemberCreateValidator,
-  MemberCreateValidatorType,
-  MemberUpdateValidator,
-  MemberUpdateValidatorType,
-} from '@/validators/members.validator'
-import { Account } from './accounts.service'
-import { Organization } from './organizations.service'
+import { MemberCreateValidator, MemberUpdateValidator } from './validator'
 import { revalidateTag } from 'next/cache'
+import { Account } from '../accounts/actions'
+import { Organization } from '../organizations/actions'
 
 export type Member = {
   id: string
@@ -24,7 +19,7 @@ export type Member = {
   organization: Organization
 }
 
-export default class MembersService {
+export default class MemberActions {
   async create(_: unknown, form: FormData) {
     const inputs: any = Object.fromEntries(form)
 

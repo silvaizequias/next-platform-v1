@@ -1,24 +1,24 @@
 import { hashSync } from 'bcryptjs'
 import Jwt from 'jsonwebtoken'
-import SendersService from './senders.service'
 import { environment } from '@/environments'
-import AccountsService from './accounts.service'
-import { AuthLoginValidatorType } from '@/validators/auth.validator'
+import { AuthLoginValidatorType } from './validator'
+import AccountActions from '@/components/accounts/actions'
+import SenderActions from '../senders/actions'
 
 export type AuthCallback = {
   expiredIn: number
   token: string
 }
 
-export default class AuthService {
-  private sendersService = new SendersService()
-  private accountsService = new AccountsService()
+export default class AuthActions {
+  private senderActions = new SenderActions()
+  private accountActions = new AccountActions()
   private secret = environment.secret
 
   async login(authLogin: AuthLoginValidatorType) {
     const { phone, code } = authLogin
 
-    const account = this.accountsService.findByPhone(phone)
+    const account = this.accountActions.findByPhone(phone)
     if (!account) throw new Error()
 
     const token = Jwt.sign(
@@ -40,12 +40,12 @@ export default class AuthService {
 
     const message = `PLATAFORMA DEDICADO: Utilize o código ${code} para autenticar.`
 
-    const account = this.accountsService.findByPhone(phone)
+    const account = this.accountActions.findByPhone(phone)
     if (!account) throw new Error()
 
     const secret: string = hashSync(code, 10)
 
-    return this.sendersService
+    return this.senderActions
       .sendSMS({
         to: phone,
         message: message,

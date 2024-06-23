@@ -1,14 +1,11 @@
-import AWSService from './aws.service'
 import { SendEmailCommand } from '@aws-sdk/client-ses'
 import { environment } from '@/environments'
 import { PublishCommand } from '@aws-sdk/client-sns'
-import {
-  SenderEmailValidatorType,
-  SenderSMSValidatorType,
-} from '@/validators/senders.validator'
+import { SenderEmailValidatorType, SenderSMSValidatorType } from './validator'
+import AWS from '@/aws'
 
-export default class SendersService {
-  private awsService = new AWSService()
+export default class SenderActions {
+  private aws = new AWS()
 
   async sendEmail(data: SenderEmailValidatorType): Promise<any> {
     const { to, bcc, subject, message } = data
@@ -39,7 +36,7 @@ export default class SendersService {
       Source: sendingEmailFrom,
     })
 
-    return await this.awsService.sesClient
+    return await this.aws.sesClient
       .send(sendEmailCommand)
       .then(() => {
         //console.log('succeeded')
@@ -54,7 +51,7 @@ export default class SendersService {
       Message: message,
       PhoneNumber: '+' + to,
     })
-    return await this.awsService.snsClient
+    return await this.aws.snsClient
       .send(publishCommand)
       .then(() => {
         //console.log('succeeded')

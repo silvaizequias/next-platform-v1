@@ -1,4 +1,4 @@
-import { AccountCreateValidatorType } from '@/validators/accounts.validator'
+import { AccountCreateValidatorType } from '@/components/accounts/validator'
 
 export async function createAccount(data: AccountCreateValidatorType) {
   try {

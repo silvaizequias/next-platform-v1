@@ -1,9 +1,9 @@
+import AWS from '@/aws'
 import { environment } from '@/environments/index'
-import AWSService from './aws.service'
 import { PutObjectCommand } from '@aws-sdk/client-s3'
 
-export default class UploadsService {
-  private awsService = new AWSService()
+export default class UploadActions {
+  private aws = new AWS()
   private awsS3Region = environment.awsS3Region
 
   async uploadFile(formData: FormData, bucket: string) {
@@ -24,7 +24,7 @@ export default class UploadsService {
       this.awsS3Region
     }.amazonaws.com/${bucket}/${encodeURIComponent(name)}`
 
-    return await this.awsService.s3Client
+    return await this.aws.s3Client
       .send(putObjectCommand)
       .then(() => {
         return { url: url }

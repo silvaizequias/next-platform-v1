@@ -9,7 +9,7 @@ type AWSCredentialsType = {
   secretAccessKey: string
 }
 
-export default class AWSService {
+export default class AWS {
   private environment = environment
   private credentials: AWSCredentialsType = {
     accessKeyId: this.environment.awsAccessKey,

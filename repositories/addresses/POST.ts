@@ -1,4 +1,4 @@
-import { AddressCreateValidatorType } from '@/validators/addresses.validator'
+import { AddressCreateValidatorType } from '@/components/addresses/validator'
 
 export async function createAddress(data: AddressCreateValidatorType) {
   try {

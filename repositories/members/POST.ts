@@ -1,4 +1,4 @@
-import { MemberCreateValidatorType } from '@/validators/members.validator'
+import { MemberCreateValidatorType } from '@/components/members/validator'
 
 export async function createMember(data: MemberCreateValidatorType) {
   try {

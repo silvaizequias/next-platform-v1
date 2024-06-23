@@ -1,5 +1,5 @@
 import { apiUrl } from '@/helpers'
-import { ApiHanlderValidatorType } from '@/validators/api.validator'
+import { ApiHanlderValidatorType } from './validator'
 import { revalidatePath, revalidateTag } from 'next/cache'
 
 export default async function handleApi(

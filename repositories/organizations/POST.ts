@@ -1,4 +1,4 @@
-import { OrganizationCreateValidatorType } from '@/validators/organizations.validator'
+import { OrganizationCreateValidatorType } from '@/components/organizations/validator'
 
 export async function createOrganization(
   data: OrganizationCreateValidatorType,

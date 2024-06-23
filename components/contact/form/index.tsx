@@ -1,10 +1,10 @@
 'use client'
 
-import { ContactsService } from '@/services/contacts.service'
 import { useFormState } from 'react-dom'
+import { ContactActions } from '../actions'
 
 export default function ContactForm() {
-  const { contactForm } = new ContactsService()
+  const { contactForm } = new ContactActions()
   const [state, formAction, isPending] = useFormState(contactForm, {})
 
   return (

@@ -6,10 +6,7 @@ import {
 } from '@/repositories/accounts/GET'
 import { updateAccount } from '@/repositories/accounts/PATCH'
 import { createAccount } from '@/repositories/accounts/POST'
-import {
-  AccountCreateValidator,
-  AccountUpdateValidator,
-} from '@/validators/accounts.validator'
+import { AccountCreateValidator, AccountUpdateValidator } from './validator'
 import { revalidateTag } from 'next/cache'
 
 export type Account = {
@@ -28,7 +25,7 @@ export type Account = {
   document?: string
 }
 
-export default class AccountsService {
+export default class AccountActions {
   async create(_: unknown, form: FormData) {
     const inputs: any = Object.fromEntries(form)
 
@@ -36,11 +33,11 @@ export default class AccountsService {
     if (!validator.success)
       return { error: validator.error.flatten().fieldErrors }
 
-    return createAccount(inputs).then((data) => {
+    await createAccount(inputs).then((data) => {
       revalidateTag('accounts')
       console.log(data)
-      return {}
     })
+    return {}
   }
 
   findAll(): Promise<Account[] | any> {
@@ -55,18 +52,19 @@ export default class AccountsService {
     return findAccountByPhone(phone)
   }
 
-  async update(_: unknown, form: FormData, id: string) {
+  async update(_: unknown, form: FormData) {
     const inputs: any = Object.fromEntries(form)
+    const id = ''
 
     const validator = AccountUpdateValidator.safeParse(inputs)
     if (!validator.success)
       return { error: validator.error.flatten().fieldErrors }
 
-    return updateAccount(id, inputs).then((data) => {
+    await updateAccount(id, inputs).then((data) => {
       revalidateTag('accounts')
       console.log(data)
-      return {}
     })
+    return {}
   }
 
   remove(id: string, definitely: boolean): Promise<any> {

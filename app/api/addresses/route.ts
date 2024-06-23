@@ -1,10 +1,10 @@
-import AddressesService from '@/services/addresses.service'
+import AddressActions from '@/components/addresses/actions'
 
-const addressesService = new AddressesService()
+const addressActions = new AddressActions()
 
 export async function GET(request: Request) {
   try {
-    return new Response(JSON.stringify(await addressesService.findAll()))
+    return new Response(JSON.stringify(await addressActions.findAll()))
   } catch (error: any) {
     return new Response(error?.message, { status: error?.status })
   }

@@ -1,6 +1,6 @@
-import { ContactValidator } from '@/validators/contact.validator'
+import { ContactValidator } from './validator'
 
-export class ContactsService {
+export class ContactActions {
   async contactForm(_: unknown, form: FormData) {
     const inputs = Object.fromEntries(form)
 
