@@ -7,7 +7,9 @@ import {
 import { updateAddress } from '@/repositories/addresses/PATCH'
 import { createAddress } from '@/repositories/addresses/POST'
 import {
+  AddressCreateValidator,
   AddressCreateValidatorType,
+  AddressUpdateValidator,
   AddressUpdateValidatorType,
 } from '@/validators/addresses.validator'
 
@@ -33,6 +35,17 @@ export default class AddressesService {
     return createAddress(data)
   }
 
+  async createFormAction(_: unknown, form: FormData) {
+    const inputs = Object.fromEntries(form)
+
+    const validator = AddressCreateValidator.safeParse(inputs)
+    if (!validator.success)
+      return { error: validator.error.flatten().fieldErrors }
+
+    console.log(inputs)
+    return {}
+  }
+
   findAll(): Promise<Address[] | any> {
     return findAllAddresses()
   }
@@ -47,6 +60,17 @@ export default class AddressesService {
 
   update(id: string, data: AddressUpdateValidatorType): Promise<any> {
     return updateAddress(id, data)
+  }
+
+  async updateFormAction(_: unknown, form: FormData) {
+    const inputs = Object.fromEntries(form)
+
+    const validator = AddressUpdateValidator.safeParse(inputs)
+    if (!validator.success)
+      return { error: validator.error.flatten().fieldErrors }
+
+    console.log(inputs)
+    return {}
   }
 
   remove(id: string, definitely: boolean): Promise<any> {

@@ -7,7 +7,9 @@ import {
 import { updateOrganization } from '@/repositories/organizations/PATCH'
 import { createOrganization } from '@/repositories/organizations/POST'
 import {
+  OrganizationCreateValidator,
   OrganizationCreateValidatorType,
+  OrganizationUpdateValidator,
   OrganizationUpdateValidatorType,
 } from '@/validators/organizations.validator'
 
@@ -30,6 +32,17 @@ export default class OrganizationsService {
     return createOrganization(data)
   }
 
+  async createFormAction(_: unknown, form: FormData) {
+    const inputs = Object.fromEntries(form)
+
+    const validator = OrganizationCreateValidator.safeParse(inputs)
+    if (!validator.success)
+      return { error: validator.error.flatten().fieldErrors }
+
+    console.log(inputs)
+    return {}
+  }
+
   findAll(): Promise<Organization[] | any> {
     return findAllOrganizations()
   }
@@ -44,6 +57,17 @@ export default class OrganizationsService {
 
   update(id: string, data: OrganizationUpdateValidatorType): Promise<any> {
     return updateOrganization(id, data)
+  }
+
+  async updateFormAction(_: unknown, form: FormData) {
+    const inputs = Object.fromEntries(form)
+
+    const validator = OrganizationUpdateValidator.safeParse(inputs)
+    if (!validator.success)
+      return { error: validator.error.flatten().fieldErrors }
+
+    console.log(inputs)
+    return {}
   }
 
   remove(id: string, definitely: boolean): Promise<any> {

@@ -3,7 +3,9 @@ import { findAllMembers, findMemberById } from '@/repositories/members/GET'
 import { updateMember } from '@/repositories/members/PATCH'
 import { createMember } from '@/repositories/members/POST'
 import {
+  MemberCreateValidator,
   MemberCreateValidatorType,
+  MemberUpdateValidator,
   MemberUpdateValidatorType,
 } from '@/validators/members.validator'
 import { Account } from './accounts.service'
@@ -26,6 +28,17 @@ export default class MembersService {
     return createMember(data)
   }
 
+  async createFormAction(_: unknown, form: FormData) {
+    const inputs = Object.fromEntries(form)
+
+    const validator = MemberCreateValidator.safeParse(inputs)
+    if (!validator.success)
+      return { error: validator.error.flatten().fieldErrors }
+
+    console.log(inputs)
+    return {}
+  }
+
   findAll(): Promise<Member[] | any> {
     return findAllMembers()
   }
@@ -36,6 +49,17 @@ export default class MembersService {
 
   update(id: string, data: MemberUpdateValidatorType): Promise<any> {
     return updateMember(id, data)
+  }
+
+  async updateFormAction(_: unknown, form: FormData) {
+    const inputs = Object.fromEntries(form)
+
+    const validator = MemberUpdateValidator.safeParse(inputs)
+    if (!validator.success)
+      return { error: validator.error.flatten().fieldErrors }
+
+    console.log(inputs)
+    return {}
   }
 
   remove(id: string, definitely: boolean): Promise<any> {
