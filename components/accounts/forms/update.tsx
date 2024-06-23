@@ -1,10 +1,10 @@
 'use client'
 
 import { useFormState } from 'react-dom'
-import AccountsActions from '..'
+import Accounts from '..'
 
 export default function AccountUpdateForm() {
-  const { update } = new AccountsActions()
+  const { update } = new Accounts()
   const [state, formAction, isPending] = useFormState(update, {})
 
   return (
@@ -42,7 +42,7 @@ export default function AccountUpdateForm() {
         {state.error && <span>{state.error?.phone}</span>}
       </div>
       <button type="submit" disabled={isPending}>
-        {isPending ? 'Criando...' : 'Criar'}
+        {isPending ? 'Atualizando...' : 'Atualizar'}
       </button>
     </form>
   )

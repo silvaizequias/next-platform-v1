@@ -1,10 +1,10 @@
 'use client'
 
 import { useFormState } from 'react-dom'
-import AccountsActions from '..'
+import Accounts from '..'
 
 export default function AccountCreateForm() {
-  const { create } = new AccountsActions()
+  const { create } = new Accounts()
   const [state, formAction, isPending] = useFormState(create, {})
 
   return (

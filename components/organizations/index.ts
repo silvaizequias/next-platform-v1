@@ -43,7 +43,7 @@ export default class Organizations {
     }
   }
 
-  async update(_: unknown, form: FormData, id: string): Promise<any> {
+  async update(_: unknown, form: FormData): Promise<any> {
     const inputs: any = Object.fromEntries(form)
 
     try {
