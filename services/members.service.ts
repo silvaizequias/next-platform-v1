@@ -10,6 +10,7 @@ import {
 } from '@/validators/members.validator'
 import { Account } from './accounts.service'
 import { Organization } from './organizations.service'
+import { revalidateTag } from 'next/cache'
 
 export type Member = {
   id: string
@@ -24,19 +25,18 @@ export type Member = {
 }
 
 export default class MembersService {
-  create(data: MemberCreateValidatorType): Promise<any> {
-    return createMember(data)
-  }
-
-  async createFormAction(_: unknown, form: FormData) {
-    const inputs = Object.fromEntries(form)
+  async create(_: unknown, form: FormData) {
+    const inputs: any = Object.fromEntries(form)
 
     const validator = MemberCreateValidator.safeParse(inputs)
     if (!validator.success)
       return { error: validator.error.flatten().fieldErrors }
 
-    console.log(inputs)
-    return {}
+    return createMember(inputs).then((data) => {
+      revalidateTag('members')
+      console.log(data)
+      return {}
+    })
   }
 
   findAll(): Promise<Member[] | any> {
@@ -47,19 +47,18 @@ export default class MembersService {
     return findMemberById(id)
   }
 
-  update(id: string, data: MemberUpdateValidatorType): Promise<any> {
-    return updateMember(id, data)
-  }
-
-  async updateFormAction(_: unknown, form: FormData) {
-    const inputs = Object.fromEntries(form)
+  update(_: unknown, form: FormData, id: string) {
+    const inputs: any = Object.fromEntries(form)
 
     const validator = MemberUpdateValidator.safeParse(inputs)
     if (!validator.success)
       return { error: validator.error.flatten().fieldErrors }
 
-    console.log(inputs)
-    return {}
+    return updateMember(id, inputs).then((data) => {
+      revalidateTag('members')
+      console.log(data)
+      return {}
+    })
   }
 
   remove(id: string, definitely: boolean): Promise<any> {

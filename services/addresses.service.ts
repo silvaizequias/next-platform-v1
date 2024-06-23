@@ -8,10 +8,9 @@ import { updateAddress } from '@/repositories/addresses/PATCH'
 import { createAddress } from '@/repositories/addresses/POST'
 import {
   AddressCreateValidator,
-  AddressCreateValidatorType,
   AddressUpdateValidator,
-  AddressUpdateValidatorType,
 } from '@/validators/addresses.validator'
+import { revalidateTag } from 'next/cache'
 
 export type Address = {
   id: string
@@ -31,19 +30,18 @@ export type Address = {
 }
 
 export default class AddressesService {
-  create(data: AddressCreateValidatorType): Promise<any> {
-    return createAddress(data)
-  }
-
-  async createFormAction(_: unknown, form: FormData) {
-    const inputs = Object.fromEntries(form)
+  async create(_: unknown, form: FormData) {
+    const inputs: any = Object.fromEntries(form)
 
     const validator = AddressCreateValidator.safeParse(inputs)
     if (!validator.success)
       return { error: validator.error.flatten().fieldErrors }
 
-    console.log(inputs)
-    return {}
+    return createAddress(inputs).then((data) => {
+      revalidateTag('addresses')
+      console.log(data)
+      return {}
+    })
   }
 
   findAll(): Promise<Address[] | any> {
@@ -58,19 +56,18 @@ export default class AddressesService {
     return findAddressByZipCode(zipCode)
   }
 
-  update(id: string, data: AddressUpdateValidatorType): Promise<any> {
-    return updateAddress(id, data)
-  }
-
-  async updateFormAction(_: unknown, form: FormData) {
-    const inputs = Object.fromEntries(form)
+  async update(_: unknown, form: FormData, id: string) {
+    const inputs: any = Object.fromEntries(form)
 
     const validator = AddressUpdateValidator.safeParse(inputs)
     if (!validator.success)
       return { error: validator.error.flatten().fieldErrors }
 
-    console.log(inputs)
-    return {}
+    return updateAddress(id, inputs).then((data) => {
+      revalidateTag('addresses')
+      console.log(data)
+      return {}
+    })
   }
 
   remove(id: string, definitely: boolean): Promise<any> {

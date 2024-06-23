@@ -10,6 +10,7 @@ import {
   AccountCreateValidator,
   AccountUpdateValidator,
 } from '@/validators/accounts.validator'
+import { revalidateTag } from 'next/cache'
 
 export type Account = {
   id: string
@@ -36,6 +37,7 @@ export default class AccountsService {
       return { error: validator.error.flatten().fieldErrors }
 
     return createAccount(inputs).then((data) => {
+      revalidateTag('accounts')
       console.log(data)
       return {}
     })
@@ -61,6 +63,7 @@ export default class AccountsService {
       return { error: validator.error.flatten().fieldErrors }
 
     return updateAccount(id, inputs).then((data) => {
+      revalidateTag('accounts')
       console.log(data)
       return {}
     })

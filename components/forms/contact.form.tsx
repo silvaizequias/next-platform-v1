@@ -4,8 +4,8 @@ import { ContactsService } from '@/services/contacts.service'
 import { useFormState } from 'react-dom'
 
 export default function ContactForm() {
-  const { contactFormAction } = new ContactsService()
-  const [state, formAction, isPending] = useFormState(contactFormAction, {})
+  const { contactForm } = new ContactsService()
+  const [state, formAction, isPending] = useFormState(contactForm, {})
 
   return (
     <form action={formAction} id="contactForm">

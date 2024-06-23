@@ -12,6 +12,7 @@ import {
   OrganizationUpdateValidator,
   OrganizationUpdateValidatorType,
 } from '@/validators/organizations.validator'
+import { revalidateTag } from 'next/cache'
 
 export type Organization = {
   id: string
@@ -28,19 +29,18 @@ export type Organization = {
 }
 
 export default class OrganizationsService {
-  create(data: OrganizationCreateValidatorType): Promise<any> {
-    return createOrganization(data)
-  }
-
-  async createFormAction(_: unknown, form: FormData) {
-    const inputs = Object.fromEntries(form)
+  async create(_: unknown, form: FormData) {
+    const inputs: any = Object.fromEntries(form)
 
     const validator = OrganizationCreateValidator.safeParse(inputs)
     if (!validator.success)
       return { error: validator.error.flatten().fieldErrors }
 
-    console.log(inputs)
-    return {}
+    return createOrganization(inputs).then((data) => {
+      revalidateTag('organizations')
+      console.log(data)
+      return {}
+    })
   }
 
   findAll(): Promise<Organization[] | any> {
@@ -55,19 +55,18 @@ export default class OrganizationsService {
     return findOrganizationByDocument(document)
   }
 
-  update(id: string, data: OrganizationUpdateValidatorType): Promise<any> {
-    return updateOrganization(id, data)
-  }
-
-  async updateFormAction(_: unknown, form: FormData) {
-    const inputs = Object.fromEntries(form)
+  update(_: unknown, form: FormData, id: string) {
+    const inputs: any = Object.fromEntries(form)
 
     const validator = OrganizationUpdateValidator.safeParse(inputs)
     if (!validator.success)
       return { error: validator.error.flatten().fieldErrors }
 
-    console.log(inputs)
-    return {}
+    return updateOrganization(id, inputs).then((data) => {
+      revalidateTag('organizations')
+      console.log(data)
+      return {}
+    })
   }
 
   remove(id: string, definitely: boolean): Promise<any> {
