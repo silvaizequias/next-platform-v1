@@ -8,9 +8,7 @@ import { updateAccount } from '@/repositories/accounts/PATCH'
 import { createAccount } from '@/repositories/accounts/POST'
 import {
   AccountCreateValidator,
-  AccountCreateValidatorType,
   AccountUpdateValidator,
-  AccountUpdateValidatorType,
 } from '@/validators/accounts.validator'
 
 export type Account = {
@@ -30,19 +28,17 @@ export type Account = {
 }
 
 export default class AccountsService {
-  create(data: AccountCreateValidatorType) {
-    return createAccount(data)
-  }
-
-  async createFormAction(_: unknown, form: FormData) {
-    const inputs = Object.fromEntries(form)
+  async create(_: unknown, form: FormData) {
+    const inputs: any = Object.fromEntries(form)
 
     const validator = AccountCreateValidator.safeParse(inputs)
     if (!validator.success)
       return { error: validator.error.flatten().fieldErrors }
 
-    console.log(inputs)
-    return {}
+    return createAccount(inputs).then((data) => {
+      console.log(data)
+      return {}
+    })
   }
 
   findAll(): Promise<Account[] | any> {
@@ -57,19 +53,17 @@ export default class AccountsService {
     return findAccountByPhone(phone)
   }
 
-  update(id: string, data: AccountUpdateValidatorType): Promise<any> {
-    return updateAccount(id, data)
-  }
-
-  async updateFormAction(_: unknown, form: FormData) {
-    const inputs = Object.fromEntries(form)
+  async update(_: unknown, form: FormData, id: string) {
+    const inputs: any = Object.fromEntries(form)
 
     const validator = AccountUpdateValidator.safeParse(inputs)
     if (!validator.success)
       return { error: validator.error.flatten().fieldErrors }
 
-    console.log(inputs)
-    return {}
+    return updateAccount(id, inputs).then((data) => {
+      console.log(data)
+      return {}
+    })
   }
 
   remove(id: string, definitely: boolean): Promise<any> {
