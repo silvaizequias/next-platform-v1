@@ -1,6 +1,6 @@
-import OrganizationActions from '@/components/organizations/actions'
+import Organizations from '@/components/organizations'
 
-const organizationActions = new OrganizationActions()
+const organizations = new Organizations()
 
 export async function GET(
   request: Request,
@@ -8,7 +8,7 @@ export async function GET(
 ) {
   const { id } = params
   try {
-    return new Response(JSON.stringify(await organizationActions.findById(id)))
+    return new Response(JSON.stringify(await organizations.findById(id)))
   } catch (error: any) {
     return new Response(error?.message, { status: error?.status })
   }

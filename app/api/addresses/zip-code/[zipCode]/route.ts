@@ -1,6 +1,6 @@
-import AddressActions from '@/components/addresses/actions'
+import Addresses from '@/components/addresses'
 
-const addressActions = new AddressActions()
+const addresses = new Addresses()
 
 export async function GET(
   request: Request,
@@ -8,9 +8,7 @@ export async function GET(
 ) {
   const { zipCode } = params
   try {
-    return new Response(
-      JSON.stringify(await addressActions.findByZipCode(zipCode)),
-    )
+    return new Response(JSON.stringify(await addresses.findByZipCode(zipCode)))
   } catch (error: any) {
     return new Response(error?.message, { status: error?.status })
   }

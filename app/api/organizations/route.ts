@@ -1,10 +1,10 @@
-import OrganizationActions from '@/components/organizations/actions'
+import Organizations from '@/components/organizations'
 
-const organizationActions = new OrganizationActions()
+const organizations = new Organizations()
 
 export async function GET(request: Request) {
   try {
-    return new Response(JSON.stringify(await organizationActions.findAll()))
+    return new Response(JSON.stringify(await organizations.findAll()))
   } catch (error: any) {
     return new Response(error?.message, { status: error?.status })
   }

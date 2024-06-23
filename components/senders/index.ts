@@ -1,13 +1,24 @@
 import { SendEmailCommand } from '@aws-sdk/client-ses'
 import { environment } from '@/environments'
 import { PublishCommand } from '@aws-sdk/client-sns'
-import { SenderEmailValidatorType, SenderSMSValidatorType } from './validator'
 import AWS from '@/aws'
 
-export default class SenderActions {
+interface SendEmail {
+  to: string
+  bcc?: string
+  subject: string
+  message: string
+}
+
+interface SendSMS {
+  to: string
+  message: string
+}
+
+export default class Senders {
   private aws = new AWS()
 
-  async sendEmail(data: SenderEmailValidatorType): Promise<any> {
+  async sendEmail(data: SendEmail): Promise<any> {
     const { to, bcc, subject, message } = data
 
     const sendingEmailFrom = environment.sendingEmailFrom
@@ -44,7 +55,7 @@ export default class SenderActions {
       .catch((error) => new Error(error?.message, error?.status))
   }
 
-  async sendSMS(senderSms: SenderSMSValidatorType): Promise<any> {
+  async sendSMS(senderSms: SendSMS): Promise<any> {
     const { to, message } = senderSms
 
     const publishCommand = new PublishCommand({

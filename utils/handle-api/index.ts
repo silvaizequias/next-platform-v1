@@ -1,11 +1,17 @@
 import { apiUrl } from '@/helpers'
-import { ApiHanlderValidatorType } from './validator'
 import { revalidatePath, revalidateTag } from 'next/cache'
 
-export default async function handleApi(
-  data: ApiHanlderValidatorType,
-): Promise<any> {
-  const { cache, id, inputs, method, path, revalidate, tag } = data
+interface Props {
+  cache?: number
+  id?: string
+  inputs?: any
+  method: 'GET' | 'POST' | 'PATCH' | 'DELETE'
+  path: string
+  revalidate?: string
+  tag: string
+}
+export default async function handleApi(props: Props): Promise<any> {
+  const { cache, id, inputs, method, path, revalidate, tag } = props
   const URL = apiUrl
 
   try {

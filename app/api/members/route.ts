@@ -1,10 +1,10 @@
-import MemberActions from '@/components/members/actions'
+import Members from '@/components/members'
 
-const memberActions = new MemberActions()
+const members = new Members()
 
 export async function GET(request: Request) {
   try {
-    return new Response(JSON.stringify(await memberActions.findAll()))
+    return new Response(JSON.stringify(await members.findAll()))
   } catch (error: any) {
     return new Response(error?.message, { status: error?.status })
   }
