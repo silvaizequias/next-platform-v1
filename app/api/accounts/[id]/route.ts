@@ -1,4 +1,4 @@
-import Accounts from '@/components/accounts'
+import Accounts from '@/app/actions/accounts'
 
 const accounts = new Accounts()
 

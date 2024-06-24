@@ -1,4 +1,4 @@
-import Addresses from '@/components/addresses'
+import Addresses from '@/app/actions/addresses'
 
 const addresses = new Addresses()
 

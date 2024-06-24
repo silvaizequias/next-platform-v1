@@ -1,4 +1,4 @@
-import Organizations from '@/components/organizations'
+import Organizations from '@/app/actions/organizations'
 
 const organizations = new Organizations()
 

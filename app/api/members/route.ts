@@ -1,4 +1,4 @@
-import Members from '@/components/members'
+import Members from '@/app/actions/members'
 
 const members = new Members()
 
