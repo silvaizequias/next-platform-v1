@@ -1,10 +1,14 @@
 import './globals.css'
 
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Comfortaa } from 'next/font/google'
 import { ReactNode } from 'react'
 
-const inter = Inter({ subsets: ['latin'] })
+const comfortaa = Comfortaa({
+  subsets: ['latin'],
+  variable: '--font-comfortaa',
+  weight: ['300', '400', '500', '600'],
+})
 
 export const metadata: Metadata = {
   title: {
@@ -21,8 +25,12 @@ export default function RootLayout({
   children: ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html
+      lang="en"
+      suppressHydrationWarning={true}
+      className={`${comfortaa.variable} font-default`}
+    >
+      <body className="text-base text-slate-800 bg-slate-200">{children}</body>
     </html>
   )
 }
