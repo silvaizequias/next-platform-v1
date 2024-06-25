@@ -1,8 +1,7 @@
-import './globals.css'
-
 import type { Metadata } from 'next'
 import { Comfortaa } from 'next/font/google'
 import { ReactNode } from 'react'
+import Providers from './providers'
 
 const comfortaa = Comfortaa({
   subsets: ['latin'],
@@ -30,7 +29,9 @@ export default function RootLayout({
       suppressHydrationWarning={true}
       className={`${comfortaa.variable} font-default`}
     >
-      <body className="text-base text-slate-800 bg-slate-200">{children}</body>
+      <body className="text-base text-slate-800 bg-slate-200">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   )
 }
