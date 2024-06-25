@@ -1,4 +1,4 @@
-import Accounts from '@/app/actions/accounts'
+import Accounts from '@/actions/accounts'
 
 const accounts = new Accounts()
 

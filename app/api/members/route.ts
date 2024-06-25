@@ -1,4 +1,4 @@
-import Members from '@/app/actions/members'
+import Members from '@/actions/members'
 
 const members = new Members()
 
