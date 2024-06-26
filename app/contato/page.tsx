@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 }
 
 export default function ContactPage() {
-  const contact = '/message_sent_re_q2kl.svg'
+  const messageSent = '/message_sent.svg'
 
   return (
     <main className="w-full h-full mx-auto flex flex-col justify-center items-center gap-4">
@@ -29,7 +29,7 @@ export default function ContactPage() {
           <div className="w-full flex flex-col sm:flex-row justify-center items-center gap-4">
             <figure className="sm:w-2/3 mx-auto h-auto w-auto">
               <Image
-                src={contact}
+                src={messageSent}
                 alt="contato dedicado"
                 width={300}
                 height={500}

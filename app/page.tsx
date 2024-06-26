@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   const logotipo = '/logotipo.svg'
-  const infrastructure = '/cloud_hosting_7xb1.svg'
+  const cloudHosting = '/cloud_hosting.svg'
 
   return (
     <main className="w-full h-full flex justify-center items-center">
@@ -121,7 +121,7 @@ export default function HomePage() {
           <div className="w-full flex flex-col sm:flex-row justify-center sm:justify-between items-center gap-4">
             <figure className="mx-auto w-auto h-auto p-4">
               <Image
-                src={infrastructure}
+                src={cloudHosting}
                 alt="infraestrututa dedicado"
                 width={500}
                 height={490}
