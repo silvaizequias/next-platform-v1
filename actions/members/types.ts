@@ -1,5 +1,5 @@
 import { Account } from '../accounts/types'
-import { Organization } from '../organizations'
+import { Organization } from '../organizations/types'
 
 export type Member = {
   id: string
