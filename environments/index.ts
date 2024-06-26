@@ -1,15 +1,5 @@
 export const environment = {
   baseUrl: process.env.BASE_URL ?? '',
-  secret: process.env.SECRET ?? '',
   databaseUrl: process.env.DATABASE_URL ?? '',
-  awsAccessKey: process.env.PLATFORM_AWS_ACCESS_KEY ?? '',
-  awsPrivateKey: process.env.PLATFORM_AWS_PRIVATE_KEY ?? '',
-  awsBedrockRegion: process.env.PLATFORM_AWS_BEDROCK_REGION ?? '',
-  awsS3Region: process.env.PLATFORM_AWS_S3_REGION ?? '',
-  awsSESRegion: process.env.PLATFORM_AWS_SES_REGION ?? '',
-  awsSNSRegion: process.env.PLATFORM_AWS_SNS_REGION ?? '',
-  stripeSecretKey: process.env.STRIPE_SECRET_KEY ?? '',
-  stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET ?? '',
-  sendingEmailFrom: process.env.SENDING_EMAIL_FROM ?? '',
-  sendEmailTo: process.env.SEND_EMAIL_TO ?? '',
+  controlApiUrl: process.env.CONTROL_API_URL ?? '',
 }
