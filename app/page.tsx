@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import Image from 'next/image'
+import Link from 'next/link'
 import {
   MdAutoGraph,
   MdCloudSync,
@@ -46,9 +47,12 @@ export default function HomePage() {
               utilizando inteligência artificial
             </h4>
             <div className="w-full flex justify-center sm:justify-start">
-              <button className="w-full max-w-sm p-2 hover:shadow-md bg-gradient-to-r from-sky-900 to-cyan-500 hover:opacity-80 rounded-md text-slate-200 font-semibold uppercase animate-pulse">
+              <Link
+                href={'contato'}
+                className="w-full max-w-sm p-2 hover:shadow-md bg-gradient-to-r from-sky-900 to-cyan-500 hover:opacity-80 rounded-md text-slate-200 text-center font-semibold uppercase animate-pulse"
+              >
                 Saiba mais
-              </button>
+              </Link>
             </div>
           </div>
         </header>
@@ -146,9 +150,12 @@ export default function HomePage() {
                 condições de alta demanda.
               </p>
               <div className="w-full flex justify-center sm:justify-start">
-                <button className="w-full max-w-sm p-2 hover:shadow-md bg-gradient-to-r from-sky-900 to-cyan-500 hover:opacity-80 rounded-md text-slate-200 font-semibold uppercase animate-pulse">
+                <Link
+                  href={'contato'}
+                  className="w-full max-w-sm p-2 hover:shadow-md bg-gradient-to-r from-sky-900 to-cyan-500 hover:opacity-80 rounded-md text-slate-200 text-center font-semibold uppercase animate-pulse"
+                >
                   Saiba mais
-                </button>
+                </Link>
               </div>
             </div>
           </div>

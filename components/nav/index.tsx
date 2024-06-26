@@ -1,3 +1,4 @@
+import { mainUrl } from '@/helpers'
 import { NavigationType, topNavigator } from '@/navigation'
 import Link from 'next/link'
 
@@ -12,11 +13,16 @@ export default function Nav() {
           dedicado
         </Link>
         <div className="flex flex-1 justify-end items-center">
-          <ul className='w-full flex justify-end items-center gap-4'>
+          <ul className="w-full flex justify-end items-center gap-4">
             {topNavigator.map((item: NavigationType, index) => {
               return (
-                <li key={index} className='text-sm capitalize'>
-                  <a href={item?.path || '#'}>{item.title}</a>
+                <li key={index} className="text-sm capitalize">
+                  <a
+                    href={mainUrl + item?.path || '#'}
+                    className="hover:text-sky-800"
+                  >
+                    {item.title}
+                  </a>
                 </li>
               )
             })}
