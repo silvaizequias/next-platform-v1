@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import Image from 'next/image'
 import ContactForm from './form'
+import DefaultDisplay from '@/components/default-display'
 
 export const metadata: Metadata = {
   title: {
@@ -15,7 +16,7 @@ export default function ContactPage() {
   const messageSent = '/message_sent.svg'
 
   return (
-    <main className="w-full h-full mx-auto flex flex-col justify-center items-center gap-4">
+    <DefaultDisplay>
       <div className="w-full bg-gradient-to-b from-sky-200/60 to-slate-200">
         <header className="w-full mx-auto max-w-4xl p-2 py-20">
           <h1 className="text-center text-balance text-sky-800">
@@ -42,6 +43,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-    </main>
+    </DefaultDisplay>
   )
 }

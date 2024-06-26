@@ -1,3 +1,4 @@
+import DefaultDisplay from '@/components/default-display'
 import { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -23,7 +24,7 @@ export default function HomePage() {
   const cloudHosting = '/cloud_hosting.svg'
 
   return (
-    <main className="w-full h-full flex justify-center items-center">
+    <DefaultDisplay>
       <div className="w-full bg-gradient-to-b from-sky-200/60 to-slate-200">
         <header className="w-full sm:max-w-4xl mx-auto p-2 py-24 flex flex-col sm:flex-row-reverse justify-center items-center">
           <figure className="sm:w-1/3 w-[200px] h-[350px] mx-auto flex justify-center">
@@ -161,6 +162,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-    </main>
+    </DefaultDisplay>
   )
 }

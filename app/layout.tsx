@@ -32,11 +32,7 @@ export default function RootLayout({
       className={`${comfortaa.variable} font-default`}
     >
       <body className="text-base text-slate-800 bg-slate-200">
-        <Providers>
-          <Nav />
-          {children}
-          <Footer />
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   )

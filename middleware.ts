@@ -34,6 +34,12 @@ export default async function middleware(request: NextRequest) {
     )
   }
 
+  if (hostname == `controle.${baseUrl}`) {
+    return NextResponse.rewrite(
+      new URL(`/controle${path === '/' ? '' : path}`, request.url),
+    )
+  }
+
   if (hostname == `www.${baseUrl}`) {
     return NextResponse.rewrite(
       new URL(`${path === '/' ? '' : path}`, request.url),
