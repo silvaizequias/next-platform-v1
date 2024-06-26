@@ -16,6 +16,7 @@ export class ContactActions {
       toast.success(
         `${inputs?.name}, tudo certo até aqui. Logo mais retornaremos sua mensagem!`,
       )
+      
       return { status: validate.success.valueOf() }
     } catch (error: any) {
       throw new Error(error?.message, error?.status)
