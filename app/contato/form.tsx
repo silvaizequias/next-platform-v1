@@ -97,7 +97,7 @@ export default function ContactForm() {
       </div>
       <button
         type="submit"
-        className="w-full p-2 rounded-md bg-sky-800 hover:bg-opacity-80 hover:shadow-md text-white uppercase"
+        className="w-full p-2 rounded-md bg-sky-600/80 hover:bg-sky-800 hover:shadow-md text-white uppercase"
       >
         Enviar
       </button>

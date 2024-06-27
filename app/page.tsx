@@ -52,7 +52,7 @@ export default function HomePage() {
             <div className="w-full flex justify-center sm:justify-start">
               <Link
                 href={'contato'}
-                className="w-full max-w-sm p-2 bg-sky-600/80 hover:shadow-md hover:bg-gradient-to-r from-sky-600/80 to-cyan-600/60 hover:opacity-80 rounded-md text-slate-200 text-center font-semibold uppercase"
+                className="w-full max-w-sm p-2 bg-sky-400/80 hover:shadow-md hover:bg-gradient-to-r from-sky-600/80 to-cyan-600/60 hover:opacity-80 rounded-md text-white text-center font-semibold uppercase"
               >
                 Saiba mais
               </Link>
@@ -60,6 +60,7 @@ export default function HomePage() {
           </div>
         </header>
       </div>
+
       <section className="w-full h-full py-4 bg-gradient-to-t from-white drop-shadow-md">
         <div className="w-full mx-auto p-8 sm:max-w-4xl">
           <h4 className="leading-tight text-center text-balance text-slate-600 lowercase">
@@ -83,7 +84,7 @@ export default function HomePage() {
           </h2>
           <div className="w-full py-8 flex flex-col sm:flex-row justify-center items-start gap-4">
             <div className="w-full flex flex-col justify-start items-center gap-4">
-              <MdOutlinePolyline size={80} className="text-sky-800" />
+              <MdOutlinePolyline size={80} className="text-sky-400/80" />
               <h6 className="text-sky-800 text-center font-bold uppercase">
                 Integração
               </h6>
@@ -95,7 +96,7 @@ export default function HomePage() {
               </small>
             </div>
             <div className="w-full flex flex-col justify-start items-center gap-4">
-              <MdAutoGraph size={80} className="text-sky-800" />
+              <MdAutoGraph size={80} className="text-sky-400/80" />
               <h6 className="text-sky-800 text-center font-bold uppercase">
                 Otimização
               </h6>
@@ -106,7 +107,7 @@ export default function HomePage() {
               </small>
             </div>
             <div className="w-full flex flex-col justify-start items-center gap-4">
-              <MdCloudSync size={80} className="text-sky-800" />
+              <MdCloudSync size={80} className="text-sky-400/80" />
               <h6 className="text-sky-800 text-center font-bold uppercase">
                 Sustentação
               </h6>
@@ -156,7 +157,7 @@ export default function HomePage() {
               <div className="w-full flex justify-center sm:justify-start">
                 <Link
                   href={'contato'}
-                  className="w-full max-w-sm p-2 bg-sky-600/80 hover:shadow-md hover:bg-gradient-to-r from-sky-600/80 to-cyan-600/60 hover:opacity-80 rounded-md text-slate-200 text-center font-semibold uppercase"
+                  className="w-full max-w-sm p-2 bg-sky-400/80 hover:shadow-md hover:bg-gradient-to-r from-sky-600/80 to-cyan-600/60 hover:opacity-80 rounded-md text-white text-center font-semibold uppercase"
                 >
                   Saiba mais
                 </Link>
@@ -168,7 +169,7 @@ export default function HomePage() {
 
       <section className="w-full h-full py-4 bg-sky-400/80 shadow-md">
         <div className="w-full mx-auto p-8 sm:max-w-4xl">
-          <h2 className="leading-tight text-center text-balance text-slate-200 lowercase font-light">
+          <h2 className="leading-tight text-center text-balance text-white lowercase font-light">
             O sistema{' '}
             <span className="font-semibold  bg-clip-text text-transparent bg-gradient-to-t from-sky-800/80 to-sky-600">
               {' '}
@@ -177,7 +178,7 @@ export default function HomePage() {
           </h2>
           <p className="leading-tight text-center text-pretty lowercase bg-clip-text text-transparent bg-gradient-to-t from-sky-800 to-sky-600">
             Que atende sua demanda de forma{' '}
-            <span className="font-semibold text-slate-200">
+            <span className="font-semibold text-white">
               inteligente e eficiente
             </span>
           </p>
@@ -235,7 +236,7 @@ export default function HomePage() {
               <div className="w-full flex justify-center sm:justify-end">
                 <Link
                   href={'contato'}
-                  className="w-full max-w-sm p-2 bg-sky-600/80 hover:shadow-md hover:bg-gradient-to-r from-sky-600/80 to-cyan-600/60 hover:opacity-80 rounded-md text-slate-200 text-center font-semibold uppercase"
+                  className="w-full max-w-sm p-2 bg-sky-400/80 hover:shadow-md hover:bg-gradient-to-r from-sky-600/80 to-cyan-600/60 hover:opacity-80 rounded-md text-white text-center font-semibold uppercase"
                 >
                   Vamos bater um papo?
                 </Link>
@@ -280,7 +281,7 @@ export default function HomePage() {
               <div className="w-full flex justify-center sm:justify-start">
                 <Link
                   href={'contato'}
-                  className="w-full max-w-sm p-2 bg-sky-600/80 hover:shadow-md hover:bg-gradient-to-r from-sky-600/80 to-cyan-600/60 hover:opacity-80 rounded-md text-slate-200 text-center font-semibold uppercase"
+                  className="w-full max-w-sm p-2 bg-sky-400/80 hover:shadow-md hover:bg-gradient-to-r from-sky-600/80 to-cyan-600/60 hover:opacity-80 rounded-md text-white text-center font-semibold uppercase"
                 >
                   Que tal falarmos mais sobre isso?
                 </Link>
@@ -334,7 +335,7 @@ export default function HomePage() {
               <div className="w-full flex justify-center sm:justify-end">
                 <Link
                   href={'contato'}
-                  className="w-full max-w-sm p-2 bg-sky-600/80 hover:shadow-md hover:bg-gradient-to-r from-sky-600/80 to-cyan-600/60 hover:opacity-80 rounded-md text-slate-200 text-center font-semibold uppercase"
+                  className="w-full max-w-sm p-2 bg-sky-400/80 hover:shadow-md hover:bg-gradient-to-r from-sky-600/80 to-cyan-600/60 hover:opacity-80 rounded-md text-white text-center font-semibold uppercase"
                 >
                   Quer saber como funciona?
                 </Link>
@@ -343,6 +344,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
       <section className="w-full h-full py-4">
         <div className="w-full mx-auto p-8 sm:max-w-4xl">
           <h4 className="text-center text-sky-800 text-balance font-light">
@@ -352,7 +354,7 @@ export default function HomePage() {
           <div className="w-full flex justify-center py-4">
             <Link
               href={'contato'}
-              className="w-full max-w-sm p-2 bg-sky-600/80 hover:shadow-md hover:bg-gradient-to-r from-sky-600/80 to-cyan-600/60 hover:opacity-80 rounded-md text-slate-200 text-center font-semibold uppercase"
+              className="w-full max-w-sm p-2 bg-sky-400/80 hover:shadow-md hover:bg-gradient-to-r from-sky-600/80 to-cyan-600/60 hover:opacity-80 rounded-md text-white text-center font-semibold uppercase"
             >
               Fale com a gente
             </Link>
