@@ -8,7 +8,7 @@ export default function DefaultDisplay({
   return (
     <Fragment>
       <Nav />
-      <main className="w-full min-h-full mx-auto flex flex-col justify-center items-center gap-4">
+      <main className="w-full min-h-full py-4 mx-auto flex flex-col justify-center items-center">
         {children}
       </main>
       <Footer />

@@ -37,12 +37,12 @@ export default function HomePage() {
             />
           </figure>
           <div className="w-full">
-            <h1 className="leading-tight text-center sm:text-left bg-clip-text text-transparent bg-gradient-to-r from-sky-800 to-cyan-600 uppercase font-semibold text-balance">
+            <h1 className="leading-tight text-center sm:text-left text-sky-600 uppercase font-semibold text-balance">
               Sua Melhor Plataforma de Serviços
             </h1>
-            <h4 className="py-4 text-center sm:text-left text-sky-800 font-medium text-balance">
+            <h4 className="py-4 text-center sm:text-left text-sky-800 font-semibold text-balance">
               Potencialize a capacidade{' '}
-              <span className="opacity-80 font-normal">
+              <span className="font-light">
                 da sua demanda operacional
               </span>{' '}
               utilizando inteligência artificial
@@ -50,7 +50,7 @@ export default function HomePage() {
             <div className="w-full flex justify-center sm:justify-start">
               <Link
                 href={'contato'}
-                className="w-full max-w-sm p-2 hover:shadow-md bg-gradient-to-r from-sky-900 to-cyan-500 hover:opacity-80 rounded-md text-slate-200 text-center font-semibold uppercase animate-pulse"
+                className="w-full max-w-sm p-2 bg-sky-600/80 hover:shadow-md hover:bg-gradient-to-r from-sky-600/80 to-cyan-600/60 hover:opacity-80 rounded-md text-slate-200 text-center font-semibold uppercase"
               >
                 Saiba mais
               </Link>
@@ -152,13 +152,24 @@ export default function HomePage() {
               <div className="w-full flex justify-center sm:justify-start">
                 <Link
                   href={'contato'}
-                  className="w-full max-w-sm p-2 hover:shadow-md bg-gradient-to-r from-sky-900 to-cyan-500 hover:opacity-80 rounded-md text-slate-200 text-center font-semibold uppercase animate-pulse"
+                  className="w-full max-w-sm p-2 bg-sky-600/80 hover:shadow-md hover:bg-gradient-to-r from-sky-600/80 to-cyan-600/60 hover:opacity-80 rounded-md text-slate-200 text-center font-semibold uppercase"
                 >
                   Saiba mais
                 </Link>
               </div>
             </div>
           </div>
+        </div>
+      </section>
+      <section className="w-full h-full py-4 bg-sky-600/80 shadow-md">
+        <div className="w-full mx-auto p-8 sm:max-w-4xl">
+          <h2 className="leading-tight text-center text-balance font-bold bg-clip-text text-transparent bg-gradient-to-t from-slate-200 to-white uppercase">
+            O <span className="font-semibold">sistema dedicado</span>
+          </h2>
+          <p className="leading-tight text-center text-pretty font-light text-slate-200">
+            Que atende sua demanda de forma{' '}
+            <span className="font-semibold">inteligente e eficiente</span>
+          </p>
         </div>
       </section>
     </DefaultDisplay>
