@@ -5,7 +5,7 @@ import {
   PostUpdateValidatorType,
 } from './validators'
 
-export class BlogActions {
+export class PostActions {
   async create(inputs: PostCreateValidatorType): Promise<any> {
     try {
       return inputs

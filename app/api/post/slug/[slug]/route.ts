@@ -1,6 +1,6 @@
-import { BlogActions } from "@/app/blog/actions"
+import { PostActions } from "@/app/controle/posts/actions"
 
-const blogActions = new BlogActions()
+const postActions = new PostActions()
 
 export async function GET(
   request: Request,
@@ -8,7 +8,7 @@ export async function GET(
 ) {
   try {
     const { slug } = params
-    return new Response(JSON.stringify(await blogActions.findBySlug(slug)))
+    return new Response(JSON.stringify(await postActions.findBySlug(slug)))
   } catch (error: any) {
     return new Response(error?.message, { status: error?.status })
   }
