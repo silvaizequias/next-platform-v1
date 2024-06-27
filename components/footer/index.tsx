@@ -1,3 +1,5 @@
+import { mainUrl } from '@/helpers'
+import { footerNavigator, NavigationType } from '@/navigation'
 import Link from 'next/link'
 
 export default function Footer() {
@@ -18,7 +20,22 @@ export default function Footer() {
             todos os direitos reservados
           </small>
         </div>
-        <div className="w-full flex flex-col justify-center sm:justify-end gap-2"></div>
+        <div className="w-full flex flex-col justify-center sm:justify-end gap-2">
+          <ul className="w-full flex justify-center sm:justify-end items-center gap-4">
+            {footerNavigator.map((item: NavigationType, index) => {
+              return (
+                <li key={index} className="text-xs">
+                  <a
+                    href={mainUrl + item?.path || '#'}
+                    className="hover:text-sky-800"
+                  >
+                    {item.title}
+                  </a>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
       </div>
     </footer>
   )
