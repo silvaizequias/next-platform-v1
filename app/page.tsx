@@ -76,8 +76,7 @@ export default function HomePage() {
       <section className="w-full h-full py-4">
         <div className="w-full mx-auto p-8 sm:max-w-4xl">
           <h2 className="leading-tight text-center text-balance font-light text-sky-800 uppercase">
-            Um pouco do que <span className="font-semibold">podemos fazer</span>{' '}
-            por você?
+            <span className="font-semibold">Cuidamos de tudo</span> pra você
           </h2>
           <div className="w-full py-8 flex flex-col sm:flex-row justify-center items-start gap-4">
             <div className="w-full flex flex-col justify-start items-center gap-4">
