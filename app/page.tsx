@@ -176,7 +176,7 @@ export default function HomePage() {
               dedicado
             </span>
           </h2>
-          <p className="leading-tight text-center text-pretty lowercase bg-clip-text text-transparent bg-gradient-to-t from-sky-800 to-sky-600">
+          <p className="leading-tight text-center text-balance lowercase bg-clip-text text-transparent bg-gradient-to-t from-sky-800 to-sky-600">
             Que atende sua demanda de forma{' '}
             <span className="font-semibold text-white">
               inteligente e eficiente
@@ -210,7 +210,7 @@ export default function HomePage() {
                   {' '}
                   sistema de pedidos inteligente
                 </span>
-                , ou fornecemos nossa API para consumo via webservice.
+                , e podemos disponibilizar nossa API para consumo via webservice.
               </p>
               <p className="w-full text-pretty text-center sm:text-right">
                 Nossa estrutura é projetada para suportar milhares de transações
