@@ -5,6 +5,7 @@ import Link from 'next/link'
 import {
   MdAutoGraph,
   MdCloudSync,
+  MdDoneAll,
   MdOutlineKeyboardArrowDown,
   MdOutlinePolyline,
 } from 'react-icons/md'
@@ -22,6 +23,9 @@ export const metadata: Metadata = {
 export default function HomePage() {
   const logotipo = '/logotipo.svg'
   const cloudHosting = '/cloud_hosting.svg'
+  const productTeardown = '/product_teardown.svg'
+  const locationTracking = '/location_tracking.svg'
+  const dataTrends = '/data_trends.svg'
 
   return (
     <DefaultDisplay>
@@ -42,9 +46,7 @@ export default function HomePage() {
             </h1>
             <h4 className="py-4 text-center sm:text-left text-sky-800 font-semibold text-balance">
               Potencialize a capacidade{' '}
-              <span className="font-light">
-                da sua demanda operacional
-              </span>{' '}
+              <span className="font-light">da sua demanda operacional</span>{' '}
               utilizando inteligência artificial
             </h4>
             <div className="w-full flex justify-center sm:justify-start">
@@ -73,6 +75,7 @@ export default function HomePage() {
           />
         </div>
       </section>
+
       <section className="w-full h-full py-4">
         <div className="w-full mx-auto p-8 sm:max-w-4xl">
           <h2 className="leading-tight text-center text-balance font-light text-sky-800 uppercase">
@@ -116,6 +119,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
       <section className="w-full h-full py-4 bg-gradient-to-t from-white to-slate-200">
         <div className="w-full mx-auto p-8 sm:max-w-4xl">
           <div className="w-full flex flex-col sm:flex-row justify-center sm:justify-between items-center gap-4">
@@ -161,15 +165,198 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      <section className="w-full h-full py-4 bg-sky-600/80 shadow-md">
+
+      <section className="w-full h-full py-4 bg-sky-400/80 shadow-md">
         <div className="w-full mx-auto p-8 sm:max-w-4xl">
-          <h2 className="leading-tight text-center text-balance font-bold bg-clip-text text-transparent bg-gradient-to-t from-slate-200 to-white uppercase">
-            O <span className="font-semibold">sistema dedicado</span>
+          <h2 className="leading-tight text-center text-balance text-slate-200 lowercase font-light">
+            O sistema{' '}
+            <span className="font-semibold  bg-clip-text text-transparent bg-gradient-to-t from-sky-800/80 to-sky-600">
+              {' '}
+              dedicado
+            </span>
           </h2>
-          <p className="leading-tight text-center text-pretty font-light text-slate-200">
+          <p className="leading-tight text-center text-pretty lowercase bg-clip-text text-transparent bg-gradient-to-t from-sky-800 to-sky-600">
             Que atende sua demanda de forma{' '}
-            <span className="font-semibold">inteligente e eficiente</span>
+            <span className="font-semibold text-slate-200">
+              inteligente e eficiente
+            </span>
           </p>
+        </div>
+      </section>
+
+      <section className="w-full h-full py-4 bg-gradient-to-b from-white to-slate-200">
+        <div className="w-full mx-auto p-8 sm:max-w-4xl border-b-2 border-slate-400/40">
+          <div className="w-full flex flex-col sm:flex-row-reverse justify-center sm:justify-between items-center gap-4">
+            <figure className="mx-auto w-auto h-auto p-4">
+              <Image
+                src={productTeardown}
+                alt="controle transacional dedicado"
+                width={640}
+                height={490}
+                priority
+              />
+            </figure>
+            <div className="w-full flex flex-col justify-center item-center gap-4">
+              <h4 className="text-sky-800 text-center sm:text-right">
+                Demanda Transacional
+              </h4>
+              <h6 className="text-slate-600 text-balance text-center sm:text-right -mt-4">
+                Gerencie qualquer tipo de pedido
+              </h6>
+              <p className="w-full text-pretty text-center sm:text-right">
+                Integramos sua planilha, CRM, ERP ou base de dados em nosso
+                <span className="font-semibold">
+                  {' '}
+                  sistema de pedidos inteligente
+                </span>
+                , ou fornecemos nossa API para consumo via webservice.
+              </p>
+              <p className="w-full text-pretty text-center sm:text-right">
+                Nossa estrutura é projetada para suportar milhares de transações
+                de diversos tipos:
+              </p>
+              <ul className="w-full flex flex-col justify-center items-center sm:items-end">
+                <li className="flex gap-2">
+                  <MdDoneAll size={24} className="text-green-600" /> Pagamentos
+                </li>
+                <li className="flex gap-2">
+                  <MdDoneAll size={24} className="text-green-600" /> Serviços
+                </li>
+                <li className="flex gap-2">
+                  <MdDoneAll size={24} className="text-green-600" /> Suporte
+                </li>
+                <li className="flex gap-2">
+                  <MdDoneAll size={24} className="text-green-600" /> Entrega
+                </li>
+                <li className="flex gap-2">
+                  <MdDoneAll size={24} className="text-green-600" /> Coleta
+                </li>
+              </ul>
+              <div className="w-full flex justify-center sm:justify-end">
+                <Link
+                  href={'contato'}
+                  className="w-full max-w-sm p-2 bg-sky-600/80 hover:shadow-md hover:bg-gradient-to-r from-sky-600/80 to-cyan-600/60 hover:opacity-80 rounded-md text-slate-200 text-center font-semibold uppercase"
+                >
+                  Vamos bater um papo?
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="w-full h-full py-4">
+        <div className="w-full mx-auto p-8 sm:max-w-4xl border-b-2 border-slate-400/40">
+          <div className="w-full flex flex-col sm:flex-row justify-center sm:justify-between items-center gap-4">
+            <figure className="mx-auto w-auto h-auto p-4">
+              <Image
+                src={locationTracking}
+                alt="serviço assistido dedicado"
+                width={640}
+                height={490}
+                priority
+              />
+            </figure>
+            <div className="w-full flex flex-col justify-center item-center gap-4">
+              <h4 className="text-sky-800 text-center sm:text-left">
+                Serviço Assistido
+              </h4>
+              <h6 className="text-slate-600 text-balance text-center sm:text-left -mt-4">
+                Acompanhe o atendimento em tempo real
+              </h6>
+              <p className="w-full text-pretty text-center sm:text-left">
+                Nossa interface integrada possibilita por meio de geolocalização
+                acompanhar a demanda de atendimento, mantendo um registro
+                completo de todo o processo.
+              </p>
+              <p className="w-full text-pretty text-center sm:text-left">
+                O agente em campo recebe e executa a demanda através do nosso
+                software mobile.
+              </p>
+              <p className="w-full text-pretty text-center sm:text-left">
+                O cliente final também recebe notificação e pode acompanhar o
+                status de sua solicitação.
+              </p>
+              <div className="w-full flex justify-center sm:justify-start">
+                <Link
+                  href={'contato'}
+                  className="w-full max-w-sm p-2 bg-sky-600/80 hover:shadow-md hover:bg-gradient-to-r from-sky-600/80 to-cyan-600/60 hover:opacity-80 rounded-md text-slate-200 text-center font-semibold uppercase"
+                >
+                  Que tal falarmos mais sobre isso?
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="w-full h-full py-4">
+        <div className="w-full mx-auto p-8 sm:max-w-4xl border-b-2 border-slate-400/40">
+          <div className="w-full flex flex-col sm:flex-row-reverse justify-center sm:justify-between items-center gap-4">
+            <figure className="mx-auto w-auto h-auto p-4">
+              <Image
+                src={dataTrends}
+                alt="controle de ativos dedicado"
+                width={640}
+                height={490}
+                priority
+              />
+            </figure>
+            <div className="w-full flex flex-col justify-center item-center gap-4">
+              <h4 className="text-sky-800 text-center sm:text-right">
+                Controle de Ativos
+              </h4>
+              <h6 className="text-slate-600 text-balance text-center sm:text-right -mt-4">
+                Centralize as informações dos seus recursos
+              </h6>
+              <p className="w-full text-pretty text-center sm:text-right">
+                Através do nosso software de gestão integrada é possível
+                centralizar as informações de sua operação, gerando percepções
+                inteligentes para uma melhor tomada de decisão.
+              </p>
+              <ul className="w-full flex flex-col justify-center items-center sm:items-end">
+                <li className="flex gap-2">
+                  <MdDoneAll size={24} className="text-sky-600" /> Estoques
+                </li>
+                <li className="flex gap-2">
+                  <MdDoneAll size={24} className="text-sky-600" /> Transações
+                </li>
+                <li className="flex gap-2">
+                  <MdDoneAll size={24} className="text-sky-600" /> Recebíveis
+                </li>
+                <li className="flex gap-2">
+                  <MdDoneAll size={24} className="text-sky-600" /> Materiais
+                </li>
+                <li className="flex gap-2">
+                  <MdDoneAll size={24} className="text-sky-600" /> Frota
+                </li>
+              </ul>
+              <div className="w-full flex justify-center sm:justify-end">
+                <Link
+                  href={'contato'}
+                  className="w-full max-w-sm p-2 bg-sky-600/80 hover:shadow-md hover:bg-gradient-to-r from-sky-600/80 to-cyan-600/60 hover:opacity-80 rounded-md text-slate-200 text-center font-semibold uppercase"
+                >
+                  Quer saber como funciona?
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="w-full h-full py-4">
+        <div className="w-full mx-auto p-8 sm:max-w-4xl">
+          <h4 className="text-center text-sky-800 text-balance font-light">
+            Podemos desenvolver uma solução personalizada e{' '}
+            <span className="font-semibold">dedicada para sua necessidade</span>
+          </h4>
+          <div className="w-full flex justify-center py-4">
+            <Link
+              href={'contato'}
+              className="w-full max-w-sm p-2 bg-sky-600/80 hover:shadow-md hover:bg-gradient-to-r from-sky-600/80 to-cyan-600/60 hover:opacity-80 rounded-md text-slate-200 text-center font-semibold uppercase"
+            >
+              Fale com a gente
+            </Link>
+          </div>
         </div>
       </section>
     </DefaultDisplay>
