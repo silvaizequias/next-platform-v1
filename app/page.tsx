@@ -11,6 +11,9 @@ import {
 } from 'react-icons/md'
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: '/',
+  },
   title: {
     default:
       'Potencialize a capacidade da sua demanda operacional utilizando inteligência artificial',

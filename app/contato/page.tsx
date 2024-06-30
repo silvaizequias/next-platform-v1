@@ -4,6 +4,9 @@ import ContactForm from './form'
 import DefaultDisplay from '@/components/default-display'
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: 'contato',
+  },
   title: {
     default: 'Conte-nos como podemos te ajudar?',
     template: `%s | Dedicado`,

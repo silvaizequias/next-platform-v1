@@ -3,6 +3,9 @@ import { Metadata } from 'next'
 import TermsAndPoliciesView from './views/TermsAndPoliciesView'
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: 'termos-e-politicas',
+  },
   title: {
     default: 'Termos e Políticas de Utilização da Plataforma',
     template: `%s | Dedicado`,
