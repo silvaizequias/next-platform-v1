@@ -4,6 +4,7 @@ import { ReactNode } from 'react'
 import Providers from './providers'
 import Footer from '@/components/footer'
 import Nav from '@/components/nav'
+import { mainUrl } from '@/helpers'
 
 const comfortaa = Comfortaa({
   subsets: ['latin'],
@@ -12,6 +13,7 @@ const comfortaa = Comfortaa({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(mainUrl),
   title: {
     default: 'Sua Melhor Plataforma de Serviços',
     template: `%s | Dedicado`,
