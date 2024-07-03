@@ -3,6 +3,7 @@ import { Comfortaa } from 'next/font/google'
 import { ReactNode } from 'react'
 import Providers from './providers'
 import { mainUrl } from '@/helpers'
+import Footer from './components/footer'
 
 const comfortaa = Comfortaa({
   subsets: ['latin'],
@@ -32,7 +33,10 @@ export default function RootLayout({
       className={`${comfortaa.variable} font-default`}
     >
       <body className="text-base text-slate-800 bg-slate-200">
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   )

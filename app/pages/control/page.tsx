@@ -12,10 +12,11 @@ export const metadata: Metadata = {
     'A dedicado oferece soluções personalizadasque atendem necessidades específicas da operação, visando a alta disponibilidade com o menor custo de sustentação.',
 }
 
+
 export default function ControlPage() {
   return (
     <div className="w-full h-screen flex justify-center items-center">
-      control
+      controle
     </div>
   )
 }
