@@ -19,7 +19,7 @@ export class ContactService {
 
       return { status: validate.success.valueOf() }
     } catch (error: any) {
-      throw new Error(error?.message, error?.status)
+      console.log(error)
     }
   }
 }

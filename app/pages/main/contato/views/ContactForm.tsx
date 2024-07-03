@@ -13,7 +13,7 @@ export default function ContactForm() {
   const router = useRouter()
 
   useEffect(() => {
-    state.status && router.push('/')
+    state?.status && router.push('/')
   }, [router, state])
 
   return (
@@ -32,7 +32,7 @@ export default function ContactForm() {
           type="text"
           className="w- p-2 rounded-md shadow-sm border-none"
         />
-        {state.errors && (
+        {state?.errors && (
           <span className="text-xs text-red-600 italic">
             {state.errors.name}
           </span>
@@ -48,7 +48,7 @@ export default function ContactForm() {
           type="number"
           className="w- p-2 rounded-md shadow-sm border-none"
         />
-        {state.errors && (
+        {state?.errors && (
           <span className="text-xs text-red-600 italic">
             {state.errors.phone}
           </span>
@@ -64,7 +64,7 @@ export default function ContactForm() {
           type="email"
           className="w- p-2 rounded-md shadow-sm border-none"
         />
-        {state.errors && (
+        {state?.errors && (
           <span className="text-xs text-red-600 italic">
             {state.errors.email}
           </span>
@@ -80,7 +80,7 @@ export default function ContactForm() {
           type="text"
           className="w- p-2 rounded-md shadow-sm border-none"
         />
-        {state.errors && (
+        {state?.errors && (
           <span className="text-xs text-red-600 italic">
             {state.errors.subject}
           </span>
@@ -96,7 +96,7 @@ export default function ContactForm() {
           rows={4}
           className="w- p-2 rounded-md shadow-sm border-none"
         />
-        {state.errors && (
+        {state?.errors && (
           <span className="text-xs text-red-600 italic">
             {state.errors.message}
           </span>
