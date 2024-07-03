@@ -2,12 +2,19 @@
 
 import { useFormState } from 'react-dom'
 import { ContactService } from '@/app/core/services/contact.service'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function ContactForm() {
   const { platformContactForm } = new ContactService()
   const [state, formAction] = useFormState(platformContactForm, {
     status: false,
   })
+  const router = useRouter()
+
+  useEffect(() => {
+    state.status && router.push('/')
+  }, [router, state])
 
   return (
     <form
