@@ -1,9 +1,9 @@
-import { blogUrl } from '@/helpers'
+import { controlUrl } from '@/helpers'
 import { Metadata } from 'next'
 import { ReactNode } from 'react'
 
 export const metadata: Metadata = {
-  metadataBase: new URL(blogUrl),
+  metadataBase: new URL(controlUrl),
   title: {
     default: 'Você no Controle da Melhor Plataforma de Serviços',
     template: `%s | Dedicado`,
