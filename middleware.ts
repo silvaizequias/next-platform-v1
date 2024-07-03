@@ -7,7 +7,7 @@ export const config = {
 
 export default async function middleware(request: NextRequest) {
   const url = request.nextUrl
-  const baseUrl = environment.baseUrl
+  const baseUrl = environment.BASE_URL
 
   let hostname = request.headers
     .get('host')!
@@ -30,25 +30,25 @@ export default async function middleware(request: NextRequest) {
 
   if (hostname == `blog.${baseUrl}`) {
     return NextResponse.rewrite(
-      new URL(`/blog${path === '/' ? '' : path}`, request.url),
+      new URL(`/pages/blog${path === '/' ? '' : path}`, request.url),
     )
   }
 
   if (hostname == `controle.${baseUrl}`) {
     return NextResponse.rewrite(
-      new URL(`/controle${path === '/' ? '' : path}`, request.url),
+      new URL(`/pages/control${path === '/' ? '' : path}`, request.url),
     )
   }
 
   if (hostname == `www.${baseUrl}`) {
     return NextResponse.rewrite(
-      new URL(`${path === '/' ? '' : path}`, request.url),
+      new URL(`/pages/main${path === '/' ? '' : path}`, request.url),
     )
   }
 
   if (hostname == `${baseUrl}`) {
     return NextResponse.rewrite(
-      new URL(`${path === '/' ? '' : path}`, request.url),
+      new URL(`/pages/main${path === '/' ? '' : path}`, request.url),
     )
   }
 

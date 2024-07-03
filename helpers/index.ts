@@ -1,6 +1,6 @@
 import { environment } from '@/environments'
 
-const baseUrl = environment.baseUrl
+const baseUrl = environment.BASE_URL
 
 export const onLive = process.env.NODE_ENV
 

@@ -1,4 +1,4 @@
-import DefaultDisplay from '@/components/default-display'
+import DefaultDisplay from '@/app/components/default-display'
 import { Metadata } from 'next'
 import TermsAndPoliciesView from './views/TermsAndPoliciesView'
 
