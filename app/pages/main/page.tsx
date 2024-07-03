@@ -34,12 +34,12 @@ export default function HomePage() {
     <DefaultDisplay>
       <div className="w-full bg-gradient-to-b from-sky-200/60 to-slate-200">
         <header className="w-full sm:max-w-4xl mx-auto p-2 py-24 flex flex-col sm:flex-row-reverse justify-center items-center">
-          <figure className="sm:w-1/3 w-[200px] h-[350px] mx-auto flex justify-center">
+          <figure className="sm:w-1/3 w-[179px] h-[260px] mx-auto flex justify-center">
             <Image
               src={logotipo}
               alt="dedicado"
-              width={200}
-              height={350}
+              width={179}
+              height={260}
               priority
             />
           </figure>
