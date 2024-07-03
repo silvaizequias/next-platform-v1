@@ -2,8 +2,6 @@ import type { Metadata } from 'next'
 import { Comfortaa } from 'next/font/google'
 import { ReactNode } from 'react'
 import Providers from './providers'
-import Footer from '@/app/components/footer'
-import Nav from '@/app/components/nav'
 import { mainUrl } from '@/helpers'
 
 const comfortaa = Comfortaa({

@@ -8,6 +8,9 @@ export async function generateMetadata({
   const { slug } = params
 
   return {
+    alternates: {
+      canonical: slug,
+    },
     title: {
       default: slug,
       template: `%s | dedicado`,
@@ -16,7 +19,11 @@ export async function generateMetadata({
   }
 }
 
-export default function PostPage({ params }: { params: { slug: string } }) {
+export default function ArticleDetailPage({
+  params,
+}: {
+  params: { slug: string }
+}) {
   const { slug } = params
   return (
     <div className="w-full h-screen flex justify-center items-center">

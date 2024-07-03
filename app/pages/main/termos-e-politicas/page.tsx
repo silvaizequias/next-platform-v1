@@ -1,6 +1,6 @@
 import DefaultDisplay from '@/app/components/default-display'
 import { Metadata } from 'next'
-import TermsAndPoliciesView from './views/TermsAndPoliciesView'
+import TermsAndPolicies from './views/TermsAndPolicies'
 
 export const metadata: Metadata = {
   alternates: {
@@ -25,7 +25,7 @@ export default async function TermsAndPoliciesPage() {
             </h1>
           </header>
         </div>
-        <TermsAndPoliciesView />
+        <TermsAndPolicies />
       </section>
     </DefaultDisplay>
   )

@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import Image from 'next/image'
-import ContactForm from './form'
+import ContactForm from './views/ContactForm'
 import DefaultDisplay from '@/app/components/default-display'
 
 export const metadata: Metadata = {

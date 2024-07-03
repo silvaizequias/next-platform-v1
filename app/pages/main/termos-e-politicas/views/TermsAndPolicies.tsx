@@ -8,7 +8,7 @@ function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function TermsAndPoliciesView() {
+export default function TermsAndPolicies() {
   return (
     <div className="w-full mx-auto p-8 sm:max-w-4xl">
       <Tab.Group

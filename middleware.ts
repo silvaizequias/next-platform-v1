@@ -28,9 +28,9 @@ export default async function middleware(request: NextRequest) {
     )
   }
 
-  if (hostname == `blog.${baseUrl}`) {
+  if (hostname == `artigos.${baseUrl}`) {
     return NextResponse.rewrite(
-      new URL(`/pages/blog${path === '/' ? '' : path}`, request.url),
+      new URL(`/pages/articles${path === '/' ? '' : path}`, request.url),
     )
   }
 

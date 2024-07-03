@@ -7,8 +7,8 @@ export const onLive = process.env.NODE_ENV
 export const apiUrl =
   onLive == 'production' ? `https://api.${baseUrl}` : `http://api.${baseUrl}`
 
-export const blogUrl =
-  onLive == 'production' ? `https://blog.${baseUrl}` : `http://blog.${baseUrl}`
+export const articleUrl =
+  onLive == 'production' ? `https://artigos.${baseUrl}` : `http://artigos.${baseUrl}`
 
 export const controlUrl =
   onLive == 'production'

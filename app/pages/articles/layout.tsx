@@ -1,17 +1,17 @@
-import { blogUrl } from '@/helpers'
+import { articleUrl } from '@/helpers'
 import { Metadata } from 'next'
 import { ReactNode } from 'react'
 
 export const metadata: Metadata = {
-  metadataBase: new URL(blogUrl),
+  metadataBase: new URL(articleUrl),
   title: {
-    default: 'Blog',
+    default: 'Artigos',
     template: `%s | Dedicado`,
   },
   description: 'Conteúdo inteligente do universo de tecnologia.',
 }
 
-export default function BlogLayout({
+export default function ArticleLayout({
   children,
 }: Readonly<{
   children: ReactNode

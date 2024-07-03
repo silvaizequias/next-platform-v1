@@ -1,11 +1,11 @@
 'use client'
 
 import { useFormState } from 'react-dom'
-import { ContactActions } from './actions'
+import { ContactService } from '@/app/core/services/contact.service'
 
 export default function ContactForm() {
-  const { contact } = new ContactActions()
-  const [state, formAction] = useFormState(contact, {
+  const { platformContactForm } = new ContactService()
+  const [state, formAction] = useFormState(platformContactForm, {
     status: false,
   })
 
