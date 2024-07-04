@@ -5,3 +5,6 @@ export type createOrganizationType = z.infer<typeof createOrganization>
 
 export const updateOrganization = z.object({})
 export type updateOrganizationType = z.infer<typeof updateOrganization>
+
+export const removeOrganization = z.object({})
+export type removeOrganizationType = z.infer<typeof removeOrganization>

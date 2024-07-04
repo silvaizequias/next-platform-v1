@@ -1,8 +1,14 @@
 import { Organization } from '../interfaces/organization.interface'
+import {
+  createOrganizationType,
+  removeOrganizationType,
+  updateOrganizationType,
+} from '../validators/organization.validator'
 
 export class OrganizationsService {
-  async create(): Promise<any> {
+  async create(createOrganization: createOrganizationType): Promise<any> {
     try {
+      return createOrganization
     } catch (error: any) {
       console.error(error)
     } finally {
@@ -11,30 +17,49 @@ export class OrganizationsService {
 
   async findAll(): Promise<Organization[] | any> {
     try {
+      return []
     } catch (error: any) {
       console.error(error)
     } finally {
     }
   }
 
-  async findOne(): Promise<Organization | any> {
+  async findByDocument(document: string): Promise<Organization | any> {
     try {
+      return { document }
     } catch (error: any) {
       console.error(error)
     } finally {
     }
   }
 
-  async update(): Promise<any> {
+  async findOne(id: string): Promise<Organization | any> {
     try {
+      return { id }
     } catch (error: any) {
       console.error(error)
     } finally {
     }
   }
 
-  async remove(): Promise<any> {
+  async update(
+    id: string,
+    updateOrganization: updateOrganizationType,
+  ): Promise<any> {
     try {
+      return { id, updateOrganization }
+    } catch (error: any) {
+      console.error(error)
+    } finally {
+    }
+  }
+
+  async remove(
+    id: string,
+    removeOrganization: removeOrganizationType,
+  ): Promise<any> {
+    try {
+      return { id, removeOrganization }
     } catch (error: any) {
       console.error(error)
     } finally {

@@ -1,19 +1,19 @@
 'use client'
 
 import { useFormState } from 'react-dom'
-import { ContactService } from '@/app/core/services/contact.service'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { contactForm } from '../actions'
 
 export default function ContactForm() {
-  const { platformContactForm } = new ContactService()
-  const [state, formAction] = useFormState(platformContactForm, {
-    status: false,
+  const [state, formAction] = useFormState(contactForm, {
+    errors: undefined,
+    success: false,
   })
   const router = useRouter()
 
   useEffect(() => {
-    state?.status && router.push('/')
+    state?.success && router.push('/')
   }, [router, state])
 
   return (

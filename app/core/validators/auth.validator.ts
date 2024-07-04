@@ -20,3 +20,9 @@ export const authCode = z.object({
     .max(13, { message: 'precisa conter 55 + DDD + celular' }),
 })
 export type authCodeType = z.infer<typeof authCode>
+
+const payload = z.object({
+  expiredIn: z.coerce.number(),
+  token: z.string(),
+})
+export type authPayload = z.infer<typeof payload>

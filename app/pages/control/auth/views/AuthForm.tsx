@@ -1,27 +1,28 @@
 'use client'
 
-import { AuthService } from '@/app/core/services/auth.service'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useFormState } from 'react-dom'
+import { authentication, validation } from '../actions'
 
 export default function AuthForm() {
   const router = useRouter()
-  const { authentication, validation } = new AuthService()
+
   const [codeSended, setCodeSended] = useState<boolean>(false)
+
   const [stateAuthentication, formAuthentication] = useFormState(
     authentication,
-    {
-      status: false,
-    },
+    { errors: undefined, success: false },
   )
+
   const [stateValidation, formValidation] = useFormState(validation, {
-    status: false,
+    errors: undefined,
+    success: false,
   })
 
   useEffect(() => {
-    stateValidation?.status && setCodeSended(true)
-    stateAuthentication?.status && router.push('/')
+    stateValidation?.success && setCodeSended(true)
+    stateAuthentication?.success && router.push('/')
   }, [router, stateAuthentication, stateValidation])
 
   return (
@@ -41,8 +42,9 @@ export default function AuthForm() {
           className="w- p-2 rounded-md shadow-sm border-none"
         />
         <span className="text-xs text-red-600 italic">
-          {(stateValidation?.errors && stateValidation.errors.phone) ||
-            (stateAuthentication?.errors && stateAuthentication?.errors.phone)}
+          {(!stateValidation?.success && stateValidation?.errors?.phone) ||
+            (!stateAuthentication?.success &&
+              stateAuthentication?.errors?.phone)}
         </span>
         <p>
           Você receberá um SMS com um código de 6 dígitos para autenticar-se.
@@ -59,7 +61,7 @@ export default function AuthForm() {
           className="w- p-2 rounded-md shadow-sm border-none"
         />
         <span className="text-xs text-red-600 italic">
-          {stateAuthentication?.errors && stateAuthentication?.errors.code}
+          {!stateAuthentication?.success && stateAuthentication?.errors?.code}
         </span>
         <p>Informe o código de 6 dígitos recebido por SMS.</p>
       </div>

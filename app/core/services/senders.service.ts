@@ -38,7 +38,7 @@ export class SendersService {
       .then(() => {
         console.log('succeeded')
       })
-      .catch((error) => new Error(error?.message, error?.status))
+      .catch((error) => console.log(error))
   }
 
   async sms(sendSMS: SendSMS) {
