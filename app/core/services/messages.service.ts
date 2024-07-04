@@ -7,7 +7,7 @@ export class MessagesService {
     <p><strong>${contact.subject}</strong></p>
     <p><i>${contact.message}</i></p>
     <b>${contact.name}</b>
-    <br />${contact.email}<br />${contact.phone}
+    <br /><small>${contact.email}</small><br /><small>${contact.phone}</small>
     </div>
     `
   }
