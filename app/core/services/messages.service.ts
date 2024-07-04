@@ -11,4 +11,8 @@ export class MessagesService {
     </div>
     `
   }
+
+  async codeGenerated(code: string) {
+    return `PLATAFORMA DEDICADO: utilize o código ${code} para autenticar.`
+  }
 }
