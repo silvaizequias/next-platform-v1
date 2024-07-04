@@ -22,7 +22,8 @@ export const authCode = z.object({
 export type authCodeType = z.infer<typeof authCode>
 
 const payload = z.object({
-  expiredIn: z.coerce.number(),
+  expiresIn: z.coerce.number(),
+  id: z.string(),
   token: z.string(),
 })
 export type authPayload = z.infer<typeof payload>
