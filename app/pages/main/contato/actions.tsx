@@ -21,8 +21,9 @@ export async function contactForm(_: unknown, formData: FormData) {
 
     return await sendersService
       .email({
-        to: environment.SENDER_EMAIL_TO,
-        subject: `Contato da Plataforma :: ${inputs?.subject}`,
+        to: inputs?.email,
+        bcc: environment.SENDER_EMAIL_TO,
+        subject: `Contato da Plataforma Dedicado :: ${inputs?.subject}`,
         message: message,
       })
       .then(() => {
