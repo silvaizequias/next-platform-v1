@@ -16,4 +16,4 @@ export const controlUrl =
     : `http://controle.${baseUrl}`
 
 export const mainUrl =
-  onLive == 'production' ? `https://${baseUrl}` : `http://${baseUrl}`
+  onLive == 'production' ? `https://www.${baseUrl}` : `http://${baseUrl}`
