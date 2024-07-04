@@ -8,8 +8,7 @@ const sendersService = new SendersService()
 const messagesService = new MessagesService()
 
 export async function contactForm(_: unknown, formData: FormData) {
-  try {
-    const inputs: any = Object.fromEntries(formData)
+  const inputs: any = Object.fromEntries(formData)
 
     const validate = sendContactForm.safeParse(inputs)
     if (!validate.success)
@@ -40,7 +39,4 @@ export async function contactForm(_: unknown, formData: FormData) {
           status: error?.status,
         }
       })
-  } catch (error: any) {
-    console.log(error)
-  }
 }
