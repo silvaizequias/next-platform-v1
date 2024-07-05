@@ -1,7 +1,7 @@
-import { sendContactFormType } from '../validators/contact.validator'
+import { sendContactType } from '../validators/contact.validator'
 
 export class MessagesService {
-  async platformContactForm(contact: sendContactFormType) {
+  async contact(contact: sendContactType) {
     return `
     <div>
     <p><strong>${contact.subject}</strong></p>

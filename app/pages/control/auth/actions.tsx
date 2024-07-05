@@ -5,7 +5,7 @@ import toast from 'react-hot-toast'
 
 const authService = new AuthService()
 
-export async function authentication(_: unknown, formData: FormData) {
+export async function actionAuthentication(_: unknown, formData: FormData) {
   const inputs: any = Object.fromEntries(formData)
 
   const validate = authLogin.safeParse(inputs)
@@ -32,7 +32,7 @@ export async function authentication(_: unknown, formData: FormData) {
     })
 }
 
-export async function validation(_: unknown, formData: FormData) {
+export async function actionValidation(_: unknown, formData: FormData) {
   const inputs: any = Object.fromEntries(formData)
 
   const validate = authCode.safeParse(inputs)

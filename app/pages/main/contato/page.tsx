@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import Image from 'next/image'
-import ContactForm from './views/ContactForm'
+import Contact from './views/Contact'
 import DefaultDisplay from '@/app/components/default-display'
 
 export const metadata: Metadata = {
@@ -41,7 +41,7 @@ export default function ContactPage() {
               />
             </figure>
             <div className="w-full">
-              <ContactForm />
+              <Contact />
             </div>
           </div>
         </div>

@@ -1,10 +1,10 @@
 import { apiUrl } from '@/helpers'
-import { Handler } from '../interfaces/handler.interface'
 import { revalidatePath, revalidateTag } from 'next/cache'
 import { CallbackPromise } from '../interfaces/promise.interface'
+import { handlerType } from '../validators/handler.validator'
 
 export class HandlerService {
-  async create(handler: Handler): Promise<CallbackPromise> {
+  async create(handler: handlerType): Promise<CallbackPromise> {
     const { endpoint, inputs, path, revalidate, tag, token } = handler
 
     return await fetch(`${endpoint || apiUrl}/${path}`, {
@@ -32,7 +32,7 @@ export class HandlerService {
       })
   }
 
-  async findAll(handler: Handler): Promise<CallbackPromise> {
+  async findAll(handler: handlerType): Promise<CallbackPromise> {
     const { cache, endpoint, path, tag, token } = handler
 
     return await fetch(`${endpoint || apiUrl}/${path}`, {
@@ -58,7 +58,7 @@ export class HandlerService {
       })
   }
 
-  async findOne(handler: Handler): Promise<CallbackPromise> {
+  async findOne(handler: handlerType): Promise<CallbackPromise> {
     const { cache, endpoint, id, path, tag, token } = handler
 
     return await fetch(`${endpoint || apiUrl}/${path}/${id}`, {
@@ -84,7 +84,7 @@ export class HandlerService {
       })
   }
 
-  async update(handler: Handler): Promise<CallbackPromise> {
+  async update(handler: handlerType): Promise<CallbackPromise> {
     const { endpoint, id, inputs, path, revalidate, tag, token } = handler
 
     return await fetch(`${endpoint || apiUrl}/${path}/${id}`, {
@@ -112,7 +112,7 @@ export class HandlerService {
       })
   }
 
-  async remove(handler: Handler): Promise<CallbackPromise> {
+  async remove(handler: handlerType): Promise<CallbackPromise> {
     const { endpoint, id, inputs, path, revalidate, tag, token } = handler
 
     return await fetch(`${endpoint || apiUrl}/${path}/${id}`, {

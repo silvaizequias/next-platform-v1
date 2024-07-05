@@ -1,6 +1,6 @@
 import * as z from 'zod'
 
-export const sendContactForm = z.object({
+export const sendContact = z.object({
   name: z
     .string({ message: 'este campo é obrigatório' })
     .min(5, { message: 'o nome precisa ter no mínimo 5 letras' })
@@ -22,4 +22,4 @@ export const sendContactForm = z.object({
     .max(2000, { message: 'a mensage precisa ser de até 2000 caracteres' }),
 })
 
-export type sendContactFormType = z.infer<typeof sendContactForm>
+export type sendContactType = z.infer<typeof sendContact>

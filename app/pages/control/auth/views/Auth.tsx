@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useFormState } from 'react-dom'
-import { authentication, validation } from '../actions'
+import { actionAuthentication, actionValidation } from '../actions'
 
 export default function AuthForm() {
   const router = useRouter()
@@ -11,11 +11,11 @@ export default function AuthForm() {
   const [codeSended, setCodeSended] = useState<boolean>(false)
 
   const [stateAuthentication, formAuthentication] = useFormState(
-    authentication,
+    actionAuthentication,
     { errors: undefined, success: false },
   )
 
-  const [stateValidation, formValidation] = useFormState(validation, {
+  const [stateValidation, formValidation] = useFormState(actionValidation, {
     errors: undefined,
     success: false,
   })

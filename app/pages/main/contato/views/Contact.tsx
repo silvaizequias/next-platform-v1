@@ -3,10 +3,10 @@
 import { useFormState } from 'react-dom'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { contactForm } from '../actions'
+import { actionContact } from '../actions'
 
-export default function ContactForm() {
-  const [state, formAction] = useFormState(contactForm, {
+export default function Contact() {
+  const [state, formAction] = useFormState(actionContact, {
     errors: undefined,
     success: false,
   })
