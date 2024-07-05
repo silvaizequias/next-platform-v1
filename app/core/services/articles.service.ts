@@ -1,5 +1,5 @@
-import { Article } from '../interfaces/article.interface'
-import { CallbackPromise } from '../interfaces/promise.interface'
+import { Article } from '../types/article.type'
+import { CallbackPromise } from '../types/promise.type'
 import {
   createArticleType,
   removeArticleType,

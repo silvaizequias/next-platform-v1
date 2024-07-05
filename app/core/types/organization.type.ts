@@ -1,6 +1,6 @@
-import { Address } from './address.interface'
+import { Address } from './address.type'
 
-export interface Organization extends Address {
+export type Organization = {
   id: string
   createdAt: Date
   updatedAt: Date
@@ -12,4 +12,5 @@ export interface Organization extends Address {
   email: string
   phone: string
   document: string
+  address: Address
 }

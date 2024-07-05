@@ -1,7 +1,7 @@
-import { Organization } from './organization.interface'
-import { User } from './user.interface'
+import { Organization } from './organization.type'
+import { User } from './user.type'
 
-export interface Member {
+export type Member = {
   id: string
   createdAt: Date
   updatedAt: Date

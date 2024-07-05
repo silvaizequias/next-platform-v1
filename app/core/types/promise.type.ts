@@ -1,4 +1,4 @@
-export interface CallbackPromise {
+export type CallbackPromise = {
   status?: number
   success?: boolean
   message?: string

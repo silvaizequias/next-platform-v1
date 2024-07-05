@@ -1,5 +1,5 @@
-import { Organization } from '../interfaces/organization.interface'
-import { CallbackPromise } from '../interfaces/promise.interface'
+import { Organization } from '../types/organization.type'
+import { CallbackPromise } from '../types/promise.type'
 import {
   createOrganizationType,
   removeOrganizationType,

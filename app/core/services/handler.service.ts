@@ -1,6 +1,6 @@
 import { apiUrl } from '@/helpers'
 import { revalidatePath, revalidateTag } from 'next/cache'
-import { CallbackPromise } from '../interfaces/promise.interface'
+import { CallbackPromise } from '../types/promise.type'
 import { handlerType } from '../validators/handler.validator'
 
 export class HandlerService {

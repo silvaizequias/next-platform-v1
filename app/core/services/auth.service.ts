@@ -1,4 +1,4 @@
-import { CallbackPromise } from '../interfaces/promise.interface'
+import { CallbackPromise } from '../types/promise.type'
 import { authCodeType, authLoginType } from '../validators/auth.validator'
 import { MessagesService } from './messages.service'
 import { SendersService } from './senders.service'

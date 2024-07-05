@@ -1,4 +1,4 @@
-import { CallbackPromise } from '@/app/core/interfaces/promise.interface'
+import { CallbackPromise } from '@/app/core/types/promise.type'
 import { AuthService } from '@/app/core/services/auth.service'
 import { authCode, authLogin } from '@/app/core/validators/auth.validator'
 import toast from 'react-hot-toast'

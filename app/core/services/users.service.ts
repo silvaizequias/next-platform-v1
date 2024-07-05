@@ -1,5 +1,5 @@
-import { CallbackPromise } from '../interfaces/promise.interface'
-import { User } from '../interfaces/user.interface'
+import { CallbackPromise } from '../types/promise.type'
+import { User } from '../types/user.type'
 import {
   createUserType,
   removeUserType,

@@ -1,11 +1,11 @@
-export interface SendEmail {
+export type SendEmail = {
   to: string
   bcc?: string
   subject: string
   message: string
 }
 
-export interface SendSMS {
+export type SendSMS = {
   to: string
   message: string
 }

@@ -1,5 +1,5 @@
-import { Member } from '../interfaces/member.interface'
-import { CallbackPromise } from '../interfaces/promise.interface'
+import { Member } from '../types/member.type'
+import { CallbackPromise } from '../types/promise.type'
 import {
   createMemberType,
   removeMemberType,

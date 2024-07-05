@@ -1,5 +1,5 @@
 import { environment } from '@/environments'
-import { CallbackPromise } from '../interfaces/promise.interface'
+import { CallbackPromise } from '../types/promise.type'
 import { authPayload } from '../validators/auth.validator'
 import { SignJWT, jwtVerify } from 'jose'
 import { nanoid } from 'nanoid'
