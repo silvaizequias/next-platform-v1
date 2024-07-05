@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import OrganizationList from './views/OrganizationList'
+import ListOrganizations from './views/ListOrganizations'
 
 export const metadata: Metadata = {
   alternates: {
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function OrganizationControlPage() {
   return (
     <div className="w-full h-screen flex justify-center items-center">
-      <OrganizationList />
+      <ListOrganizations />
     </div>
   )
 }

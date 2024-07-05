@@ -1,9 +1,10 @@
 import { apiUrl } from '@/helpers'
 import { Handler } from '../interfaces/handler.interface'
 import { revalidatePath, revalidateTag } from 'next/cache'
+import { CallbackPromise } from '../interfaces/promise.interface'
 
 export class HandlerService {
-  async create(handler: Handler): Promise<any> {
+  async create(handler: Handler): Promise<CallbackPromise> {
     const { endpoint, inputs, path, revalidate, tag, token } = handler
 
     return await fetch(`${endpoint || apiUrl}/${path}`, {
@@ -17,12 +18,21 @@ export class HandlerService {
       .then(async (data) => {
         revalidateTag(tag)
         revalidatePath(revalidate || '/')
-        return await data.json()
+        return {
+          success: true,
+          response: await data.json(),
+        }
       })
-      .catch((error: any) => error?.message)
+      .catch((error: any) => {
+        return {
+          success: false,
+          message: error?.message,
+          status: error?.status,
+        }
+      })
   }
 
-  async findAll(handler: Handler): Promise<[] | any> {
+  async findAll(handler: Handler): Promise<CallbackPromise> {
     const { cache, endpoint, path, tag, token } = handler
 
     return await fetch(`${endpoint || apiUrl}/${path}`, {
@@ -33,11 +43,22 @@ export class HandlerService {
       },
       next: { tags: [tag], revalidate: cache || 120 },
     })
-      .then(async (data) => await data.json())
-      .catch((error: any) => error?.message)
+      .then(async (data) => {
+        return {
+          success: true,
+          response: await data.json(),
+        }
+      })
+      .catch((error: any) => {
+        return {
+          success: false,
+          message: error?.message,
+          status: error?.status,
+        }
+      })
   }
 
-  async findOne(handler: Handler): Promise<any> {
+  async findOne(handler: Handler): Promise<CallbackPromise> {
     const { cache, endpoint, id, path, tag, token } = handler
 
     return await fetch(`${endpoint || apiUrl}/${path}/${id}`, {
@@ -48,11 +69,22 @@ export class HandlerService {
       },
       next: { tags: [tag], revalidate: cache || 120 },
     })
-      .then(async (data) => await data.json())
-      .catch((error: any) => error?.message)
+      .then(async (data) => {
+        return {
+          success: true,
+          response: await data.json(),
+        }
+      })
+      .catch((error: any) => {
+        return {
+          success: false,
+          message: error?.message,
+          status: error?.status,
+        }
+      })
   }
 
-  async update(handler: Handler): Promise<any> {
+  async update(handler: Handler): Promise<CallbackPromise> {
     const { endpoint, id, inputs, path, revalidate, tag, token } = handler
 
     return await fetch(`${endpoint || apiUrl}/${path}/${id}`, {
@@ -66,12 +98,21 @@ export class HandlerService {
       .then(async (data) => {
         revalidateTag(tag)
         revalidatePath(revalidate || '/')
-        return await data.json()
+        return {
+          success: true,
+          response: await data.json(),
+        }
       })
-      .catch((error: any) => error?.message)
+      .catch((error: any) => {
+        return {
+          success: false,
+          message: error?.message,
+          status: error?.status,
+        }
+      })
   }
 
-  async remove(handler: Handler): Promise<any> {
+  async remove(handler: Handler): Promise<CallbackPromise> {
     const { endpoint, id, inputs, path, revalidate, tag, token } = handler
 
     return await fetch(`${endpoint || apiUrl}/${path}/${id}`, {
@@ -85,8 +126,17 @@ export class HandlerService {
       .then(async (data) => {
         revalidateTag(tag)
         revalidatePath(revalidate || '/')
-        return await data.json()
+        return {
+          success: true,
+          response: await data.json(),
+        }
       })
-      .catch((error: any) => error?.message)
+      .catch((error: any) => {
+        return {
+          success: false,
+          message: error?.message,
+          status: error?.status,
+        }
+      })
   }
 }

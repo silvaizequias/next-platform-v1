@@ -1,12 +1,13 @@
 import { AuthService } from '@/app/core/services/auth.service'
 import { authCode } from '@/app/core/validators/auth.validator'
 
+const authService = new AuthService()
+
 export async function GET(
   request: Request,
   { params }: { params: { phone: string } },
 ) {
   const { phone } = params
-  const authService = new AuthService()
   try {
     if (await authCode.parseAsync({ phone: phone })) {
       return new Response(

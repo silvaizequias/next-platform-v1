@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import Image from 'next/image'
-import AuthForm from './views/AuthForm'
+import Auth from './views/Auth'
 
 export const metadata: Metadata = {
   alternates: {
@@ -34,7 +34,7 @@ export default function AuthPage() {
       <section className="relative">
         <div className="w-full max-w-sm p-2 flex flex-col justify-center items-center gap-2">
           <h4 className="text-sky-600">Você no Controle</h4>
-          <AuthForm />
+          <Auth />
         </div>
       </section>
     </main>

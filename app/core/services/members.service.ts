@@ -1,4 +1,5 @@
 import { Member } from '../interfaces/member.interface'
+import { CallbackPromise } from '../interfaces/promise.interface'
 import {
   createMemberType,
   removeMemberType,
@@ -6,47 +7,74 @@ import {
 } from '../validators/member.validator'
 
 export class MembersService {
-  async create(createMember: createMemberType): Promise<any> {
+  async create(createMember: createMemberType): Promise<CallbackPromise> {
     try {
-      return createMember
+      return { success: true, response: createMember }
     } catch (error: any) {
-      console.error(error)
+      return {
+        success: false,
+        message: error?.message,
+        status: error?.status,
+      }
     } finally {
     }
   }
 
-  async findAll(): Promise<Member[] | any> {
+  async findAll(): Promise<CallbackPromise> {
     try {
-      return []
+      const members: Member[] = []
+      return { success: true, response: members }
     } catch (error: any) {
-      console.error(error)
+      return {
+        success: false,
+        message: error?.message,
+        status: error?.status,
+      }
     } finally {
     }
   }
 
-  async findOne(id: string): Promise<Member | any> {
+  async findOne(id: string): Promise<CallbackPromise> {
     try {
-      return { id }
+      return { success: true, response: id }
     } catch (error: any) {
-      console.error(error)
+      return {
+        success: false,
+        message: error?.message,
+        status: error?.status,
+      }
     } finally {
     }
   }
 
-  async update(id: string, updateMember: updateMemberType): Promise<any> {
+  async update(
+    id: string,
+    updateMember: updateMemberType,
+  ): Promise<CallbackPromise> {
     try {
-      return { id, updateMember }
+      return { success: true, response: { id, updateMember } }
     } catch (error: any) {
-      console.error(error)
+      return {
+        success: false,
+        message: error?.message,
+        status: error?.status,
+      }
     } finally {
     }
   }
 
-  async remove(id: string, removeMember: removeMemberType): Promise<any> {
+  async remove(
+    id: string,
+    removeMember: removeMemberType,
+  ): Promise<CallbackPromise> {
     try {
-      return { id, removeMember }
+      return { success: true, response: { id, removeMember } }
     } catch (error: any) {
-      console.error(error)
+      return {
+        success: false,
+        message: error?.message,
+        status: error?.status,
+      }
     } finally {
     }
   }

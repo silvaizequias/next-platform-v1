@@ -1,4 +1,5 @@
 import { Organization } from '../interfaces/organization.interface'
+import { CallbackPromise } from '../interfaces/promise.interface'
 import {
   createOrganizationType,
   removeOrganizationType,
@@ -6,38 +7,57 @@ import {
 } from '../validators/organization.validator'
 
 export class OrganizationsService {
-  async create(createOrganization: createOrganizationType): Promise<any> {
+  async create(
+    createOrganization: createOrganizationType,
+  ): Promise<CallbackPromise> {
     try {
-      return createOrganization
+      return { success: true, response: createOrganization }
     } catch (error: any) {
-      console.error(error)
+      return {
+        success: false,
+        message: error?.message,
+        status: error?.status,
+      }
     } finally {
     }
   }
 
-  async findAll(): Promise<Organization[] | any> {
+  async findAll(): Promise<CallbackPromise> {
     try {
-      return []
+      const organizations: Organization[] = []
+      return { success: true, response: organizations }
     } catch (error: any) {
-      console.error(error)
+      return {
+        success: false,
+        message: error?.message,
+        status: error?.status,
+      }
     } finally {
     }
   }
 
-  async findByDocument(document: string): Promise<Organization | any> {
+  async findByDocument(document: string): Promise<CallbackPromise> {
     try {
-      return { document }
+      return { success: true, response: document }
     } catch (error: any) {
-      console.error(error)
+      return {
+        success: false,
+        message: error?.message,
+        status: error?.status,
+      }
     } finally {
     }
   }
 
-  async findOne(id: string): Promise<Organization | any> {
+  async findOne(id: string): Promise<CallbackPromise> {
     try {
-      return { id }
+      return { success: true, response: id }
     } catch (error: any) {
-      console.error(error)
+      return {
+        success: false,
+        message: error?.message,
+        status: error?.status,
+      }
     } finally {
     }
   }
@@ -45,11 +65,15 @@ export class OrganizationsService {
   async update(
     id: string,
     updateOrganization: updateOrganizationType,
-  ): Promise<any> {
+  ): Promise<CallbackPromise> {
     try {
-      return { id, updateOrganization }
+      return { success: true, response: { id, updateOrganization } }
     } catch (error: any) {
-      console.error(error)
+      return {
+        success: false,
+        message: error?.message,
+        status: error?.status,
+      }
     } finally {
     }
   }
@@ -57,11 +81,15 @@ export class OrganizationsService {
   async remove(
     id: string,
     removeOrganization: removeOrganizationType,
-  ): Promise<any> {
+  ): Promise<CallbackPromise> {
     try {
-      return { id, removeOrganization }
+      return { success: true, response: { id, removeOrganization } }
     } catch (error: any) {
-      console.error(error)
+      return {
+        success: false,
+        message: error?.message,
+        status: error?.status,
+      }
     } finally {
     }
   }

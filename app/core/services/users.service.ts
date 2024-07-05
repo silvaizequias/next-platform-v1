@@ -1,3 +1,4 @@
+import { CallbackPromise } from '../interfaces/promise.interface'
 import { User } from '../interfaces/user.interface'
 import {
   createUserType,
@@ -6,47 +7,74 @@ import {
 } from '../validators/user.validator'
 
 export class UsersService {
-  async create(createUser: createUserType): Promise<any> {
+  async create(createUser: createUserType): Promise<CallbackPromise> {
     try {
-      return createUser
+      return { success: true, response: createUser }
     } catch (error: any) {
-      console.error(error)
+      return {
+        success: false,
+        message: error?.message,
+        status: error?.status,
+      }
     } finally {
     }
   }
 
-  async findAll(): Promise<User[] | any> {
+  async findAll(): Promise<CallbackPromise> {
     try {
-      return []
+      const users: User[] = []
+      return { success: true, response: users }
     } catch (error: any) {
-      console.error(error)
+      return {
+        success: false,
+        message: error?.message,
+        status: error?.status,
+      }
     } finally {
     }
   }
 
-  async findOne(id: string): Promise<User | any> {
+  async findOne(id: string): Promise<CallbackPromise> {
     try {
-      return { id }
+      return { success: true, response: id }
     } catch (error: any) {
-      console.error(error)
+      return {
+        success: false,
+        message: error?.message,
+        status: error?.status,
+      }
     } finally {
     }
   }
 
-  async update(id: string, updateUser: updateUserType): Promise<any> {
+  async update(
+    id: string,
+    updateUser: updateUserType,
+  ): Promise<CallbackPromise> {
     try {
-      return { id, updateUser }
+      return { success: true, response: { id, updateUser } }
     } catch (error: any) {
-      console.error(error)
+      return {
+        success: false,
+        message: error?.message,
+        status: error?.status,
+      }
     } finally {
     }
   }
 
-  async remove(id: string, removeUser: removeUserType): Promise<any> {
+  async remove(
+    id: string,
+    removeUser: removeUserType,
+  ): Promise<CallbackPromise> {
     try {
-      return { id, removeUser }
+      return { success: true, response: { id, removeUser } }
     } catch (error: any) {
-      console.error(error)
+      return {
+        success: false,
+        message: error?.message,
+        status: error?.status,
+      }
     } finally {
     }
   }

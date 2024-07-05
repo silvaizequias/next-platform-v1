@@ -1,9 +1,9 @@
 'use client'
 
-export default function MemberList() {
+export default function ListArticles() {
   return (
     <div className="w-full h-screen flex justify-center items-center">
-      lista de membros da organização
+      lista de artigos
     </div>
   )
 }
