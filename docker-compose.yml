@@ -1,0 +1,43 @@
+version: '3.9'
+
+services:
+  db-postgres:
+    image: postgres:14.2
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '55432:5432'
+    volumes:
+      - postgresdb:/var/lib/postgresql/data
+
+  app:
+    depends_on:
+      - db-postgres
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: platform
+    environment:
+      - BASE_URL={{BASE_URL}}
+      - SECRET={{SECRET}}
+      - DATABASE_URL={{DATABASE_URL}}
+      - PLATFORM_AWS_ACCESS_KEY={{PLATFORM_AWS_ACCESS_KEY}}
+      - PLATFORM_AWS_PRIVATE_KEY={{PLATFORM_AWS_PRIVATE_KEY}}
+      - PLATFORM_AWS_BEDROCK_REGION={{PLATFORM_AWS_BEDROCK_REGION}}
+      - PLATFORM_AWS_S3_REGION={{PLATFORM_AWS_S3_REGION}}
+      - PLATFORM_AWS_SES_REGION={{PLATFORM_AWS_SES_REGION}}
+      - PLATFORM_AWS_SNS_REGION={{PLATFORM_AWS_SNS_REGION}}
+      - STRIPE_SECRET_KEY={{STRIPE_SECRET_KEY}}
+      - STRIPE_WEBHOOK_SECRET={{STRIPE_WEBHOOK_SECRET}}
+      - SENDING_EMAIL_FROM={{SENDING_EMAIL_FROM}}
+      - SENDER_EMAIL_TO={{SENDER_EMAIL_TO}}
+    ports:
+      - '3210:3210'
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+volumes:
+  postgresdb:
