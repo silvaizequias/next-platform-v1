@@ -1,9 +1,6 @@
 import { CallbackPromise } from '@/app/core/types/promise.type'
-import { AuthService } from '@/app/core/services/auth.service'
 import { authCode, authLogin } from '@/app/core/validators/auth.validator'
 import toast from 'react-hot-toast'
-
-const authService = new AuthService()
 
 export async function actionAuthentication(_: unknown, formData: FormData) {
   const inputs: any = Object.fromEntries(formData)
@@ -16,9 +13,15 @@ export async function actionAuthentication(_: unknown, formData: FormData) {
     }
   }
 
-  return await authService
-    .authentication(inputs)
-    .then((data: CallbackPromise) => {
+  return await fetch('/api/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(inputs),
+  })
+    .then(async (res: any) => {
+      const data: CallbackPromise = await res.json()
       toast.success(data?.message ?? '')
       return { success: data?.success ?? true, errors: undefined }
     })
@@ -43,9 +46,14 @@ export async function actionValidation(_: unknown, formData: FormData) {
     }
   }
 
-  return await authService
-    .validation(inputs)
-    .then((data: CallbackPromise) => {
+  return await fetch('/api/login/' + inputs?.phone, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then(async (res: any) => {
+      const data: CallbackPromise = await res.json()
       toast.success(data?.message ?? '')
       return { success: data?.success ?? true, errors: undefined }
     })

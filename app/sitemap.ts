@@ -1,4 +1,4 @@
-import { mainUrl } from '@/helpers'
+import { mainUrl } from '@/app/core/helpers'
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {

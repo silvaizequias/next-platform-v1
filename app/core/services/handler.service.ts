@@ -1,4 +1,4 @@
-import { apiUrl } from '@/helpers'
+import { apiUrl } from '@/app/core/helpers'
 import { revalidatePath, revalidateTag } from 'next/cache'
 import { CallbackPromise } from '../types/promise.type'
 import { handlerType } from '../validators/handler.validator'

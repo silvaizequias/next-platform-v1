@@ -7,6 +7,7 @@ export type User = {
   deletedAt: Date
   softDeleted: boolean
   active: boolean
+  lastLogin: Date
   role: string
   name: string
   image: string

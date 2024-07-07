@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Comfortaa } from 'next/font/google'
 import { ReactNode } from 'react'
 import Providers from './providers'
-import { mainUrl } from '@/helpers'
+import { mainUrl } from '@/app/core/helpers'
 import Footer from './components/footer'
 
 const comfortaa = Comfortaa({

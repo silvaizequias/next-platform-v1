@@ -51,8 +51,8 @@ export class SendersService {
     return await this.awsService.snsClient
       .send(publishCommand)
       .then(() => {
-        //console.log('succeeded')
+        console.log('succeeded')
       })
-      .catch((error) => new Error(error?.message, error?.status))
+      .catch((error) => console.log(error))
   }
 }

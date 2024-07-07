@@ -43,7 +43,7 @@ export async function DELETE(
   const inputs: removeUserType = await request.json()
   try {
     if (await removeUser.parseAsync(inputs)) {
-      return new Response(JSON.stringify(await usersService.update(id, inputs)))
+      return new Response(JSON.stringify(await usersService.remove(id, inputs)))
     }
   } catch (error: any) {
     return new Response(error?.message, { status: error?.status })

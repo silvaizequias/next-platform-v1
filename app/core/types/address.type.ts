@@ -1,3 +1,6 @@
+import { Organization } from './organization.type'
+import { User } from './user.type'
+
 export type Address = {
   id: string
   createdAt: Date
@@ -13,4 +16,8 @@ export type Address = {
   country: string
   latitude: number
   longitude: number
+  userId: string
+  user: User
+  organizationId: string
+  organization: Organization
 }

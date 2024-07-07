@@ -1,4 +1,4 @@
-import { mainUrl } from '@/helpers'
+import { mainUrl } from '@/app/core/helpers'
 import { NavigationType, topNavigator } from '@/navigation'
 import Link from 'next/link'
 

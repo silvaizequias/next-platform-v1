@@ -1,4 +1,4 @@
-import { articleUrl } from '@/helpers'
+import { articleUrl } from '@/app/core/helpers'
 import { Metadata } from 'next'
 import { ReactNode } from 'react'
 

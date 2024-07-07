@@ -1,4 +1,4 @@
-import { controlUrl } from '@/helpers'
+import { controlUrl } from '@/app/core/helpers'
 import { Metadata } from 'next'
 import { ReactNode } from 'react'
 

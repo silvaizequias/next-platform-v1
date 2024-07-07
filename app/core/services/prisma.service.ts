@@ -5,14 +5,14 @@ declare global {
   var prisma: PrismaClient | undefined
 }
 
-export class PrismaService {
-  readonly client =
-    global.prisma ||
-    new PrismaClient({
+export class PrismaService extends PrismaClient {
+  constructor() {
+    super({
       datasources: {
         db: {
           url: environment.DATABASE_URL,
         },
       },
     })
+  }
 }

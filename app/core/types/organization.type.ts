@@ -7,6 +7,7 @@ export type Organization = {
   deletedAt: Date
   softDeleted: boolean
   active: boolean
+  key: string
   name: string
   image: string
   email: string

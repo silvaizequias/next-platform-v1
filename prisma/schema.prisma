@@ -17,6 +17,23 @@ model Address {
 
   softDeleted Boolean? @default(false) @map("soft_deleted")
 
+  zipCode    String
+  street     String?
+  complement String?
+  district   String?
+  city       String?
+  state      String?
+  country    String?
+
+  latitude  Float? @db.DoublePrecision
+  longitude Float? @db.DoublePrecision
+
+  userId String? @unique @map("user_id")
+  user   User?   @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+
+  organizationId String?       @unique @map("organization_id")
+  organization   Organization? @relation(fields: [organizationId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+
   @@map("addresses")
 }
 
@@ -40,6 +57,15 @@ model Member {
   deletedAt DateTime? @map("deleted_at") @db.Date
 
   softDeleted Boolean? @default(false) @map("soft_deleted")
+  active      Boolean? @default(true)
+
+  role String?
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+
+  organizationId String       @map("organization_id")
+  organization   Organization @relation(fields: [organizationId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 
   @@map("members")
 }
@@ -52,6 +78,17 @@ model Organization {
   deletedAt DateTime? @map("deleted_at") @db.Date
 
   softDeleted Boolean? @default(false) @map("soft_deleted")
+  active      Boolean? @default(true)
+
+  key      String?
+  name     String?
+  image    String?
+  email    String? @unique
+  phone    String? @unique
+  document String  @unique
+
+  address Address?
+  members Member[]
 
   @@map("organizations")
 }
@@ -64,6 +101,20 @@ model User {
   deletedAt DateTime? @map("deleted_at") @db.Date
 
   softDeleted Boolean? @default(false) @map("soft_deleted")
+  active      Boolean? @default(true)
+
+  lastLogin DateTime? @map("last_login") @db.Timestamp()
+
+  role     String?
+  name     String?
+  image    String?
+  email    String? @unique
+  phone    String  @unique
+  secret   String?
+  document String? @unique
+
+  address       Address?
+  organizations Member[]
 
   @@map("users")
 }
