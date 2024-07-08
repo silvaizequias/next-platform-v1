@@ -81,6 +81,12 @@ export class UsersService {
     try {
       const user: User | any = await this.prismaService.user.findFirst({
         where: { id: id, softDeleted: false },
+        include: {
+          address: true,
+          organizations: {
+            take: 100,
+          },
+        },
       })
       if (!user)
         return {
