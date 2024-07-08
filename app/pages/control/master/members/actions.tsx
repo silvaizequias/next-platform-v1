@@ -20,7 +20,12 @@ export async function actionCreateMember(_: unknown, formData: FormData) {
   }
 
   return await handlerService
-    .create({ inputs: inputs, path: 'members', tag: 'members' })
+    .create({
+      endpoint: '/api',
+      inputs: inputs,
+      path: 'members',
+      tag: 'members',
+    })
     .then((data) => {
       toast.success(data?.message ?? '')
       return data
@@ -37,7 +42,7 @@ export async function actionCreateMember(_: unknown, formData: FormData) {
 
 export async function actionFindAllMembers() {
   return await handlerService
-    .findAll({ path: 'members', tag: 'members' })
+    .findAll({ endpoint: '/api', path: 'members', tag: 'members' })
     .then((data) => {
       toast.success(data?.message ?? '')
       return data
@@ -54,7 +59,7 @@ export async function actionFindAllMembers() {
 
 export async function actionFindOneMember(id: string) {
   return await handlerService
-    .findOne({ id: id, path: 'members', tag: 'members' })
+    .findOne({ endpoint: '/api', id: id, path: 'members', tag: 'members' })
     .then((data) => {
       toast.success(data?.message ?? '')
       return data
@@ -81,7 +86,13 @@ export async function actionUpdateMember(_: unknown, formData: FormData) {
   }
 
   return await handlerService
-    .update({ id: inputs?.id, inputs: inputs, path: 'members', tag: 'members' })
+    .update({
+      endpoint: '/api',
+      id: inputs?.id,
+      inputs: inputs,
+      path: 'members',
+      tag: 'members',
+    })
     .then((data) => {
       toast.success(data?.message ?? '')
       return data
@@ -108,7 +119,13 @@ export async function actionRemoveMember(_: unknown, formData: FormData) {
   }
 
   return await handlerService
-    .remove({ id: inputs?.id, inputs: inputs, path: 'members', tag: 'members' })
+    .remove({
+      endpoint: '/api',
+      id: inputs?.id,
+      inputs: inputs,
+      path: 'members',
+      tag: 'members',
+    })
     .then((data) => {
       toast.success(data?.message ?? '')
       return data

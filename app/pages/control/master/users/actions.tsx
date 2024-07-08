@@ -20,7 +20,7 @@ export async function actionCreateUser(_: unknown, formData: FormData) {
   }
 
   return await handlerService
-    .create({ inputs: inputs, path: 'users', tag: 'users' })
+    .create({ endpoint: '/api', inputs: inputs, path: 'users', tag: 'users' })
     .then((data) => {
       toast.success(data?.message ?? '')
       return data
@@ -37,10 +37,10 @@ export async function actionCreateUser(_: unknown, formData: FormData) {
 
 export async function actionFindAllUsers() {
   return await handlerService
-    .findAll({ path: 'users', tag: 'users' })
+    .findAll({ endpoint: '/api', path: 'users', tag: 'users' })
     .then((data) => {
       toast.success(data?.message ?? '')
-      return data
+      return data.response
     })
     .catch((error) => {
       toast.error(`${error?.status} :: ${error?.message}`)
@@ -54,7 +54,7 @@ export async function actionFindAllUsers() {
 
 export async function actionFindOneUser(id: string) {
   return await handlerService
-    .findOne({ id: id, path: 'users', tag: 'users' })
+    .findOne({ endpoint: '/api', id: id, path: 'users', tag: 'users' })
     .then((data) => {
       toast.success(data?.message ?? '')
       return data
@@ -81,7 +81,13 @@ export async function actionUpdateUser(_: unknown, formData: FormData) {
   }
 
   return await handlerService
-    .update({ id: inputs?.id, inputs: inputs, path: 'users', tag: 'users' })
+    .update({
+      endpoint: '/api',
+      id: inputs?.id,
+      inputs: inputs,
+      path: 'users',
+      tag: 'users',
+    })
     .then((data) => {
       toast.success(data?.message ?? '')
       return data
@@ -108,7 +114,13 @@ export async function actionRemoveUser(_: unknown, formData: FormData) {
   }
 
   return await handlerService
-    .remove({ id: inputs?.id, inputs: inputs, path: 'users', tag: 'users' })
+    .remove({
+      endpoint: '/api',
+      id: inputs?.id,
+      inputs: inputs,
+      path: 'users',
+      tag: 'users',
+    })
     .then((data) => {
       toast.success(data?.message ?? '')
       return data

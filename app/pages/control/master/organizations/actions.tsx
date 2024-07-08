@@ -20,7 +20,12 @@ export async function actionCreateOrganization(_: unknown, formData: FormData) {
   }
 
   return await handlerService
-    .create({ inputs: inputs, path: 'organizations', tag: 'organizations' })
+    .create({
+      endpoint: '/api',
+      inputs: inputs,
+      path: 'organizations',
+      tag: 'organizations',
+    })
     .then((data) => {
       toast.success(data?.message ?? '')
       return data
@@ -37,7 +42,7 @@ export async function actionCreateOrganization(_: unknown, formData: FormData) {
 
 export async function actionFindAllOrganizations() {
   return await handlerService
-    .findAll({ path: 'organizations', tag: 'organizations' })
+    .findAll({ endpoint: '/api', path: 'organizations', tag: 'organizations' })
     .then((data) => {
       toast.success(data?.message ?? '')
       return data
@@ -54,7 +59,12 @@ export async function actionFindAllOrganizations() {
 
 export async function actionFindOneOrganization(id: string) {
   return await handlerService
-    .findOne({ id: id, path: 'organizations', tag: 'organizations' })
+    .findOne({
+      endpoint: '/api',
+      id: id,
+      path: 'organizations',
+      tag: 'organizations',
+    })
     .then((data) => {
       toast.success(data?.message ?? '')
       return data
@@ -82,6 +92,7 @@ export async function actionUpdateOrganization(_: unknown, formData: FormData) {
 
   return await handlerService
     .update({
+      endpoint: '/api',
       id: inputs?.id,
       inputs: inputs,
       path: 'organizations',
@@ -114,6 +125,7 @@ export async function actionRemoveOrganization(_: unknown, formData: FormData) {
 
   return await handlerService
     .remove({
+      endpoint: '/api',
       id: inputs?.id,
       inputs: inputs,
       path: 'organizations',

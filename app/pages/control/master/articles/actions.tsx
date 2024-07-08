@@ -20,7 +20,12 @@ export async function actionCreateArticle(_: unknown, formData: FormData) {
   }
 
   return await handlerService
-    .create({ inputs: inputs, path: 'articles', tag: 'articles' })
+    .create({
+      endpoint: '/api',
+      inputs: inputs,
+      path: 'articles',
+      tag: 'articles',
+    })
     .then((data) => {
       toast.success(data?.message ?? '')
       return data
@@ -37,7 +42,7 @@ export async function actionCreateArticle(_: unknown, formData: FormData) {
 
 export async function actionFindAllArticles() {
   return await handlerService
-    .findAll({ path: 'articles', tag: 'articles' })
+    .findAll({ endpoint: '/api', path: 'articles', tag: 'articles' })
     .then((data) => {
       toast.success(data?.message ?? '')
       return data
@@ -54,7 +59,7 @@ export async function actionFindAllArticles() {
 
 export async function actionFindOneArticle(id: string) {
   return await handlerService
-    .findOne({ id: id, path: 'articles', tag: 'articles' })
+    .findOne({ endpoint: '/api', id: id, path: 'articles', tag: 'articles' })
     .then((data) => {
       toast.success(data?.message ?? '')
       return data
@@ -82,6 +87,7 @@ export async function actionUpdateArticle(_: unknown, formData: FormData) {
 
   return await handlerService
     .update({
+      endpoint: '/api',
       id: inputs?.id,
       inputs: inputs,
       path: 'articles',
@@ -114,6 +120,7 @@ export async function actionRemoveArticle(_: unknown, formData: FormData) {
 
   return await handlerService
     .remove({
+      endpoint: '/api',
       id: inputs?.id,
       inputs: inputs,
       path: 'articles',
