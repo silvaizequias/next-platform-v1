@@ -52,7 +52,7 @@ export async function actionFindAllArticles() {
     })
 }
 
-export async function articleFindOneArticle(id: string) {
+export async function actionFindOneArticle(id: string) {
   return await handlerService
     .findOne({ id: id, path: 'articles', tag: 'articles' })
     .then((data) => {
