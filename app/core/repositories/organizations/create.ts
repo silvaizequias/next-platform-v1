@@ -1,5 +1,4 @@
-import { PrismaService } from '../../services/prisma.service'
-import { Organization } from '../../types/organization.type'
+import PrismaService from '../../services/prisma.service'
 import { CallbackPromise } from '../../types/promise.type'
 import { createOrganizationType } from '../../validators/organization.validator'
 
@@ -10,10 +9,9 @@ export async function repositoryCreateOrganization(
 ): Promise<CallbackPromise> {
   const { document, name } = createOrganization
   try {
-    const organization: Organization | any =
-      await prismaService.organization.findFirst({
-        where: { document: document },
-      })
+    const organization = await prismaService.organization.findFirst({
+      where: { document: document },
+    })
     if (organization)
       return {
         success: false,

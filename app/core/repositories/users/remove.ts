@@ -1,6 +1,5 @@
-import { PrismaService } from '../../services/prisma.service'
+import PrismaService from '../../services/prisma.service'
 import { CallbackPromise } from '../../types/promise.type'
-import { User } from '../../types/user.type'
 import { removeUserType } from '../../validators/user.validator'
 
 const prismaService = new PrismaService()
@@ -11,7 +10,7 @@ export async function repositoryRemoveUser(
 ): Promise<CallbackPromise> {
   const { definitely } = removeUser
   try {
-    const user: User | any = await prismaService.user.findFirst({
+    const user = await prismaService.user.findFirst({
       where: { id: id, softDeleted: false },
     })
     if (!user)

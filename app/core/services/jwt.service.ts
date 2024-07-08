@@ -4,7 +4,7 @@ import { authPayload } from '../validators/auth.validator'
 import { SignJWT, jwtVerify } from 'jose'
 import { nanoid } from 'nanoid'
 
-export class JWTService {
+export default class JWTService {
   private issuedAt: number = Math.floor(Date.now() / 1000) - 30
   private expiresIn: number = Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60
 

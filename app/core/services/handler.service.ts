@@ -3,7 +3,7 @@ import { revalidatePath, revalidateTag } from 'next/cache'
 import { CallbackPromise } from '../types/promise.type'
 import { handlerType } from '../validators/handler.validator'
 
-export class HandlerService {
+export default class HandlerService {
   async create(handler: handlerType): Promise<CallbackPromise> {
     const { endpoint, inputs, path, revalidate, tag, token } = handler
 

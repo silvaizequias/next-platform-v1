@@ -5,7 +5,7 @@ declare global {
   var prisma: PrismaClient | undefined
 }
 
-export class PrismaService extends PrismaClient {
+export default class PrismaService extends PrismaClient {
   constructor() {
     super({
       datasources: {

@@ -1,11 +1,10 @@
 import { hashSync } from 'bcryptjs'
-import { PrismaService } from '../../services/prisma.service'
+import PrismaService from '../../services/prisma.service'
 import { CallbackPromise } from '../../types/promise.type'
-import { User } from '../../types/user.type'
 import { authCodeType } from '../../validators/auth.validator'
 import { createUserType } from '../../validators/user.validator'
 import { MessagesService } from '../../services/messages.service'
-import { SendersService } from '../../services/senders.service'
+import SendersService from '../../services/senders.service'
 
 const messagesService = new MessagesService()
 const prismaService = new PrismaService()
@@ -16,7 +15,7 @@ export async function repositoryCreateUser(
 ): Promise<CallbackPromise> {
   const { email, name, phone } = createUser
   try {
-    const userEmail: User | any = await prismaService.user.findFirst({
+    const userEmail = await prismaService.user.findFirst({
       where: { email: email },
     })
     if (userEmail)
@@ -26,7 +25,7 @@ export async function repositoryCreateUser(
         message: `Não foi possível registrar-se com ${email}`,
       }
 
-    const userPhone: User | any = await prismaService.user.findFirst({
+    const userPhone = await prismaService.user.findFirst({
       where: { phone: phone },
     })
     if (userPhone)

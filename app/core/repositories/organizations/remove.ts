@@ -1,5 +1,4 @@
-import { PrismaService } from '../../services/prisma.service'
-import { Organization } from '../../types/organization.type'
+import PrismaService from '../../services/prisma.service'
 import { CallbackPromise } from '../../types/promise.type'
 import { removeOrganizationType } from '../../validators/organization.validator'
 
@@ -11,10 +10,9 @@ export async function repositoryRemoveOrganization(
 ): Promise<CallbackPromise> {
   const { definitely } = removeOrganization
   try {
-    const organization: Organization | any =
-      await prismaService.organization.findFirst({
-        where: { id: id, softDeleted: false },
-      })
+    const organization = await prismaService.organization.findFirst({
+      where: { id: id, softDeleted: false },
+    })
     if (!organization)
       return {
         success: false,

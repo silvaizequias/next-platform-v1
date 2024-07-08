@@ -1,4 +1,4 @@
-import { HandlerService } from '@/app/core/services/handler.service'
+import HandlerService from '@/app/core/services/handler.service'
 import {
   createUser,
   removeUser,

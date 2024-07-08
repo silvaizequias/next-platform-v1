@@ -9,7 +9,7 @@ type AWSCredentials = {
   secretAccessKey: string
 }
 
-export class AWSService {
+export default class AWSService {
   private readonly credentials: AWSCredentials = {
     accessKeyId: environment.PLATFORM_AWS_ACCESS_KEY,
     secretAccessKey: environment.PLATFORM_AWS_PRIVATE_KEY,

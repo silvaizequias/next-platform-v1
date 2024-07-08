@@ -1,36 +1,74 @@
-import { PrismaService } from '../../services/prisma.service'
-import { Member } from '../../types/member.type'
+import PrismaService from '../../services/prisma.service'
 import { CallbackPromise } from '../../types/promise.type'
 
 const prismaService = new PrismaService()
 
 export async function repositoryFindAllMembers(): Promise<CallbackPromise> {
-  try {
-    const members: Member[] = []
-    return { success: true, response: members }
-  } catch (error: any) {
-    return {
-      success: false,
-      message: error?.message,
-      status: error?.status,
-    }
-  } finally {
-    await prismaService.$disconnect()
-  }
+  return await prismaService.member
+    .findMany({
+      where: { softDeleted: false },
+      take: 100,
+      include: {
+        organization: {
+          select: {
+            id: true,
+            name: true,
+            image: true,
+            document: true,
+          },
+        },
+        user: {
+          select: {
+            id: true,
+            name: true,
+            image: true,
+            email: true,
+          },
+        },
+      },
+    })
+    .then((data) => {
+      return { success: true, response: { count: data.length, members: data } }
+    })
+    .catch((error) => {
+      return {
+        success: false,
+        message: error?.message,
+        status: error?.status,
+      }
+    })
+    .finally(async () => await prismaService.$disconnect())
 }
 
 export async function repositoryFindOneMember(
   id: string,
 ): Promise<CallbackPromise> {
-  try {
-    return { success: true, response: id }
-  } catch (error: any) {
-    return {
-      success: false,
-      message: error?.message,
-      status: error?.status,
-    }
-  } finally {
-    await prismaService.$disconnect()
-  }
+  return await prismaService.member
+    .findFirst({
+      where: { id: id, softDeleted: false },
+      include: {
+        organization: true,
+        user: {
+          select: {
+            id: true,
+            role: true,
+            name: true,
+            image: true,
+            phone: true,
+            email: true,
+          },
+        },
+      },
+    })
+    .then((data) => {
+      return { success: true, response: data }
+    })
+    .catch((error) => {
+      return {
+        success: false,
+        message: error?.message,
+        status: error?.status,
+      }
+    })
+    .finally(async () => await prismaService.$disconnect())
 }

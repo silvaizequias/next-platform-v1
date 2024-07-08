@@ -1,10 +1,10 @@
 import { environment } from '@/environments'
-import { AWSService } from './aws.service'
+import AWSService from './aws.service'
 import { SendEmailCommand } from '@aws-sdk/client-ses'
 import { SendEmail, SendSMS } from '../types/sender.type'
 import { PublishCommand } from '@aws-sdk/client-sns'
 
-export class SendersService {
+export default class SendersService {
   private awsService = new AWSService()
 
   async email(sendEmail: SendEmail) {

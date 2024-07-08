@@ -1,130 +1,110 @@
-import { PrismaService } from '../../services/prisma.service'
-import { Organization } from '../../types/organization.type'
+import PrismaService from '../../services/prisma.service'
 import { CallbackPromise } from '../../types/promise.type'
 
 const prismaService = new PrismaService()
 
 export async function repositoryFindAllOrganizations(): Promise<CallbackPromise> {
-  try {
-    const organizations: Organization[] | any =
-      await prismaService.organization.findMany({
-        take: 100,
-        orderBy: { createdAt: 'desc' },
-        where: { softDeleted: false },
-        select: {
-          id: true,
-          updatedAt: true,
-          active: true,
-          name: true,
-          document: true,
-        },
-      })
-    const count = await prismaService.organization.count({
+  return await prismaService.organization
+    .findMany({
+      take: 100,
+      orderBy: { createdAt: 'desc' },
       where: { softDeleted: false },
+      select: {
+        id: true,
+        updatedAt: true,
+        active: true,
+        name: true,
+        document: true,
+      },
     })
-    return {
-      success: true,
-      response: { count: count, organizations: organizations },
-    }
-  } catch (error: any) {
-    return {
-      success: false,
-      message: error?.message,
-      status: error?.status,
-    }
-  } finally {
-    await prismaService.$disconnect()
-  }
+    .then((data) => {
+      return {
+        success: true,
+        response: { count: data.length, organizations: data },
+      }
+    })
+    .catch((error) => {
+      return {
+        success: false,
+        message: error?.message,
+        status: error?.status,
+      }
+    })
+    .finally(async () => await prismaService.$disconnect())
 }
 
 export async function repositoryFindByDocumentOrganization(
   document: string,
 ): Promise<CallbackPromise> {
-  try {
-    const organization: Organization | any =
-      await prismaService.organization.findFirst({
-        where: { document: document, softDeleted: false },
-        include: {
-          address: true,
-          members: {
-            take: 100,
-            include: {
-              user: {
-                select: {
-                  id: true,
-                  active: true,
-                  role: true,
-                  name: true,
-                  image: true,
-                  phone: true,
-                  email: true,
-                },
+  return await prismaService.organization
+    .findFirst({
+      where: { document: document, softDeleted: false },
+      include: {
+        members: {
+          take: 100,
+          include: {
+            user: {
+              select: {
+                id: true,
+                active: true,
+                role: true,
+                name: true,
+                image: true,
+                phone: true,
+                email: true,
               },
             },
           },
         },
-      })
-    if (!organization)
+      },
+    })
+    .then((data) => {
+      return { success: true, response: data }
+    })
+    .catch((error) => {
       return {
         success: false,
-        status: 404,
-        message: `A organização não foi encontrado!`,
+        message: error?.message,
+        status: error?.status,
       }
-
-    return { success: true, response: organization }
-  } catch (error: any) {
-    return {
-      success: false,
-      message: error?.message,
-      status: error?.status,
-    }
-  } finally {
-    await prismaService.$disconnect()
-  }
+    })
+    .finally(async () => await prismaService.$disconnect())
 }
 
 export async function repositoryFindOneOrganization(
   id: string,
 ): Promise<CallbackPromise> {
-  try {
-    const organization: Organization | any =
-      await prismaService.organization.findFirst({
-        where: { id: id, softDeleted: false },
-        include: {
-          address: true,
-          members: {
-            take: 100,
-            include: {
-              user: {
-                select: {
-                  id: true,
-                  active: true,
-                  role: true,
-                  name: true,
-                  image: true,
-                  phone: true,
-                  email: true,
-                },
+  return await prismaService.organization
+    .findFirst({
+      where: { id: id, softDeleted: false },
+      include: {
+        members: {
+          take: 100,
+          include: {
+            user: {
+              select: {
+                id: true,
+                active: true,
+                role: true,
+                name: true,
+                image: true,
+                phone: true,
+                email: true,
               },
             },
           },
         },
-      })
-    if (!organization)
+      },
+    })
+    .then((data) => {
+      return { success: true, response: data }
+    })
+    .catch((error) => {
       return {
         success: false,
-        status: 404,
-        message: `A organização não foi encontrado!`,
+        message: error?.message,
+        status: error?.status,
       }
-
-    return { success: true, response: organization }
-  } catch (error: any) {
-    return {
-      success: false,
-      message: error?.message,
-      status: error?.status,
-    }
-  } finally {
-    await prismaService.$disconnect()
-  }
+    })
+    .finally(async () => await prismaService.$disconnect())
 }

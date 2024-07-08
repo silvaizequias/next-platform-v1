@@ -1,5 +1,4 @@
-import { PrismaService } from '../../services/prisma.service'
-import { Organization } from '../../types/organization.type'
+import PrismaService from '../../services/prisma.service'
 import { CallbackPromise } from '../../types/promise.type'
 import { updateOrganizationType } from '../../validators/organization.validator'
 
@@ -10,10 +9,9 @@ export async function repositoryUpdateOrganization(
   updateOrganization: updateOrganizationType,
 ): Promise<CallbackPromise> {
   try {
-    const organization: Organization | any =
-      await prismaService.organization.findFirst({
-        where: { id: id },
-      })
+    const organization = await prismaService.organization.findFirst({
+      where: { id: id },
+    })
     if (!organization)
       return {
         success: false,

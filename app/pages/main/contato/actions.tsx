@@ -1,5 +1,5 @@
 import { MessagesService } from '@/app/core/services/messages.service'
-import { SendersService } from '@/app/core/services/senders.service'
+import SendersService from '@/app/core/services/senders.service'
 import { sendContact } from '@/app/core/validators/contact.validator'
 import { environment } from '@/environments'
 import toast from 'react-hot-toast'

@@ -46,7 +46,7 @@ export async function DELETE(
   try {
     if (await removeMember.parseAsync(inputs)) {
       return new Response(
-        JSON.stringify(await membersService.update(id, inputs)),
+        JSON.stringify(await membersService.remove(id, inputs)),
       )
     }
   } catch (error: any) {

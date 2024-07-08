@@ -1,6 +1,6 @@
 import { CallbackPromise } from '../types/promise.type'
 import { authCodeType, authLoginType } from '../validators/auth.validator'
-import { JWTService } from './jwt.service'
+import JWTService from './jwt.service'
 import { repositoryValidateUser } from '../repositories/users/create'
 import { repositoryVerifyUser } from '../repositories/users/find'
 
