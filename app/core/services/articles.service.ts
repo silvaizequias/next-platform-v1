@@ -1,4 +1,11 @@
-import { Article } from '../types/article.type'
+import { repositoryCreateArticle } from '../repositories/articles/create'
+import {
+  repositoryFindAllArticles,
+  repositoryFindBySlugArticle,
+  repositoryFindOneArticle,
+} from '../repositories/articles/find'
+import { repositoryRemoveArticle } from '../repositories/articles/remove'
+import { repositoryUpdateArticle } from '../repositories/articles/update'
 import { CallbackPromise } from '../types/promise.type'
 import {
   createArticleType,
@@ -6,89 +13,34 @@ import {
   updateArticleType,
 } from '../validators/article.validator'
 
-export class ArticlesService {
+export default class ArticlesService {
   async create(createArticle: createArticleType): Promise<CallbackPromise> {
-    try {
-      return createArticle
-    } catch (error: any) {
-      return {
-        success: false,
-        message: error?.message,
-        status: error?.status,
-      }
-    } finally {
-    }
+    return await repositoryCreateArticle(createArticle)
   }
 
   async findAll(): Promise<CallbackPromise> {
-    try {
-      const articles: Article[] = []
-      return { success: true, response: articles }
-    } catch (error: any) {
-      return {
-        success: false,
-        message: error?.message,
-        status: error?.status,
-      }
-    } finally {
-    }
+    return await repositoryFindAllArticles()
   }
 
   async findBySlug(slug: string): Promise<CallbackPromise> {
-    try {
-      return { success: true, response: slug }
-    } catch (error: any) {
-      return {
-        success: false,
-        message: error?.message,
-        status: error?.status,
-      }
-    } finally {
-    }
+    return await repositoryFindBySlugArticle(slug)
   }
 
   async findOne(id: string): Promise<CallbackPromise> {
-    try {
-      return { success: true, response: id }
-    } catch (error: any) {
-      return {
-        success: false,
-        message: error?.message,
-        status: error?.status,
-      }
-    } finally {
-    }
+    return await repositoryFindOneArticle(id)
   }
 
   async update(
     id: string,
     updateArticle: updateArticleType,
   ): Promise<CallbackPromise> {
-    try {
-      return { success: true, response: { id, updateArticle } }
-    } catch (error: any) {
-      return {
-        success: false,
-        message: error?.message,
-        status: error?.status,
-      }
-    } finally {
-    }
+    return await repositoryUpdateArticle(id, updateArticle)
   }
 
   async remove(
     id: string,
     removeArticle: removeArticleType,
   ): Promise<CallbackPromise> {
-    try {
-      return { success: true, response: { id, removeArticle } }
-    } catch (error: any) {
-      return {
-        success: false,
-        message: error?.message,
-        status: error?.status,
-      }
-    } finally {
-    }
+    return await repositoryRemoveArticle(id, removeArticle)
   }
 }

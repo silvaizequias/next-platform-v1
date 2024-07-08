@@ -13,7 +13,7 @@ export async function actionAuthentication(_: unknown, formData: FormData) {
     }
   }
 
-  return await fetch('/api/login', {
+  return await fetch('/api/auth/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -46,11 +46,12 @@ export async function actionValidation(_: unknown, formData: FormData) {
     }
   }
 
-  return await fetch('/api/login/' + inputs?.phone, {
+  return await fetch('/api/auth/code', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
+    body: JSON.stringify(inputs),
   })
     .then(async (res: any) => {
       const data: CallbackPromise = await res.json()

@@ -1,4 +1,4 @@
-import { OrganizationsService } from '@/app/core/services/organizations.service'
+import OrganizationsService from '@/app/core/services/organizations.service'
 import {
   createOrganization,
   createOrganizationType,

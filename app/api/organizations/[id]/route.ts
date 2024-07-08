@@ -1,4 +1,4 @@
-import { OrganizationsService } from '@/app/core/services/organizations.service'
+import OrganizationsService from '@/app/core/services/organizations.service'
 import {
   removeOrganization,
   removeOrganizationType,
@@ -46,7 +46,7 @@ export async function DELETE(
   try {
     if (await removeOrganization.parseAsync(inputs)) {
       return new Response(
-        JSON.stringify(await organizationsServices.update(id, inputs)),
+        JSON.stringify(await organizationsServices.remove(id, inputs)),
       )
     }
   } catch (error: any) {

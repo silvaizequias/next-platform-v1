@@ -1,4 +1,4 @@
-import { MembersService } from '@/app/core/services/members.service'
+import MembersService from '@/app/core/services/members.service'
 import {
   removeMember,
   removeMemberType,

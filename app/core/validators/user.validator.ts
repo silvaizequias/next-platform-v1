@@ -18,8 +18,7 @@ export const updateUser = z.object({
   role: z.enum(USER_ROLE).optional(),
   name: z.string().optional(),
   image: z.string().optional(),
-  email: z.string().optional(),
-  phone: z.string().optional(),
+  email: z.string().email().optional(),
   secret: z.string().optional(),
   document: z.string().optional(),
 })

@@ -1,4 +1,4 @@
-import { ArticlesService } from '@/app/core/services/articles.service'
+import ArticlesService from '@/app/core/services/articles.service'
 
 const articlesService = new ArticlesService()
 

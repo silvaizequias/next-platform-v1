@@ -1,4 +1,11 @@
-import { Organization } from '../types/organization.type'
+import { repositoryCreateOrganization } from '../repositories/organizations/create'
+import {
+  repositoryFindAllOrganizations,
+  repositoryFindByDocumentOrganization,
+  repositoryFindOneOrganization,
+} from '../repositories/organizations/find'
+import { repositoryRemoveOrganization } from '../repositories/organizations/remove'
+import { repositoryUpdateOrganization } from '../repositories/organizations/update'
 import { CallbackPromise } from '../types/promise.type'
 import {
   createOrganizationType,
@@ -6,91 +13,36 @@ import {
   updateOrganizationType,
 } from '../validators/organization.validator'
 
-export class OrganizationsService {
+export default class OrganizationsService {
   async create(
     createOrganization: createOrganizationType,
   ): Promise<CallbackPromise> {
-    try {
-      return { success: true, response: createOrganization }
-    } catch (error: any) {
-      return {
-        success: false,
-        message: error?.message,
-        status: error?.status,
-      }
-    } finally {
-    }
+    return await repositoryCreateOrganization(createOrganization)
   }
 
   async findAll(): Promise<CallbackPromise> {
-    try {
-      const organizations: Organization[] = []
-      return { success: true, response: organizations }
-    } catch (error: any) {
-      return {
-        success: false,
-        message: error?.message,
-        status: error?.status,
-      }
-    } finally {
-    }
+    return await repositoryFindAllOrganizations()
   }
 
   async findByDocument(document: string): Promise<CallbackPromise> {
-    try {
-      return { success: true, response: document }
-    } catch (error: any) {
-      return {
-        success: false,
-        message: error?.message,
-        status: error?.status,
-      }
-    } finally {
-    }
+    return await repositoryFindByDocumentOrganization(document)
   }
 
   async findOne(id: string): Promise<CallbackPromise> {
-    try {
-      return { success: true, response: id }
-    } catch (error: any) {
-      return {
-        success: false,
-        message: error?.message,
-        status: error?.status,
-      }
-    } finally {
-    }
+    return await repositoryFindOneOrganization(id)
   }
 
   async update(
     id: string,
     updateOrganization: updateOrganizationType,
   ): Promise<CallbackPromise> {
-    try {
-      return { success: true, response: { id, updateOrganization } }
-    } catch (error: any) {
-      return {
-        success: false,
-        message: error?.message,
-        status: error?.status,
-      }
-    } finally {
-    }
+    return await repositoryUpdateOrganization(id, updateOrganization)
   }
 
   async remove(
     id: string,
     removeOrganization: removeOrganizationType,
   ): Promise<CallbackPromise> {
-    try {
-      return { success: true, response: { id, removeOrganization } }
-    } catch (error: any) {
-      return {
-        success: false,
-        message: error?.message,
-        status: error?.status,
-      }
-    } finally {
-    }
+    return await repositoryRemoveOrganization(id, removeOrganization)
   }
 }

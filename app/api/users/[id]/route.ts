@@ -1,4 +1,4 @@
-import { UsersService } from '@/app/core/services/users.service'
+import UsersService from '@/app/core/services/users.service'
 import {
   removeUser,
   removeUserType,
