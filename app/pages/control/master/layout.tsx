@@ -1,4 +1,4 @@
-import { MasterProvider } from '@/app/core/contexts/master.context'
+import MasterProvider from '@/app/core/contexts/master.context'
 import { controlUrl } from '@/app/core/helpers'
 import { Metadata } from 'next'
 import { ReactNode } from 'react'

@@ -1,6 +1,6 @@
 'use client'
 
-import PlatformContext from '@/app/core/contexts/platform.context'
+import { PlatformContext } from '@/app/core/contexts/platform.context'
 import { useContext } from 'react'
 
 export default function Articles() {

@@ -14,10 +14,9 @@ interface Props {
   countArticles: number
   articles: Article[]
 }
-const PlatformContext = createContext<Props>({} as any)
-export default PlatformContext
+export const PlatformContext = createContext({} as Props)
 
-export function PlatformProvider({
+export default function PlatformProvider({
   children,
 }: Readonly<{ children: ReactNode }>) {
   const [countArticles, setCountArticles] = useState<number>(0)

@@ -1,4 +1,4 @@
-import { ControlProvider } from '@/app/core/contexts/control.context'
+import ControlProvider from '@/app/core/contexts/control.context'
 import { controlUrl } from '@/app/core/helpers'
 import { Metadata } from 'next'
 import { ReactNode } from 'react'

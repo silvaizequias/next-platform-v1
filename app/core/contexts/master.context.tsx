@@ -23,10 +23,9 @@ interface Props {
   countUsers: number
   users: User[]
 }
-const MasterContext = createContext<Props>({} as any)
-export default MasterContext
+export const MasterContext = createContext({} as Props)
 
-export function MasterProvider({
+export default function MasterProvider({
   children,
 }: Readonly<{ children: ReactNode }>) {
   const [countMembers, setCountMembers] = useState<number>(0)

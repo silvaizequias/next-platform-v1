@@ -3,10 +3,9 @@
 import { createContext, ReactNode, useState } from 'react'
 
 interface Props {}
-const ControlContext = createContext<Props>({})
-export default ControlContext
+export const ControlContext = createContext({} as Props)
 
-export function ControlProvider({
+export default function ControlProvider({
   children,
 }: Readonly<{ children: ReactNode }>) {
   const [] = useState()
