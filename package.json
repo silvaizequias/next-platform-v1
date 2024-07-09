@@ -1,12 +1,16 @@
 {
   "name": "platform",
-  "version": "0.1.0",
+  "version": "2.0.0",
+  "description": "",
+  "author": "Izequias Narcizo dos Santos da Silva",
   "private": true,
+  "license": "LGPL-3.0-or-later",
   "scripts": {
     "dev": "next dev --turbo -p 3210",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@aws-sdk/client-bedrock": "^3.609.0",
