@@ -7,6 +7,7 @@ import {
   actionAuthentication,
   actionValidation,
 } from '@/app/core/actions/auth.action'
+import { controlUrl } from '@/app/core/helpers'
 
 export default function AuthForm() {
   const router = useRouter()
@@ -25,7 +26,7 @@ export default function AuthForm() {
 
   useEffect(() => {
     stateValidation?.success && setCodeSended(true)
-    stateAuthentication?.success && router.push('/')
+    stateAuthentication?.success && router.push(controlUrl)
   }, [router, stateAuthentication, stateValidation])
 
   return (
