@@ -47,7 +47,7 @@ export async function actionValidation(_: unknown, formData: FormData) {
   }
 
   return await fetch('/api/auth/code', {
-    method: 'GET',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
