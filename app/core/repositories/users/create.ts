@@ -1,7 +1,7 @@
-import { hashSync } from 'bcryptjs'
+import { compareSync, hashSync } from 'bcryptjs'
 import PrismaService from '../../services/prisma.service'
 import { CallbackPromise } from '../../types/promise.type'
-import { authCodeType } from '../../validators/auth.validator'
+import { authCodeType, authLoginType } from '../../validators/auth.validator'
 import { createUserType } from '../../validators/user.validator'
 import { MessagesService } from '../../services/messages.service'
 import SendersService from '../../services/senders.service'
@@ -50,6 +50,44 @@ export async function repositoryCreateUser(
       message: error?.message,
       status: error?.status,
     }
+  } finally {
+    await prismaService.$disconnect()
+  }
+}
+
+export async function repositoryAuthUser(
+  authLogin: authLoginType,
+): Promise<CallbackPromise> {
+  const { code, phone } = authLogin
+  try {
+    const user = await prismaService.user.findFirst({
+      where: { phone: phone },
+    })
+    if (!user)
+      return {
+        success: false,
+        status: 404,
+        message: `O usuário não foi encontrado!`,
+      }
+
+    const validation = compareSync(code.toLocaleUpperCase(), user?.secret!)
+    if (!validation)
+      return {
+        success: false,
+        status: 403,
+        message: `O código ${code.toLocaleUpperCase()} não é válido!`,
+      }
+
+    return await prismaService.user
+      .update({
+        where: { phone: phone },
+        data: { lastLogin: new Date() },
+      })
+      .then((data) => {
+        return { success: true, response: data }
+      })
+  } catch (error: any) {
+    return { success: false, message: error?.message, status: error?.status }
   } finally {
     await prismaService.$disconnect()
   }

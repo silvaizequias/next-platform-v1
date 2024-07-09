@@ -1,15 +1,22 @@
 import { CallbackPromise } from '../types/promise.type'
 import { authCodeType, authLoginType } from '../validators/auth.validator'
 import JWTService from './jwt.service'
-import { repositoryValidateUser } from '../repositories/users/create'
-import { repositoryVerifyUser } from '../repositories/users/find'
+import {
+  repositoryAuthUser,
+  repositoryValidateUser,
+} from '../repositories/users/create'
 
 export default class AuthService {
   private jwtService = new JWTService()
 
   async login(authLogin: authLoginType): Promise<CallbackPromise> {
-    return await repositoryVerifyUser(authLogin)
+    return await repositoryAuthUser(authLogin)
       .then(async (data) => {
+        if (!data?.success)
+          return {
+            success: data.success,
+            message: data?.message,
+          }
         return await this.jwtService
           .payload(data?.response?.id)
           .then((data) => {

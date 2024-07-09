@@ -1,7 +1,5 @@
 import PrismaService from '../../services/prisma.service'
 import { CallbackPromise } from '../../types/promise.type'
-import { authLoginType } from '../../validators/auth.validator'
-import { compareSync } from 'bcryptjs'
 
 const prismaService = new PrismaService()
 
@@ -69,42 +67,4 @@ export async function repositoryFindOneUser(
       }
     })
     .finally(async () => await prismaService.$disconnect())
-}
-
-export async function repositoryVerifyUser(
-  authLogin: authLoginType,
-): Promise<CallbackPromise> {
-  const { code, phone } = authLogin
-  try {
-    const user = await prismaService.user.findFirst({
-      where: { phone: phone },
-    })
-    if (!user)
-      return {
-        success: false,
-        status: 404,
-        message: `O usuário não foi encontrado!`,
-      }
-
-    const validation = compareSync(code.toLocaleUpperCase(), user?.secret!)
-    if (!validation)
-      return {
-        success: false,
-        status: 403,
-        message: `O código ${code.toLocaleUpperCase()} não é válido!`,
-      }
-
-    return await prismaService.user
-      .update({
-        where: { phone: phone },
-        data: { lastLogin: new Date() },
-      })
-      .then((data) => {
-        return { success: true, response: data }
-      })
-  } catch (error: any) {
-    return { success: false, message: error?.message, status: error?.status }
-  } finally {
-    await prismaService.$disconnect()
-  }
 }
