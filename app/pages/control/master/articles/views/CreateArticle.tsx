@@ -1,7 +1,7 @@
 'use client'
 
+import { actionCreateArticle } from '@/app/core/actions/articles.action'
 import { useFormState } from 'react-dom'
-import { actionCreateArticle } from '../actions'
 
 export default function CreateArticle() {
   const [state, formAction] = useFormState(actionCreateArticle, {

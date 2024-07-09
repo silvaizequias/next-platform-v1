@@ -1,7 +1,7 @@
 'use client'
 
+import { actionCreateUser } from '@/app/core/actions/users.action'
 import { useFormState } from 'react-dom'
-import { actionCreateUser } from '../actions'
 
 export default function CreateUser() {
   const [state, formAction] = useFormState(actionCreateUser, {

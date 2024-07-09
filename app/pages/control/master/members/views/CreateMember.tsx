@@ -1,7 +1,7 @@
 'use client'
 
+import { actionCreateMember } from '@/app/core/actions/members.action'
 import { useFormState } from 'react-dom'
-import { actionCreateMember } from '../actions'
 
 export default function CreateMember() {
   const [state, formAction] = useFormState(actionCreateMember, {

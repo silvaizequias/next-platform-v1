@@ -1,7 +1,7 @@
 'use client'
 
 import { useFormState } from 'react-dom'
-import { actionRemoveUser } from '../actions'
+import { actionRemoveUser } from '@/app/core/actions/users.action'
 
 export default function RemoveUser() {
   const [state, formAction] = useFormState(actionRemoveUser, {

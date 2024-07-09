@@ -3,7 +3,7 @@
 import PlatformContext from '@/app/core/contexts/platform.context'
 import { useContext } from 'react'
 
-export default function ListArticles() {
+export default function Articles() {
   const { countArticles, articles } = useContext(PlatformContext)
 
   return (

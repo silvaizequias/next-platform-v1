@@ -1,21 +1,20 @@
 import { Metadata } from 'next'
-import ArticleViews from './views/ArticleViews'
+import ListSubscriptions from './views/ListSubscriptions'
 
 export const metadata: Metadata = {
   alternates: {
-    canonical: '/',
+    canonical: 'master/users',
   },
   title: {
-    default: 'Conteúdo Inteligente',
+    default: 'Controle de Assinaturas da Plataforma',
     template: `%s | Dedicado`,
   },
-  description: 'Conteúdo inteligente do universo de tecnologia.',
 }
 
-export default function ArticlePage() {
+export default function SubscriptionControlPage() {
   return (
     <div className="w-full h-screen flex justify-center items-center">
-      <ArticleViews />
+      <ListSubscriptions />
     </div>
   )
 }

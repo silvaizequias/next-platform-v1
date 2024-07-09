@@ -1,20 +1,11 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
-import { actionFindAllUsers } from '../actions'
+import { useContext } from 'react'
+import MasterContext from '@/app/core/contexts/master.context'
 
 export default function ListUsers() {
-  const [users, setUsers] = useState([])
+  const { countUsers, users } = useContext(MasterContext)
 
-  const getUsers = useCallback(async () => {
-    return await actionFindAllUsers().then((data) =>
-      setUsers(data.response.users),
-    )
-  }, [])
-  useEffect(() => {
-    getUsers()
-  }, [getUsers])
-  console.log('users: ', users)
   return (
     <div className="w-full h-screen flex justify-center items-center">
       lista de usuários

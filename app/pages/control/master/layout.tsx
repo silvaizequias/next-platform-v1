@@ -1,3 +1,4 @@
+import { MasterProvider } from '@/app/core/contexts/master.context'
 import { controlUrl } from '@/app/core/helpers'
 import { Metadata } from 'next'
 import { ReactNode } from 'react'
@@ -17,5 +18,5 @@ export default function MasterControlLayout({
 }: Readonly<{
   children: ReactNode
 }>) {
-  return <div>{children}</div>
+  return <MasterProvider>{children}</MasterProvider>
 }

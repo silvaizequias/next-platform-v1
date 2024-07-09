@@ -34,7 +34,7 @@ export async function repositoryFindAllUsers(): Promise<CallbackPromise> {
       },
     })
     .then((data) => {
-      return { success: true, response: { count: data.length, users: data } }
+      return { success: true, response: { count: data.length, data } }
     })
     .catch((error) => {
       return {

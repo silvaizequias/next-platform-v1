@@ -3,7 +3,10 @@
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useFormState } from 'react-dom'
-import { actionAuthentication, actionValidation } from '../actions'
+import {
+  actionAuthentication,
+  actionValidation,
+} from '@/app/core/actions/auth.action'
 
 export default function AuthForm() {
   const router = useRouter()

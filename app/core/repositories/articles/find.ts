@@ -7,7 +7,7 @@ export async function repositoryFindAllArticles(): Promise<CallbackPromise> {
   return await prismaService.article
     .findMany({ where: { softDeleted: false }, take: 100 })
     .then((data) => {
-      return { success: true, response: data }
+      return { success: true, response: { count: data.length, data } }
     })
     .catch((error) => {
       return {

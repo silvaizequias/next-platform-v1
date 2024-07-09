@@ -1,4 +1,7 @@
 import { Metadata } from 'next'
+import ArticleDetail from '../views/ArticleDetail'
+import { actionFindBySlugArticle } from '@/app/core/actions/articles.action'
+import { Article } from '@prisma/client'
 
 export async function generateMetadata({
   params,
@@ -7,12 +10,16 @@ export async function generateMetadata({
 }): Promise<Metadata | null> {
   const { slug } = params
 
+  const article: Article = await actionFindBySlugArticle(slug).then(
+    (data) => data?.response,
+  )
+
   return {
     alternates: {
-      canonical: slug,
+      canonical: article?.slug,
     },
     title: {
-      default: slug,
+      default: article?.title ?? '',
       template: `%s | dedicado`,
     },
     description: 'Conteúdo inteligente do universo de tecnologia.',
@@ -27,7 +34,7 @@ export default function ArticleDetailPage({
   const { slug } = params
   return (
     <div className="w-full h-screen flex justify-center items-center">
-      {slug}
+      <ArticleDetail slug={slug} />
     </div>
   )
 }

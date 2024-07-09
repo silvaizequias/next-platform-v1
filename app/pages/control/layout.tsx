@@ -1,3 +1,4 @@
+import { ControlProvider } from '@/app/core/contexts/control.context'
 import { controlUrl } from '@/app/core/helpers'
 import { Metadata } from 'next'
 import { ReactNode } from 'react'
@@ -17,5 +18,5 @@ export default function ControlLayout({
 }: Readonly<{
   children: ReactNode
 }>) {
-  return <div>{children}</div>
+  return <ControlProvider>{children}</ControlProvider>
 }

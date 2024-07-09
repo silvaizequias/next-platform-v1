@@ -1,17 +1,17 @@
 import HandlerService from '@/app/core/services/handler.service'
 import {
-  createOrganization,
-  removeOrganization,
-  updateOrganization,
-} from '@/app/core/validators/organization.validator'
+  createMember,
+  removeMember,
+  updateMember,
+} from '@/app/core/validators/member.validator'
 import toast from 'react-hot-toast'
 
 const handlerService = new HandlerService()
 
-export async function actionCreateOrganization(_: unknown, formData: FormData) {
+export async function actionCreateMember(_: unknown, formData: FormData) {
   const inputs: any = Object.fromEntries(formData)
 
-  const validate = createOrganization.safeParse(inputs)
+  const validate = createMember.safeParse(inputs)
   if (!validate.success) {
     return {
       errors: validate.error.flatten().fieldErrors ?? '',
@@ -23,8 +23,8 @@ export async function actionCreateOrganization(_: unknown, formData: FormData) {
     .create({
       endpoint: '/api',
       inputs: inputs,
-      path: 'organizations',
-      tag: 'organizations',
+      path: 'members',
+      tag: 'members',
     })
     .then((data) => {
       toast.success(data?.message ?? '')
@@ -40,12 +40,11 @@ export async function actionCreateOrganization(_: unknown, formData: FormData) {
     })
 }
 
-export async function actionFindAllOrganizations() {
+export async function actionFindAllMembers() {
   return await handlerService
-    .findAll({ endpoint: '/api', path: 'organizations', tag: 'organizations' })
+    .findAll({ endpoint: '/api', path: 'members', tag: 'members' })
     .then((data) => {
-      toast.success(data?.message ?? '')
-      return data
+      return data.response
     })
     .catch((error) => {
       toast.error(`${error?.status} :: ${error?.message}`)
@@ -57,17 +56,11 @@ export async function actionFindAllOrganizations() {
     })
 }
 
-export async function actionFindOneOrganization(id: string) {
+export async function actionFindOneMember(id: string) {
   return await handlerService
-    .findOne({
-      endpoint: '/api',
-      id: id,
-      path: 'organizations',
-      tag: 'organizations',
-    })
+    .findOne({ endpoint: '/api', id: id, path: 'members', tag: 'members' })
     .then((data) => {
-      toast.success(data?.message ?? '')
-      return data
+      return data.response
     })
     .catch((error: any) => {
       toast.error(`${error?.status} :: ${error?.message}`)
@@ -79,10 +72,10 @@ export async function actionFindOneOrganization(id: string) {
     })
 }
 
-export async function actionUpdateOrganization(_: unknown, formData: FormData) {
+export async function actionUpdateMember(_: unknown, formData: FormData) {
   const inputs: any = Object.fromEntries(formData)
 
-  const validate = updateOrganization.safeParse(inputs)
+  const validate = updateMember.safeParse(inputs)
   if (!validate.success) {
     return {
       errors: validate.error.flatten().fieldErrors ?? '',
@@ -95,8 +88,8 @@ export async function actionUpdateOrganization(_: unknown, formData: FormData) {
       endpoint: '/api',
       id: inputs?.id,
       inputs: inputs,
-      path: 'organizations',
-      tag: 'organizations',
+      path: 'members',
+      tag: 'members',
     })
     .then((data) => {
       toast.success(data?.message ?? '')
@@ -112,10 +105,10 @@ export async function actionUpdateOrganization(_: unknown, formData: FormData) {
     })
 }
 
-export async function actionRemoveOrganization(_: unknown, formData: FormData) {
+export async function actionRemoveMember(_: unknown, formData: FormData) {
   const inputs: any = Object.fromEntries(formData)
 
-  const validate = removeOrganization.safeParse(inputs)
+  const validate = removeMember.safeParse(inputs)
   if (!validate.success) {
     return {
       errors: validate.error.flatten().fieldErrors ?? '',
@@ -128,8 +121,8 @@ export async function actionRemoveOrganization(_: unknown, formData: FormData) {
       endpoint: '/api',
       id: inputs?.id,
       inputs: inputs,
-      path: 'organizations',
-      tag: 'organizations',
+      path: 'members',
+      tag: 'members',
     })
     .then((data) => {
       toast.success(data?.message ?? '')

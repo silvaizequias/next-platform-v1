@@ -1,7 +1,7 @@
 'use client'
 
 import { useFormState } from 'react-dom'
-import { actionUpdateOrganization } from '../actions'
+import { actionUpdateOrganization } from '@/app/core/actions/organizations.action'
 
 export default function UpdateMyOrganization() {
   const [state, formAction] = useFormState(actionUpdateOrganization, {

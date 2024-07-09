@@ -28,7 +28,7 @@ export async function repositoryFindAllMembers(): Promise<CallbackPromise> {
       },
     })
     .then((data) => {
-      return { success: true, response: { count: data.length, members: data } }
+      return { success: true, response: { count: data.length, data } }
     })
     .catch((error) => {
       return {

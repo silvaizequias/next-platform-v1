@@ -1,17 +1,17 @@
 import HandlerService from '@/app/core/services/handler.service'
 import {
-  createArticle,
-  removeArticle,
-  updateArticle,
-} from '@/app/core/validators/article.validator'
+  createUser,
+  removeUser,
+  updateUser,
+} from '@/app/core/validators/user.validator'
 import toast from 'react-hot-toast'
 
 const handlerService = new HandlerService()
 
-export async function actionCreateArticle(_: unknown, formData: FormData) {
+export async function actionCreateUser(_: unknown, formData: FormData) {
   const inputs: any = Object.fromEntries(formData)
 
-  const validate = createArticle.safeParse(inputs)
+  const validate = createUser.safeParse(inputs)
   if (!validate.success) {
     return {
       errors: validate.error.flatten().fieldErrors ?? '',
@@ -20,29 +20,7 @@ export async function actionCreateArticle(_: unknown, formData: FormData) {
   }
 
   return await handlerService
-    .create({
-      endpoint: '/api',
-      inputs: inputs,
-      path: 'articles',
-      tag: 'articles',
-    })
-    .then((data) => {
-      toast.success(data?.message ?? '')
-      return data
-    })
-    .catch((error: any) => {
-      toast.error(`${error?.status} :: ${error?.message}`)
-      return {
-        success: false,
-        errors: error?.message,
-        status: error?.status,
-      }
-    })
-}
-
-export async function actionFindAllArticles() {
-  return await handlerService
-    .findAll({ endpoint: '/api', path: 'articles', tag: 'articles' })
+    .create({ endpoint: '/api', inputs: inputs, path: 'users', tag: 'users' })
     .then((data) => {
       toast.success(data?.message ?? '')
       return data
@@ -57,12 +35,27 @@ export async function actionFindAllArticles() {
     })
 }
 
-export async function actionFindOneArticle(id: string) {
+export async function actionFindAllUsers() {
   return await handlerService
-    .findOne({ endpoint: '/api', id: id, path: 'articles', tag: 'articles' })
+    .findAll({ endpoint: '/api', path: 'users', tag: 'users' })
     .then((data) => {
-      toast.success(data?.message ?? '')
-      return data
+      return data.response
+    })
+    .catch((error) => {
+      toast.error(`${error?.status} :: ${error?.message}`)
+      return {
+        success: false,
+        errors: error?.message,
+        status: error?.status,
+      }
+    })
+}
+
+export async function actionFindOneUser(id: string) {
+  return await handlerService
+    .findOne({ endpoint: '/api', id: id, path: 'users', tag: 'users' })
+    .then((data) => {
+      return data.response
     })
     .catch((error: any) => {
       toast.error(`${error?.status} :: ${error?.message}`)
@@ -74,10 +67,10 @@ export async function actionFindOneArticle(id: string) {
     })
 }
 
-export async function actionUpdateArticle(_: unknown, formData: FormData) {
+export async function actionUpdateUser(_: unknown, formData: FormData) {
   const inputs: any = Object.fromEntries(formData)
 
-  const validate = updateArticle.safeParse(inputs)
+  const validate = updateUser.safeParse(inputs)
   if (!validate.success) {
     return {
       errors: validate.error.flatten().fieldErrors ?? '',
@@ -90,14 +83,14 @@ export async function actionUpdateArticle(_: unknown, formData: FormData) {
       endpoint: '/api',
       id: inputs?.id,
       inputs: inputs,
-      path: 'articles',
-      tag: 'articles',
+      path: 'users',
+      tag: 'users',
     })
     .then((data) => {
       toast.success(data?.message ?? '')
       return data
     })
-    .catch((error: any) => {
+    .catch((error) => {
       toast.error(`${error?.status} :: ${error?.message}`)
       return {
         success: false,
@@ -107,10 +100,10 @@ export async function actionUpdateArticle(_: unknown, formData: FormData) {
     })
 }
 
-export async function actionRemoveArticle(_: unknown, formData: FormData) {
+export async function actionRemoveUser(_: unknown, formData: FormData) {
   const inputs: any = Object.fromEntries(formData)
 
-  const validate = removeArticle.safeParse(inputs)
+  const validate = removeUser.safeParse(inputs)
   if (!validate.success) {
     return {
       errors: validate.error.flatten().fieldErrors ?? '',
@@ -123,14 +116,14 @@ export async function actionRemoveArticle(_: unknown, formData: FormData) {
       endpoint: '/api',
       id: inputs?.id,
       inputs: inputs,
-      path: 'articles',
-      tag: 'articles',
+      path: 'users',
+      tag: 'users',
     })
     .then((data) => {
       toast.success(data?.message ?? '')
       return data
     })
-    .catch((error: any) => {
+    .catch((error) => {
       toast.error(`${error?.status} :: ${error?.message}`)
       return {
         success: false,

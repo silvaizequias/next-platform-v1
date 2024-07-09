@@ -65,7 +65,6 @@ export async function repositoryCreateMember(
         }
       })
   } catch (error: any) {
-    await prismaService.$disconnect()
     return {
       success: false,
       message: error?.message,

@@ -1,10 +1,10 @@
 'use client'
 
 import { useFormState } from 'react-dom'
-import { actionUpdateUser } from '@/app/core/actions/users.action'
+import { actionUpdateSubscription } from '@/app/core/actions/subscriptions.action'
 
 export default function UpdateUser() {
-  const [state, formAction] = useFormState(actionUpdateUser, {
+  const [state, formAction] = useFormState(actionUpdateSubscription, {
     errors: undefined,
     success: false,
   })

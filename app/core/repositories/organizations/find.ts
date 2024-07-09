@@ -20,7 +20,7 @@ export async function repositoryFindAllOrganizations(): Promise<CallbackPromise>
     .then((data) => {
       return {
         success: true,
-        response: { count: data.length, organizations: data },
+        response: { count: data.length, data },
       }
     })
     .catch((error) => {

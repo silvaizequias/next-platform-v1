@@ -83,9 +83,35 @@ model Organization {
   latitude  Float? @db.DoublePrecision
   longitude Float? @db.DoublePrecision
 
-  members Member[]
+  members      Member[]
+  subscription Subscription?
 
   @@map("organizations")
+}
+
+model Subscription {
+  id String @id @default(cuid())
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at") @db.Date
+
+  organizationId String       @unique @map("organization_id")
+  organization   Organization @relation(fields: [organizationId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+
+  softDeleted Boolean? @default(false) @map("soft_deleted")
+  active      Boolean? @default(true)
+
+  paymentGateway        String? @map("payment_gateway")
+  paymentCustomerId     String? @unique @map(name: "payment_customer_id")
+  paymentSubscriptionId String? @unique @map(name: "payment_subscription_id")
+  paymentPriceId        String? @map(name: "payment_price_id")
+
+  credit Int? @default(100)
+
+  unlimited Boolean? @default(false)
+
+  @@map("subscriptions")
 }
 
 model User {

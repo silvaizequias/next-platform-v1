@@ -28,6 +28,12 @@ export default async function middleware(request: NextRequest) {
     )
   }
 
+  if (hostname == `acesso.${baseUrl}`) {
+    return NextResponse.rewrite(
+      new URL(`/pages/auth${path === '/' ? '' : path}`, request.url),
+    )
+  }
+
   if (hostname == `artigos.${baseUrl}`) {
     return NextResponse.rewrite(
       new URL(`/pages/articles${path === '/' ? '' : path}`, request.url),
