@@ -1,9 +1,11 @@
 import type { Metadata } from 'next'
+import { GoogleAnalytics } from '@next/third-parties/google'
 import { Comfortaa } from 'next/font/google'
 import { ReactNode } from 'react'
 import Providers from './providers'
-import { mainUrl } from '@/app/core/helpers'
+import { mainUrl, onLive } from '@/app/core/helpers'
 import Footer from './components/footer'
+import { environment } from '@/environments'
 
 const comfortaa = Comfortaa({
   subsets: ['latin'],
@@ -38,6 +40,7 @@ export default function RootLayout({
           <Footer />
         </Providers>
       </body>
+      {onLive !== 'development' && <GoogleAnalytics gaId={environment.G_TAG} />}
     </html>
   )
 }

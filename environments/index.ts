@@ -12,4 +12,5 @@ export const environment = {
   STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET ?? '',
   SENDING_EMAIL_FROM: process.env.SENDING_EMAIL_FROM ?? '',
   SENDER_EMAIL_TO: process.env.SENDER_EMAIL_TO ?? '',
+  G_TAG: process.env.G_TAG ?? '',
 }
